@@ -1,5 +1,7 @@
 # UX Atlas
 
+**[Design Process](#the-design-process-discover-decide-design-deliver) · [Getting Started](#getting-started) · [Skills Catalog](#skills-catalog) · [Installation & Team Setup](#installation-team-setup) · [Philosophy & Core Principles](#philosophy-core-principles)**
+
 A comprehensive, end-to-end suite of specialized AI Agent Skills for UX designers, product designers, and design engineers building high-fidelity interactive prototypes, from discovery through delivery.
 
 This library is fully self-contained: every skill works standalone from this folder alone, with no dependency on any other installed skill. Clone or copy this repo, run `install.sh`, and the whole lifecycle is available.
@@ -94,7 +96,7 @@ For scripting, skip the picker with flags:
 ./install.sh --all
 ```
 
-See [Installation & Team Setup](#installation--team-setup) below for how the installer is structured and how to re-run it safely.
+See [Installation & Team Setup](#installation-team-setup) below for how the installer is structured and how to re-run it safely.
 
 ---
 

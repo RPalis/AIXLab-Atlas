@@ -38,7 +38,7 @@ This prototype is built with UX Atlas. Doc ownership:
 - `docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
 - `docs/PRODUCT_BRIEF.md` — owned by `brief`
 - `docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
-- `docs/OOUX_OBJECT_MAP.md` — owned by `concepting`
+- `docs/OOUX_OBJECT_MAP.md` — owned by `map`'s `objects` mode
 - `DESIGN.md` — owned by `styleguide`, regenerated from `index.css`, never hand-edited out of sync
 - `docs/adr/` — owned by `decisions`
 - `docs/USER_GUIDE.md` — owned by `guide`
@@ -69,7 +69,7 @@ This is the project's general notes home. **Use it for all project notes**: meet
 
 Only the `docs/notes/` folder and this one README get pre-created. Don't pre-create `my-notes/` or `wiki/` themselves; they stay absent until `wiki` (either mode) actually has something to put there.
 
-Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, `docs/notes/my-notes/`, or `docs/notes/wiki/`. Those belong to `persona`, `concepting`, `styleguide`, `decisions`, `requirements`, and `wiki` (both modes) respectively — a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
+Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, `docs/notes/my-notes/`, or `docs/notes/wiki/`. Those belong to `persona`, `map`'s `objects` mode, `styleguide`, `decisions`, `requirements`, and `wiki` (both modes) respectively — a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
 
 ## Step 4: Hand off
 

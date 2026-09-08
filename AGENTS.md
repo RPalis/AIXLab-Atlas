@@ -29,18 +29,19 @@ flowchart TD
     end
 
     subgraph Decide ["2. Decide"]
-        P1 --> P2[concepting]
-        P2 --> P7B[decisions]
+        P1 --> P2["map (objects mode)"]
+        P2 --> P2B["map (site / flow mode)"]
+        P2B --> P7B[decisions]
         P7B -.-> P7C[interrogate]
     end
 
     subgraph Design ["3. Design"]
-        P2 --> P3["scaffold (base + optional type layer)"]
+        P2B --> P3["scaffold (base + optional type layer)"]
         P3 --> P4["styleguide (default / forge mode)"]
         P4 --> PCA["audit (craft mode)"]
         PCA --> P5[refine]
         P5 --> P6[storybook]
-        P6 --> P7["map (site / flow)"]
+        P6 --> P7["map (document / audit mode)"]
         P5 --> P7D["audit (a11y mode)"]
         P6 --> P7F[wiki]
     end
@@ -99,25 +100,25 @@ All UI elements must be categorized strictly into:
 Every prototype repository must include a **"Prototype Tools" section inside the user-menu dropdown** containing:
 - **Persona Switcher**: Quick-switch user roles/archetypes via React Context, not `localStorage`.
 - **Embedded Storybook**: Live in-app iframe/modal viewing static component documentation.
-- **UX Architecture Network Map**: Interactive Vis.js modal rendering route and component topology (`map`'s `site` mode).
+- **UX Architecture Network Map**: Interactive Vis.js modal rendering route and component topology (`map`'s `document` mode).
 - **Data Reset**: Optional. Only add a `localStorage` reset control if the prototype actually persists mock data there.
 
 ### 5. Standalone & Zero External Dependency
 - Skills in this repo must be 100% self-contained. A skill may only reference another skill that also lives in `skills/` in this repo, never a skill installed elsewhere on the author's machine.
 - If a pattern is adapted from an external tool or skill, vendor/duplicate the actual content this skill needs directly into its own `references/`, don't just point at the external skill and assume it's there.
 - Never require the user's `~/dev` project history, or any other repo, to be present for a skill to function. Those projects may be *mined* for patterns while refining a skill (see §5), but nothing in a skill's shipped instructions should name them or assume access to them.
-- **External tools/services are a different category from skill dependencies** and are fine to require explicitly: `npm install vis-network` (`map`'s `site` mode), and the Figma MCP server (`figma`'s `import`/`sync` modes, `map`'s optional FigJam export, `requirements`' optional tracker export) are genuine external dependencies every skill using them states up front, not something silently assumed. The rule is about not depending on *another locally-installed skill*, not about avoiding every external tool.
+- **External tools/services are a different category from skill dependencies** and are fine to require explicitly: `npm install vis-network` (`map`'s `document` mode), and the Figma MCP server (`figma`'s `import`/`sync` modes, `map`'s optional FigJam export, `requirements`' optional tracker export) are genuine external dependencies every skill using them states up front, not something silently assumed. The rule is about not depending on *another locally-installed skill*, not about avoiding every external tool.
 
 ### 6. Unknowns Before Invention
-- If a decision genuinely can't be made without real user input, not something inferable from code, docs, or a reasonable default, append a line to `docs/UNKNOWNS.md` (create it if absent) instead of guessing. This applies across the suite: `persona`, `concepting`, `audit`, `interrogate`, and `styleguide` all defer to this convention rather than inventing an answer.
-- `docs/UNKNOWNS.md` and `DESIGN.md` are a pair: open questions start in `UNKNOWNS.md`; once a concrete, verified answer exists, it's promoted into whichever doc already owns that domain (`DESIGN.md` for visual/token answers, `persona`'s walkthrough, `concepting`'s OOUX map, `decisions` for architecture calls) and the line is removed from `UNKNOWNS.md`. An answer with no dedicated home goes to `wiki`.
+- If a decision genuinely can't be made without real user input, not something inferable from code, docs, or a reasonable default, append a line to `docs/UNKNOWNS.md` (create it if absent) instead of guessing. This applies across the suite: `persona`, `map`, `audit`, `interrogate`, and `styleguide` all defer to this convention rather than inventing an answer.
+- `docs/UNKNOWNS.md` and `DESIGN.md` are a pair: open questions start in `UNKNOWNS.md`; once a concrete, verified answer exists, it's promoted into whichever doc already owns that domain (`DESIGN.md` for visual/token answers, `persona`'s walkthrough, `map`'s `objects`-mode OOUX map, `decisions` for architecture calls) and the line is removed from `UNKNOWNS.md`. An answer with no dedicated home goes to `wiki`.
 - [`interview`](../skills/interview/SKILL.md) reads `docs/UNKNOWNS.md` when building the next interview guide, so unknowns raised mid-project naturally get asked about rather than forgotten.
 
 ---
 
 ## 3. Current Skills Directory
 
-Several skills are **multi-mode**: one skill folder, several named modes for related-but-distinct jobs, rather than separate near-duplicate skills (`audit`, `figma`, `concepting`, `interview`, `package`). Say which mode you want, or the skill asks.
+Several skills are **multi-mode**: one skill folder, several named modes for related-but-distinct jobs, rather than separate near-duplicate skills (`audit`, `figma`, `map`, `interview`, `package`). Say which mode you want, or the skill asks.
 
 | Skill Folder | Name | Lifecycle Phase | Primary Focus |
 |---|---|---|---|
@@ -128,13 +129,12 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
-| `skills/concepting` | `concepting` | **Decide** | Interactive OOUX/ORCA modeling; Plan mode seeds it, Audit mode reconciles against the build |
+| `skills/map` | `map` | **Decide / Design** | **Multi-mode**: `objects` (interactive OOUX/ORCA modeling; seeds `docs/OOUX_OBJECT_MAP.md` + an entity-relationship diagram), `site` (proposed route/component architecture as a diagram, before it's built), `flow` (persona journey/branching workflow as Mermaid) — all Decide-phase; `audit` (reconciles the object model against built code) and `document` (regenerates the site diagram — Vis.js, Mermaid, SVG — from the real app, plus reconciles the object model if needed) — both Design-phase. Any mode can export to FigJam via the Figma MCP |
 | `skills/scaffold` | `scaffold` | **Design** | React 19 + TypeScript + Vite + Tailwind scaffold; base + optional site-type layer (dashboard, chatbot, marketing site, CRM) |
 | `skills/styleguide` | `styleguide` | **Design** | **Multi-mode**: default (two-layer token architecture, `index.css` + spec-conformant `DESIGN.md`) or `forge` (cast a new brand's palette & fonts into the suite's fixed semantic token roles) |
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
 | `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
-| `skills/map` | `map` | **Design** | **Multi-mode**: `site` (route/component graph: interactive Vis.js, Mermaid, SVG) or `flow` (persona journey/branching workflow as Mermaid); either can export to FigJam via the Figma MCP |
 | `skills/package` | `package` | **Deliver** | Two modes: `full` (site + source + docs handoff zip) or `lite` (minified `production/` folder only) |
 | `skills/showcase` | `showcase` | **Deliver** | Shareable presentation from a prototype: PDF/PowerPoint or reveal.js deck |
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
@@ -251,7 +251,7 @@ For anything bigger than a single-skill tweak (new skills, renames, restructurin
 Before writing guidance into a skill, check whether the pattern already exists somewhere real: a project under `~/dev`, an external skill worth adapting, an actual published spec. Mine it, then strip identifying references per §2.5/§5A. Fall back to a reasoned default only when nothing real exists to check against, and say so explicitly rather than presenting a guess as fact.
 
 ### Every new skill (or mode) needs an explicit boundary from its neighbors
-Before adding a skill or a mode to a multi-mode skill, name what it does *not* do and which existing skill/mode owns that instead, and say so in its own SKILL.md. This repo has several near-miss groups (`audit`'s `craft`/`code`/`a11y` modes; `map`'s `site` vs. `flow` modes; `decisions` vs. `interrogate`) that stay distinguishable only because each skill/mode states its boundary explicitly. The names alone aren't enough.
+Before adding a skill or a mode to a multi-mode skill, name what it does *not* do and which existing skill/mode owns that instead, and say so in its own SKILL.md. This repo has several near-miss groups (`audit`'s `craft`/`code`/`a11y` modes; `map`'s `objects`/`site`/`flow`/`audit`/`document` modes, especially `site` vs. `document` (proposed vs. as-built architecture) and `audit` vs. `document` (reconciliation alone vs. reconciliation plus a diagram refresh); `decisions` vs. `interrogate`) that stay distinguishable only because each skill/mode states its boundary explicitly. The names alone aren't enough.
 
 ### Living docs, not one-shot outputs
 Several docs are meant to be revisited and updated, not generated once and left: `docs/UNKNOWNS.md` (open questions, cleared as they resolve), `docs/OOUX_OBJECT_MAP.md` (seeded in Plan mode, reconciled in Audit mode), `DESIGN.md` (regenerated from `index.css`, never hand-edited out of sync with it). When a new skill touches one of these, extend its existing lifecycle rather than introducing a parallel doc that can drift from it.
@@ -261,6 +261,8 @@ Where work naturally splits into diagnosing and prescribing, keep it as two skil
 
 ### Related-but-distinct jobs sharing one workflow shape → one skill, named modes
 When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables; `wiki`'s default `compile`/`note` modes — `note` mode's own Step 2 was already just invoking `compile` mode's Step 1 as a subroutine, the same shape as `forge`→`styleguide`; `workshop`'s default `plan`/`ingest` modes — same event, same two possible output shapes (FigJam board, slide deck), built from opposite ends: `plan` before the workshop, `ingest` after it). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.
+
+`map` absorbing `concepting` (`objects`/`site`/`flow`/`audit`/`document` modes) is a different case worth naming explicitly: `concepting` and `map` didn't already share a pipeline the way the pairs above did — they were genuinely different verbs (define the object model via interrogation vs. render structure as a diagram). The merge was a deliberate product decision, not a discovered subroutine coupling: `concepting`'s own ORCA process was always supposed to produce a relationship diagram (its template even had an unused `erDiagram` block), but nothing in its process steps ever rendered one — exactly the gap `map` exists to close. Folding it in put every diagram a prototype needs (object relationships, proposed IA, journeys, as-built architecture) under one skill, with `site` (plan, Decide) and `document` (as-built, Design) as the before/after pair for architecture the same way `workshop`'s `plan`/`ingest` are for a workshop. Don't cite this as precedent for merging two skills just because both happen to produce diagrams or touch the same doc — the actual test is still whether the jobs share a shape (or, as here, whether a real capability gap only closes by putting them in the same place), not topical adjacency.
 
 ### Verification checklist before calling a round done
 ```bash

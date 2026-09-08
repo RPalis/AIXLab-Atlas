@@ -6,10 +6,10 @@ disable-model-invocation: true
 
 # Requirements Synthesis
 
-Turns a built prototype into a **requirements doc**: Epics, each containing Features with user stories and acceptance criteria, written from what the prototype *actually does* rather than what was originally proposed. This is the reverse direction of [`concepting`](../concepting/SKILL.md), which models objects before code exists — `requirements` runs after, reading the finished (or near-finished) thing back into product language for a PM, stakeholder, or tracker.
+Turns a built prototype into a **requirements doc**: Epics, each containing Features with user stories and acceptance criteria, written from what the prototype *actually does* rather than what was originally proposed. This is the reverse direction of [`map`](../map/SKILL.md)'s `objects` mode, which models objects before code exists — `requirements` runs after, reading the finished (or near-finished) thing back into product language for a PM, stakeholder, or tracker.
 
 **Not this skill:**
-- Modeling objects before or during a build → [`concepting`](../concepting/SKILL.md).
+- Modeling objects before or during a build → [`map`](../map/SKILL.md)'s `objects` mode.
 - A narrative stakeholder presentation → [`showcase`](../showcase/SKILL.md).
 - End-user "how to use this" documentation → [`guide`](../guide/SKILL.md).
 - Recording *why* a specific call was made → [`decisions`](../decisions/SKILL.md); this skill links to existing ADRs, it doesn't write new ones.

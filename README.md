@@ -12,7 +12,7 @@ This library is fully self-contained: every skill works standalone from this fol
 
 This is the actual framework: four phases, each with a recommended path through and branches for different situations. Most work travels through all four in order; some skills are usable at any point along the way (see **Usable Anytime** below) rather than belonging to one phase.
 
-Several skills below are **multi-mode**: one skill covering 2-3 related-but-distinct jobs (`audit`, `figma`, `concepting`, `interview`, `package`). Say which mode you want, or the skill asks.
+Several skills below are **multi-mode**: one skill covering several related-but-distinct jobs (`audit`, `figma`, `map`, `interview`, `package`). Say which mode you want, or the skill asks.
 
 Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual state of the current repo and tells you the next 1-3 moves.
 
@@ -35,8 +35,10 @@ Understand the users and the problem before proposing anything.
 ### Decide
 Frame the problem, scope the objects, make the calls that are expensive to reverse later.
 
-1. **[`concepting`](skills/concepting/SKILL.md)** in **Plan mode** walks through OOUX/ORCA interactively (Objects, Relationships, Calls-to-Action, Attributes), seeding `docs/OOUX_OBJECT_MAP.md` before any code exists.
-2. **Hit a genuinely hard call along the way**, a tradeoff, a rejected-alternative decision, something worth interrogating rather than guessing at? **[`interrogate`](skills/interrogate/SKILL.md)** interrogates it one question at a time, then optionally hands off to **[`decisions`](skills/decisions/SKILL.md)** to write it up as a permanent ADR. `decisions` also works standalone for a decision made outside an interrogation session.
+1. **[`map`](skills/map/SKILL.md)**'s **`objects`** mode walks through OOUX/ORCA interactively (Objects, Relationships, Calls-to-Action, Attributes), seeding `docs/OOUX_OBJECT_MAP.md` plus an entity-relationship diagram before any code exists.
+2. **[`map`](skills/map/SKILL.md)**'s **`site`** mode plans the proposed route/workspace/component architecture as a diagram, before any of it is built.
+3. **[`map`](skills/map/SKILL.md)**'s **`flow`** mode sketches a persona journey or branching workflow, sourcing from a persona walkthrough or the `objects` model's CTAs.
+4. **Hit a genuinely hard call along the way**, a tradeoff, a rejected-alternative decision, something worth interrogating rather than guessing at? **[`interrogate`](skills/interrogate/SKILL.md)** interrogates it one question at a time, then optionally hands off to **[`decisions`](skills/decisions/SKILL.md)** to write it up as a permanent ADR. `decisions` also works standalone for a decision made outside an interrogation session.
 
 → With scope and object model settled, move to **Design**.
 
@@ -46,7 +48,7 @@ Build the actual prototype.
 1. **[`scaffold`](skills/scaffold/SKILL.md)** scaffolds the base React/Vite/Tailwind prototype, then optionally layers on a site-type module (`dashboard`, `chatbot`, `marketing-site`, `crm-app`) if the prototype fits one.
 2. **[`styleguide`](skills/styleguide/SKILL.md)** establishes the two-layer token architecture and a spec-conformant `DESIGN.md`. **Casting a new brand?** Its forge mode does that from live CSS, a brand guide, or verified hex values.
 3. Build out the screens, then **loop between two skills**: **[`audit`](skills/audit/SKILL.md)**'s `craft` mode finds problems (a scored critique, output as a task list) and **[`refine`](skills/refine/SKILL.md)** fixes and unifies them. Run the loop again until the score holds.
-4. Document the system as it solidifies: **[`storybook`](skills/storybook/SKILL.md)** for component docs, **[`map`](skills/map/SKILL.md)**'s `site` mode for the route/component graph (interactive, Mermaid, or SVG) or `flow` mode for journey/workflow flowcharts, **[`wiki`](skills/wiki/SKILL.md)** for anything else worth remembering that doesn't have a dedicated doc.
+4. Document the system as it solidifies: **[`storybook`](skills/storybook/SKILL.md)** for component docs, **[`map`](skills/map/SKILL.md)**'s `document` mode to regenerate the site diagram (interactive, Mermaid, SVG) from the real built app and reconcile the object model if it's drifted (its `audit` mode does the reconciliation alone, without the diagram refresh), **[`wiki`](skills/wiki/SKILL.md)** for anything else worth remembering that doesn't have a dedicated doc.
 5. **[`audit`](skills/audit/SKILL.md)**'s `a11y` mode runs the deep WCAG AA sweep once the UI has stabilized enough that findings won't immediately go stale.
 6. **Pulling from or pushing to Figma along the way?** See **Usable Anytime** below.
 
@@ -114,13 +116,12 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 | [`workshop`](skills/workshop/SKILL.md) | **Discover** | Two modes: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck) or `ingest` (convert workshop board photos into a deck, doc, CSV, or replicated FigJam board) | `/workshop`, `/workshop ingest`, "plan a workshop", "design thinking session", "digitize this whiteboard", "turn these sticky notes into a doc" |
 | [`persona`](skills/persona/SKILL.md) | **Discover** | Formalize user archetypes, mental models, & "Day in the Life" walkthroughs | `/persona`, "persona doc", "day in the life" |
 | [`interview`](skills/interview/SKILL.md) | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research | `/interview`, "interview questions", "user research" |
-| [`concepting`](skills/concepting/SKILL.md) | **Decide** | Interactive OOUX/ORCA modeling: Plan mode seeds it, Audit mode reconciles against the build | `/concepting`, "ooux map", "feature concept" |
+| [`map`](skills/map/SKILL.md) | **Decide / Design** | Five modes: `objects` (interactive OOUX/ORCA modeling + entity-relationship diagram), `site` (proposed route/component architecture, before it's built), `flow` (persona journey/workflow as Mermaid), `audit` (reconcile the object model against built code), `document` (regenerate the site diagram from the real app, plus reconcile if needed). Any mode can export to FigJam via Figma MCP | `/map objects`, `/map site`, `/map flow`, `/map audit`, `/map document`, "ooux map", "feature concept", "sitemap", "architecture map", "flowchart this journey" |
 | [`scaffold`](skills/scaffold/SKILL.md) | **Design** | Scaffold React 19 + Vite + Tailwind + Lucide prototype; base scaffold + optional site-type layer | `/scaffold`, "new prototype", "scaffold app" |
 | [`styleguide`](skills/styleguide/SKILL.md) | **Design** | Generate 2-layer token architecture (Raw + Semantic) and a spec-conformant `DESIGN.md`; forge mode casts a new brand's palette & fonts into the suite's fixed semantic token roles | `/styleguide`, `/styleguide forge`, "design tokens", "style guide", "create DESIGN.md", "brand forge", "cast brand tokens" |
 | [`audit`](skills/audit/SKILL.md) | **Design / Deliver** | Multi-mode: `craft` (scored UX critique as a task list), `code` (coding-standards audit), `a11y` (deep WCAG AA sweep) | `/audit craft`, `/audit code`, `/audit a11y`, "audit this prototype" |
 | [`refine`](skills/refine/SKILL.md) | **Design** | Fix and unify: micro-interactions, responsive grids, dark mode, polish | `/refine`, "polish UI", "refine styling" |
 | [`storybook`](skills/storybook/SKILL.md) | **Design** | 5-tier Atomic Storybook docs + embed live Storybook in prototype menu | `/storybook`, "setup storybook", "atomic docs" |
-| [`map`](skills/map/SKILL.md) | **Design** | Two modes: `site` (route/component graph: interactive Vis.js modal, Mermaid, SVG) or `flow` (persona journey/workflow as Mermaid). Optional FigJam export via Figma MCP | `/map site`, `/map flow`, "sitemap", "architecture map", "flowchart this journey" |
 | [`package`](skills/package/SKILL.md) | **Deliver** | Two modes: `full` (site + source + docs handoff zip) or `lite` (minified `production/` folder only) | `/package full`, `/package lite`, "package prototype" |
 | [`showcase`](skills/showcase/SKILL.md) | **Deliver** | Shareable presentation from a prototype: PDF/PowerPoint deck or reveal.js web deck | `/showcase`, "build a deck", "presentation for this prototype" |
 | [`guide`](skills/guide/SKILL.md) | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough | `/guide`, "write a user guide", "end-user docs" |

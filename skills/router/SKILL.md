@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Welcome to **UX Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
 
-Several skills below are **multi-mode**: one skill, several named modes for related-but-distinct jobs (`audit`'s `craft`/`code`/`a11y`, `figma`'s `capture`/`import`/`sync`). Say which mode you want, or the skill will ask.
+Several skills below are **multi-mode**: one skill, several named modes for related-but-distinct jobs (`audit`'s `craft`/`code`/`a11y`, `figma`'s `capture`/`import`/`sync`, `map`'s `objects`/`site`/`flow`/`audit`/`document`). Say which mode you want, or the skill will ask.
 
 Not sure where to start, or which skill fits what you're doing right now? [`help`](../help/SKILL.md) reads the actual state of the current repo and tells you the next 1-3 moves, rather than making you read this whole map.
 
@@ -31,10 +31,12 @@ Once there's a real sense of the users and their needs, move to **Decide**.
 ## Decide
 Frame the problem, scope the objects, make the calls that are expensive to reverse.
 
-1. **Model the domain** → [`concepting`](../concepting/SKILL.md) in Plan mode, an interactive ORCA walkthrough (Objects, Relationships, CTAs, Attributes) seeding `docs/OOUX_OBJECT_MAP.md`.
-2. **Hit a genuinely hard call?** → [`interrogate`](../interrogate/SKILL.md) interrogates it one question at a time, then optionally hands off to [`decisions`](../decisions/SKILL.md) for a permanent ADR.
+1. **Model the domain** → [`map`](../map/SKILL.md)'s `objects` mode, an interactive ORCA walkthrough (Objects, Relationships, CTAs, Attributes) seeding `docs/OOUX_OBJECT_MAP.md` plus an entity-relationship diagram.
+2. **Plan the information architecture** → [`map`](../map/SKILL.md)'s `site` mode: the proposed route/workspace/component structure as a diagram, before any of it is built.
+3. **Sketch a journey or workflow** → [`map`](../map/SKILL.md)'s `flow` mode, sourcing from a persona walkthrough or the `objects` model's CTAs.
+4. **Hit a genuinely hard call?** → [`interrogate`](../interrogate/SKILL.md) interrogates it one question at a time, then optionally hands off to [`decisions`](../decisions/SKILL.md) for a permanent ADR.
 
-Once scope and the object model are settled, move to **Design**.
+Once scope, IA, and the object model are settled, move to **Design**.
 
 ## Design
 Build the actual prototype.
@@ -42,7 +44,7 @@ Build the actual prototype.
 1. **Scaffold** → [`scaffold`](../scaffold/SKILL.md): base React/Vite/Tailwind scaffold, plus an optional site-type layer (`dashboard`, `chatbot`, `marketing-site`, `crm-app`).
 2. **Tokens & brand** → [`styleguide`](../styleguide/SKILL.md) for the two-layer architecture and `DESIGN.md`; its forge mode casts a new brand's real values in first.
 3. **Build, then loop** → [`audit`](../audit/SKILL.md)'s `craft` mode (find problems, scored, as a task list) ↔ [`refine`](../refine/SKILL.md) (fix and unify). Repeat until the score holds.
-4. **Document as it solidifies** → [`storybook`](../storybook/SKILL.md) (components), [`map`](../map/SKILL.md)'s `site` mode (route/component graph: interactive, Mermaid, or SVG) or `flow` mode (journey/workflow diagrams), [`wiki`](../wiki/SKILL.md) (anything else worth remembering).
+4. **Document as it solidifies** → [`storybook`](../storybook/SKILL.md) (components), [`map`](../map/SKILL.md)'s `document` mode (regenerates the site diagram — interactive, Mermaid, SVG — from the real built app, and reconciles the object model if it's drifted; its `audit` mode does the reconciliation alone, without the diagram refresh), [`wiki`](../wiki/SKILL.md) (anything else worth remembering).
 5. **Accessibility** → [`audit`](../audit/SKILL.md)'s `a11y` mode, once the UI has stabilized enough that findings won't immediately go stale.
 6. **Moving to/from Figma?** → see Usable Anytime, below.
 
@@ -83,15 +85,15 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`interview`](../interview/SKILL.md)**: Phase-aware research kit (question bank, script, synthesis template) for discovery interviews early on or validation interviews against a working prototype.
 
 ### Decide
-- **[`concepting`](../concepting/SKILL.md)**: Interactive OOUX/ORCA modeling: Objects, Relationships, Calls-to-Action, Attributes. Plan mode seeds the model; Audit mode reconciles it against a built prototype.
+- **[`map`](../map/SKILL.md)**: Five modes total (two more live in Design, see below). `objects`: interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), seeding `docs/OOUX_OBJECT_MAP.md` plus an entity-relationship diagram. `site`: plans the proposed route/workspace/component architecture as a diagram, before any of it is built. `flow`: turns a persona walkthrough or the `objects` model's CTAs into a Mermaid flowchart — user journeys and process flows, not site structure (that's `site`). Any mode can export its diagram to FigJam once the Figma MCP server is connected.
 
 ### Design
 - **[`scaffold`](../scaffold/SKILL.md)**: Scaffold a lightweight, zero-backend-dependency React 19 + TypeScript + Vite + Tailwind CSS prototype: a complete base scaffold, plus an optional site-type layer for prototypes that fit a recognizable archetype.
 - **[`styleguide`](../styleguide/SKILL.md)**: Establish the two-layer token architecture (Layer 1 Raw Palette + Layer 2 Semantic auto-flipping CSS variables) and generate a spec-conformant `DESIGN.md`. Default mode uses a placeholder palette; forge mode casts a dedicated brand token preset for a new company or sub-brand from live CSS, brand guidelines, or verified hex matrices.
 - **[`audit`](../audit/SKILL.md)**: Three modes: `craft` (scored critique: hierarchy, cognitive load, IA, consistency, responsive, delight, producing a task list before any fixing), `code` (coding standards: token adherence, structure/reuse, mechanical hygiene), `a11y` (deep WCAG 2.1/2.2 AA sweep, ranked pass/fail per success criterion). None of the modes fix anything.
-- **[`refine`](../refine/SKILL.md)**: Fix and unify. Apply micro-interactions, responsive container grids, dark mode tuning, and refined visual craft.
+- **[`refine`](../refine/SKILL.md)**: Fix and unify. Apply micro-interactions, responsive container grids, dark mode tuning, and refined visual craft. Checks for a recent `audit` `craft`-mode findings list first, and suggests running it if none exists.
 - **[`storybook`](../storybook/SKILL.md)**: Organize UI into the 5 Atomic Design tiers (Foundations, Atoms, Molecules, Organisms, Widgets), build Storybook stories, and embed static Storybook inside the prototype's user menu.
-- **[`map`](../map/SKILL.md)**: Two modes. `site` generates a route/component graph: an interactive in-app Vis.js modal, a portable Mermaid diagram, and an SVG export. `flow` turns a persona walkthrough or branching workflow into a Mermaid flowchart: user journeys and process flows, not site structure (that's `site`). Either mode can export to FigJam once the Figma MCP server is connected.
+- **[`map`](../map/SKILL.md)**'s remaining two modes: `document` regenerates the site diagram (interactive in-app Vis.js modal, Mermaid, SVG) from the real built app, and reconciles `docs/OOUX_OBJECT_MAP.md` if it's drifted. `audit` does that object-model reconciliation alone, without the diagram refresh — useful for a lighter check mid-build.
 
 ### Deliver
 - **[`package`](../package/SKILL.md)**: Two modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild) or `lite` (minified `production/` folder only, bare essentials, just to run it).

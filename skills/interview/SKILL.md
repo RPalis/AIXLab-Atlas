@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Produces a complete, ready-to-run interview kit, not just a question list. Which mode to use is **context-aware**, not something to ask the user to declare:
 
-- **No `docs/PERSONA_WALKTHROUGH.md` or `docs/OOUX_OBJECT_MAP.md` yet** → **Discovery mode**: open-ended questions to lock in who the users are and what they need, feeding directly into [`persona`](../persona/SKILL.md) and [`concepting`](../concepting/SKILL.md).
+- **No `docs/PERSONA_WALKTHROUGH.md` or `docs/OOUX_OBJECT_MAP.md` yet** → **Discovery mode**: open-ended questions to lock in who the users are and what they need, feeding directly into [`persona`](../persona/SKILL.md) and [`map`](../map/SKILL.md)'s `objects` mode.
 - **A working prototype already exists** (`frontend/` scaffolded, screens built) → **Validation mode**: targeted, hypothesis-testing questions about specific screens/flows, informed by what's actually been built and any `docs/UNKNOWNS.md` entries.
 - **Both signals present** → ask the user which is the goal for this round rather than guessing; a project can legitimately need both at once (validating shipped features while still discovering an adjacent user segment).
 
@@ -32,7 +32,7 @@ Use [`templates/synthesis-template.md`](templates/synthesis-template.md) to capt
 
 After interviews are synthesized, route each finding to where it belongs; don't leave it stranded in the synthesis doc:
 - A confirmed fact about users/workflow → update `docs/PERSONA_WALKTHROUGH.md` via [`persona`](../persona/SKILL.md).
-- A confirmed fact about objects/entities/CTAs → update `docs/OOUX_OBJECT_MAP.md` via [`concepting`](../concepting/SKILL.md).
+- A confirmed fact about objects/entities/CTAs → update `docs/OOUX_OBJECT_MAP.md` via [`map`](../map/SKILL.md)'s `objects` mode.
 - An item that resolved an `docs/UNKNOWNS.md` entry → remove it from `UNKNOWNS.md` and promote the answer to whichever doc owns that domain.
 - Something learned that raises a *new* open question → append it to `docs/UNKNOWNS.md` for the next round rather than losing it.
 

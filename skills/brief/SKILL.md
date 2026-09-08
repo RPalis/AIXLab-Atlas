@@ -12,7 +12,7 @@ disable-model-invocation: true
 - Formalizing user archetypes from research already gathered → [`persona`](../persona/SKILL.md). `brief` is one of the "domain briefs" persona expects as input, not a replacement for it.
 - Building a question bank for interviewing real external users → [`interview`](../interview/SKILL.md).
 - Planning a multi-stakeholder working session → [`workshop`](../workshop/SKILL.md). `brief` is one person's (or one aligned team's) head, not a group session with activities and timing.
-- Modeling objects and CTAs → [`concepting`](../concepting/SKILL.md), which needs the scope `brief` establishes first.
+- Modeling objects and CTAs → [`map`](../map/SKILL.md)'s `objects` mode, which needs the scope `brief` establishes first.
 
 ## Step 0: Explore, then choose pace
 
@@ -44,7 +44,7 @@ The same seven areas whether this is a blank-page interrogation or confirming a 
 
 1. **The product.** One sentence of what it is, the problem it solves, and why it needs to exist now rather than never or already.
 2. **Audience & user types.** Not just "who," but the distinct roles if there's more than one (e.g. an admin and an end customer are different user types with different goals). For each: their primary goal in using this product.
-3. **Core tasks.** Per user type, the top tasks they need to accomplish, in priority order, and what "done" looks like for each. This is the seed [`concepting`](../concepting/SKILL.md) will later turn into CTAs.
+3. **Core tasks.** Per user type, the top tasks they need to accomplish, in priority order, and what "done" looks like for each. This is the seed [`map`](../map/SKILL.md)'s `objects` mode will later turn into CTAs.
 4. **Devices & context of use.** Desktop, mobile, tablet, or a mix; the primary environment (office desk, on the move, a shop floor); any accessibility need already known. Feeds [`scaffold`](../scaffold/SKILL.md)'s site-type choice later.
 5. **Competitive landscape.** Named competitors or alternatives, including "doing it in a spreadsheet" or "not doing it at all" as a real competitor. What's good and bad about each, and the specific gap this product fills that they don't.
 6. **Constraints & non-negotiables.** Anything already fixed and not up for debate: a required integration, an existing brand, a deadline, a mandated platform.
@@ -68,6 +68,6 @@ Point to what's next based on what the brief surfaced, not a fixed default:
 - Multiple user types with meaningfully different needs → [`persona`](../persona/SKILL.md) to formalize them.
 - Open questions that need real users to answer → [`interview`](../interview/SKILL.md).
 - A genuinely multi-stakeholder alignment problem surfaced mid-interrogation → [`workshop`](../workshop/SKILL.md).
-- Scope and tasks solid enough to start structuring → [`concepting`](../concepting/SKILL.md).
+- Scope and tasks solid enough to start structuring → [`map`](../map/SKILL.md)'s `objects` mode.
 
 **Completion criterion:** `docs/PRODUCT_BRIEF.md` exists, every section traces to what the stakeholder actually said, and nothing unresolved was silently invented to fill a gap instead of landing in `docs/UNKNOWNS.md`.

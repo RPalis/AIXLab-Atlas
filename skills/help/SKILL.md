@@ -34,13 +34,13 @@ If file signals are ambiguous, or the user's actual goal doesn't obviously match
 Some starting points aren't "the project is at phase X"; they're a specific event that has its own answer regardless of overall project phase:
 
 - **Nothing exists yet, not even an idea captured anywhere** → [`setup`](../setup/SKILL.md), always first.
-- **Just came out of a physical workshop with photos of a board** → [`digitize`](../digitize/SKILL.md).
+- **Just came out of a physical workshop with photos of a board** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode.
 - **Something in the running prototype looks or feels wrong right now** → [`audit`](../audit/SKILL.md) (ask which mode, usually `craft`).
 - **Stuck on a real tradeoff, can't decide between two directions** → [`interrogate`](../interrogate/SKILL.md).
 - **Need to move something to/from Figma** → [`figma`](../figma/SKILL.md).
 - **A decision was already made and needs to survive past this conversation** → [`decisions`](../decisions/SKILL.md).
 
-Check on-ramps before falling back to the phase table. A mid-Design project that just got back from a stakeholder workshop still needs `digitize` first, not whatever Design-phase skill the file signals suggest.
+Check on-ramps before falling back to the phase table. A mid-Design project that just got back from a stakeholder workshop still needs `workshop`'s `ingest` mode first, not whatever Design-phase skill the file signals suggest.
 
 ## Step 3: Recommend
 

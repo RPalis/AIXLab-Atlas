@@ -21,8 +21,8 @@ Nothing exists yet, not even `README.md`.
 ## Discover
 Understand the users and the problem before proposing anything.
 
-1. **Kicking off with a team or stakeholders?** → [`workshop`](../workshop/SKILL.md) plans a working session: activities, timing, agenda.
-2. **Coming out of a physical workshop with photos of the board?** → [`digitize`](../digitize/SKILL.md) turns whiteboard/sticky-note photos into a deck, doc, CSV, or a replicated FigJam board.
+1. **Kicking off with a team or stakeholders?** → [`workshop`](../workshop/SKILL.md)'s `plan` mode plans a working session: activities, timing, agenda.
+2. **Coming out of a physical workshop with photos of the board?** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode turns whiteboard/sticky-note photos into a deck, doc, CSV, or a replicated FigJam board.
 3. **Need real user input** (early, or validating a working prototype)? → [`interview`](../interview/SKILL.md), phase-aware, builds the question bank and script.
 4. **Formalize who the users are and their day-to-day** → [`persona`](../persona/SKILL.md), producing `docs/PERSONA_WALKTHROUGH.md`.
 
@@ -60,8 +60,8 @@ Ship it, validate it, hand it off.
 Not gated to one phase.
 
 - [`decisions`](../decisions/SKILL.md) / [`interrogate`](../interrogate/SKILL.md): capturing and interrogating decisions, whenever one comes up.
-- [`note`](../note/SKILL.md): a quick, low-ceremony capture that folds straight into the wiki, no separate compile step needed.
-- [`wiki`](../wiki/SKILL.md): compiling scattered notes as the project accumulates them.
+- [`wiki`](../wiki/SKILL.md)'s `note` mode: a quick, low-ceremony capture that folds straight in, no separate compile step needed.
+- [`wiki`](../wiki/SKILL.md)'s default `compile` mode: compiling scattered notes as the project accumulates them.
 - [`figma`](../figma/SKILL.md): moving work to and from Figma, whenever it's part of the workflow: `capture` (screen → Figma layers), `import` (Figma frame → code), or `sync` (token system ↔ Figma library).
 - `docs/UNKNOWNS.md`: the running list every skill defers to instead of guessing (AGENTS.md §2.6), tying Discover through Deliver together.
 
@@ -78,8 +78,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`brief`](../brief/SKILL.md)**: Interactively interrogate whoever already has the product idea, one question at a time (or in themed batches, the user's choice): what it is, who it's for, distinct user types and their core tasks, devices and context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`; pushes anything unresolved to `docs/UNKNOWNS.md`. On an existing product, drafts the brief from the codebase first and confirms it with the stakeholder rather than starting blank.
 
 ### Discover
-- **[`workshop`](../workshop/SKILL.md)**: Plan a design-thinking workshop: activity selection, written agenda, optional FigJam board and/or slide deck.
-- **[`digitize`](../digitize/SKILL.md)**: Convert photos of a physical workshop board (whiteboard, stickies, affinity map, risk matrix) into a PowerPoint deck, Word/Markdown doc, CSV, or a replicated FigJam board.
+- **[`workshop`](../workshop/SKILL.md)**: Two modes for the same event, from opposite sides. `plan` (default): activity selection, written agenda, optional FigJam board and/or slide deck, before the workshop happens. `ingest`: convert photos of the physical workshop board that resulted (whiteboard, stickies, affinity map, risk matrix) into a PowerPoint deck, Word/Markdown doc, CSV, or a replicated FigJam board, after it happened.
 - **[`persona`](../persona/SKILL.md)**: Transform user research, interview notes, or domain briefs into rich persona cards, mental models, friction maps, and step-by-step "Day in the Life" walkthroughs.
 - **[`interview`](../interview/SKILL.md)**: Phase-aware research kit (question bank, script, synthesis template) for discovery interviews early on or validation interviews against a working prototype.
 
@@ -103,9 +102,8 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 ### Usable Anytime
 - **[`help`](../help/SKILL.md)**: Reads the current repo's actual state (which docs exist) and recommends the next 1-3 skills, with the reason. The situational advisor version of this router.
 - **[`decisions`](../decisions/SKILL.md)**: Capture a non-obvious UX or architecture decision, and the alternatives it rejected, as a short ADR in `docs/adr/`.
-- **[`note`](../note/SKILL.md)**: The lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/my-notes/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
 - **[`interrogate`](../interrogate/SKILL.md)**: Interrogate a design decision one question at a time until reaching shared understanding, then optionally hand off to `decisions`.
-- **[`wiki`](../wiki/SKILL.md)**: Compile scattered notes into a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect.
+- **[`wiki`](../wiki/SKILL.md)**: Two modes. Default `compile` mode builds and maintains a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect. `note` mode is the lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/my-notes/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
 - **[`figma`](../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).
 
 ### Meta

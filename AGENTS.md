@@ -24,7 +24,7 @@ flowchart TD
     end
 
     subgraph Discover ["1. Discover"]
-        P0W[workshop] --> P0D[digitize]
+        P0W["workshop (plan / ingest mode)"]
         P0U[interview] --> P1[persona]
     end
 
@@ -55,7 +55,6 @@ flowchart TD
 
     subgraph Anytime ["Usable Anytime"]
         FIG["figma (capture / import / sync)"]
-        NOTE[note] --> P7F
     end
 
     subgraph Meta ["Meta: Managing the Suite Itself"]
@@ -126,8 +125,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/help` | `help` | **Router** | Reads the actual repo state and recommends the next 1-3 skills, with reasons; the situational counterpart to `router` |
 | `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
 | `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
-| `skills/workshop` | `workshop` | **Discover** | Plans a design-thinking workshop: activities, agenda, optional FigJam board/deck |
-| `skills/digitize` | `digitize` | **Discover** | Converts photos of a physical workshop board into a deck, doc, CSV, or replicated FigJam board |
+| `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
 | `skills/concepting` | `concepting` | **Decide** | Interactive OOUX/ORCA modeling; Plan mode seeds it, Audit mode reconciles against the build |
@@ -142,9 +140,8 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
 | `skills/decisions` | `decisions` | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives |
-| `skills/note` | `note` | **Anytime** | Quick, low-ceremony capture (an idea, a risk, a "don't forget this") into `docs/notes/my-notes/` that immediately runs `wiki`'s own ingest step on itself, no separate compile pass needed |
 | `skills/interrogate` | `interrogate` | **Anytime** | Interrogates a design decision one question at a time; hands off to `decisions` |
-| `skills/wiki` | `wiki` | **Anytime** | Compiles `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki, incl. a `constellation` graph view |
+| `skills/wiki` | `wiki` | **Anytime** | **Multi-mode**: default `compile` (compiles `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki, incl. a `constellation` graph view) or `note` (quick, low-ceremony capture into `docs/notes/my-notes/` that immediately runs `compile` mode's own ingest step on itself, no separate compile pass needed) |
 | `skills/figma` | `figma` | **Anytime** | **Multi-mode**: `capture` (live screen → Figma layers), `import` (Figma frame → convention-conformant code), `sync` (bidirectional token sync with a Figma library) |
 | `skills/skill-manager` | `skill-manager` | **Meta** | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any installed skill does. Sits outside Discover→Decide→Design→Deliver: it manages the skill library itself, not a prototype. |
 
@@ -263,7 +260,7 @@ Several docs are meant to be revisited and updated, not generated once and left:
 Where work naturally splits into diagnosing and prescribing, keep it as two skills: one finds problems and produces a task list, a second fixes them (`audit`'s `craft` mode → `refine`; the same shape as `audit`'s `a11y` and `code` modes relative to whatever acts on their findings). This keeps "did this actually get better" answerable by just rerunning the finder.
 
 ### Related-but-distinct jobs sharing one workflow shape → one skill, named modes
-When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.
+When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables; `wiki`'s default `compile`/`note` modes — `note` mode's own Step 2 was already just invoking `compile` mode's Step 1 as a subroutine, the same shape as `forge`→`styleguide`; `workshop`'s default `plan`/`ingest` modes — same event, same two possible output shapes (FigJam board, slide deck), built from opposite ends: `plan` before the workshop, `ingest` after it). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.
 
 ### Verification checklist before calling a round done
 ```bash

@@ -43,12 +43,12 @@ This prototype is built with UX Atlas. Doc ownership:
 - `docs/adr/` — owned by `decisions`
 - `docs/USER_GUIDE.md` — owned by `guide`
 - `docs/REQUIREMENTS.md` — owned by `requirements`
-- `docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; use it for **all** project notes. `docs/notes/my-notes/` inside it is the raw capture zone (fed by `note`'s quick captures, or typed by hand); `docs/notes/wiki/` next to it is owned by `wiki`, which compiles `my-notes/` plus any other document dropped into `docs/` (specs, client feedback, research) into an interlinked knowledge base
+- `docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; use it for **all** project notes. `docs/notes/my-notes/` inside it is the raw capture zone (fed by `wiki`'s `note` mode quick captures, or typed by hand); `docs/notes/wiki/` next to it is owned by `wiki`'s default `compile` mode, which compiles `my-notes/` plus any other document dropped into `docs/` (specs, client feedback, research) into an interlinked knowledge base
 
 ## Working Agreements
 
-- **Capture decisions as they happen.** A non-obvious call made while working in this repo doesn't wait for someone to ask "why did we do it this way?" later: write it up with `decisions` if it's a real tradeoff with a rejected alternative, or with `note` if it's smaller than that but still worth keeping.
-- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `note` immediately. It lands in `docs/notes/my-notes/` and folds into `docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
+- **Capture decisions as they happen.** A non-obvious call made while working in this repo doesn't wait for someone to ask "why did we do it this way?" later: write it up with `decisions` if it's a real tradeoff with a rejected alternative, or with `wiki`'s `note` mode if it's smaller than that but still worth keeping.
+- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `wiki`'s `note` mode immediately. It lands in `docs/notes/my-notes/` and folds into `docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
 - **Use `docs/notes/` for all project notes.** Meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over, belongs under `docs/notes/` (or elsewhere in `docs/` if it's a standalone document someone else maintains) rather than scattered across the repo or left outside version control entirely. `wiki` picks up anything placed there.
 - **Defer to `docs/UNKNOWNS.md` instead of guessing.** If a decision genuinely needs input this session doesn't have, log it there rather than inventing a plausible-sounding answer (see the suite's own AGENTS.md §2.6).
 - **Suggest next steps at natural checkpoints.** After finishing a skill's work, or whenever a session looks like it's wrapping up, briefly state what `help` would recommend next, don't wait to be asked "what now?"
@@ -63,13 +63,13 @@ This prototype is built with UX Atlas. Doc ownership:
 
 This is the project's general notes home. **Use it for all project notes**: meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over that doesn't belong in a specific doc above. Open this folder directly in Obsidian or any other markdown editor to work outside the IDE; nothing here depends on a specific tool.
 
-- `my-notes/` — raw, unprocessed capture: quick thoughts from the `note` skill, or anything typed here by hand. Drop things here freely; nothing needs to be tidy on the way in.
+- `my-notes/` — raw, unprocessed capture: quick thoughts from `wiki`'s `note` mode, or anything typed here by hand. Drop things here freely; nothing needs to be tidy on the way in.
 - `wiki/` — this suite's compiled knowledge wiki (owned by the `wiki` skill): browse `wiki/index.md` once it exists. It compiles `my-notes/`, but also reads and cross-references any other document dropped anywhere in `docs/` (a spec, a client brief, user research) that this suite didn't produce itself, so those don't need to live in this folder specifically to get picked up.
 ```
 
-Only the `docs/notes/` folder and this one README get pre-created. Don't pre-create `my-notes/` or `wiki/` themselves; they stay absent until `note` or `wiki` actually has something to put there.
+Only the `docs/notes/` folder and this one README get pre-created. Don't pre-create `my-notes/` or `wiki/` themselves; they stay absent until `wiki` (either mode) actually has something to put there.
 
-Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, `docs/notes/my-notes/`, or `docs/notes/wiki/`. Those belong to `persona`, `concepting`, `styleguide`, `decisions`, `requirements`, and `wiki`/`note` respectively — a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
+Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, `docs/notes/my-notes/`, or `docs/notes/wiki/`. Those belong to `persona`, `concepting`, `styleguide`, `decisions`, `requirements`, and `wiki` (both modes) respectively — a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
 
 ## Step 4: Hand off
 

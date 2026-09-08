@@ -14,7 +14,7 @@ Produces a complete, ready-to-run interview kit, not just a question list. Which
 
 ## Step 1: Read `docs/UNKNOWNS.md`
 
-If it exists, every open item there is a candidate interview question. The whole point of the file is that these accumulated naturally from work elsewhere in the project (see AGENTS.md §2.6). Fold relevant unknowns into the question bank below rather than starting from a blank page.
+If it exists, every open item there is a candidate interview question — these accumulated naturally from work elsewhere in the project (see AGENTS.md §2.6). Fold relevant unknowns into the question bank below rather than starting from a blank page.
 
 ## Step 2: Build the question bank
 
@@ -22,7 +22,7 @@ Use [`templates/discovery-questions.md`](templates/discovery-questions.md) or [`
 
 ## Step 3: Write the interview script
 
-Use [`templates/interview-script-template.md`](templates/interview-script-template.md). Include a short **target persona blurb**: who this interview is trying to reach, 2-3 sentences, pulled from `docs/PERSONA_WALKTHROUGH.md` if it exists, otherwise a best-guess draft explicitly marked as unconfirmed. This is not a full recruiting/screening flow, just enough that whoever is scheduling interviews knows who to look for.
+Use [`templates/interview-script-template.md`](templates/interview-script-template.md). Include a short **target persona blurb**: who this interview is trying to reach, 2-3 sentences, pulled from `docs/PERSONA_WALKTHROUGH.md` if it exists, otherwise a best-guess draft marked unconfirmed. Not a full recruiting/screening flow, just enough for whoever is scheduling interviews to know who to look for.
 
 ## Step 4: Prepare the synthesis template
 

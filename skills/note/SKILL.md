@@ -21,11 +21,11 @@ Append the thought, verbatim, to today's file: `docs/notes/my-notes/YYYY-MM-DD.m
 
 ## Step 2: Fold it into the wiki immediately
 
-Run [`wiki`](../wiki/SKILL.md)'s **Step 1 (Ingest a source)** right now, treating this entry as the source: identify which entity page(s) it touches or whether it's a new entity, update them (creating `docs/notes/wiki/index.md`, `log.md`, and `entities/` now if this is the very first entity the wiki has ever gotten), and append the `log.md` line referencing the `my-notes/` file. Don't run wiki's Step 3 (periodic linting) or Step 4 (constellation regen) here; those stay wiki's own periodic job, not something every single note triggers.
+Run [`wiki`](../wiki/SKILL.md)'s **Step 1 (Ingest a source)** now, treating this entry as the source: identify which entity page(s) it touches or whether it's a new entity, update them (creating `docs/notes/wiki/index.md`, `log.md`, and `entities/` if this is the wiki's very first entity), and append the `log.md` line referencing the `my-notes/` file. Don't run wiki's Step 3 (periodic linting) or Step 4 (constellation regen) here; those stay wiki's own periodic job, not something every note triggers.
 
 ## Step 3: Notes written by hand
 
-A person can create or edit a file directly in `docs/notes/my-notes/` in a plain text editor, no AI involved at all — that's the point of keeping it a sibling of `wiki/` rather than burying it inside the compiled output. Before starting any new `note` capture, check `docs/notes/my-notes/` for files not yet referenced in `log.md` and ingest those too, the same way, crediting the source as "added by hand" rather than assuming it came through this skill. [`wiki`](../wiki/SKILL.md)'s own runs do this same check.
+A person can create or edit a file directly in `docs/notes/my-notes/` in a plain text editor, no AI involved — that's why it's kept a sibling of `wiki/` rather than buried inside the compiled output. Before starting any new `note` capture, check `docs/notes/my-notes/` for files not yet referenced in `log.md` and ingest those too, the same way, crediting the source as "added by hand" rather than assuming it came through this skill. [`wiki`](../wiki/SKILL.md)'s own runs do this same check.
 
 ## Step 4: Say what happened
 

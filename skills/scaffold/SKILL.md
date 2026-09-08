@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Proto-Type
 
-This skill automates the creation of a high-fidelity, zero-friction prototype workspace. It has two parts: a **base scaffold** that's a complete, independently useful prototype on its own, and an **optional type layer** for prototypes that fit a recognizable site archetype. Not every prototype fits one of the types. The base scaffold alone is a fully valid outcome, so don't force a type onto something that's genuinely bespoke.
+This skill automates creating a high-fidelity, zero-friction prototype workspace. It has two parts: a **base scaffold** that's a complete, independently useful prototype on its own, and an **optional type layer** for prototypes that fit a recognizable site archetype. Not every prototype fits a type — the base scaffold alone is a fully valid outcome, so don't force one onto something genuinely bespoke.
 
 ---
 
@@ -34,9 +34,9 @@ This skill automates the creation of a high-fidelity, zero-friction prototype wo
    shared/                 # Domain types, workflow state machine, & seed fixtures
    docs/                   # Persona docs, PRD, DESIGN.md, & architecture diagrams
    ```
-   `pages/` is the real-world convention (not `views/`); component tiers live directly under `components/{atoms,molecules,organisms,widgets}` matching the [`storybook`](../storybook/SKILL.md) taxonomy rather than a flat `ui/`. State is commonly plain `useState`/props or React Context rather than a dedicated `store/`; only add one if the prototype's state genuinely needs centralizing.
+   `pages/` is the real-world convention (not `views/`); component tiers live directly under `components/{atoms,molecules,organisms,widgets}` matching the [`storybook`](../storybook/SKILL.md) taxonomy rather than a flat `ui/`. State is commonly plain `useState`/props or React Context rather than a dedicated `store/` — only add one if state genuinely needs centralizing.
 3. **Integrated Prototype Tools**: Every prototype includes a **"Prototype Tools" section inside the existing user-menu dropdown** (an avatar/account popover, not a separate floating drawer) containing:
-   - A persona/role switcher, implemented as React Context (a `PersonaType`/`RoleType` union + a registry + a `switchPersona()` setter) rather than `localStorage`; `localStorage` is fine for incidental UI prefs (panel widths, last-used filters) but shouldn't be what holds the active persona.
+   - A persona/role switcher, implemented as React Context (a `PersonaType`/`RoleType` union + a registry + a `switchPersona()` setter) rather than `localStorage` — `localStorage` is fine for incidental UI prefs (panel widths, last-used filters) but shouldn't hold the active persona.
    - "Storybook Design System" launcher opening the embedded Storybook modal.
    - "Architecture Map" launcher opening [`map`](../map/SKILL.md)'s `site` mode modal.
    - A data-reset control is optional, not required. Add one only if the prototype actually persists mock data to `localStorage` and iterative testing benefits from a clean-slate button.
@@ -69,7 +69,7 @@ Integrate `AppShell`, `SideNav`, `Header`, and `PrototypeTools` panel.
 
 ## Optional Type Layer
 
-Once the base scaffold exists, ask whether this prototype fits a recognizable site archetype. If it doesn't fit cleanly, stop here. The base scaffold is complete on its own; don't force-fit a type.
+Once the base scaffold exists, ask whether this prototype fits a recognizable site archetype. If it doesn't fit cleanly, stop here — the base scaffold is complete on its own; don't force-fit a type.
 
 | Type | When to use | Reference |
 |---|---|---|

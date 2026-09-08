@@ -10,11 +10,9 @@ Manages the canonical skill library at `~/.agents/skills`, symlinked into
 
 ## Commands
 
-Invoked as `/skill-manager <command> [args]`. Run the script for every
-operation. Never edit the library or symlinks by hand.
+Invoked as `/skill-manager <command> [args]`. Run the script for every operation. Never edit the library or symlinks by hand.
 
-- **install** `<git-url-or-local-path> [name]`: clone or copy a skill into
-  the library
+- **install** `<git-url-or-local-path> [name]`: clone or copy a skill into the library
       bash ./scripts/manage.sh install <source> [name]
 
 - **delete** `<name>`: permanently remove a skill
@@ -26,20 +24,13 @@ operation. Never edit the library or symlinks by hand.
 - **enable** `<name>`: restore a disabled skill
       bash ./scripts/manage.sh enable <name>
 
-- **sync**: verify the Claude Code / Gemini CLI symlinks point at the
-  library, and repair them if missing or broken (e.g. if one was
-  accidentally recreated as a Finder alias or a real folder instead of a
-  symlink)
+- **sync**: verify the Claude Code / Gemini CLI symlinks point at the library, and repair them if missing or broken (e.g. if one was accidentally recreated as a Finder alias or a real folder instead of a symlink)
       bash ./scripts/manage.sh sync
 
-- **list**: show active and disabled skills, each with its one-line
-  description pulled from SKILL.md
+- **list**: show active and disabled skills, each with its one-line description pulled from SKILL.md
       bash ./scripts/manage.sh list
 
-- **details** `<name>`: show full info on one skill: status, path,
-  git source (if applicable), and its complete SKILL.md contents
+- **details** `<name>`: show full info on one skill: status, path, git source (if applicable), and its complete SKILL.md contents
       bash ./scripts/manage.sh details <name>
 
-After install/delete/disable/enable, tell the user to restart their agent
-session to pick up the change. `sync` and `list`/`details` take effect
-immediately since they don't change the library contents.
+After install/delete/disable/enable, tell the user to restart their agent session to pick up the change. `sync` and `list`/`details` take effect immediately since they don't change the library contents.

@@ -6,15 +6,15 @@ disable-model-invocation: true
 
 # Brand Forge
 
-`tokens` defines this suite's two-layer architecture; [`references/semantic-role-mold.md`](references/semantic-role-mold.md) is the fixed list of semantic roles every prototype in this suite binds. `forge` casts a specific brand's raw values into that exact mold for the current prototype: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference, because it only ever references the semantic roles.
+`tokens` defines this suite's two-layer architecture; [`references/semantic-role-mold.md`](references/semantic-role-mold.md) is the fixed list of semantic roles every prototype in this suite binds. `forge` casts a specific brand's raw values into that exact mold for the current prototype: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference — it only ever references the semantic roles.
 
 Run `forge` before or instead of `tokens`' own Step 1 whenever a real brand (not a placeholder palette) needs to go in. `tokens` still owns Steps 2-3 (Tailwind config wiring, `DESIGN.md` generation) once Layer 1 and Layer 2 are cast.
 
 ## Step 1: Find the brand's real sources
 
 1. Ask what's available: a live site to pull CSS from, a brand guide (PDF/Figma/doc), or hex codes/font names typed directly.
-2. **Verified beats provided.** If a live site is available, prefer grepping its actual CSS for real class-based color/spacing values over trusting a brand guide's stated values blindly. A brand guide can be stale or aspirational relative to what's actually shipped.
-3. **If sources conflict** (a brand guide states one hex, the live site renders another), do not silently pick one. Ask the user which is authoritative. Guessing here corrupts the one thing this exercise exists to get right.
+2. **Verified beats provided.** If a live site is available, prefer grepping its actual CSS for real class-based color/spacing values over trusting a brand guide's stated values blindly — a guide can be stale or aspirational relative to what's actually shipped.
+3. **If sources conflict** (a brand guide states one hex, the live site renders another), don't silently pick one — ask the user which is authoritative. Guessing here corrupts the one thing this exercise exists to get right.
 4. If tints/shades (lighter/light/dark/foundational) aren't supplied for a color and can't be found in a live source, either ask for them or derive them via consistent HSL-lightness steps, and if derived, label them "computed, not brand-verified" in `DESIGN.md`. Don't present a guess as a fact.
 
 **Completion criterion:** every hex value about to be written into `index.css` traces to either a verified source or an explicitly labeled computation. None are silently invented.
@@ -27,7 +27,7 @@ Build a color matrix with at minimum: a primary hue family (with tiers), a secon
 
 ## Step 3: Rebind Layer 2, the roles
 
-Open [`references/semantic-role-mold.md`](references/semantic-role-mold.md) and rebind every semantic variable listed there to the new Layer 1 values, using the *same role each one already plays*, in `index.css`'s `:root` (light) and `.dark` (dark) blocks. Do not rename, add, or drop a role, that shape is what `audit` and `storybook` assume across every prototype in this suite:
+Open [`references/semantic-role-mold.md`](references/semantic-role-mold.md) and rebind every semantic variable listed there to the new Layer 1 values, using the *same role each one already plays*, in `index.css`'s `:root` (light) and `.dark` (dark) blocks. Do not rename, add, or drop a role — that shape is what `audit` and `storybook` assume across every prototype in this suite:
 
 - `bg-page`, `surface`, `surface-hover`, `surface-border` → the new gray scale
 - `text-primary`, `text-secondary`, `text-muted`, `text-brand` → the new grays + secondary accent
@@ -43,7 +43,7 @@ Run [`tokens`](../tokens/SKILL.md)' Step 2 (Tailwind config wiring) and Step 3 (
 
 ## Step 5: Verify the cast
 
-1. `grep -rn "#[0-9a-fA-F]\{3,6\}\b" src/` (or the prototype's component source root) for hardcoded hex outside `index.css`. Any hit is a component that bypassed the semantic layer and needs fixing before this counts as done.
+1. `grep -rn "#[0-9a-fA-F]\{3,6\}\b" src/` (or the prototype's component source root) for hardcoded hex outside `index.css`. Any hit bypassed the semantic layer and needs fixing before this counts as done.
 2. Cross-check every role in `semantic-role-mold.md` resolves to a CSS var in `index.css` and a Tailwind key in `tailwind.config.js`.
 3. Spot-check a handful of components in both light and dark mode; a role that's present but wired to the wrong tier (e.g. `text-muted` reading as illegible on `surface` in dark mode) won't show up in a grep.
 

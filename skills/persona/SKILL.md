@@ -6,15 +6,15 @@ disable-model-invocation: true
 
 # UX Persona & Journey Documentation
 
-This skill transforms qualitative research, interviews, or domain requirements into structured **Persona Walkthrough Documents** and **Day in the Life** narratives that serve as the foundational truth for prototype UX design.
+Transforms qualitative research, interviews, or domain requirements into structured **Persona Walkthrough Documents** and **Day in the Life** narratives that serve as the foundational truth for prototype UX design.
 
 ---
 
 ## Core Objectives
 
-1. **Ground Prototype Features in User Reality**: Every feature in the prototype must tie to a specific persona goal, decision trigger, or pain point.
-2. **Chronological Journey Mapping**: Map the user's workflow sequentially (e.g. Morning Scan -> Client Meeting Prep -> Live Review -> Compliance Lock -> Post-Market Wrap).
-3. **Friction & Autonomy Modeling**: Identify high-friction friction zones (e.g., compliance checkpoints, irreversible actions) and autonomy opportunities (e.g., auto-rebalancing, batch approvals).
+1. **Ground Prototype Features in User Reality**: every feature must tie to a specific persona goal, decision trigger, or pain point.
+2. **Chronological Journey Mapping**: map the user's workflow sequentially (e.g. Morning Scan -> Client Meeting Prep -> Live Review -> Compliance Lock -> Post-Market Wrap).
+3. **Friction & Autonomy Modeling**: identify high-friction zones (e.g., compliance checkpoints, irreversible actions) and autonomy opportunities (e.g., auto-rebalancing, batch approvals).
 
 ---
 
@@ -40,13 +40,12 @@ Write it as a **sequence of numbered scenes**, not a table. This is the format t
 - [bullet per notable UI element / data point / affordance visible in this scene]
 ```
 
-Group scenes into realistic phases across the persona's day (e.g. Morning Ingestion & Alert Triage → High-Value Focus Work → Collaboration & Sign-Off → Wrap-Up & Next-Day Horizon), but don't force every scene into a rigid table, since a scene that has no meaningful "friction" or "system behavior" shouldn't carry an empty table cell for it. Where a scene *does* hinge on a specific friction point or autonomy rule (a compliance checkpoint, an irreversible action, an auto-rebalancing decision), call it out explicitly in the scene's narrative rather than a separate column. It reads better and doesn't get skipped.
+Group scenes into realistic phases across the persona's day (e.g. Morning Ingestion & Alert Triage → High-Value Focus Work → Collaboration & Sign-Off → Wrap-Up & Next-Day Horizon), but don't force every scene into a rigid table — a scene with no meaningful "friction" or "system behavior" shouldn't carry an empty table cell for it. Where a scene *does* hinge on a specific friction point or autonomy rule (a compliance checkpoint, an irreversible action, an auto-rebalancing decision), call it out in the scene's narrative rather than a separate column; it reads better and doesn't get skipped.
 
 If a screenshot isn't available yet (walkthrough written before the prototype exists), skip the image and write the scene narrative first. Screenshots get added once real screens exist.
 
 ### Step 3: Formalize into Markdown & Link in Prototype
-Save the output to `docs/PERSONA_WALKTHROUGH.md` (or a name specific to the persona, e.g. `docs/ADVISOR_DAY_WALKTHROUGH.md`) in the project repository.
-Embed a summary link in the prototype's `UserMenu` / `PrototypeTools` panel.
+Save the output to `docs/PERSONA_WALKTHROUGH.md` (or a name specific to the persona, e.g. `docs/ADVISOR_DAY_WALKTHROUGH.md`) in the project repository, and embed a summary link in the prototype's `UserMenu` / `PrototypeTools` panel.
 
 ---
 

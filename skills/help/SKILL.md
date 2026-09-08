@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Help
 
-[`router`](../router/SKILL.md) is the map, the full directory, browsable any time. This skill is the "you are here" pin on it: it looks at what actually exists in the current repo and tells you the next 1-3 moves, instead of making you read the whole map yourself.
+[`router`](../router/SKILL.md) is the full directory, browsable any time. This skill is the "you are here" pin: it looks at what actually exists in the repo and gives the next 1-3 moves, instead of making you read the whole map.
 
 ## Step 1: Read the signals
 
@@ -23,11 +23,11 @@ Check for these, in this order, to place the project on Discover → Decide → 
 | Screens built, `audit`'s `code`/`a11y` modes not yet run | Nearing done → **Design → Deliver boundary** |
 | `package`/`showcase`/`guide` output already exists | Shipped once already → **Deliver, or back to Discover for the next round** |
 
-Don't treat this as a rigid state machine. A project can legitimately have `DESIGN.md` before `PERSONA_WALKTHROUGH.md` (someone started with a scaffold and is backfilling research). Use the signals to form a hypothesis, then confirm it in Step 2 rather than asserting it as fact.
+Not a rigid state machine — a project can legitimately have `DESIGN.md` before `PERSONA_WALKTHROUGH.md` (started with a scaffold, backfilling research). Use the signals to form a hypothesis, then confirm it in Step 2 rather than asserting it as fact.
 
 ## Step 2: Ask if the signals don't resolve it
 
-If file signals are ambiguous, or the user's actual goal right now doesn't obviously match where the files say they are, ask one direct question: "what are you trying to get done right now?" Don't run the full Step 1 table past the user as a report; it's your reasoning, not their answer.
+If file signals are ambiguous, or the user's actual goal doesn't obviously match where the files say they are, ask one direct question: "what are you trying to get done right now?" Don't run the Step 1 table past the user as a report; it's your reasoning, not their answer.
 
 ## On-ramps: situations that skip the linear flow
 
@@ -44,6 +44,6 @@ Check on-ramps before falling back to the phase table. A mid-Design project that
 
 ## Step 3: Recommend
 
-Give 1-3 skills, ranked, each with a one-line reason tied to what was actually found (a file that exists or doesn't, not a generic phase description). Point to `router` for the full picture if the user wants to see the whole path, not just the next step. Don't recommend a skill whose living doc already exists and looks current; that's re-doing finished work, not helping.
+Give 1-3 ranked skills, each with a one-line reason tied to what was actually found (a file that exists or doesn't, not a generic phase description). Point to `router` for the full picture if the user wants the whole path, not just the next step. Don't recommend a skill whose living doc already exists and looks current; that's re-doing finished work.
 
 **Completion criterion:** every recommendation names the specific signal (a file, or the user's stated goal) that produced it. Never give a recommendation that's just "you're in Design phase, so try one of these" with no link back to actual project state.

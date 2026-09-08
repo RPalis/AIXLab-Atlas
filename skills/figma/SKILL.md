@@ -6,21 +6,21 @@ disable-model-invocation: true
 
 # Figma
 
-Three ways of moving work between this suite and Figma, sharing one skill because they're all "Figma integration" even though their mechanics don't overlap. **Ask which mode if not specified**:
+Three ways of moving work between this suite and Figma, sharing one skill as "Figma integration" even though their mechanics don't overlap. **Ask which mode if not specified**:
 
 - **`capture`**: prototype screen → Figma, via a client-side script load. No MCP, no API keys, no file IDs.
 - **`import`**: Figma frame/selection → codebase, as real convention-conformant code. Requires the Figma MCP server.
 - **`sync`**: this suite's token system ↔ a Figma library's Variables, bidirectional. Requires the Figma MCP server.
 
-`import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools). If it isn't available, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP.
+`import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools) — if unavailable, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP.
 
 ---
 
 ## Mode: capture
 
-Add page capture to any prototype in this suite, via a **button** or a **right-click context menu**. The capture loads Figma's script, serializes the DOM, and shows Figma's native toolbar with **Copy to clipboard**, **Entire screen**, and **Select element**.
+Add page capture to any prototype in this suite via a **button** or a **right-click context menu**. The capture loads Figma's script, serializes the DOM, and shows Figma's native toolbar with **Copy to clipboard**, **Entire screen**, and **Select element**.
 
-No API keys, tokens, or Figma file IDs needed. This is a client-side script load, not an MCP call, and adds no build dependency.
+No API keys, tokens, or Figma file IDs needed — a client-side script load, not an MCP call, adding no build dependency.
 
 ### How it works
 
@@ -62,7 +62,7 @@ function enableFigmaCapture() {
 
 ### Choose an integration method and placement
 
-Ask the user which they prefer. **Don't assume every prototype has the Prototype Tools menu scaffolded**:
+Ask the user which they prefer. **Don't assume the Prototype Tools menu is scaffolded**:
 - **A launcher inside the "Prototype Tools" user-menu section**: the natural placement when [`scaffold`](../scaffold/SKILL.md)'s menu already exists in this prototype.
 - **A standalone button** elsewhere: a toolbar, sidebar footer, or settings menu, for a prototype without that menu or where the user wants it more visible.
 - **A right-click context menu**: no visible UI added, works globally. Default to this if the user has no preference and no Prototype Tools menu exists.
@@ -167,7 +167,7 @@ Vue/Svelte/plain HTML: same handler logic inside the framework's mount/unmount l
 
 ## Mode: import
 
-The Figma MCP server already generates code from a design (`get_design_context`, `get_screenshot`, `get_metadata`). Its raw output doesn't know this suite's conventions. It won't use our semantic token roles, won't land in the right atomic tier, and won't follow [`scaffold`](../scaffold/SKILL.md)'s folder layout. This mode is the wrapper that gives precise control over the mapping so imported code looks like it was written for this codebase, not pasted in from elsewhere.
+The Figma MCP server already generates code from a design (`get_design_context`, `get_screenshot`, `get_metadata`), but its raw output doesn't know this suite's conventions: it won't use our semantic token roles, won't land in the right atomic tier, and won't follow [`scaffold`](../scaffold/SKILL.md)'s folder layout. This mode wraps it with precise control over the mapping so imported code looks written for this codebase, not pasted in from elsewhere.
 
 ### Step 1: Resolve the target and check for an existing mapping
 
@@ -183,11 +183,11 @@ Pull `get_variable_defs` for the target. For each value used:
 
 ### Step 3: Place the generated code correctly
 
-Follow [`storybook`](../storybook/SKILL.md)'s tier taxonomy: decide whether the imported piece is an atom/molecule/organism/widget/page and place it in the matching folder from [`scaffold`](../scaffold/SKILL.md)'s layout. If the tier is ambiguous, ask rather than guessing. A component landing in the wrong tier is exactly the kind of drift `audit`'s `craft` mode consistency checkpoint later catches, better to get it right on import.
+Follow [`storybook`](../storybook/SKILL.md)'s tier taxonomy: decide whether the imported piece is an atom/molecule/organism/widget/page and place it in the matching folder from [`scaffold`](../scaffold/SKILL.md)'s layout. If the tier is ambiguous, ask rather than guessing — a component landing in the wrong tier is exactly the drift `audit`'s `craft` mode consistency checkpoint later catches, better to get it right on import.
 
 ### Step 4: Verify before calling it done
 
-Run the same checks `audit`'s `code` mode would: zero hardcoded hex, zero raw Tailwind palette colors, zero redundant `dark:` overrides, and the component extends the native HTML element's attribute interface rather than a hand-rolled prop list. Imported code fails this a lot more often than hand-written code. Figma's own code-gen defaults to literal values, so don't skip this step just because the import "looked right."
+Run the same checks `audit`'s `code` mode would: zero hardcoded hex, zero raw Tailwind palette colors, zero redundant `dark:` overrides, and the component extends the native HTML element's attribute interface rather than a hand-rolled prop list. Imported code fails this far more often than hand-written code — Figma's own code-gen defaults to literal values, so don't skip this step just because the import "looked right."
 
 **Completion criterion:** `grep -rnE "text-\[#|bg-\[#|#[0-9A-Fa-f]{3,6}"` against the newly imported file returns nothing, and the component lives in the atomic tier/folder that matches what it actually is.
 
@@ -195,7 +195,7 @@ Run the same checks `audit`'s `code` mode would: zero hardcoded hex, zero raw Ta
 
 ## Mode: sync
 
-Syncs this suite's token system with a Figma library, in either direction. **Determine direction from what the user actually asked, don't infer it.** "Bring the Figma library into our tokens" is Import; "push our design system to Figma" is Export. If genuinely ambiguous, ask.
+Syncs this suite's token system with a Figma library, in either direction. **Determine direction from what the user actually asked — don't infer it.** "Bring the Figma library into our tokens" is Import; "push our design system to Figma" is Export. If genuinely ambiguous, ask.
 
 Before any write to Figma (Export direction), follow the MCP server's own `/figma-use` guidance first. It's a prerequisite the server itself requires before `use_figma` calls, not optional here.
 
@@ -203,7 +203,7 @@ Both directions use the same correspondence table: [`forge/references/semantic-r
 
 ### Import: Figma library → our tokens
 
-This is effectively [`forge`](../forge/SKILL.md)'s Step 1-3 sourced from Figma instead of live CSS or a brand guide. Reuse its discipline, don't relax it just because the source is structured data.
+Effectively [`forge`](../forge/SKILL.md)'s Step 1-3 sourced from Figma instead of live CSS or a brand guide. Reuse its discipline — don't relax it just because the source is structured data.
 
 1. `get_libraries` to find the target library, then `get_variable_defs` to pull its actual variable values (colors, typography, spacing, radius).
 2. Map each Figma variable onto a role in `semantic-role-mold.md` by name/purpose, the same way `forge` Step 3 rebinds Layer 2. **Verified beats provided**: if a Figma variable's name is ambiguous about which role it plays, don't guess. Check how it's actually used in the library's components (`search_design_system`) before binding it.
@@ -218,6 +218,6 @@ This is effectively [`forge`](../forge/SKILL.md)'s Step 1-3 sourced from Figma i
 1. Read the current `index.css` (Layer 1 + Layer 2) and `DESIGN.md`.
 2. Map each semantic role to a Figma Variable using the same `semantic-role-mold.md` correspondence: collections/modes for light vs. dark, matching how `index.css`'s `:root`/`.dark` split already works.
 3. Use `use_figma` (after `/figma-use`) to create or update the target library's Variables. If component documentation should ship alongside (not just raw variables), use `create_new_file`/`upload_assets` to publish a documentation page summarizing `DESIGN.md`'s eight sections. Don't reinvent that structure, just render what `tokens` already generated.
-4. Confirm with the user before overwriting an existing Figma library's variables. This is a write to a shared external system, not a local file, so the "confirm before overwriting" bar is higher than usual.
+4. Confirm with the user before overwriting an existing Figma library's variables — a write to a shared external system, not a local file, so the "confirm before overwriting" bar is higher than usual.
 
 **Completion criterion:** every role in `semantic-role-mold.md` that this app actually uses exists as a Figma Variable with the matching light/dark values, and the user explicitly confirmed the write before it happened.

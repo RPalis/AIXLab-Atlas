@@ -6,7 +6,15 @@ disable-model-invocation: true
 
 # Design Refinement & Aesthetic Craft
 
-Elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step — [`audit`](../audit/SKILL.md) is the *find* step; run that first if you don't already have a specific list of what to fix, since it identifies problems this skill then narrows into concrete design decisions and a unified visual look.
+Elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step — [`audit`](../audit/SKILL.md) is the *find* step.
+
+## Step 0: Confirm there's a findings list to act on
+
+This skill narrows `audit`'s `craft`-mode findings into concrete design decisions and a unified visual look — it doesn't go looking for problems itself. Before touching any component:
+
+- If the user just handed over a specific list of what to fix (their own notes, or a findings list from earlier in this conversation), proceed straight to Step 1.
+- Otherwise, check for a recent `audit` `craft`-mode pass (a findings list already in the conversation, or referenced in project docs/notes). If none exists, or the one that does predates the components in scope, say so and suggest running `audit`'s `craft` mode first rather than guessing at what's wrong — refining without a findings list risks polishing the wrong things or missing what actually reads as broken.
+- If the user explicitly wants freeform polish with no findings list (e.g. "just make this screen feel nicer"), that's a legitimate ask; proceed, but call out that this is undirected refinement, not findings-driven.
 
 ---
 

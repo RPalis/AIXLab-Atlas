@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>[Project Name] — Feature Showcase</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css" />
+  <style>
+    /* Swap these to match the prototype's actual brand tokens from index.css, not raw defaults */
+    :root { --r-main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .reveal h1, .reveal h2 { font-weight: 600; }
+    .reveal .slide-number { opacity: 0.5; }
+    .scene-shot { max-height: 60vh; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>[Project Name]</h1>
+        <p>[One-line positioning]</p>
+      </section>
+
+      <section>
+        <h2>The Problem</h2>
+        <p>[1-2 sentences, pulled from persona's pain points]</p>
+      </section>
+
+      <!-- Repeat one <section> per scene -->
+      <section>
+        <h2>[Scene headline]</h2>
+        <img class="scene-shot" src="[screenshot path]" alt="[what this shows]" />
+        <p>[1-2 sentence narrative, pulled from persona scene]</p>
+      </section>
+
+      <section>
+        <h2>What's Next</h2>
+        <p>[The ask — feedback, a decision, a go/no-go]</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      controls: true,
+      progress: true,
+    });
+  </script>
+</body>
+</html>

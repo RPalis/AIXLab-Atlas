@@ -181,8 +181,33 @@
 
   /* ---------- Hero ---------- */
   .hero {
+    position: relative;
     padding: 88px 0 56px;
     border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero-topo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 320px;
+    color: var(--line-strong);
+    opacity: 0.55;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 28%, transparent 72%);
+    mask-image: linear-gradient(to bottom, black 0%, black 28%, transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-topo ellipse, .hero-topo path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+  .hero-eyebrow, .hero h1, .hero p.lede, .hero-ribbon {
+    position: relative;
+    z-index: 1;
   }
   .hero-eyebrow {
     font-family: var(--font-mono);
@@ -681,6 +706,24 @@
 
 <div class="wrap">
   <header class="hero" id="top">
+    <svg class="hero-topo" viewBox="0 0 1000 340" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+      <path d="M -20,238 C 130,208 260,268 410,236 C 560,204 690,252 840,226 C 920,213 970,224 1020,214" />
+      <path d="M -20,294 C 140,272 300,310 460,288 C 620,266 760,300 900,282 C 950,275 985,280 1020,274" />
+      <ellipse cx="150" cy="66" rx="26" ry="15" />
+      <ellipse cx="158" cy="80" rx="48" ry="29" />
+      <ellipse cx="170" cy="98" rx="72" ry="45" />
+      <ellipse cx="184" cy="122" rx="99" ry="63" />
+      <ellipse cx="198" cy="150" rx="128" ry="83" />
+      <ellipse cx="640" cy="86" rx="30" ry="17" />
+      <ellipse cx="652" cy="104" rx="57" ry="34" />
+      <ellipse cx="666" cy="128" rx="86" ry="54" />
+      <ellipse cx="680" cy="156" rx="118" ry="76" />
+      <ellipse cx="694" cy="188" rx="152" ry="102" />
+      <ellipse cx="878" cy="44" rx="20" ry="12" />
+      <ellipse cx="886" cy="55" rx="38" ry="22" />
+      <ellipse cx="896" cy="70" rx="58" ry="34" />
+      <ellipse cx="906" cy="88" rx="80" ry="48" />
+    </svg>
     <p class="hero-eyebrow">UX Atlas: a field guide</p>
     <h1>The Pocket Atlas: 22 Field Skills</h1>
     <p class="lede">Every skill in this suite exists to move a prototype through one sequence: <strong>Discover, Decide, Design, Deliver</strong>, the same shape a design‑thinking studio would run by hand. This page is the map: what each stage is for, which skill you reach for inside it, and where the tools that don't belong to any one stage, or don't belong to the lifecycle at all, live.</p>

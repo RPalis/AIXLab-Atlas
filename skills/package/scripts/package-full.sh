@@ -13,7 +13,7 @@ APP="$(basename "$REPO")"
 STAGE="$REPO/.pkg-stage"
 OUT="$REPO/${APP}.zip"
 ROOT="$STAGE/$APP"
-FRONTEND="frontend"
+FRONTEND=$(find . -maxdepth 2 \( -name angular.json -o -name package.json \) -path '*/frontend/*' -o -path '*/angular/*' 2>/dev/null | head -1 | xargs -r dirname)
 
 echo "=================================================="
 echo "Packaging (full): ${APP}"
@@ -33,8 +33,12 @@ if [ -f "$FRONTEND/.storybook/main.ts" ] || [ -f "$FRONTEND/.storybook/main.js" 
   npm run build-storybook --prefix "$FRONTEND" -o "$FRONTEND/public/storybook" || true
 fi
 echo "Building unminified site bundle..."
-npm run build --prefix "$FRONTEND" -- --mode development --base ./ 2>/dev/null \
-  || npm run build --prefix "$FRONTEND"
+if [ -f "$FRONTEND/angular.json" ]; then
+  ( cd "$FRONTEND" && npx ng build --configuration development --base-href ./ )
+else
+  npm run build --prefix "$FRONTEND" -- --mode development --base ./ 2>/dev/null \
+    || npm run build --prefix "$FRONTEND"
+fi
 SITE_SRC=$(find "$REPO/$FRONTEND" -maxdepth 4 -type f -name index.html \
     \( -path '*/dist/*' -o -path '*/build/*' \) -not -path '*/node_modules/*' 2>/dev/null | head -1 | xargs -r dirname)
 [ -z "$SITE_SRC" ] && { echo 'Could not locate the build output — set SITE_SRC and re-run.'; exit 1; }
@@ -63,16 +67,19 @@ powershell -ExecutionPolicy Bypass -NoProfile -File "%~dp0serve.ps1"
 SERVE_BAT
 
 # --- Step 3: development/ — raw source, no node_modules/build output ---
-rsync -a --exclude node_modules --exclude dist --exclude build --exclude .DS_Store --exclude '*.log' \
-  "$REPO/$FRONTEND/" "$ROOT/development/$FRONTEND/"
+for d in frontend angular backend electron; do
+  [ -d "$REPO/$d" ] && rsync -a --exclude node_modules --exclude dist --exclude .angular --exclude build \
+      --exclude '.DS_Store' --exclude '*.log' "$REPO/$d/" "$ROOT/development/$d/"
+done
 [ -d "$REPO/shared" ] && rsync -a --exclude node_modules --exclude '.DS_Store' "$REPO/shared/" "$ROOT/development/shared/"
-for f in package.json package-lock.json README.md; do
+for f in package.json package-lock.json docker-compose.yml README.md; do
   [ -f "$REPO/$f" ] && cp "$REPO/$f" "$ROOT/development/"
 done
 
 # --- Step 4: documentation/ — text-only project docs ---
-[ -d "$REPO/docs" ] && rsync -a --exclude '.DS_Store' --exclude '*.docx' --exclude '*.pdf' --exclude '*.pptx' --exclude '*.zip' \
-  "$REPO/docs/" "$ROOT/documentation/"
+docsrc="$REPO/docs"; [ -d "$REPO/documentation" ] && docsrc="$REPO/documentation"
+[ -d "$docsrc" ] && rsync -a --exclude '.DS_Store' --exclude '*.docx' --exclude '*.pdf' --exclude '*.pptx' --exclude '*.zip' \
+  "$docsrc/" "$ROOT/documentation/"
 [ -f "$REPO/DESIGN.md" ] && cp "$REPO/DESIGN.md" "$ROOT/documentation/"
 
 # --- top-level handoff README ---

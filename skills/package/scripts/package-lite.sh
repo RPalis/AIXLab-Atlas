@@ -7,7 +7,7 @@ set -e
 # nothing in the app links to. No zip by default (a plain folder is what "lite" implies).
 
 REPO="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-FRONTEND="frontend"
+FRONTEND=$(find . -maxdepth 2 \( -name angular.json -o -name package.json \) -path '*/frontend/*' -o -path '*/angular/*' 2>/dev/null | head -1 | xargs -r dirname)
 OUT_DIR="$REPO/production"
 
 echo "=================================================="
@@ -15,8 +15,12 @@ echo "Packaging (lite): $(basename "$REPO")"
 echo "=================================================="
 
 # --- Step 1: build production (minified, hashed, no maps — Vite's default `build` already is) ---
-npm run build --prefix "$FRONTEND"
-BUILD_OUTPUT=$(find "$REPO/$FRONTEND" -maxdepth 3 -type f -name index.html \
+if [ -f "$FRONTEND/angular.json" ]; then
+  ( cd "$FRONTEND" && npx ng build --configuration production --base-href ./ )
+else
+  npm run build --prefix "$FRONTEND"
+fi
+BUILD_OUTPUT=$(find "$REPO/$FRONTEND" -maxdepth 4 -type f -name index.html \
     \( -path '*/dist/*' -o -path '*/build/*' \) -not -path '*/node_modules/*' 2>/dev/null | head -1 | xargs -r dirname)
 [ -z "$BUILD_OUTPUT" ] && { echo 'Could not locate the build output.'; exit 1; }
 
@@ -51,4 +55,5 @@ head -c 200 "$OUT_DIR/index.html"
 echo ""
 echo "Packaged: $OUT_DIR"
 echo "(no zip by default — offer to zip only if the user wants a single artifact to send)"
+[ -d "$REPO/backend" ] && echo "NOTE: backend/ present but not included in production/ — it must be run separately."
 echo "=================================================="

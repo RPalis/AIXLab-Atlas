@@ -44,7 +44,7 @@ Frame the problem, scope the objects, make the calls that are expensive to rever
 Build the actual prototype.
 
 1. **[`scaffold`](skills/scaffold/SKILL.md)** scaffolds the base React/Vite/Tailwind prototype, then optionally layers on a site-type module (`dashboard`, `chatbot`, `marketing-site`, `crm-app`) if the prototype fits one.
-2. **[`styleguide`](skills/styleguide/SKILL.md)** establishes the two-layer token architecture and a spec-conformant `DESIGN.md`. **Casting a new brand?** **[`forge`](skills/forge/SKILL.md)** does that from live CSS, a brand guide, or verified hex values.
+2. **[`styleguide`](skills/styleguide/SKILL.md)** establishes the two-layer token architecture and a spec-conformant `DESIGN.md`. **Casting a new brand?** Its forge mode does that from live CSS, a brand guide, or verified hex values.
 3. Build out the screens, then **loop between two skills**: **[`audit`](skills/audit/SKILL.md)**'s `craft` mode finds problems (a scored critique, output as a task list) and **[`refine`](skills/refine/SKILL.md)** fixes and unifies them. Run the loop again until the score holds.
 4. Document the system as it solidifies: **[`storybook`](skills/storybook/SKILL.md)** for component docs, **[`map`](skills/map/SKILL.md)**'s `site` mode for the route/component graph (interactive, Mermaid, or SVG) or `flow` mode for journey/workflow flowcharts, **[`wiki`](skills/wiki/SKILL.md)** for anything else worth remembering that doesn't have a dedicated doc.
 5. **[`audit`](skills/audit/SKILL.md)**'s `a11y` mode runs the deep WCAG AA sweep once the UI has stabilized enough that findings won't immediately go stale.
@@ -118,8 +118,7 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 | [`interview`](skills/interview/SKILL.md) | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research | `/interview`, "interview questions", "user research" |
 | [`concepting`](skills/concepting/SKILL.md) | **Decide** | Interactive OOUX/ORCA modeling: Plan mode seeds it, Audit mode reconciles against the build | `/concepting`, "ooux map", "feature concept" |
 | [`scaffold`](skills/scaffold/SKILL.md) | **Design** | Scaffold React 19 + Vite + Tailwind + Lucide prototype; base scaffold + optional site-type layer | `/scaffold`, "new prototype", "scaffold app" |
-| [`styleguide`](skills/styleguide/SKILL.md) | **Design** | Generate 2-layer token architecture (Raw + Semantic) and a spec-conformant `DESIGN.md` | `/styleguide`, "design tokens", "style guide", "create DESIGN.md" |
-| [`forge`](skills/forge/SKILL.md) | **Design** | Cast a new brand's palette & fonts into the suite's fixed semantic token roles | `/forge`, "brand forge", "cast brand tokens" |
+| [`styleguide`](skills/styleguide/SKILL.md) | **Design** | Generate 2-layer token architecture (Raw + Semantic) and a spec-conformant `DESIGN.md`; forge mode casts a new brand's palette & fonts into the suite's fixed semantic token roles | `/styleguide`, `/styleguide forge`, "design tokens", "style guide", "create DESIGN.md", "brand forge", "cast brand tokens" |
 | [`audit`](skills/audit/SKILL.md) | **Design / Deliver** | Multi-mode: `craft` (scored UX critique as a task list), `code` (coding-standards audit), `a11y` (deep WCAG AA sweep) | `/audit craft`, `/audit code`, `/audit a11y`, "audit this prototype" |
 | [`refine`](skills/refine/SKILL.md) | **Design** | Fix and unify: micro-interactions, responsive grids, dark mode, polish | `/refine`, "polish UI", "refine styling" |
 | [`storybook`](skills/storybook/SKILL.md) | **Design** | 5-tier Atomic Storybook docs + embed live Storybook in prototype menu | `/storybook`, "setup storybook", "atomic docs" |

@@ -36,10 +36,8 @@ flowchart TD
 
     subgraph Design ["3. Design"]
         P2 --> P3["scaffold (base + optional type layer)"]
-        P3 --> P4[styleguide]
-        P3 --> P4B[forge]
+        P3 --> P4["styleguide (default / forge mode)"]
         P4 --> PCA["audit (craft mode)"]
-        P4B --> PCA
         PCA --> P5[refine]
         P5 --> P6[storybook]
         P6 --> P7["map (site / flow)"]
@@ -82,7 +80,7 @@ Every skill in this library must uphold these six foundational principles:
 
 ### 1. Two-Layer Design Token Discipline
 - **Layer 1 (Raw Brand Palette)**: Defined at `:root` in `index.css`. Captures raw brand hex values, grayscales, and RGB status triplets (e.g. `--brand-primary: #00828A; --status-success-rgb: 22 163 74;`).
-- **Layer 2 (Semantic Roles)**: Defined in `:root` (light) and rebound under `.dark` (dark mode). Tokens represent UI semantic intent (e.g. `--bg-page`, `--surface`, `--text-primary`, `--action-primary`). See [`forge/references/semantic-role-mold.md`](skills/forge/references/semantic-role-mold.md) for the full role list.
+- **Layer 2 (Semantic Roles)**: Defined in `:root` (light) and rebound under `.dark` (dark mode). Tokens represent UI semantic intent (e.g. `--bg-page`, `--surface`, `--text-primary`, `--action-primary`). See [`styleguide/references/semantic-role-mold.md`](skills/styleguide/references/semantic-role-mold.md) for the full role list.
 - **The Golden Rule**: Component JSX code **never** uses hardcoded hex (`#...`), raw Tailwind palette colors (`text-slate-500`, `bg-emerald-600`), or manual `dark:` overrides on auto-flipping tokens (`text-primary dark:text-white` is forbidden). A single semantic class renders properly in both themes!
 
 ### 2. Local-First, Zero-Backend Prototyping
@@ -134,8 +132,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
 | `skills/concepting` | `concepting` | **Decide** | Interactive OOUX/ORCA modeling; Plan mode seeds it, Audit mode reconciles against the build |
 | `skills/scaffold` | `scaffold` | **Design** | React 19 + TypeScript + Vite + Tailwind scaffold; base + optional site-type layer (dashboard, chatbot, marketing site, CRM) |
-| `skills/styleguide` | `styleguide` | **Design** | Two-layer token architecture (`index.css` + spec-conformant `DESIGN.md`) |
-| `skills/forge` | `forge` | **Design** | Cast a new brand's palette & fonts into the suite's fixed semantic token roles |
+| `skills/styleguide` | `styleguide` | **Design** | **Multi-mode**: default (two-layer token architecture, `index.css` + spec-conformant `DESIGN.md`) or `forge` (cast a new brand's palette & fonts into the suite's fixed semantic token roles) |
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
 | `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
@@ -266,7 +263,7 @@ Several docs are meant to be revisited and updated, not generated once and left:
 Where work naturally splits into diagnosing and prescribing, keep it as two skills: one finds problems and produces a task list, a second fixes them (`audit`'s `craft` mode → `refine`; the same shape as `audit`'s `a11y` and `code` modes relative to whatever acts on their findings). This keeps "did this actually get better" answerable by just rerunning the finder.
 
 ### Related-but-distinct jobs sharing one workflow shape → one skill, named modes
-When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job.
+When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.
 
 ### Verification checklist before calling a round done
 ```bash

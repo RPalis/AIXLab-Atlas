@@ -178,8 +178,8 @@ The Figma MCP server already generates code from a design (`get_design_context`,
 ### Step 2: Map colors/spacing/type onto our semantic roles, not Figma's raw values
 
 Pull `get_variable_defs` for the target. For each value used:
-- If it matches (or closely matches) an existing role in [`forge/references/semantic-role-mold.md`](../forge/SKILL.md), use that semantic Tailwind class (`bg-surface`, `text-primary`), never the raw hex or Figma's literal pixel value.
-- If it's a genuinely new value with no existing role, don't invent a one-off token inline. Flag it: this likely means the design introduces a new brand/token decision, which belongs in [`styleguide`](../styleguide/SKILL.md) or [`forge`](../forge/SKILL.md), not something this mode should silently absorb. Append it to `docs/UNKNOWNS.md` if it's not clear whether it's intentional.
+- If it matches (or closely matches) an existing role in [`styleguide/references/semantic-role-mold.md`](../styleguide/references/semantic-role-mold.md), use that semantic Tailwind class (`bg-surface`, `text-primary`), never the raw hex or Figma's literal pixel value.
+- If it's a genuinely new value with no existing role, don't invent a one-off token inline. Flag it: this likely means the design introduces a new brand/token decision, which belongs in [`styleguide`](../styleguide/SKILL.md) (forge mode), not something this mode should silently absorb. Append it to `docs/UNKNOWNS.md` if it's not clear whether it's intentional.
 
 ### Step 3: Place the generated code correctly
 
@@ -199,15 +199,15 @@ Syncs this suite's token system with a Figma library, in either direction. **Det
 
 Before any write to Figma (Export direction), follow the MCP server's own `/figma-use` guidance first. It's a prerequisite the server itself requires before `use_figma` calls, not optional here.
 
-Both directions use the same correspondence table: [`forge/references/semantic-role-mold.md`](../forge/SKILL.md). That table is the single source of truth for what a "role" is on both sides; don't maintain a separate mapping for Figma.
+Both directions use the same correspondence table: [`styleguide/references/semantic-role-mold.md`](../styleguide/references/semantic-role-mold.md). That table is the single source of truth for what a "role" is on both sides; don't maintain a separate mapping for Figma.
 
 ### Import: Figma library → our tokens
 
-Effectively [`forge`](../forge/SKILL.md)'s Step 1-3 sourced from Figma instead of live CSS or a brand guide. Reuse its discipline — don't relax it just because the source is structured data.
+Effectively [`styleguide`](../styleguide/SKILL.md)'s forge-mode Step 1-3 sourced from Figma instead of live CSS or a brand guide. Reuse its discipline — don't relax it just because the source is structured data.
 
 1. `get_libraries` to find the target library, then `get_variable_defs` to pull its actual variable values (colors, typography, spacing, radius).
-2. Map each Figma variable onto a role in `semantic-role-mold.md` by name/purpose, the same way `forge` Step 3 rebinds Layer 2. **Verified beats provided**: if a Figma variable's name is ambiguous about which role it plays, don't guess. Check how it's actually used in the library's components (`search_design_system`) before binding it.
-3. **If a value conflicts with what's already in `index.css`** (this app already has a value for a role the Figma library also defines), don't silently overwrite. This is exactly the conflict `forge` Step 1 requires asking about. Surface it and ask which is authoritative.
+2. Map each Figma variable onto a role in `semantic-role-mold.md` by name/purpose, the same way forge mode's Step 3 rebinds Layer 2. **Verified beats provided**: if a Figma variable's name is ambiguous about which role it plays, don't guess. Check how it's actually used in the library's components (`search_design_system`) before binding it.
+3. **If a value conflicts with what's already in `index.css`** (this app already has a value for a role the Figma library also defines), don't silently overwrite. This is exactly the conflict forge mode's Step 1 requires asking about. Surface it and ask which is authoritative.
 4. A Figma variable with no matching role in the mold is a new-token candidate, not something to force into an existing role. Flag it to `docs/UNKNOWNS.md` rather than inventing a role on the spot.
 5. Write the resolved values into `index.css` (Layer 1 + Layer 2, per [`styleguide`](../styleguide/SKILL.md)), then regenerate `DESIGN.md`.
 

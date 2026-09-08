@@ -19,4 +19,4 @@
 | `scrollbar-thumb` | `--scrollbar-thumb` | Gray 200 | Gray 700 | Custom scrollbar styling |
 | `focus-ring` | `--focus-ring` | Primary / 40% alpha | Accent / 50% alpha | Keyboard focus outlines |
 
-See [`../../forge/references/semantic-role-mold.md`](../../forge/references/semantic-role-mold.md) for the complete role list including status, border, and action-secondary/accent roles.
+See [`semantic-role-mold.md`](semantic-role-mold.md) for the complete role list including status, border, and action-secondary/accent roles.

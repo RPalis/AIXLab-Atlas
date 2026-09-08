@@ -63,7 +63,7 @@ Descriptive over technical: "Gently curved edges (8px radius)" beats "rounded-lg
 
 ## When to (re)generate
 
-- After [`tokens`](../SKILL.md) Step 1 first defines `index.css`.
+- After [`styleguide`](../SKILL.md) Step 1 first defines `index.css`.
 - Whenever `index.css` changes enough that `DESIGN.md` would describe stale tokens.
 - Before a large visual redesign, to capture the current state as a reference point.
 

@@ -53,7 +53,7 @@ npx tailwindcss init -p
 ```
 
 #### Step 2: Configure Tailwind & CSS Tokens
-Implement the two-layer token architecture in `frontend/src/index.css` (Layer 1 raw colors + Layer 2 semantic tokens) and mirror semantic utilities in `frontend/tailwind.config.js`; see [`tokens`](../tokens/SKILL.md).
+Implement the two-layer token architecture in `frontend/src/index.css` (Layer 1 raw colors + Layer 2 semantic tokens) and mirror semantic utilities in `frontend/tailwind.config.js`; see [`styleguide`](../styleguide/SKILL.md).
 
 #### Step 3: Implement Shared Domain Types & Mock Seed Data
 Create `shared/types.ts` and `shared/seed.ts` with rich realistic mockup records (avoid placeholder "Lorem Ipsum").

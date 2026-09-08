@@ -1,6 +1,6 @@
 ---
-name: tokens
-description: Build, document, and audit a strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate DESIGN.md. Use when defining tokens, standardizing styling rules, or documenting design foundations.
+name: styleguide
+description: Build, document, and audit a strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate DESIGN.md. Use when defining design tokens, standardizing styling rules, or documenting design foundations.
 disable-model-invocation: true
 ---
 

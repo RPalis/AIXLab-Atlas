@@ -36,7 +36,7 @@ flowchart TD
 
     subgraph Design ["3. Design"]
         P2 --> P3["scaffold (base + optional type layer)"]
-        P3 --> P4[tokens]
+        P3 --> P4[styleguide]
         P3 --> P4B[forge]
         P4 --> PCA["audit (craft mode)"]
         P4B --> PCA
@@ -112,7 +112,7 @@ Every prototype repository must include a **"Prototype Tools" section inside the
 - **External tools/services are a different category from skill dependencies** and are fine to require explicitly: `npm install vis-network` (`map`'s `site` mode), and the Figma MCP server (`figma`'s `import`/`sync` modes, `map`'s optional FigJam export, `requirements`' optional tracker export) are genuine external dependencies every skill using them states up front, not something silently assumed. The rule is about not depending on *another locally-installed skill*, not about avoiding every external tool.
 
 ### 6. Unknowns Before Invention
-- If a decision genuinely can't be made without real user input, not something inferable from code, docs, or a reasonable default, append a line to `docs/UNKNOWNS.md` (create it if absent) instead of guessing. This applies across the suite: `persona`, `concepting`, `audit`, `interrogate`, and `tokens` all defer to this convention rather than inventing an answer.
+- If a decision genuinely can't be made without real user input, not something inferable from code, docs, or a reasonable default, append a line to `docs/UNKNOWNS.md` (create it if absent) instead of guessing. This applies across the suite: `persona`, `concepting`, `audit`, `interrogate`, and `styleguide` all defer to this convention rather than inventing an answer.
 - `docs/UNKNOWNS.md` and `DESIGN.md` are a pair: open questions start in `UNKNOWNS.md`; once a concrete, verified answer exists, it's promoted into whichever doc already owns that domain (`DESIGN.md` for visual/token answers, `persona`'s walkthrough, `concepting`'s OOUX map, `decisions` for architecture calls) and the line is removed from `UNKNOWNS.md`. An answer with no dedicated home goes to `wiki`.
 - [`interview`](../skills/interview/SKILL.md) reads `docs/UNKNOWNS.md` when building the next interview guide, so unknowns raised mid-project naturally get asked about rather than forgotten.
 
@@ -134,7 +134,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
 | `skills/concepting` | `concepting` | **Decide** | Interactive OOUX/ORCA modeling; Plan mode seeds it, Audit mode reconciles against the build |
 | `skills/scaffold` | `scaffold` | **Design** | React 19 + TypeScript + Vite + Tailwind scaffold; base + optional site-type layer (dashboard, chatbot, marketing site, CRM) |
-| `skills/tokens` | `tokens` | **Design** | Two-layer token architecture (`index.css` + spec-conformant `DESIGN.md`) |
+| `skills/styleguide` | `styleguide` | **Design** | Two-layer token architecture (`index.css` + spec-conformant `DESIGN.md`) |
 | `skills/forge` | `forge` | **Design** | Cast a new brand's palette & fonts into the suite's fixed semantic token roles |
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
@@ -167,7 +167,7 @@ skills/<skill-name>/
 ```
 
 ### Naming Rule
-Skill names in this repo are **single words, no hyphenated compounds, no mandatory prefix** (`persona`, `tokens`, `audit`). Prefer the single word that most directly names the deliverable or action over a noun-noun compound: `scaffold` not `proto-type`, `package` not `prototype-packaging`. Add a distinguishing prefix, or pick a different word entirely, **only** when the bare word would collide with, or be easily confused with, a different general-purpose skill that commonly lives in a user's global skills folder, and `interrogate` rather than `grill` is exactly that: `grilling`/`grill-with-docs` are common generic skill names. Checking for a collision means actually looking, not guessing at what's likely taken: this suite's packaging skill was first named `handoff` on the theory that `package`/`package-app` was the collision risk, but the real collision turned up later at install time against a genuinely different, already-installed `handoff` skill (conversation compaction), so it got renamed to `package` instead. Both names were plausible in the abstract; only checking the actual target directories (`~/.agents/skills/`, `~/.claude/skills/`, etc.) settles it. When in doubt, check for a name collision before finalizing. A skill that's genuinely 2-3 related-but-distinct jobs sharing one workflow shape should be **one skill with named modes** rather than 2-3 separate single-word skills that would otherwise need near-identical names to stay findable (see `audit` and `figma` in §3). This keeps the single-word rule from forcing artificial compound names onto skill families.
+Skill names in this repo are **single words, no hyphenated compounds, no mandatory prefix** (`persona`, `styleguide`, `audit`). Prefer the single word that most directly names the deliverable or action over a noun-noun compound: `scaffold` not `proto-type`, `package` not `prototype-packaging`. Add a distinguishing prefix, or pick a different word entirely, **only** when the bare word would collide with, or be easily confused with, a different general-purpose skill that commonly lives in a user's global skills folder, and `interrogate` rather than `grill` is exactly that: `grilling`/`grill-with-docs` are common generic skill names. Checking for a collision means actually looking, not guessing at what's likely taken: this suite's packaging skill was first named `handoff` on the theory that `package`/`package-app` was the collision risk, but the real collision turned up later at install time against a genuinely different, already-installed `handoff` skill (conversation compaction), so it got renamed to `package` instead. Both names were plausible in the abstract; only checking the actual target directories (`~/.agents/skills/`, `~/.claude/skills/`, etc.) settles it. When in doubt, check for a name collision before finalizing. A skill that's genuinely 2-3 related-but-distinct jobs sharing one workflow shape should be **one skill with named modes** rather than 2-3 separate single-word skills that would otherwise need near-identical names to stay findable (see `audit` and `figma` in §3). This keeps the single-word rule from forcing artificial compound names onto skill families.
 
 ### Frontmatter Schema (`SKILL.md`)
 ```yaml

@@ -40,7 +40,7 @@ Once scope and the object model are settled, move to **Design**.
 Build the actual prototype.
 
 1. **Scaffold** → [`scaffold`](../scaffold/SKILL.md): base React/Vite/Tailwind scaffold, plus an optional site-type layer (`dashboard`, `chatbot`, `marketing-site`, `crm-app`).
-2. **Tokens & brand** → [`tokens`](../tokens/SKILL.md) for the two-layer architecture and `DESIGN.md`; [`forge`](../forge/SKILL.md) if casting a new brand.
+2. **Tokens & brand** → [`styleguide`](../styleguide/SKILL.md) for the two-layer architecture and `DESIGN.md`; [`forge`](../forge/SKILL.md) if casting a new brand.
 3. **Build, then loop** → [`audit`](../audit/SKILL.md)'s `craft` mode (find problems, scored, as a task list) ↔ [`refine`](../refine/SKILL.md) (fix and unify). Repeat until the score holds.
 4. **Document as it solidifies** → [`storybook`](../storybook/SKILL.md) (components), [`map`](../map/SKILL.md)'s `site` mode (route/component graph: interactive, Mermaid, or SVG) or `flow` mode (journey/workflow diagrams), [`wiki`](../wiki/SKILL.md) (anything else worth remembering).
 5. **Accessibility** → [`audit`](../audit/SKILL.md)'s `a11y` mode, once the UI has stabilized enough that findings won't immediately go stale.
@@ -88,7 +88,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 
 ### Design
 - **[`scaffold`](../scaffold/SKILL.md)**: Scaffold a lightweight, zero-backend-dependency React 19 + TypeScript + Vite + Tailwind CSS prototype: a complete base scaffold, plus an optional site-type layer for prototypes that fit a recognizable archetype.
-- **[`tokens`](../tokens/SKILL.md)**: Establish the two-layer token architecture (Layer 1 Raw Palette + Layer 2 Semantic auto-flipping CSS variables) and generate a spec-conformant `DESIGN.md`.
+- **[`styleguide`](../styleguide/SKILL.md)**: Establish the two-layer token architecture (Layer 1 Raw Palette + Layer 2 Semantic auto-flipping CSS variables) and generate a spec-conformant `DESIGN.md`.
 - **[`forge`](../forge/SKILL.md)**: Cast a dedicated brand token preset for a new company or sub-brand from live CSS, brand guidelines, or verified hex matrices.
 - **[`audit`](../audit/SKILL.md)**: Three modes: `craft` (scored critique: hierarchy, cognitive load, IA, consistency, responsive, delight, producing a task list before any fixing), `code` (coding standards: token adherence, structure/reuse, mechanical hygiene), `a11y` (deep WCAG 2.1/2.2 AA sweep, ranked pass/fail per success criterion). None of the modes fix anything.
 - **[`refine`](../refine/SKILL.md)**: Fix and unify. Apply micro-interactions, responsive container grids, dark mode tuning, and refined visual craft.

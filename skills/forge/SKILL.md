@@ -6,9 +6,9 @@ disable-model-invocation: true
 
 # Brand Forge
 
-`tokens` defines this suite's two-layer architecture; [`references/semantic-role-mold.md`](references/semantic-role-mold.md) is the fixed list of semantic roles every prototype in this suite binds. `forge` casts a specific brand's raw values into that exact mold for the current prototype: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference — it only ever references the semantic roles.
+`styleguide` defines this suite's two-layer architecture; [`references/semantic-role-mold.md`](references/semantic-role-mold.md) is the fixed list of semantic roles every prototype in this suite binds. `forge` casts a specific brand's raw values into that exact mold for the current prototype: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference — it only ever references the semantic roles.
 
-Run `forge` before or instead of `tokens`' own Step 1 whenever a real brand (not a placeholder palette) needs to go in. `tokens` still owns Steps 2-3 (Tailwind config wiring, `DESIGN.md` generation) once Layer 1 and Layer 2 are cast.
+Run `forge` before or instead of `styleguide`'s own Step 1 whenever a real brand (not a placeholder palette) needs to go in. `styleguide` still owns Steps 2-3 (Tailwind config wiring, `DESIGN.md` generation) once Layer 1 and Layer 2 are cast.
 
 ## Step 1: Find the brand's real sources
 
@@ -37,9 +37,9 @@ Open [`references/semantic-role-mold.md`](references/semantic-role-mold.md) and 
 
 **Completion criterion:** `index.css` has one CSS variable for every role in `semantic-role-mold.md`, in both `:root` and `.dark`, new brand values, same names. A renamed or missing role breaks every component that references it.
 
-## Step 4: Hand off to `tokens`
+## Step 4: Hand off to `styleguide`
 
-Run [`tokens`](../tokens/SKILL.md)' Step 2 (Tailwind config wiring) and Step 3 (`DESIGN.md` generation) against the now-rebranded `index.css`. `DESIGN.md` regenerates from the live token file; it's never hand-edited to match a brand that hasn't actually landed in `index.css` yet.
+Run [`styleguide`](../styleguide/SKILL.md)'s Step 2 (Tailwind config wiring) and Step 3 (`DESIGN.md` generation) against the now-rebranded `index.css`. `DESIGN.md` regenerates from the live token file; it's never hand-edited to match a brand that hasn't actually landed in `index.css` yet.
 
 ## Step 5: Verify the cast
 

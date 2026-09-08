@@ -17,8 +17,8 @@ Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual s
 ### Before Discover
 Nothing exists yet.
 
-0. **[`setup`](skills/setup/SKILL.md)** creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`) before any research, design, or code starts.
-1. **[`brief`](skills/brief/SKILL.md)** interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints) and writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` later expects as input.
+0. **[`setup`](skills/setup/SKILL.md)** creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/` for the wiki and anything else worth jotting down) before any research, design, or code starts. Also works layered onto an existing product: it appends to whatever's already there instead of overwriting it.
+1. **[`brief`](skills/brief/SKILL.md)** interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints) and writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` later expects as input. On an existing product it drafts from the codebase first and confirms the gaps, rather than starting from a blank interview.
 
 ### Discover
 Understand the users and the problem before proposing anything.
@@ -106,8 +106,8 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 |---|---|---|---|
 | [`router`](skills/router/SKILL.md) | **Router** | Master index & navigation guide across the entire design process | `/router`, "design skills", "prototype workflow" |
 | [`help`](skills/help/SKILL.md) | **Router** | Reads the current repo's actual state and recommends the next 1-3 skills, with reasons | `/help`, "what should I do next", "which skill do I need" |
-| [`setup`](skills/setup/SKILL.md) | **Before Discover** | Bootstrap a brand-new prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md | `/setup`, "start a new prototype repo", "bootstrap this project" |
-| [`brief`](skills/brief/SKILL.md) | **Before Discover** | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md` | `/brief`, "product brief", "get this out of my head", "discovery interview" |
+| [`setup`](skills/setup/SKILL.md) | **Before Discover** | Bootstrap a prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md, docs/notes/. Works on an existing product too, appending rather than overwriting | `/setup`, "start a new prototype repo", "bootstrap this project", "add UX Atlas to this repo" |
+| [`brief`](skills/brief/SKILL.md) | **Before Discover** | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md`. On an existing product, drafts from the codebase first and confirms it instead | `/brief`, "product brief", "get this out of my head", "discovery interview", "brief for our existing app" |
 | [`workshop`](skills/workshop/SKILL.md) | **Discover** | Plan a design-thinking workshop: activities, agenda, optional FigJam board/deck | `/workshop`, "plan a workshop", "design thinking session" |
 | [`digitize`](skills/digitize/SKILL.md) | **Discover** | Convert workshop board photos into a deck, doc, CSV, or replicated FigJam board | `/digitize`, "digitize this whiteboard", "turn these sticky notes into a doc" |
 | [`persona`](skills/persona/SKILL.md) | **Discover** | Formalize user archetypes, mental models, & "Day in the Life" walkthroughs | `/persona`, "persona doc", "day in the life" |

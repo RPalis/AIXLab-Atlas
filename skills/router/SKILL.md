@@ -15,8 +15,8 @@ Not sure where to start, or which skill fits what you're doing right now? [`help
 ## Before Discover
 Nothing exists yet, not even `README.md`.
 
-0. [`setup`](../setup/SKILL.md) creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`) before any research, design, or code starts.
-1. [`brief`](../brief/SKILL.md) interrogates whoever already has the idea in their head: what the product is, who it's for, the distinct user types, their core tasks, devices/context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`, the domain brief [`persona`](../persona/SKILL.md) expects as input.
+0. [`setup`](../setup/SKILL.md) creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/` for the wiki and anything else worth jotting down) before any research, design, or code starts. Works on an existing product too: it appends to whatever's already there instead of overwriting it.
+1. [`brief`](../brief/SKILL.md) interrogates whoever already has the idea in their head: what the product is, who it's for, the distinct user types, their core tasks, devices/context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`, the domain brief [`persona`](../persona/SKILL.md) expects as input. On an existing product, it drafts from the codebase first and confirms the gaps instead of starting blank.
 
 ## Discover
 Understand the users and the problem before proposing anything.
@@ -74,8 +74,8 @@ One skill sits outside the lifecycle entirely, it manages the skill library, not
 ## Complete Skill Directory
 
 ### Before Discover
-- **[`setup`](../setup/SKILL.md)**: Bootstrap a brand-new prototype repo's doc shell (`README.md`, a project `AGENTS.md` recording doc ownership, empty `docs/UNKNOWNS.md`) before anything else runs.
-- **[`brief`](../brief/SKILL.md)**: Interactively interrogate whoever already has the product idea, one question at a time (or in themed batches, the user's choice): what it is, who it's for, distinct user types and their core tasks, devices and context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`; pushes anything unresolved to `docs/UNKNOWNS.md`.
+- **[`setup`](../setup/SKILL.md)**: Bootstrap a prototype repo's doc shell (`README.md`, a project `AGENTS.md` recording doc ownership, empty `docs/UNKNOWNS.md`, `docs/notes/`) before anything else runs — on a brand-new repo or an existing product, appending rather than overwriting whatever's already there.
+- **[`brief`](../brief/SKILL.md)**: Interactively interrogate whoever already has the product idea, one question at a time (or in themed batches, the user's choice): what it is, who it's for, distinct user types and their core tasks, devices and context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`; pushes anything unresolved to `docs/UNKNOWNS.md`. On an existing product, drafts the brief from the codebase first and confirms it with the stakeholder rather than starting blank.
 
 ### Discover
 - **[`workshop`](../workshop/SKILL.md)**: Plan a design-thinking workshop: activity selection, written agenda, optional FigJam board and/or slide deck.
@@ -104,7 +104,7 @@ One skill sits outside the lifecycle entirely, it manages the skill library, not
 ### Usable Anytime
 - **[`help`](../help/SKILL.md)**: Reads the current repo's actual state (which docs exist) and recommends the next 1-3 skills, with the reason. The situational advisor version of this router.
 - **[`decisions`](../decisions/SKILL.md)**: Capture a non-obvious UX or architecture decision, and the alternatives it rejected, as a short ADR in `docs/adr/`.
-- **[`note`](../note/SKILL.md)**: The lowest-ceremony capture in the suite: a quick thought dropped into `docs/wiki/inbox/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
+- **[`note`](../note/SKILL.md)**: The lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/wiki/inbox/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
 - **[`interrogate`](../interrogate/SKILL.md)**: Interrogate a design decision one question at a time until reaching shared understanding, then optionally hand off to `decisions`.
 - **[`wiki`](../wiki/SKILL.md)**: Compile scattered notes into a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect.
 - **[`figma`](../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).

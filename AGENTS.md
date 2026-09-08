@@ -126,8 +126,8 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 |---|---|---|---|
 | `skills/router` | `router` | **Router** | Interactive guide & roadmap across the whole Discover→Decide→Design→Deliver process |
 | `skills/help` | `help` | **Router** | Reads the actual repo state and recommends the next 1-3 skills, with reasons; the situational counterpart to `router` |
-| `skills/setup` | `setup` | **Before Discover** | Bootstraps a brand-new prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md` |
-| `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input |
+| `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
+| `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
 | `skills/workshop` | `workshop` | **Discover** | Plans a design-thinking workshop: activities, agenda, optional FigJam board/deck |
 | `skills/digitize` | `digitize` | **Discover** | Converts photos of a physical workshop board into a deck, doc, CSV, or replicated FigJam board |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |

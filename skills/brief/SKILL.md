@@ -1,12 +1,12 @@
 ---
 name: brief
-description: Interactive interrogation that extracts a founder/stakeholder's own product vision before any user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, or asked for a product brief, a discovery interview, or to get what's in the founder's head down before research begins.
+description: Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a codebase reconnaissance pass drafted first and confirmed with the stakeholder after. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
 disable-model-invocation: true
 ---
 
 # Product Brief
 
-`setup` builds the repo's doc shell. `brief` fills in the first real content: a mile-wide, inch-deep look at what's actually being built, straight from whoever already has the idea in their head, before `workshop` brings in a room full of people or `interview` goes out to real users.
+`setup` builds the repo's doc shell. `brief` fills in the first real content: a mile-wide, inch-deep look at what's actually being built, before `workshop` brings in a room full of people or `interview` goes out to real users. Where that content comes from depends on what's already there: straight from whoever has the idea in their head on a new product (Step 1), or read out of the working codebase itself and then confirmed on an existing one (Step 0.5).
 
 **Not this skill:**
 - Formalizing user archetypes from research already gathered → [`persona`](../persona/SKILL.md). `brief` is one of the "domain briefs" persona expects as input, not a replacement for it.
@@ -22,9 +22,25 @@ Ask the user how they want to run this:
 - **One question at a time** (recommended for a fuzzy or early idea): the same discipline as [`interrogate`](../interrogate/SKILL.md), each question paired with a recommendation or example, waiting for an answer before moving on.
 - **Themed batches**: the same seven areas below, grouped into rounds (Product · Audience & Tasks · Devices & Context · Competitive Landscape · Constraints & Success), asked together per round for a faster pass when the user already has clarity.
 
-Either pace covers the same ground; only the delivery cadence differs.
+Either pace covers the same ground; only the delivery cadence differs. This is Step 1's pace; skip straight to Step 0.5 first if there's a real product to read.
+
+## Step 0.5: Existing product? Draft from the codebase first
+
+If Step 0 (or `setup`, handing off) turned up a real `src/` with actual application code, not just a scaffold stub, don't open with a blank interrogation, there's already a lot of the answer sitting in the repo. Read before asking:
+
+- `README.md` and any existing docs for the stated purpose and audience.
+- `package.json` (name, description, dependencies — a payments SDK or a calendar library says something about scope).
+- Route/page/screen structure and top-level navigation for what the product actually lets someone do.
+- Component and page names for the user-facing vocabulary already in use (reuse it in the brief rather than inventing new terms for the same things).
+- Any auth/role logic for distinct user types already built, even if never written down as such.
+
+Draft a tentative answer for each of the seven areas in Step 1 from what this turns up, marking every one `(inferred from codebase — confirm)`. Then walk the stakeholder through confirming or correcting each, batched or one at a time per their Step 0 pace choice, same as a normal interrogation but starting from a draft instead of a blank page. Areas the codebase genuinely can't answer (competitive landscape, non-technical constraints, what "success" looks like) still need a real answer from the stakeholder, not a guess.
+
+**Completion criterion:** every inferred answer was actually confirmed or corrected by the stakeholder, not left standing on the inference alone.
 
 ## Step 1: Interrogate
+
+The same seven areas whether this is a blank-page interrogation or confirming a Step 0.5 draft against the stakeholder:
 
 1. **The product.** One sentence of what it is, the problem it solves, and why it needs to exist now rather than never or already.
 2. **Audience & user types.** Not just "who," but the distinct roles if there's more than one (e.g. an admin and an end customer are different user types with different goals). For each: their primary goal in using this product.

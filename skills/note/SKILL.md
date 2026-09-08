@@ -15,9 +15,9 @@ The lowest-ceremony capture point in this suite. A thought worth keeping but not
 
 ## Step 1: Write the entry
 
-If `docs/wiki/` doesn't exist yet, this is the first capture in the project: create the minimal structure `wiki` maintains (`index.md`, `log.md`, `entities/`, `inbox/`), each started empty.
+If `docs/notes/wiki/` doesn't exist yet, this is the first capture in the project: create the minimal structure `wiki` maintains (`index.md`, `log.md`, `entities/`, `inbox/`), each started empty.
 
-Append the thought, verbatim, to today's inbox file: `docs/wiki/inbox/YYYY-MM-DD.md`, under a timestamped bullet. Create the file if today doesn't have one yet. No required structure beyond the timestamp; freeform is the point.
+Append the thought, verbatim, to today's inbox file: `docs/notes/wiki/inbox/YYYY-MM-DD.md`, under a timestamped bullet. Create the file if today doesn't have one yet. No required structure beyond the timestamp; freeform is the point.
 
 ## Step 2: Fold it into the wiki immediately
 
@@ -25,10 +25,10 @@ Run [`wiki`](../wiki/SKILL.md)'s **Step 1 (Ingest a source)** right now, treatin
 
 ## Step 3: Notes written by hand
 
-A person can create or edit a file directly in `docs/wiki/inbox/` in a plain text editor, no AI involved at all. Before starting any new `note` capture, check `docs/wiki/inbox/` for files not yet referenced in `log.md` and ingest those too, the same way, crediting the source as "added by hand" rather than assuming it came through this skill. [`wiki`](../wiki/SKILL.md)'s own runs do this same inbox check.
+A person can create or edit a file directly in `docs/notes/wiki/inbox/` in a plain text editor, no AI involved at all. Before starting any new `note` capture, check `docs/notes/wiki/inbox/` for files not yet referenced in `log.md` and ingest those too, the same way, crediting the source as "added by hand" rather than assuming it came through this skill. [`wiki`](../wiki/SKILL.md)'s own runs do this same inbox check.
 
 ## Step 4: Say what happened
 
 Tell the user which entity page(s) got created or updated, so the capture visibly compounds into the wiki rather than disappearing into a file.
 
-**Completion criterion:** the note exists verbatim in `docs/wiki/inbox/` (nothing lost even if the fold-in mis-files it) and is reflected in `docs/wiki/index.md` / the relevant entity page / `log.md`, not left sitting unprocessed in the inbox.
+**Completion criterion:** the note exists verbatim in `docs/notes/wiki/inbox/` (nothing lost even if the fold-in mis-files it) and is reflected in `docs/notes/wiki/index.md` / the relevant entity page / `log.md`, not left sitting unprocessed in the inbox.

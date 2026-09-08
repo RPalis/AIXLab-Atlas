@@ -8,26 +8,27 @@ disable-model-invocation: true
 
 Most note-taking produces a pile of raw files that get re-read from scratch every time they're needed. This skill instead **compiles** notes into a small set of interlinked, up-to-date pages. The tedious part of a knowledge base isn't the thinking, it's the bookkeeping (cross-referencing, catching contradictions, keeping pages current), and that's exactly the part this skill automates.
 
-**Tool-agnostic by design**: plain markdown files with `[[wikilink]]`-style cross-references. Nothing here requires Obsidian or any specific app; a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). If you personally use Obsidian, these files open fine there too; the wiki just doesn't depend on it.
+**Tool-agnostic by design**: plain markdown files with `[[wikilink]]`-style cross-references. Nothing here requires Obsidian or any specific app; a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). It lives inside `docs/notes/`, the project's general notes home, so if you personally use Obsidian (or any other markdown editor) to work outside the IDE, pointing it at `docs/notes/` opens the wiki too; the wiki just doesn't depend on it.
 
 ## Structure
 
 ```
-docs/wiki/
-  index.md              # content-oriented catalog, organized by category
-  log.md                 # append-only chronological record of what changed and when
-  entities/              # one page per durable "thing" worth its own file
-    <slug>.md
-  inbox/                  # raw unprocessed captures: from note, or typed by hand
-    YYYY-MM-DD.md
-  constellation.html     # standalone interactive graph view (see Step 4)
+docs/notes/
+  wiki/
+    index.md              # content-oriented catalog, organized by category
+    log.md                 # append-only chronological record of what changed and when
+    entities/              # one page per durable "thing" worth its own file
+      <slug>.md
+    inbox/                  # raw unprocessed captures: from note, or typed by hand
+      YYYY-MM-DD.md
+    constellation.html     # standalone interactive graph view (see Step 4)
 ```
 
 An **entity** is anything that comes up more than once and benefits from a stable home: a persona, a recurring decision topic, a domain term, a recurring pain point. Don't create an entity page for something mentioned once; that's noise, not knowledge. Use [`references/entity-page-template.md`](references/entity-page-template.md) as the shape for each one.
 
 ## Step 0: Check the inbox
 
-Before anything else, scan `docs/wiki/inbox/` for files (or entries within a dated file) not yet referenced in `log.md`. These arrive two ways: through [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved at all. Ingest anything unprocessed the same way as any other source (Step 1 below), crediting hand-typed entries as such rather than assuming they came through `note`. `note` already does this check on its own before every capture; `wiki` repeats it here so a full run never misses something sitting in the inbox between `note` calls.
+Before anything else, scan `docs/notes/wiki/inbox/` for files (or entries within a dated file) not yet referenced in `log.md`. These arrive two ways: through [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved at all. Ingest anything unprocessed the same way as any other source (Step 1 below), crediting hand-typed entries as such rather than assuming they came through `note`. `note` already does this check on its own before every capture; `wiki` repeats it here so a full run never misses something sitting in the inbox between `note` calls.
 
 ## Step 1: Ingest a source
 

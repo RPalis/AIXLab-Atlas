@@ -1,35 +1,35 @@
 ---
 name: setup
-description: Bootstrap a brand-new prototype repo's docs and layout (README.md, a project-level AGENTS.md that records which skill owns which doc, and an empty docs/UNKNOWNS.md) before any code or design work starts. Runs first, ahead of scaffold. Use when starting a prototype project from nothing, or when an existing repo is missing the doc scaffolding the rest of this suite expects.
+description: Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records which skill owns which doc, an empty docs/UNKNOWNS.md, and a docs/notes/ home for the wiki and anything else worth jotting down) before any code or design work starts. Runs first, ahead of scaffold. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead, and on an existing product points brief at reading the codebase rather than a cold interview. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
 disable-model-invocation: true
 ---
 
 # Setup
 
-The step before Discover even starts. `scaffold` builds the actual application code; this skill only touches the repo's own documentation shell (README, a project `AGENTS.md`, and `docs/UNKNOWNS.md`) so every skill that runs after it has somewhere consistent to write.
+The step before Discover even starts. `scaffold` builds the actual application code; this skill only touches the repo's own documentation shell (README, a project `AGENTS.md`, `docs/UNKNOWNS.md`, and `docs/notes/`) so every skill that runs after it has somewhere consistent to write.
 
 ## Step 1: Explore the current state
 
 Before writing anything, check what's already here:
-- Does `README.md` or `AGENTS.md`/`CLAUDE.md` already exist? If so, read it. Don't silently overwrite a doc someone already wrote.
-- Does `docs/` exist, and does it already contain any of this suite's living docs (`UNKNOWNS.md`, `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `adr/`)? A repo mid-project needs gaps filled in, not a fresh layout imposed over it.
-- Is there a `package.json` / `src/` already? If so, `scaffold` already ran (or this isn't a from-scratch prototype). `setup` can still run to backfill missing docs, but say so rather than treating it as a brand-new project.
+- Does `README.md` or `AGENTS.md`/`CLAUDE.md` already exist? If so, read it in full. It's existing, possibly hand-written content, not a draft to replace: never overwrite it (see Step 3).
+- Does `docs/` exist, and does it already contain any of this suite's living docs (`UNKNOWNS.md`, `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `adr/`, `notes/`)? A repo mid-project needs gaps filled in, not a fresh layout imposed over it.
+- Is there a `package.json` / `src/` already, with real application code (not just a scaffold stub)? If so, this is an **existing product**: `scaffold` already ran, or this suite is being layered onto something that predates it entirely. `setup` still runs to backfill missing docs, but say so rather than treating it as a brand-new project, and carry that forward into Step 4's hand-off.
 
 ## Step 2: Confirm scope with the user
 
 Ask only what isn't already answerable from context:
-- **Project name and one-line purpose**: what is this prototype for, in one sentence.
-- **Starting point**: a genuinely new idea, or an existing repo/codebase this suite is being layered onto.
+- **Project name and one-line purpose**: what is this prototype for, in one sentence. If an existing README already states this, confirm it rather than asking cold.
+- **Starting point**: a genuinely new idea, or an existing repo/codebase this suite is being layered onto (already answered by Step 1 if a real `src/` turned up).
 
 Don't ask about the two things covered in later steps of the actual lifecycle. Project name/purpose is all `setup` needs; screens, personas, and tokens all come later from the skills that own them.
 
 ## Step 3: Write the doc shell
 
-Only these three, nothing else, and never overwrite what already exists:
+Four things, nothing else. For each: **if it already exists, append what's missing rather than overwriting anything.** A repo `setup` is layered onto may already have a README with real content, or an AGENTS.md from a different tool; that content stays, this skill only fills gaps.
 
-**`README.md`**: project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype. Leave placeholder headings for sections later skills will fill in (install/run instructions once `scaffold` exists, a feature overview once screens exist) rather than inventing their content now.
+**`README.md`**: if missing, create it with project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype (or, on an existing product, whatever status is actually true). Leave placeholder headings for sections later skills will fill in (install/run instructions once `scaffold` exists, a feature overview once screens exist) rather than inventing their content now. If a README already exists, leave its content untouched; only append a `## Status` line if one isn't already present in some form.
 
-**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording which doc is owned by which skill so nothing downstream duplicates or conflicts:
+**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording which doc is owned by which skill so nothing downstream duplicates or conflicts. If the file doesn't exist, create it with the block below. If it already exists (this suite's own, or a different tool's), append this block under its own `## UX Atlas` heading instead of replacing the file, so nothing already written there is lost:
 
 ```markdown
 # AGENTS.md
@@ -43,22 +43,36 @@ This prototype is built with UX Atlas. Doc ownership:
 - `docs/adr/` — owned by `decisions`
 - `docs/USER_GUIDE.md` — owned by `guide`
 - `docs/REQUIREMENTS.md` — owned by `requirements`
-- `docs/wiki/` — owned by `wiki`; fed continuously by `note`'s quick captures, and by anything typed directly into `docs/wiki/inbox/`
+- `docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; `docs/notes/wiki/` inside it is owned by `wiki`, fed continuously by `note`'s quick captures and by anything typed directly into `docs/notes/wiki/inbox/`
 
 ## Working Agreements
 
 - **Capture decisions as they happen.** A non-obvious call made while working in this repo doesn't wait for someone to ask "why did we do it this way?" later: write it up with `decisions` if it's a real tradeoff with a rejected alternative, or with `note` if it's smaller than that but still worth keeping.
-- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `note` immediately. It folds into `docs/wiki/` on its own; nothing needs a separate pass to not get lost.
+- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `note` immediately. It folds into `docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
 - **Defer to `docs/UNKNOWNS.md` instead of guessing.** If a decision genuinely needs input this session doesn't have, log it there rather than inventing a plausible-sounding answer (see the suite's own AGENTS.md §2.6).
 - **Suggest next steps at natural checkpoints.** After finishing a skill's work, or whenever a session looks like it's wrapping up, briefly state what `help` would recommend next, don't wait to be asked "what now?"
 ```
 
-**`docs/UNKNOWNS.md`**: created empty with just a one-line header (`# Unknowns`). This is the one doc safe to pre-create with no content: it's an append-only running list from day one, not authored output any one skill produces.
+**`docs/UNKNOWNS.md`**: if missing, create it empty with just a one-line header (`# Unknowns`). This is the one doc safe to pre-create with no content: it's an append-only running list from day one, not authored output any one skill produces. If it already exists, leave it alone entirely.
 
-Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, or `docs/wiki/`. Those belong to `persona`, `concepting`, `tokens`, `decisions`, `requirements`, and `wiki`/`note` respectively, and a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
+**`docs/notes/`**: if missing, create the folder with a single `docs/notes/README.md` explaining what it's for, so it's never an unexplained empty folder:
+
+```markdown
+# Notes
+
+This is the project's general notes home: meeting notes, scratch thoughts, research, anything worth keeping that doesn't belong in a specific doc above. Open this folder directly in Obsidian or any other markdown editor to work outside the IDE; nothing here depends on a specific tool.
+
+`wiki/` inside this folder is this suite's compiled knowledge wiki (owned by the `wiki` skill, fed by `note`'s quick captures) — browse `wiki/index.md` once it exists, or just read the markdown files directly.
+```
+
+Only the folder and this one README get pre-created. Don't pre-create `wiki/` itself (see below); it stays absent until `note` or `wiki` actually has something to put there.
+
+Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, or `docs/notes/wiki/`. Those belong to `persona`, `concepting`, `tokens`, `decisions`, `requirements`, and `wiki`/`note` respectively, and a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
 
 ## Step 4: Hand off
 
 Point at [`brief`](../brief/SKILL.md) next, almost always: it gets the stakeholder's own product vision (who it's for, core tasks, devices, competitors) down before any of Discover's user-research skills run, and most of what `interview`, `workshop`, and `persona` need starts there. Skip straight to one of those instead only if that groundwork is already documented elsewhere and the user says so.
 
-**Completion criterion:** `README.md` and the project `AGENTS.md` exist and match what was actually confirmed in Step 2 (not invented detail), `docs/UNKNOWNS.md` exists and is empty, and no doc owned by another skill was pre-stubbed.
+**If Step 1 found an existing product** (real `src/` and application code, not just a scaffold stub), say so explicitly when handing off, and tell `brief` to run its reconnaissance pass first: read the current codebase and draft the brief from what the product already does, then confirm the gaps with the stakeholder, rather than starting from a blank interview. `brief` supports this directly (its own Step 0.5).
+
+**Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), `docs/UNKNOWNS.md` exists, `docs/notes/README.md` exists, and no doc owned by another skill was pre-stubbed.

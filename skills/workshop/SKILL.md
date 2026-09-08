@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Builds a workshop agenda from a vendored catalog of real design-thinking activities (see [`references/activity-catalog.md`](references/activity-catalog.md)), then optionally turns that agenda into a FigJam board and/or a slide deck.
 
-This skill is positioned as a **Discover/Decide-phase tool**. Most workshops happen early, framing the problem before building starts. But a single workshop can legitimately dig end-to-end into one concept or feature, touching Design/Deliver-flavored activities too. The phase tags in the catalog are a default starting filter, not a hard restriction.
+Positioned as a **Discover/Decide-phase tool** — most workshops happen early, framing the problem before building starts. But a single workshop can legitimately dig end-to-end into one concept or feature, touching Design/Deliver-flavored activities too. The catalog's phase tags are a default starting filter, not a hard restriction.
 
 ## Step 1: Establish the workshop parameters
 
@@ -21,9 +21,9 @@ Ask (or infer from existing project docs where possible; don't re-ask what's alr
 ## Step 2: Select activities
 
 Filter the catalog by phase relevance to the stated goal, then narrow further:
-- Total activity time must fit the available session time, with room for a break every ~90 minutes and buffer for setup/wrap-up (assume ~15% overhead on top of activity time).
-- Sequence activities in a sensible arc: diverge before converge (e.g. `Hopes & Fears` or `Stakeholder Map` before `Prioritization Grid`), and end on something that produces a concrete artifact or next step (`Feedback Grid`, `ROAM Risks`, `Desired Outcomes`) rather than ending mid-divergence.
-- If the goal calls for an activity not in the catalog, say so explicitly rather than force-fitting the closest catalog entry. The catalog is a strong starting set, not exhaustive.
+- Total activity time must fit the available session time, with room for a break every ~90 minutes and buffer for setup/wrap-up (~15% overhead on top of activity time).
+- Sequence activities in a sensible arc: diverge before converge (e.g. `Hopes & Fears` or `Stakeholder Map` before `Prioritization Grid`), ending on something that produces a concrete artifact or next step (`Feedback Grid`, `ROAM Risks`, `Desired Outcomes`) rather than mid-divergence.
+- If the goal calls for an activity not in the catalog, say so explicitly rather than force-fitting the closest entry — the catalog is a strong starting set, not exhaustive.
 
 ## Step 3: Write the agenda (required output)
 
@@ -43,7 +43,7 @@ Filter the catalog by phase relevance to the stated goal, then narrow further:
 [FigJam board / physical stickies / whiteboard — whatever the format requires]
 ```
 
-Review this with the user before building anything else. A bad activity match is cheap to fix here, expensive to fix after a FigJam board is already built.
+Review this with the user before building anything else — a bad activity match is cheap to fix here, expensive to fix after a FigJam board is already built.
 
 ## Step 4 (optional): Build the FigJam board
 

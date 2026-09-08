@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # User Guide
 
-Writes documentation for the people who will actually *use* the prototype. This is distinct from every other doc this suite produces, which is for the team *building* it (`docs/PERSONA_WALKTHROUGH.md`, `docs/OOUX_OBJECT_MAP.md`, `DESIGN.md` are all internal). Modeled on a real, previously-shipped user guide shape: a short orientation section, then a phase-by-phase walkthrough of one complete journey through the product.
+Writes documentation for the people who will actually *use* the prototype, distinct from every other doc this suite produces, which is for the team *building* it (`docs/PERSONA_WALKTHROUGH.md`, `docs/OOUX_OBJECT_MAP.md`, `DESIGN.md` are all internal). Modeled on a real, previously-shipped user guide shape: a short orientation section, then a phase-by-phase walkthrough of one complete journey through the product.
 
 ## Step 1: Write the orientation section
 

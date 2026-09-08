@@ -15,7 +15,7 @@ Accept one or more JPG, PNG, or HEIC images. For each photo:
 - Transcribe every sticky note and handwritten label as written.
 - Mark anything genuinely unreadable as `[unclear]` rather than guessing at it; see Extraction Rules below.
 
-If [`scripts/script.sh`](scripts/script.sh) is handy, run it to set up `input/`/`output/` folders before dropping photos in; it's a directory scaffold, not the transcription step. That part only Claude can do by actually looking at the images.
+If [`scripts/script.sh`](scripts/script.sh) is handy, run it to set up `input/`/`output/` folders before dropping photos in — it's a directory scaffold, not the transcription step; only Claude can do that by actually looking at the images.
 
 ## Step 2: Group and structure
 
@@ -23,7 +23,7 @@ If [`scripts/script.sh`](scripts/script.sh) is handy, run it to set up `input/`/
 - Keep hopes/fears, risks/mitigations, or other paired structures separate; don't merge them into one undifferentiated list.
 - Consolidate literal duplicates, but keep near-duplicates that reflect distinct opinions.
 - Count notes per theme; this becomes useful signal in the summary (e.g. "Onboarding friction: 6 notes").
-- If a FigJam replica is a possible output (see Step 3), also note each sticky's approximate position (which cluster/section, roughly where within it) and color as seen in the photo. This is discarded for the other formats but is exactly what makes a FigJam replica read as a faithful copy rather than a generic re-layout.
+- If a FigJam replica is a possible output (see Step 3), also note each sticky's approximate position (which cluster/section, roughly where within it) and color as seen in the photo. Discarded for the other formats, but it's what makes a FigJam replica read as a faithful copy rather than a generic re-layout.
 
 ## Step 3: Choose the output format
 
@@ -32,7 +32,7 @@ Ask if not specified; don't guess based on a hunch:
 - **Word / Markdown summary**: for a written record that gets read, not presented.
 - **CSV**: for feeding the raw notes into another tool (spreadsheet, backlog, affinity-mapping software).
 - **Executive summary**: a short prose synthesis, when the ask is "what did we learn," not "show me every sticky note."
-- **FigJam board**: a live, editable replica of the physical board, for a team that wants to keep working on it digitally rather than just read a record of it. Requires the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools); if it isn't available, say so and fall back to one of the other formats rather than silently skipping the option.
+- **FigJam board**: a live, editable replica of the physical board, for a team that wants to keep working on it digitally rather than just read a record of it. Requires the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools); if unavailable, say so and fall back to another format rather than silently skipping the option.
 
 More than one can be produced from the same extracted structure if the user wants both a deck and a raw export.
 
@@ -53,9 +53,9 @@ Whatever the format, build it from the same structured extraction; don't re-deri
 
 **FigJam board:** follow the connected Figma MCP's `/figma-use` guidance before any write. Create a new FigJam file (or a new page in an existing one) and replicate the board as closely as the photos allow:
 - One sticky note per transcribed note, in the note's own color where distinguishable in the photo (don't default everything to yellow).
-- Group stickies into sections/frames matching the photo's clusters, laid out in roughly the same relative arrangement (left-to-right, top-to-bottom groupings) rather than a generic grid. The point is recognizability against the original board, not just data preservation.
+- Group stickies into sections/frames matching the photo's clusters, laid out in roughly the same relative arrangement (left-to-right, top-to-bottom groupings) rather than a generic grid — the point is recognizability against the original board, not just data preservation.
 - Recreate section headers, matrix axes, or swimlane dividers as FigJam section/frame labels, not just implied by grouping.
-- Render `[unclear]` notes as-is on their sticky rather than guessing at the content to make the board look cleaner.
+- Render `[unclear]` notes as-is rather than guessing at content to make the board look cleaner.
 
 ## Extraction Rules
 

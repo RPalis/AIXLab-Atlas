@@ -13,15 +13,15 @@ Builds a presentation *about* a prototype, not a UI pattern to scaffold within o
 - **Static deck (PDF/PowerPoint)**: for email, offline sharing, or a stakeholder who wants to flip through it themselves.
 - **reveal.js web deck**: for a live-presented, in-browser deck with real transitions. Appropriate when the presenter is driving it live or wants a shareable link rather than a file.
 
-Ask if not specified; don't guess based on a hunch.
+Ask if not specified; don't guess.
 
 ## Step 2: Source the narrative
 
-Pull scenes directly from [`persona`](../persona/SKILL.md)'s existing walkthrough (`docs/PERSONA_WALKTHROUGH.md`) if it exists. Its scene format (title, screenshot, narrative, "what's on screen" bullets) already maps almost directly onto a slide. Only ask the user to supply new copy for features/scenes the walkthrough doesn't cover; don't rewrite narrative that's already been written.
+Pull scenes directly from [`persona`](../persona/SKILL.md)'s existing walkthrough (`docs/PERSONA_WALKTHROUGH.md`) if it exists — its scene format (title, screenshot, narrative, "what's on screen" bullets) maps almost directly onto a slide. Only ask the user for new copy on features/scenes the walkthrough doesn't cover; don't rewrite narrative that's already written.
 
 ## Step 3: Capture screenshots
 
-If real screenshot/browser tooling is available in this environment, use it directly against the running prototype (real screens, current state) rather than static mockups. If no such capability is available, tell the user explicitly and ask them to supply screenshots. Don't fabricate placeholder imagery and present it as the real UI.
+If real screenshot/browser tooling is available, use it directly against the running prototype (real screens, current state) rather than static mockups. If not available, tell the user explicitly and ask them to supply screenshots. Don't fabricate placeholder imagery and present it as real UI.
 
 ## Step 4: Assemble
 
@@ -33,6 +33,6 @@ Use [`templates/reveal-template.html`](templates/reveal-template.html) as the st
 
 ## Step 5: Review before sharing
 
-Walk through the assembled deck once end-to-end. Check: does the narrative order still make sense as a sequence (not just individually per scene), does every screenshot actually match the feature it's next to, and is the closing slide's ask/next-step actually clear.
+Walk through the assembled deck end-to-end. Check: does the narrative order make sense as a sequence (not just per scene), does every screenshot match the feature it's next to, and is the closing slide's ask/next-step clear.
 
 **Completion criterion:** every slide's narrative traces back to a real `persona` scene or explicit user-supplied copy, with no invented feature descriptions, and every screenshot is real (captured or user-supplied), never a placeholder presented as real UI.

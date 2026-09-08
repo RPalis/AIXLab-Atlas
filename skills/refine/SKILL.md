@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Design Refinement & Aesthetic Craft
 
-This skill elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step. [`audit`](../audit/SKILL.md) is the *find* step; run that first if you don't already have a specific list of what to fix, since it identifies problems this skill then narrows down into concrete design decisions and a unified visual look.
+Elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step — [`audit`](../audit/SKILL.md) is the *find* step; run that first if you don't already have a specific list of what to fix, since it identifies problems this skill then narrows into concrete design decisions and a unified visual look.
 
 ---
 

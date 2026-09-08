@@ -38,7 +38,7 @@ graph TD
 ```
 
 ### Layer 1: Raw Brand Palette
-- Defined once at `:root`. Captures raw hex codes and RGB triplets for the brand's color palette, gray scales, font families, and status hues.
+- Defined once at `:root`: raw hex codes and RGB triplets for the brand's color palette, gray scales, font families, and status hues.
 - **Rule**: Component JSX *never* references Layer 1 classes directly.
 
 ### Layer 2: Semantic Roles (Auto-Flipping)
@@ -106,12 +106,12 @@ Generate the complete token block in `index.css`:
 }
 ```
 
-For a bolder or more marketing-forward brand, an alternative to a single `--shadow-card`/`--shadow-hover` pair is a numbered elevation ladder (`--shadow-level1` through `--shadow-level5`, same for `--radius-level1..5`) mapped straight into `tailwind.config.js`'s `boxShadow`/`borderRadius`. Pick one convention per prototype and stay consistent; don't mix both.
+For a bolder, marketing-forward brand, use a numbered elevation ladder instead (`--shadow-level1..5`, same for `--radius-level1..5`) mapped into `tailwind.config.js`'s `boxShadow`/`borderRadius`. Pick one convention per prototype; don't mix both.
 
 ### Step 2: Mirror Tokens in Tailwind Config (`tailwind.config.js`)
 Wire semantic color names to CSS variables so developers write `bg-surface`, `text-primary`, `bg-status-success/15`.
 
 ### Step 3: Generate `DESIGN.md`
-Generate `DESIGN.md` following the exact spec in [`references/design-md-template.md`](references/design-md-template.md): YAML frontmatter with machine-readable tokens, then eight markdown sections in a fixed canonical order. `index.css` stays the actual source of truth; `DESIGN.md` is the generated, spec-conformant summary built from it. Regenerate it whenever `index.css` changes rather than hand-editing it out of sync.
+Generate `DESIGN.md` per the exact spec in [`references/design-md-template.md`](references/design-md-template.md): YAML frontmatter with machine-readable tokens, then eight markdown sections in fixed canonical order. `index.css` is the source of truth; `DESIGN.md` is its generated summary. Regenerate on every `index.css` change rather than hand-editing it out of sync.
 
 If a decision needed for `DESIGN.md` (a color's intended character, a component's philosophy) can't be inferred from the code and isn't already answered, append it to `docs/UNKNOWNS.md` rather than inventing an answer; see AGENTS.md §2.6.

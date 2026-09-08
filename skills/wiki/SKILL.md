@@ -6,9 +6,9 @@ disable-model-invocation: true
 
 # Knowledge Wiki
 
-Most note-taking produces a pile of raw files that get re-read from scratch every time they're needed. This skill instead **compiles** notes into a small set of interlinked, up-to-date pages. The tedious part of a knowledge base isn't the thinking, it's the bookkeeping (cross-referencing, catching contradictions, keeping pages current), and that's exactly the part this skill automates.
+Raw notes get re-read from scratch every time they're needed. This skill instead **compiles** them into a small set of interlinked, up-to-date pages — automating the bookkeeping (cross-referencing, catching contradictions, keeping pages current), not the thinking.
 
-**Tool-agnostic by design**: plain markdown files with `[[wikilink]]`-style cross-references. Nothing here requires Obsidian or any specific app; a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). It lives inside `docs/notes/`, the project's general notes home, so if you personally use Obsidian (or any other markdown editor) to work outside the IDE, pointing it at `docs/notes/` opens the wiki too; the wiki just doesn't depend on it.
+**Tool-agnostic by design**: plain markdown files with `[[wikilink]]`-style cross-references, no Obsidian or specific app required — a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). It lives inside `docs/notes/`, the project's general notes home, so pointing Obsidian (or any other markdown editor) at `docs/notes/` to work outside the IDE also opens the wiki; the wiki just doesn't depend on it.
 
 ## Structure
 
@@ -24,7 +24,7 @@ docs/notes/
     constellation.html     # standalone interactive graph view (see Step 4)
 ```
 
-`my-notes/` sits next to `wiki/`, not inside it: it's the project's general capture zone (see [`note`](../note/SKILL.md) and `docs/notes/README.md`), and the wiki is one thing that reads from it, not its owner. Other things worth knowing about routinely live outside `docs/notes/` entirely, straight in `docs/`: specs, transcripts, research write-ups, or whatever else a teammate, PM, client, or user handed over that this suite didn't produce itself. Step 0 covers both.
+`my-notes/` sits next to `wiki/`, not inside it: it's the project's general capture zone (see [`note`](../note/SKILL.md) and `docs/notes/README.md`), and the wiki reads from it without owning it. Other things worth knowing about live outside `docs/notes/` entirely, straight in `docs/`: specs, transcripts, research write-ups, or whatever else a teammate, PM, client, or user handed over that this suite didn't produce itself. Step 0 covers both.
 
 An **entity** is anything that comes up more than once and benefits from a stable home: a persona, a recurring decision topic, a domain term, a recurring pain point. Don't create an entity page for something mentioned once; that's noise, not knowledge. Use [`references/entity-page-template.md`](references/entity-page-template.md) as the shape for each one.
 
@@ -32,8 +32,8 @@ An **entity** is anything that comes up more than once and benefits from a stabl
 
 Before anything else, scan two places for anything not yet referenced in `log.md`:
 
-- **`docs/notes/my-notes/`**: files (or entries within a dated file) from [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved at all. `note` already does this same check on its own before every capture; `wiki` repeats it here so a full run never misses something sitting there between `note` calls.
-- **The rest of `docs/`**: any file that isn't one of this suite's own owned docs (check the doc-ownership list in the project's `AGENTS.md`) and isn't already reflected in `index.md`. This is where a spec, a meeting transcript, client feedback, or user research someone else dropped in shows up. Don't require it to go through `note` first; a file placed directly in `docs/` is a source in its own right.
+- **`docs/notes/my-notes/`**: files (or entries within a dated file) from [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved. `note` already does this same check before every capture; `wiki` repeats it here so a full run never misses something sitting there between `note` calls.
+- **The rest of `docs/`**: any file that isn't one of this suite's own owned docs (check the doc-ownership list in the project's `AGENTS.md`) and isn't already reflected in `index.md`. This is where a spec, a meeting transcript, client feedback, or user research someone else dropped in shows up. It doesn't need to go through `note` first; a file placed directly in `docs/` is a source in its own right.
 
 Ingest anything unprocessed the same way as any other source (Step 1 below), crediting hand-typed or externally-provided entries as such rather than assuming they came through `note`.
 
@@ -49,7 +49,7 @@ When adding a new source (a `my-notes/` entry, an external document dropped into
 
 ## Step 2: Query the wiki
 
-When a question comes up that the wiki might already answer, search `index.md` and relevant entity pages before starting from scratch. If the answer required real synthesis (not just a direct lookup), file the synthesized answer back into the wiki as part of the relevant entity page. This is what makes the wiki compound in value instead of staying flat.
+When a question comes up that the wiki might already answer, search `index.md` and relevant entity pages before starting from scratch. If the answer required real synthesis (not just a direct lookup), file it back into the relevant entity page — this is what makes the wiki compound in value instead of staying flat.
 
 ## Step 3: Periodic linting
 
@@ -74,6 +74,6 @@ flowchart LR
     PainPoint-ContextSwitching --> Decision-UnifiedInbox[[Unified inbox decision]]
 ```
 
-**`constellation.html`**: a standalone, self-contained interactive graph view, separate from the Mermaid diagram because it needs to support click-to-explore (unlike a static Mermaid embed). Build it as a single HTML file with an inline Vis.js network (same library and interaction pattern as [`map`](../map/SKILL.md)'s `site` mode modal, but standalone rather than embedded in a running prototype: open it directly in a browser, no dev server or app required): entity pages become nodes, wikilinks become edges, clicking a node shows that entity's summary. Regenerate it as part of the periodic linting pass (Step 3), not on every single ingest. It's a snapshot view, not a live one.
+**`constellation.html`**: a standalone, self-contained interactive graph view, separate from the Mermaid diagram because it needs to support click-to-explore (unlike a static Mermaid embed). Build it as a single HTML file with an inline Vis.js network (same library and interaction pattern as [`map`](../map/SKILL.md)'s `site` mode modal, but standalone rather than embedded in a running prototype: open it directly in a browser, no dev server or app required). Entity pages become nodes, wikilinks become edges, clicking a node shows that entity's summary. Regenerate it during the periodic linting pass (Step 3), not on every single ingest — it's a snapshot view, not a live one.
 
 **Completion criterion:** every entity page is reachable from `index.md`, every ingest leaves a `log.md` line, and no two pages state contradictory facts without an explicit `⚠️ Conflicts` flag.

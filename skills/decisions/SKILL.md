@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Decision Records (ADRs)
 
-This skill captures a single non-obvious decision, a UX tradeoff, an architectural workaround, or a state-model choice, as a short, freeform record in `docs/adr/`, so the reasoning survives past the person who made the call.
+Captures a single non-obvious decision, a UX tradeoff, an architectural workaround, or a state-model choice, as a short freeform record in `docs/adr/`, so the reasoning survives past the person who made the call.
 
 Not every decision needs one. Write one when a decision:
 - Rejected an obvious/simpler alternative for a specific reason, and someone later is likely to propose that alternative again
@@ -15,7 +15,7 @@ Not every decision needs one. Write one when a decision:
 
 ## Step 1: Write the record
 
-Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from whatever the highest existing ADR number is (start at `0001` if none exist). Freeform prose is fine, since this doesn't need a rigid numbered-decision/consequences template to be useful. Cover:
+Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from the highest existing ADR number (start at `0001` if none exist). Freeform prose is fine; no rigid numbered-decision/consequences template needed. Cover:
 
 - **What was decided.** State it plainly, in one or two sentences.
 - **Why.** The concrete constraint or reason that drove it.
@@ -28,4 +28,4 @@ Use [`templates/adr-template.md`](templates/adr-template.md) as a starting shape
 
 ## Step 2: Link it where it'll be found
 
-Don't let it go silent in `docs/adr/`. Reference the record from wherever the decision is visible in code, with a one-line comment pointing at the ADR path near the relevant code, or a link from the feature's section in `docs/OOUX_OBJECT_MAP.md` / `docs/PERSONA_WALKTHROUGH.md` if the decision affects one of those.
+Reference the record from wherever the decision is visible in code: a one-line comment pointing at the ADR path near the relevant code, or a link from the feature's section in `docs/OOUX_OBJECT_MAP.md` / `docs/PERSONA_WALKTHROUGH.md` if it affects one of those.

@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Audit
 
-Three audit modes live in one skill because they share the same shape of work: find problems, score or rank them, hand off to whoever fixes them. But they check genuinely different things. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app":
+Three audit modes share one skill because they share the same shape of work — find problems, score or rank them, hand off to whoever fixes them — but they check genuinely different things. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app":
 
 - **`craft`**: subjective UX critique: visual hierarchy, cognitive load, information architecture, consistency/anti-patterns, responsive behavior, delight. Feeds [`refine`](../refine/SKILL.md).
 - **`code`**: coding-practice audit: design token adherence, structure/style/logic separation, component reuse, semantic HTML5, mechanical focus-state hygiene. Fast and grep-able, not deliberative.
@@ -15,17 +15,17 @@ Three audit modes live in one skill because they share the same shape of work: f
 All three only identify; none edit code. More than one mode can run back-to-back on the same target when the user wants full coverage; run them independently rather than blending their findings into one report.
 
 ### Optional: independent second pass for high-stakes audits
-A single pass reliably misses things, since the reviewer anchors on whatever it noticed first. For an audit that gates a real handoff or ship decision, run a second pass with fresh eyes (a separate `Explore` or `general-purpose` agent given only the target and the mode's checklist, no visibility into the first pass's findings) and reconcile the two lists before reporting. Skip this for a routine in-progress check; it roughly doubles the cost and isn't worth it until the finding actually matters.
+A single pass reliably misses things, since the reviewer anchors on whatever it noticed first. For an audit gating a real handoff or ship decision, run a second pass with fresh eyes (a separate `Explore` or `general-purpose` agent given only the target and the mode's checklist, no visibility into the first pass's findings) and reconcile both lists before reporting. Skip this for a routine in-progress check — it roughly doubles the cost and isn't worth it until the finding actually matters.
 
 ---
 
 ## Mode: craft
 
-Never edits code. It's the "find what's wrong" half of a loop with [`refine`](../refine/SKILL.md), which fixes and unifies visual craft. Run this on a prototype you didn't necessarily build yourself, whether a teammate's work or your own after time away, to get an honest read before touching anything.
+Never edits code. It's the "find what's wrong" half of a loop with [`refine`](../refine/SKILL.md), which fixes and unifies visual craft. Run this on a prototype you didn't necessarily build yourself — a teammate's work, or your own after time away — to get an honest read before touching anything.
 
 ### Step 1: Score five dimensions (0-4 each)
 
-Inspect the actual running prototype (or source, if it can't run) against each dimension below. Be honest: a 4 means genuinely excellent, not "good enough." Most real prototypes score 8-14 out of 20.
+Inspect the running prototype (or source, if it can't run) against each dimension below. Be honest: a 4 means genuinely excellent, not "good enough." Most real prototypes score 8-14 out of 20.
 
 **1. Visual Hierarchy & Cognitive Load.** Is it obvious what matters most on each screen? Walk the [cognitive load checklist](references/cognitive-load.md) (8 items): 0-1 failures = 4, 2-3 = 2, 4+ = 0.
 
@@ -41,7 +41,7 @@ Optionally run the [full Nielsen's 10 Heuristics pass](references/nielsen-heuris
 
 ### Step 2: Walk it through 2-3 personas
 
-Pick 2-3 relevant personas from [references/personas.md](references/personas.md) (Alex the power user, Jordan the first-timer, Riley the stress-tester, Casey the mobile user) and walk the primary task through each one's eyes. Report specific red flags tied to exact elements: "icon-only nav in the sidebar confuses Jordan," not "navigation could be clearer."
+Pick 2-3 relevant personas from [references/personas.md](references/personas.md) (Alex the power user, Jordan the first-timer, Riley the stress-tester, Casey the mobile user) and walk the primary task through each one's eyes. Report specific red flags tied to exact elements — "icon-only nav in the sidebar confuses Jordan," not "navigation could be clearer."
 
 ### Step 3: Report and file as tasks
 
@@ -80,7 +80,7 @@ Severity: **P0** blocks task completion, fix immediately. **P1** major difficult
 
 ## Mode: code
 
-Audits **coding practice**: token adherence, structure/style/logic separation, component reuse, and cheap mechanical hygiene checks. Not the place for deep accessibility reasoning (that's `a11y` mode) or subjective visual/UX critique (that's `craft` mode); this mode stays fast and grep-able rather than deliberative.
+Audits **coding practice**: token adherence, structure/style/logic separation, component reuse, and cheap mechanical hygiene checks. Not for deep accessibility reasoning (`a11y` mode) or subjective visual/UX critique (`craft` mode) — this mode stays fast and grep-able rather than deliberative.
 
 ### 6 Audit Checkpoints
 
@@ -131,7 +131,7 @@ Audits **coding practice**: token adherence, structure/style/logic separation, c
 
 ## Mode: a11y
 
-A full WCAG 2.1 (and 2.2 where relevant) **Level AA** pass, organized by the four POUR principles. This is the deep audit; `code` mode keeps only cheap mechanical checks (focus-ring class present, Escape closes modals) as a fast hygiene pass, while this mode actually reasons about success criteria and produces a ranked, criterion-by-criterion report. Like `craft` mode, this mode only identifies issues; it doesn't fix them.
+A full WCAG 2.1 (and 2.2 where relevant) **Level AA** pass, organized by the four POUR principles. This is the deep audit; `code` mode keeps only cheap mechanical checks (focus-ring class present, Escape closes modals) as a fast hygiene pass, while this mode reasons about success criteria and produces a ranked, criterion-by-criterion report. Like `craft` mode, it only identifies issues; it doesn't fix them.
 
 ### Step 1: Perceivable
 

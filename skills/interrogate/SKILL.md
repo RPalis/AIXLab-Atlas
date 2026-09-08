@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Feature Grill
 
-Interview the user relentlessly about a design decision, whether a feature scope, a UX tradeoff, or a state-model choice, until reaching a shared understanding. This is the same interrogation discipline as a general planning grill, aimed specifically at design/product decisions rather than implementation plans.
+Interview the user relentlessly about a design decision (feature scope, UX tradeoff, or state-model choice) until reaching shared understanding. Same interrogation discipline as a general planning grill, aimed specifically at design/product decisions rather than implementation plans.
 
 ## Process
 
@@ -24,4 +24,4 @@ Once you've reached shared understanding, ask whether this decision is worth a p
 
 ## What this replaces vs. adds
 
-For implementation/plan-level stress-testing (not a design decision), a design-focused grill isn't the right tool. That's a general planning interrogation, same mechanics, different subject matter. This skill exists specifically so a design or product call gets the same rigor without confusing "should we build this" questions with "how should we build this" ones.
+For implementation/plan-level stress-testing (not a design decision), use a general planning interrogation instead, same mechanics, different subject matter. This skill exists so a design or product call gets the same rigor without confusing "should we build this" with "how should we build this."

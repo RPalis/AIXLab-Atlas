@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # UX Design & Prototyping Suite Router
 
-Welcome to **UX Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, and shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point along the way rather than gated to one phase.
+Welcome to **UX Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
 
 Several skills below are **multi-mode**: one skill, several named modes for related-but-distinct jobs (`audit`'s `craft`/`code`/`a11y`, `figma`'s `capture`/`import`/`sync`). Say which mode you want, or the skill will ask.
 
@@ -15,7 +15,7 @@ Not sure where to start, or which skill fits what you're doing right now? [`help
 ## Before Discover
 Nothing exists yet, not even `README.md`.
 
-0. [`setup`](../setup/SKILL.md) creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/` for the wiki and anything else worth jotting down) before any research, design, or code starts. Works on an existing product too: it appends to whatever's already there instead of overwriting it.
+0. [`setup`](../setup/SKILL.md) creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/` for the wiki and anything else worth jotting down) before any research, design, or code starts. Works on an existing product too, appending to whatever's already there instead of overwriting it.
 1. [`brief`](../brief/SKILL.md) interrogates whoever already has the idea in their head: what the product is, who it's for, the distinct user types, their core tasks, devices/context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`, the domain brief [`persona`](../persona/SKILL.md) expects as input. On an existing product, it drafts from the codebase first and confirms the gaps instead of starting blank.
 
 ## Discover
@@ -67,7 +67,7 @@ Not gated to one phase.
 
 ## Meta: Managing the Suite Itself
 
-One skill sits outside the lifecycle entirely, it manages the skill library, not a prototype:
+One skill sits outside the lifecycle entirely — it manages the skill library, not a prototype:
 
 - [`skill-manager`](../skill-manager/SKILL.md): install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library (symlinked into Claude Code and Gemini CLI), and show what any installed skill does.
 

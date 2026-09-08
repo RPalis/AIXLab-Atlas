@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Product Brief
 
-`setup` builds the repo's doc shell. `brief` fills in the first real content: a mile-wide, inch-deep look at what's actually being built, before `workshop` brings in a room full of people or `interview` goes out to real users. Where that content comes from depends on what's already there: straight from whoever has the idea in their head on a new product (Step 1), or read out of the working codebase itself and then confirmed on an existing one (Step 0.5).
+`setup` builds the repo's doc shell. `brief` fills in the first real content: a mile-wide, inch-deep look at what's actually being built, before `workshop` brings in a room full of people or `interview` goes out to real users. Where the content comes from depends on what's already there: straight from whoever has the idea in their head on a new product (Step 1), or read out of the working codebase and then confirmed on an existing one (Step 0.5).
 
 **Not this skill:**
 - Formalizing user archetypes from research already gathered → [`persona`](../persona/SKILL.md). `brief` is one of the "domain briefs" persona expects as input, not a replacement for it.
@@ -16,7 +16,7 @@ disable-model-invocation: true
 
 ## Step 0: Explore, then choose pace
 
-Check `README.md` (the one-line purpose `setup` wrote) and `docs/UNKNOWNS.md` first; don't re-ask what's already answerable from context.
+Check `README.md` (the one-line purpose `setup` wrote) and `docs/UNKNOWNS.md` first — don't re-ask what's already answerable from context.
 
 Ask the user how they want to run this:
 - **One question at a time** (recommended for a fuzzy or early idea): the same discipline as [`interrogate`](../interrogate/SKILL.md), each question paired with a recommendation or example, waiting for an answer before moving on.
@@ -26,7 +26,7 @@ Either pace covers the same ground; only the delivery cadence differs. This is S
 
 ## Step 0.5: Existing product? Draft from the codebase first
 
-If Step 0 (or `setup`, handing off) turned up a real `src/` with actual application code, not just a scaffold stub, don't open with a blank interrogation, there's already a lot of the answer sitting in the repo. Read before asking:
+If Step 0 (or `setup`, handing off) turned up a real `src/` with actual application code, not just a scaffold stub, don't open with a blank interrogation — a lot of the answer is already sitting in the repo. Read before asking:
 
 - `README.md` and any existing docs for the stated purpose and audience.
 - `package.json` (name, description, dependencies — a payments SDK or a calendar library says something about scope).
@@ -34,7 +34,7 @@ If Step 0 (or `setup`, handing off) turned up a real `src/` with actual applicat
 - Component and page names for the user-facing vocabulary already in use (reuse it in the brief rather than inventing new terms for the same things).
 - Any auth/role logic for distinct user types already built, even if never written down as such.
 
-Draft a tentative answer for each of the seven areas in Step 1 from what this turns up, marking every one `(inferred from codebase — confirm)`. Then walk the stakeholder through confirming or correcting each, batched or one at a time per their Step 0 pace choice, same as a normal interrogation but starting from a draft instead of a blank page. Areas the codebase genuinely can't answer (competitive landscape, non-technical constraints, what "success" looks like) still need a real answer from the stakeholder, not a guess.
+Draft a tentative answer for each of the seven areas in Step 1 from what this turns up, marking every one `(inferred from codebase — confirm)`. Then walk the stakeholder through confirming or correcting each, batched or one at a time per their Step 0 pace choice — same as a normal interrogation but starting from a draft instead of a blank page. Areas the codebase genuinely can't answer (competitive landscape, non-technical constraints, what "success" looks like) still need a real answer from the stakeholder, not a guess.
 
 **Completion criterion:** every inferred answer was actually confirmed or corrected by the stakeholder, not left standing on the inference alone.
 
@@ -50,7 +50,7 @@ The same seven areas whether this is a blank-page interrogation or confirming a 
 6. **Constraints & non-negotiables.** Anything already fixed and not up for debate: a required integration, an existing brand, a deadline, a mandated platform.
 7. **Success.** What tells the stakeholder this worked, if anything measurable is known yet.
 
-For each area, offer a concrete recommendation or example rather than leaving it open-ended; if the user genuinely doesn't know yet, note it as an open question rather than pressing them to invent an answer on the spot.
+For each area, offer a concrete recommendation or example rather than leaving it open-ended; if the user genuinely doesn't know yet, note it as an open question rather than pressing them to invent one on the spot.
 
 **Completion criterion:** every area has either a real answer from the stakeholder or an explicit "not yet known" rather than an invented placeholder.
 

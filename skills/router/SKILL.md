@@ -104,7 +104,7 @@ One skill sits outside the lifecycle entirely, it manages the skill library, not
 ### Usable Anytime
 - **[`help`](../help/SKILL.md)**: Reads the current repo's actual state (which docs exist) and recommends the next 1-3 skills, with the reason. The situational advisor version of this router.
 - **[`decisions`](../decisions/SKILL.md)**: Capture a non-obvious UX or architecture decision, and the alternatives it rejected, as a short ADR in `docs/adr/`.
-- **[`note`](../note/SKILL.md)**: The lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/wiki/inbox/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
+- **[`note`](../note/SKILL.md)**: The lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/my-notes/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
 - **[`interrogate`](../interrogate/SKILL.md)**: Interrogate a design decision one question at a time until reaching shared understanding, then optionally hand off to `decisions`.
 - **[`wiki`](../wiki/SKILL.md)**: Compile scattered notes into a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect.
 - **[`figma`](../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).

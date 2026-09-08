@@ -65,10 +65,12 @@ Not gated to one phase. Reach for these whenever the situation calls for them, f
 
 - **[`help`](skills/help/SKILL.md)**: the situational advisor version of this whole section: reads the repo, tells you what's next.
 - **[`decisions`](skills/decisions/SKILL.md)** / **[`interrogate`](skills/interrogate/SKILL.md)**: capturing and interrogating decisions, wherever in the process one comes up.
-- **[`note`](skills/note/SKILL.md)**: a quick, low-ceremony capture for a thought worth keeping, mid-task, that folds straight into the wiki.
-- **[`wiki`](skills/wiki/SKILL.md)**: compiling scattered notes into an interlinked wiki as the project accumulates them.
+- **[`note`](skills/note/SKILL.md)**: a quick, low-ceremony capture for a thought worth keeping, mid-task, dropped into `docs/notes/my-notes/` and folded straight into the wiki.
+- **[`wiki`](skills/wiki/SKILL.md)**: compiling scattered notes into an interlinked wiki as the project accumulates them, including any spec, transcript, or research doc a teammate, PM, client, or user drops directly into `docs/`.
 - **[`figma`](skills/figma/SKILL.md)**: moving work to and from Figma, whenever it's part of the workflow: `capture` (a screen to Figma as layers), `import` (a Figma frame in as code), or `sync` (a full token-system sync).
 - **[`docs/UNKNOWNS.md`](AGENTS.md)**: the running list every skill defers to instead of guessing (see AGENTS.md §2.6), not a skill itself, but the thread that ties Discover through Deliver together.
+
+> **Use `docs/notes/` for all project notes.** `setup` creates it as this project's general notes home, safe to open directly in Obsidian or any other markdown editor. Drop meeting notes, scratch thoughts, and anything a teammate, PM, client, or user hands you there (`docs/notes/my-notes/` for raw capture); `wiki` compiles what's worth keeping, and can also cross-reference standalone documents placed elsewhere in `docs/`.
 
 ### Managing the suite itself
 
@@ -127,9 +129,9 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 | [`guide`](skills/guide/SKILL.md) | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough | `/guide`, "write a user guide", "end-user docs" |
 | [`requirements`](skills/requirements/SKILL.md) | **Deliver** | Reads the built prototype into Epics & Features with user stories and acceptance criteria; optional Jira/ADO export via MCP | `/requirements`, "PRD", "epics and features", "turn this into a backlog" |
 | [`decisions`](skills/decisions/SKILL.md) | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives | `/decisions`, "ADR", "record this decision" |
-| [`note`](skills/note/SKILL.md) | **Anytime** | Quick, low-ceremony capture that folds immediately into the wiki | `/note`, "quick note", "jot this down", "don't let me forget" |
+| [`note`](skills/note/SKILL.md) | **Anytime** | Quick, low-ceremony capture into `docs/notes/my-notes/` that folds immediately into the wiki | `/note`, "quick note", "jot this down", "don't let me forget" |
 | [`interrogate`](skills/interrogate/SKILL.md) | **Anytime** | Interrogate a design decision one question at a time; hands off to `decisions` | `/interrogate`, "grill this decision", "stress-test this design call" |
-| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | Compile scattered notes into a small, interlinked, tool-agnostic markdown wiki with a `constellation` graph view | `/wiki`, "build a wiki", "compile these notes" |
+| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | Compile `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki with a `constellation` graph view | `/wiki`, "build a wiki", "compile these notes" |
 | [`figma`](skills/figma/SKILL.md) | **Anytime** | Multi-mode: `capture` (live screen → Figma layers), `import` (Figma frame → code), `sync` (bidirectional token sync with a Figma library) | `/figma capture`, `/figma import`, `/figma sync` |
 | [`skill-manager`](skills/skill-manager/SKILL.md) | **Meta** | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any skill does | `/skill-manager install`, `/skill-manager list`, `/skill-manager details` |
 

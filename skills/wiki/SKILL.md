@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project: quick captures from note, interview synthesis, meeting notes, research, resolved decisions with no other home. Tool-agnostic (plain markdown + [[wikilinks]], no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
+description: Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project: quick captures from note's docs/notes/my-notes/, interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Tool-agnostic (plain markdown + [[wikilinks]], no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
 disable-model-invocation: true
 ---
 
@@ -14,29 +14,36 @@ Most note-taking produces a pile of raw files that get re-read from scratch ever
 
 ```
 docs/notes/
+  my-notes/               # raw unprocessed captures: from note, or typed by hand
+    YYYY-MM-DD.md
   wiki/
     index.md              # content-oriented catalog, organized by category
     log.md                 # append-only chronological record of what changed and when
     entities/              # one page per durable "thing" worth its own file
       <slug>.md
-    inbox/                  # raw unprocessed captures: from note, or typed by hand
-      YYYY-MM-DD.md
     constellation.html     # standalone interactive graph view (see Step 4)
 ```
 
+`my-notes/` sits next to `wiki/`, not inside it: it's the project's general capture zone (see [`note`](../note/SKILL.md) and `docs/notes/README.md`), and the wiki is one thing that reads from it, not its owner. Other things worth knowing about routinely live outside `docs/notes/` entirely, straight in `docs/`: specs, transcripts, research write-ups, or whatever else a teammate, PM, client, or user handed over that this suite didn't produce itself. Step 0 covers both.
+
 An **entity** is anything that comes up more than once and benefits from a stable home: a persona, a recurring decision topic, a domain term, a recurring pain point. Don't create an entity page for something mentioned once; that's noise, not knowledge. Use [`references/entity-page-template.md`](references/entity-page-template.md) as the shape for each one.
 
-## Step 0: Check the inbox
+## Step 0: Check for unprocessed sources
 
-Before anything else, scan `docs/notes/wiki/inbox/` for files (or entries within a dated file) not yet referenced in `log.md`. These arrive two ways: through [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved at all. Ingest anything unprocessed the same way as any other source (Step 1 below), crediting hand-typed entries as such rather than assuming they came through `note`. `note` already does this check on its own before every capture; `wiki` repeats it here so a full run never misses something sitting in the inbox between `note` calls.
+Before anything else, scan two places for anything not yet referenced in `log.md`:
+
+- **`docs/notes/my-notes/`**: files (or entries within a dated file) from [`note`](../note/SKILL.md)'s quick captures, or typed directly into a file by hand with no AI involved at all. `note` already does this same check on its own before every capture; `wiki` repeats it here so a full run never misses something sitting there between `note` calls.
+- **The rest of `docs/`**: any file that isn't one of this suite's own owned docs (check the doc-ownership list in the project's `AGENTS.md`) and isn't already reflected in `index.md`. This is where a spec, a meeting transcript, client feedback, or user research someone else dropped in shows up. Don't require it to go through `note` first; a file placed directly in `docs/` is a source in its own right.
+
+Ingest anything unprocessed the same way as any other source (Step 1 below), crediting hand-typed or externally-provided entries as such rather than assuming they came through `note`.
 
 ## Step 1: Ingest a source
 
-When adding a new source (an inbox entry, an interview synthesis from [`interview`](../interview/SKILL.md), a `audit` finding, a resolved `docs/UNKNOWNS.md` item, a meeting note, a `decisions` ADR that doesn't fit as a formal record but is still worth knowing):
+When adding a new source (a `my-notes/` entry, an external document dropped into `docs/`, an interview synthesis from [`interview`](../interview/SKILL.md), an `audit` finding, a resolved `docs/UNKNOWNS.md` item, a meeting note, a `decisions` ADR that doesn't fit as a formal record but is still worth knowing):
 
 1. Read the source. Identify which existing entity pages it touches, and whether it introduces a new entity.
 2. **New entity creation is a gate, not automatic.** If this is genuinely a new durable topic, say so explicitly and use consistent naming with what's already in the wiki (check `index.md` first) rather than creating a near-duplicate page under a slightly different name.
-3. Update every touched entity page: add the new information, and if it contradicts something already written, flag the contradiction inline (`> ⚠️ Conflicts with earlier note in [[other-entity]], needs resolution`) rather than silently overwriting.
+3. Update every touched entity page: add the new information, and if it contradicts something already written, flag the contradiction inline (`> ⚠️ Conflicts with earlier note in [[other-entity]], needs resolution`) rather than silently overwriting. **For an external document**, summarize and link to it (a relative path, e.g. `[client feedback](../client-feedback.md)`) rather than copying its full content into the entity page; the wiki indexes and cross-references, it doesn't need to own a second copy of a doc someone else maintains.
 4. Update `index.md` with any new/changed entries.
 5. Append one line to `log.md`: `## [YYYY-MM-DD] ingest, <source>, touched: [[entity-a]], [[entity-b]]`.
 
@@ -51,6 +58,7 @@ Every so often (natural checkpoints: after a `audit`, before a `package` handoff
 - **Staleness**: pages that reference a screen, feature, or decision that's since changed (cross-check against current `docs/OOUX_OBJECT_MAP.md` / `DESIGN.md` / `docs/adr/`).
 - **Orphans**: entity pages nothing links to and that don't appear in `index.md`.
 - **Gaps**: a topic referenced repeatedly across sources that still has no entity page.
+- **Unindexed docs**: files anywhere under `docs/` that aren't owned by another skill and aren't referenced from any entity page or `index.md` yet, i.e. Step 0's second check turned up something and it never actually got ingested.
 
 Report findings, don't silently fix everything. A contradiction usually needs a human call on which version is current.
 

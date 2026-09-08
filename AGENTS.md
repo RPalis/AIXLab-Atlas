@@ -145,9 +145,9 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
 | `skills/decisions` | `decisions` | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives |
-| `skills/note` | `note` | **Anytime** | Quick, low-ceremony capture (an idea, a risk, a "don't forget this") that immediately runs `wiki`'s own ingest step on itself, no separate compile pass needed |
+| `skills/note` | `note` | **Anytime** | Quick, low-ceremony capture (an idea, a risk, a "don't forget this") into `docs/notes/my-notes/` that immediately runs `wiki`'s own ingest step on itself, no separate compile pass needed |
 | `skills/interrogate` | `interrogate` | **Anytime** | Interrogates a design decision one question at a time; hands off to `decisions` |
-| `skills/wiki` | `wiki` | **Anytime** | Compiles scattered notes into a small, interlinked, tool-agnostic markdown wiki, incl. a `constellation` graph view |
+| `skills/wiki` | `wiki` | **Anytime** | Compiles `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki, incl. a `constellation` graph view |
 | `skills/figma` | `figma` | **Anytime** | **Multi-mode**: `capture` (live screen → Figma layers), `import` (Figma frame → convention-conformant code), `sync` (bidirectional token sync with a Figma library) |
 | `skills/skill-manager` | `skill-manager` | **Meta** | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any installed skill does. Sits outside Discover→Decide→Design→Deliver: it manages the skill library itself, not a prototype. |
 

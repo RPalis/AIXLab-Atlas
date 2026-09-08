@@ -76,6 +76,28 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 
 ---
 
+## Getting Started
+
+Clone the repo and run the installer:
+
+```bash
+git clone https://github.com/kiersky-coforge/ux-atlas.git
+cd ux-atlas
+./install.sh
+```
+
+That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which links every skill into the shared hub (`~/.agents/skills/`) and then wires up whichever clients you picked. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
+
+For scripting, skip the picker with flags:
+
+```bash
+./install.sh --all
+```
+
+See [Installation & Team Setup](#installation--team-setup) below for how the installer is structured and how to re-run it safely.
+
+---
+
 ## Skills Catalog
 
 Full reference: every skill, alphabetical-ish by phase for lookup rather than narrative order.
@@ -113,17 +135,9 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 
 ## Installation & Team Setup
 
-To install and make all skills available to your AI assistant:
+The picker in [Getting Started](#getting-started) above pre-checks whichever clients it finds already set up on your machine. Currently supported: **Claude Code** (`~/.claude/skills/`), **Gemini CLI** (`~/.gemini/skills/`), **Antigravity** (`~/.gemini/config/skills/`), **OpenAI Codex CLI** (`~/.codex/skills/`), **GitHub Copilot CLI** (`~/.copilot/skills/`), **Cursor** (`~/.cursor/skills/`), and **Grok CLI** (`~/.grok/skills/`). Each client is a symlink chained to the hub entry (`~/.agents/skills/`), not a separate direct link to this repo, matching how other skill packs on a shared machine are typically wired: one real copy, everything else pointing at it.
 
-```bash
-cd ~/dev/ux-atlas
-chmod +x install.sh
-./install.sh
-```
-
-Running it with no flags opens a small interactive picker: it links every skill into `~/.agents/skills/` (the canonical hub, always) and then asks which clients to also wire up, pre-checking whichever ones it finds already set up on your machine. Currently supported: **Claude Code** (`~/.claude/skills/`), **Gemini CLI** (`~/.gemini/skills/`), and **Antigravity** (`~/.gemini/config/skills/`). Each client is a symlink chained to the hub entry, not a separate direct link to this repo, matching how other skill packs on a shared machine are typically wired: one real copy, everything else pointing at it.
-
-For scripting or CI, skip the picker with flags: `./install.sh --all`, or any combination of `--claude`, `--gemini-cli`, `--antigravity`.
+For scripting or CI, skip the picker with flags: `./install.sh --all`, `--none` (hub only), or any combination of `--claude`, `--gemini-cli`, `--antigravity`, `--codex`, `--copilot`, `--cursor`, `--grok`. Add `--open` or `--no-open` to control whether it launches `index.html` afterward without prompting.
 
 Re-run `install.sh` any time, especially after a skill gets renamed in this repo. It tracks what it installed last time and removes stale entries (an old skill name's dangling symlink) from the hub and every client it manages, without touching anything else that happens to live in those shared directories.
 

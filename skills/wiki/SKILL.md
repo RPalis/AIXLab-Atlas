@@ -18,15 +18,19 @@ Two modes, same destination:
 
 ```
 docs/notes/
-  my-notes/               # raw unprocessed captures: from note mode, or typed by hand
-    YYYY-MM-DD.md
+  my-notes/
+    README.md             # pre-created by setup, explains the format below
+    YYYY-MM-DD.md          # raw unprocessed captures: from note mode, or typed by hand
   wiki/
+    README.md              # pre-created by setup, "about this wiki" + manual-edit notes
     index.md              # content-oriented catalog, organized by category
     log.md                 # append-only chronological record of what changed and when
     entities/              # one page per durable "thing" worth its own file
       <slug>.md
     constellation.html     # standalone interactive graph view (see Step 4)
 ```
+
+`my-notes/` and `wiki/` themselves are pre-created by [`setup`](../setup/SKILL.md), each with just a `README.md` explaining the folder — not the same as `wiki`'s own output existing yet. `index.md`, `log.md`, `entities/`, and `constellation.html` still only appear once this skill actually has something to put in them (first `note`-mode capture, or `compile` mode's first real ingest); don't treat the pre-created `README.md` as a sign the wiki is already populated.
 
 `my-notes/` sits next to `wiki/`, not inside it: it's the project's general capture zone, and the wiki reads from it without owning it — most people will edit files there directly in their own markdown editor rather than through `note` mode, so both paths into it need to stay equally valid. Other things worth knowing about live outside `docs/notes/` entirely, straight in `docs/`: specs, transcripts, research write-ups, or whatever else a teammate, PM, client, or user handed over that this suite didn't produce itself. Step 0 covers both.
 
@@ -95,7 +99,7 @@ The lowest-ceremony capture point in the suite. A thought worth keeping but not 
 
 ### Step 1: Write the entry
 
-If `docs/notes/my-notes/` doesn't exist yet, this is the first capture in the project: create it. (`docs/notes/` itself should already exist from `setup`; if it doesn't, create that too — see `docs/notes/README.md`'s template in `setup`'s SKILL.md.)
+`docs/notes/my-notes/` should already exist (with just a `README.md`) from `setup` — this is normally the first *content* file in it, not the first thing in the folder. If the folder genuinely doesn't exist yet (a project that predates this convention, or `setup` never ran), create it now, along with `docs/notes/` itself if that's missing too — see `setup`'s SKILL.md for both folders' README templates.
 
 Append the thought, verbatim, to today's file: `docs/notes/my-notes/YYYY-MM-DD.md`, under a timestamped bullet. Create the file if today doesn't have one yet. No required structure beyond the timestamp; freeform is the point.
 

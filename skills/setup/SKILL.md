@@ -1,24 +1,28 @@
 ---
 name: setup
-description: Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records which skill owns which doc, an empty docs/UNKNOWNS.md, and a docs/notes/ home for the wiki and anything else worth jotting down) before any code or design work starts. Runs first, ahead of scaffold. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead, and on an existing product points brief at reading the codebase rather than a cold interview. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
+description: Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records the docs folder's real name and which skill owns which doc, an empty UNKNOWNS.md, and a notes/ home for the wiki and anything else worth jotting down) before any code or design work starts. Names the docs folder after the project (e.g. pocket-atlas-docs/, not a bare docs/) so it's unambiguous when opened directly as a vault in a third-party tool like Obsidian. Runs first, ahead of scaffold. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead. On an existing product it also inventories every doc the wider suite owns (personas, object map, tokens, ADRs, requirements, etc.), notes anything already present under a different name, feeds that inventory to brief for a fuller lay-of-the-land reconnaissance (even mid-lifecycle, unless a current PRODUCT_BRIEF.md already exists), then hands off to help to turn the inventory into concrete backfill moves. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
 disable-model-invocation: true
 ---
 
 # Setup
 
-The step before Discover starts. `scaffold` builds the actual application code; this skill only touches the repo's documentation shell (README, a project `AGENTS.md`, `docs/UNKNOWNS.md`, and `docs/notes/`) so every skill that runs after it has somewhere consistent to write.
+The step before Discover starts. `scaffold` builds the actual application code; this skill only touches the repo's documentation shell (README, a project `AGENTS.md`, `<project-slug>-docs/UNKNOWNS.md`, and `<project-slug>-docs/notes/`) so every skill that runs after it has somewhere consistent to write.
+
+**Docs folder naming:** this suite's docs live in a folder named `<project-slug>-docs/` — a kebab-case slug of the project name — not a bare `docs/`. A generic `docs/` reads as an unlabeled, ambiguous vault when opened directly in a third-party tool like Obsidian; naming it after the project fixes that. See the suite's own `AGENTS.md` §7 for the full convention. Every other skill in this suite writes `docs/...` in its own instructions as shorthand for whatever this skill actually named the folder — they resolve the real name from the project `AGENTS.md` this skill writes (Step 3), not from a literal `docs/` path.
 
 ## Step 1: Explore the current state
 
 Before writing anything, check what's already here:
 - Does `README.md` or `AGENTS.md`/`CLAUDE.md` already exist? If so, read it in full — it's existing, possibly hand-written content, not a draft to replace, so never overwrite it (see Step 3).
-- Does `docs/` exist, and already contain any of this suite's living docs (`UNKNOWNS.md`, `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `adr/`, `notes/`)? A repo mid-project needs gaps filled in, not a fresh layout imposed over it.
+- Does a docs folder already exist — `docs/` (the older, pre-convention name), `<project-slug>-docs/`, or anything the project's own `AGENTS.md` already names — and already contain any of this suite's living docs (`UNKNOWNS.md`, `PERSONA_WALKTHROUGH.md`, `JOURNEY_MAP.md`, `OKR.md`, `OOUX_OBJECT_MAP.md`, `adr/`, `notes/`)? A repo mid-project needs gaps filled in, not a fresh layout imposed over it. **If a plain `docs/` already exists, leave it named exactly that** — don't rename it to `<project-slug>-docs/` on your own initiative; that's an existing structure other tooling or habits may depend on. Only ask the user if they'd like it renamed; otherwise keep filling gaps under the name that's already there.
 - Is there a `package.json` / `src/` already, with real application code (not just a scaffold stub)? If so, this is an **existing product**: `scaffold` already ran, or this suite is being layered onto something that predates it entirely. `setup` still runs to backfill missing docs, but say so rather than treat it as a brand-new project, and carry that into Step 4's hand-off.
+
+**On an existing product, don't stop at the four docs this skill owns.** Run the same full inventory [`help`](../help/SKILL.md) uses, so the hand-off in Step 4 is grounded in how far the project has actually gotten, not just whether the doc shell is present: `PERSONA_WALKTHROUGH.md`, `JOURNEY_MAP.md`, `OKR.md`, `OOUX_OBJECT_MAP.md`, `index.css`/`DESIGN.md` (token layer), `adr/`, Storybook output, `audit` findings, `REQUIREMENTS.md`, `USER_GUIDE.md`, and `package`/`showcase` output — wherever the docs folder turns out to be. Also look for content that's clearly the same thing under a different name or location — a hand-rolled `personas.md`, design tokens defined somewhere other than `index.css`, an ADR log under a different folder. Note anything found this way in Step 3's `AGENTS.md` block (a short "already present, under a different name" line) rather than silently duplicating it or ignoring it; don't move or rename the user's files without asking.
 
 ## Step 2: Confirm scope with the user
 
 Ask only what isn't already answerable from context:
-- **Project name and one-line purpose**: what is this prototype for, in one sentence. If an existing README already states this, confirm it rather than asking cold.
+- **Project name and one-line purpose**: what is this prototype for, in one sentence. If an existing README already states this, confirm it rather than asking cold. Derive the docs-folder slug from this name (lowercase, spaces/punctuation to hyphens — e.g. "Pocket Atlas" → `pocket-atlas-docs/`); confirm the slug alongside the name if it's not obvious, rather than silently picking one.
 - **Starting point**: a genuinely new idea, or an existing repo/codebase this suite is being layered onto (already answered by Step 1 if a real `src/` turned up).
 
 Don't ask about anything covered in later lifecycle steps. Project name/purpose is all `setup` needs; screens, personas, and tokens come later from the skills that own them.
@@ -29,34 +33,38 @@ Four things, nothing else. For each: **if it already exists, append what's missi
 
 **`README.md`**: if missing, create it with project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype (or, on an existing product, whatever status is actually true). Leave placeholder headings for sections later skills will fill in (install/run instructions once `scaffold` exists, a feature overview once screens exist) rather than inventing content now. If a README already exists, leave its content untouched; only append a `## Status` line if one isn't already present in some form.
 
-**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording which doc is owned by which skill so nothing downstream duplicates or conflicts. If missing, create it with the block below. If it already exists (this suite's own, or a different tool's), append this block under its own `## UX Atlas` heading instead of replacing the file, so nothing already written there is lost:
+**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording the docs folder's real name and which doc is owned by which skill so nothing downstream duplicates, conflicts, or falls back to a bare `docs/` by mistake. If missing, create it with the block below, substituting the actual `<project-slug>` from Step 2 (and the actual folder name — plain `docs` — if Step 1 found one already using the older convention). If it already exists (this suite's own, or a different tool's), append this block under its own `## UX Atlas` heading instead of replacing the file, so nothing already written there is lost:
 
 ```markdown
 # AGENTS.md
 
-This prototype is built with UX Atlas. Doc ownership:
-- `docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
-- `docs/PRODUCT_BRIEF.md` — owned by `brief`
-- `docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
-- `docs/OOUX_OBJECT_MAP.md` — owned by `map`'s `objects` mode
+This prototype is built with UX Atlas. Docs folder: `<project-slug>-docs/`.
+
+Doc ownership:
+- `<project-slug>-docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
+- `<project-slug>-docs/PRODUCT_BRIEF.md` — owned by `brief`
+- `<project-slug>-docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
+- `<project-slug>-docs/JOURNEY_MAP.md` — owned by `journey`
+- `<project-slug>-docs/OKR.md` — owned by `metrics`
+- `<project-slug>-docs/OOUX_OBJECT_MAP.md` — owned by `map`'s `objects` mode
 - `DESIGN.md` — owned by `styleguide`, regenerated from `index.css`, never hand-edited out of sync
-- `docs/adr/` — owned by `decisions`
-- `docs/USER_GUIDE.md` — owned by `guide`
-- `docs/REQUIREMENTS.md` — owned by `requirements`
-- `docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; use it for **all** project notes. `docs/notes/my-notes/` inside it is the raw capture zone (fed by `wiki`'s `note` mode quick captures, or typed by hand); `docs/notes/wiki/` next to it is owned by `wiki`'s default `compile` mode, which compiles `my-notes/` plus any other document dropped into `docs/` (specs, client feedback, research) into an interlinked knowledge base
+- `<project-slug>-docs/adr/` — owned by `decisions`
+- `<project-slug>-docs/USER_GUIDE.md` — owned by `guide`
+- `<project-slug>-docs/REQUIREMENTS.md` — owned by `requirements`
+- `<project-slug>-docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; use it for **all** project notes. `<project-slug>-docs/notes/my-notes/` inside it is the raw capture zone (fed by `wiki`'s `note` mode quick captures, or typed by hand); `<project-slug>-docs/notes/wiki/` next to it is owned by `wiki`'s default `compile` mode, which compiles `my-notes/` plus any other document dropped into `<project-slug>-docs/` (specs, client feedback, research) into an interlinked knowledge base
 
 ## Working Agreements
 
 - **Capture decisions as they happen.** A non-obvious call made while working in this repo doesn't wait for someone to ask "why did we do it this way?" later: write it up with `decisions` if it's a real tradeoff with a rejected alternative, or with `wiki`'s `note` mode if it's smaller than that but still worth keeping.
-- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `wiki`'s `note` mode immediately. It lands in `docs/notes/my-notes/` and folds into `docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
-- **Use `docs/notes/` for all project notes.** Meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over, belongs under `docs/notes/` (or elsewhere in `docs/` if it's a standalone document someone else maintains) rather than scattered across the repo or left outside version control entirely. `wiki` picks up anything placed there.
-- **Defer to `docs/UNKNOWNS.md` instead of guessing.** If a decision genuinely needs input this session doesn't have, log it there rather than inventing a plausible-sounding answer (see the suite's own AGENTS.md §2.6).
+- **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `wiki`'s `note` mode immediately. It lands in `<project-slug>-docs/notes/my-notes/` and folds into `<project-slug>-docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
+- **Use `<project-slug>-docs/notes/` for all project notes.** Meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over, belongs there (or elsewhere under `<project-slug>-docs/` if it's a standalone document someone else maintains) rather than scattered across the repo or left outside version control entirely. `wiki` picks up anything placed there.
+- **Defer to `<project-slug>-docs/UNKNOWNS.md` instead of guessing.** If a decision genuinely needs input this session doesn't have, log it there rather than inventing a plausible-sounding answer (see the suite's own AGENTS.md §2.6).
 - **Suggest next steps at natural checkpoints.** After finishing a skill's work, or whenever a session looks like it's wrapping up, briefly state what `help` would recommend next, don't wait to be asked "what now?"
 ```
 
-**`docs/UNKNOWNS.md`**: if missing, create it empty with just a one-line header (`# Unknowns`). This is the one doc safe to pre-create with no content: an append-only running list from day one, not authored output any one skill produces. If it already exists, leave it alone entirely.
+**`<project-slug>-docs/UNKNOWNS.md`**: if missing, create it empty with just a one-line header (`# Unknowns`). This is the one doc safe to pre-create with no content: an append-only running list from day one, not authored output any one skill produces. If it already exists, leave it alone entirely.
 
-**`docs/notes/`**: if missing, create the folder with a single `docs/notes/README.md` explaining what it's for, so it's never an unexplained empty folder:
+**`<project-slug>-docs/notes/`**: if missing, create the folder with a single `notes/README.md` explaining what it's for, so it's never an unexplained empty folder:
 
 ```markdown
 # Notes
@@ -64,17 +72,55 @@ This prototype is built with UX Atlas. Doc ownership:
 This is the project's general notes home. **Use it for all project notes**: meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over that doesn't belong in a specific doc above. Open this folder directly in Obsidian or any other markdown editor to work outside the IDE; nothing here depends on a specific tool.
 
 - `my-notes/` — raw, unprocessed capture: quick thoughts from `wiki`'s `note` mode, or anything typed here by hand. Drop things here freely; nothing needs to be tidy on the way in.
-- `wiki/` — this suite's compiled knowledge wiki (owned by the `wiki` skill): browse `wiki/index.md` once it exists. It compiles `my-notes/`, but also reads and cross-references any other document dropped anywhere in `docs/` (a spec, a client brief, user research) that this suite didn't produce itself, so those don't need to live in this folder specifically to get picked up.
+- `wiki/` — this suite's compiled knowledge wiki (owned by the `wiki` skill): browse `wiki/index.md` once it exists. It compiles `my-notes/`, but also reads and cross-references any other document dropped anywhere in this docs folder (a spec, a client brief, user research) that this suite didn't produce itself, so those don't need to live in this folder specifically to get picked up.
 ```
 
-Only the `docs/notes/` folder and this one README get pre-created. Don't pre-create `my-notes/` or `wiki/` themselves; they stay absent until `wiki` (either mode) actually has something to put there.
+Unlike the other living docs below, `notes/`'s two subfolders **are** pre-created — this README already points at them by name, so an empty vault with a dangling reference is worse than the small head start below. Each gets its own explainer, not real content:
 
-Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `docs/adr/`, `docs/REQUIREMENTS.md`, `docs/notes/my-notes/`, or `docs/notes/wiki/`. Those belong to `persona`, `map`'s `objects` mode, `styleguide`, `decisions`, `requirements`, and `wiki` (both modes) respectively — a hollow stub sitting there before that work happens is dead weight, not scaffolding. This skill sets the table; it doesn't serve the meal.
+**`notes/my-notes/README.md`**:
+
+```markdown
+# My Notes
+
+Raw, unprocessed capture — nothing here needs to be tidy on the way in. Two ways in:
+- `wiki`'s `note` mode drops a quick thought here mid-task, no ceremony.
+- Type directly into a file yourself, in this folder or any markdown editor pointed at it.
+
+**Format**: one file per day, `YYYY-MM-DD.md`, thoughts as timestamped bullets:
+
+\`\`\`markdown
+## 2026-01-15
+- 14:20 — client mentioned they'd rather see a weekly digest than real-time alerts, worth a persona note
+- 16:05 — the settings page nav pattern feels wrong, revisit after audit
+\`\`\`
+
+No required structure beyond that. `wiki` reads everything here (by `note` mode immediately, or by `compile` mode's periodic sweep) and folds it into the compiled wiki next to this folder — nothing typed here is a dead end.
+```
+
+**`notes/wiki/README.md`**:
+
+```markdown
+# About This Wiki
+
+This folder is a compiled, interlinked knowledge base, built and maintained by the `wiki` skill from `../my-notes/` and anything else dropped into the docs folder that this suite didn't produce itself (a spec, a client brief, meeting notes). It isn't hand-written from scratch — `wiki` reads sources, cross-references them, and keeps this folder current.
+
+Once `wiki` has run at least once, this folder holds:
+- `index.md` — content-oriented catalog, the front door
+- `log.md` — append-only record of what changed and when
+- `entities/` — one page per durable "thing" worth its own file (a persona, a recurring decision topic, a domain term)
+- `constellation.html` — a standalone interactive graph view, open directly in a browser
+
+**Editing by hand:** every file here is plain markdown with `[[wikilink]]`-style cross-references — no Obsidian or specific tool required, safe to open and edit directly. If you correct or add something by hand, note it in `log.md` yourself, or just let the next `wiki` `compile` pass pick up the change (it checks for anything that doesn't match what it last wrote). Deleting/renaming an entity page by hand is safe too; `compile` mode's linting pass (contradictions, staleness, orphans) will flag anything that's now inconsistent rather than silently breaking.
+```
+
+Do **not** pre-create `PERSONA_WALKTHROUGH.md`, `JOURNEY_MAP.md`, `OKR.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `adr/`, `REQUIREMENTS.md`, or any of `wiki`'s own real output (`notes/wiki/index.md`, `log.md`, `entities/`, `constellation.html`) or `notes/my-notes/`'s dated capture files. Those belong to `persona`, `journey`, `metrics`, `map`'s `objects` mode, `styleguide`, `decisions`, `requirements`, and `wiki` respectively — a hollow stub standing in for actual content is dead weight, not scaffolding. The two README files above are the exception: they're documentation about the folders, not a stand-in for what the folders will eventually hold, so they're safe to write immediately.
 
 ## Step 4: Hand off
 
-Point at [`brief`](../brief/SKILL.md) next, almost always: it captures the stakeholder's own product vision (who it's for, core tasks, devices, competitors) before any of Discover's user-research skills run, and most of what `interview`, `workshop`, and `persona` need starts there. Skip straight to one of those instead only if that groundwork is already documented elsewhere and the user says so.
+**Point at [`brief`](../brief/SKILL.md) next, on a new project or an existing one, unless `PRODUCT_BRIEF.md` already exists in the docs folder and looks current** (in which case skip straight to the `help` hand-off below — that ground is already covered). `brief` is the lay-of-the-land pass for this suite: on a brand-new idea it's a stakeholder interrogation; on an existing product it's a codebase reconnaissance pass, drafted first and confirmed with the stakeholder after (its own Step 0.5). Even a project that's already deep into Design or Deliver benefits from this — it's often the one foundational doc that got skipped if the suite was layered on after the fact, and everything `persona`, `map`, and `requirements` do downstream reads better against a confirmed brief than none at all.
 
-**If Step 1 found an existing product** (real `src/` and application code, not just a scaffold stub), say so explicitly when handing off, and tell `brief` to run its reconnaissance pass first: read the current codebase and draft the brief from what the product already does, then confirm the gaps with the stakeholder, rather than starting from a blank interview. `brief` supports this directly (its own Step 0.5).
+**Hand Step 1's full inventory to `brief` along with the hand-off**, not just "there's a `src/`": tell it explicitly what already exists (`DESIGN.md`, `PERSONA_WALKTHROUGH.md`, an object map, ADRs, whatever Step 1 turned up) so its Step 0.5 reconnaissance drafts from the fullest picture available, not just route/component structure. Say explicitly that this is an existing product and what's already in place.
 
-**Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), `docs/UNKNOWNS.md` exists, `docs/notes/README.md` exists, and no doc owned by another skill was pre-stubbed.
+**After `brief` (or immediately, if it was skipped because a current one already exists), point at [`help`](../help/SKILL.md)** to turn Step 1's inventory into the actual next 1-3 moves — which skill backfills what's still missing (personas, object map, tokens, ADRs, requirements) rather than restarting at Discover. `help` is what makes the "atlas" of the project useful: a picture of where everything stands, not just a doc shell.
+
+**Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), the project `AGENTS.md` states the docs folder's real name, `<docs-folder>/UNKNOWNS.md` exists, `<docs-folder>/notes/README.md` + `notes/my-notes/README.md` + `notes/wiki/README.md` all exist, no doc owned by another skill was pre-stubbed (the three READMEs are documentation, not stand-ins, and don't count as stubbing), and the hand-off names both `brief` (or explains why it was skipped) and `help`, grounded in what Step 1's full inventory actually found.

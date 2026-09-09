@@ -25,6 +25,8 @@ Check for these, in this order, to place the project on Discover → Decide → 
 
 Not a rigid state machine — a project can legitimately have `DESIGN.md` before `PERSONA_WALKTHROUGH.md` (started with a scaffold, backfilling research). Use the signals to form a hypothesis, then confirm it in Step 2 rather than asserting it as fact.
 
+**Check `docs/PRODUCT_BRIEF.md` independently of where the table otherwise places the project.** It's cheap to backfill (`brief`'s reconnaissance pass drafts it from whatever else already exists rather than a blank interview) and everything else reads better against a confirmed one, so a missing brief is always worth surfacing even on a project that's clearly well past Discover by every other signal — a real pattern when this suite gets layered onto a repo after work already started (`setup`'s existing-product hand-off routes through `brief` for exactly this reason, then here). Don't let a later-phase signal from the table above crowd it out of the recommendation.
+
 ## Step 2: Ask if the signals don't resolve it
 
 If file signals are ambiguous, or the user's actual goal doesn't obviously match where the files say they are, ask one direct question: "what are you trying to get done right now?" Don't run the Step 1 table past the user as a report; it's your reasoning, not their answer.
@@ -39,6 +41,8 @@ Some starting points aren't "the project is at phase X"; they're a specific even
 - **Stuck on a real tradeoff, can't decide between two directions** → [`interrogate`](../interrogate/SKILL.md).
 - **Need to move something to/from Figma** → [`figma`](../figma/SKILL.md).
 - **A decision was already made and needs to survive past this conversation** → [`decisions`](../decisions/SKILL.md).
+- **A real process is broken or slow, and it needs mapping/fixing, not just a persona narrative** → [`journey`](../journey/SKILL.md).
+- **Need to define what success looks like, or an existing goal has no real metric behind it** → [`metrics`](../metrics/SKILL.md).
 
 Check on-ramps before falling back to the phase table. A mid-Design project that just got back from a stakeholder workshop still needs `workshop`'s `ingest` mode first, not whatever Design-phase skill the file signals suggest.
 

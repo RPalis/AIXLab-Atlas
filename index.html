@@ -206,17 +206,9 @@
     stroke-width: 0.75;
     vector-effect: non-scaling-stroke;
   }
-  .hero-eyebrow, .hero h1, .hero p.lede, .hero-ribbon {
+  .hero h1, .hero-subhead, .hero p.lede, .hero-ribbon {
     position: relative;
     z-index: 1;
-  }
-  .hero-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin: 0 0 18px;
   }
   .hero h1 {
     font-family: var(--font-display);
@@ -224,10 +216,18 @@
     font-size: clamp(2.6rem, 6vw, 4.2rem);
     line-height: 1.04;
     letter-spacing: -0.01em;
-    margin: 0 0 22px;
+    margin: 0 0 10px;
     text-wrap: balance;
     max-width: 15ch;
   }
+  .hero-subhead {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    margin: 0 0 26px;
+  }
+  .hero-subhead .slash { color: var(--discover); }
   .hero p.lede {
     font-size: 1.1rem;
     color: var(--ink-soft);
@@ -400,18 +400,31 @@
     line-height: 1.5;
   }
   .card-modes {
+    list-style: none;
+    margin: 0 0 4px;
+    padding: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex-direction: column;
+    gap: 7px;
   }
-  .card-modes span {
+  .card-modes li {
+    font-size: 0.83rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .mode-tag {
+    display: block;
+    width: fit-content;
     font-family: var(--font-mono);
     font-size: 10.5px;
+    font-weight: 600;
     color: var(--phase);
     background: var(--phase-soft);
     padding: 2px 7px;
     border-radius: 999px;
     letter-spacing: 0.02em;
+    white-space: nowrap;
+    margin-bottom: 4px;
   }
   .card-anytime-tag {
     display: inline-block;
@@ -455,16 +468,16 @@
   .shelf .cards { --phase: var(--anytime); --phase-soft: var(--anytime-soft); }
   .shelf .card::before { background: var(--anytime); }
   .shelf .card-name .slash { color: var(--anytime); }
-  .shelf .card-modes span { color: var(--anytime); background: var(--anytime-soft); }
+  .shelf .mode-tag { color: var(--anytime); background: var(--anytime-soft); }
 
   /* ---------- Meta shelf ---------- */
   .shelf.is-meta { background: var(--paper); }
   .shelf.is-meta .shelf-kicker { color: var(--meta); }
-  .shelf.is-meta .cards { --phase: var(--meta); --phase-soft: var(--meta-soft); grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .shelf.is-meta .cards { --phase: var(--meta); --phase-soft: var(--meta-soft); }
   .shelf.is-meta .card { border-style: dashed; }
   .shelf.is-meta .card::before { background: var(--meta); }
   .shelf.is-meta .card-name .slash { color: var(--meta); }
-  .shelf.is-meta .card-modes span { color: var(--meta); background: var(--meta-soft); }
+  .shelf.is-meta .mode-tag { color: var(--meta); background: var(--meta-soft); }
 
   /* ---------- How to read / footer ---------- */
   .howto {
@@ -726,8 +739,8 @@
       <path d="M644,88L639,88M644,88L655,87M655,87L667,87M667,87L678,87M678,87L690,87M690,87L701,88M701,88L704,88M609,97L603,99M609,97L621,93M621,93L632,90M632,90L639,88M704,88L713,93M713,93L719,99M603,99L609,101M609,101L621,104M621,104L632,106M632,106L644,107M644,107L655,108M655,108L667,109M667,109L678,108M678,108L690,107M690,107L701,105M701,105L713,102M713,102L719,99"/>
       <path d="M632,97L624,99M632,97L644,96M644,96L655,95M655,95L667,95M667,95L678,97M678,97L687,99M624,99L632,101M632,101L644,102M644,102L655,102M655,102L667,102M667,102L678,101M678,101L687,99"/>
     </svg>
-    <p class="hero-eyebrow">UX Atlas: a field guide</p>
-    <h1>The Pocket Atlas: 22 Field Skills</h1>
+    <h1>The Pocket Atlas</h1>
+    <p class="hero-subhead">twenty-two <span class="slash">/</span>skills to use in the field</p>
     <p class="lede">Every skill in this suite exists to move a prototype through one sequence: <strong>Discover, Decide, Design, Deliver</strong>, the same shape a design‑thinking studio would run by hand. This page is the map: what each stage is for, which skill you reach for inside it, and where the tools that don't belong to any one stage, or don't belong to the lifecycle at all, live.</p>
 
     <div class="hero-ribbon">
@@ -759,7 +772,7 @@
       <a href="#anytime" data-phase="anytime">
         <div class="num">—</div>
         <div class="label">Anytime</div>
-        <div class="count">4 skills</div>
+        <div class="count">3 skills</div>
       </a>
     </div>
   </header>
@@ -797,13 +810,19 @@
       <div class="cards">
         <a class="card" href="skills/workshop/SKILL.md">
           <div class="card-name"><span class="slash">/</span>workshop</div>
-          <p class="card-desc">Plan mode builds a design-thinking working session: activities selected by phase and timing, a written agenda, optional FigJam board or slide deck. Ingest mode turns photos of the physical board that resulted into a deck, doc, CSV, or a replicated FigJam board.</p>
-          <div class="card-modes"><span>plan</span><span>ingest</span></div>
+          <p class="card-desc">Two ways to run a workshop, from opposite sides of the same event.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">plan</span>Builds a design-thinking working session: activities selected by phase and timing, a written agenda, optional FigJam board or slide deck.</li>
+            <li><span class="mode-tag">ingest</span>Turns photos of the physical board that resulted into a deck, doc, CSV, or a replicated FigJam board.</li>
+          </ul>
         </a>
         <a class="card" href="skills/interview/SKILL.md">
           <div class="card-name"><span class="slash">/</span>interview</div>
-          <p class="card-desc">Phase-aware research kit: question bank, script, synthesis template. Loops back here later in validation mode.</p>
-          <div class="card-modes"><span>discovery</span><span>validation</span></div>
+          <p class="card-desc">Phase-aware research kit: question bank, script, synthesis template. Picks the mode from what already exists in the repo.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">discovery</span>Open-ended questions to lock in who the users are and what they need, before a prototype exists.</li>
+            <li><span class="mode-tag">validation</span>Targeted, hypothesis-testing questions about specific screens or flows, once something is built.</li>
+          </ul>
         </a>
         <a class="card" href="skills/persona/SKILL.md">
           <div class="card-name"><span class="slash">/</span>persona</div>
@@ -823,8 +842,12 @@
       <div class="cards">
         <a class="card" href="skills/map/SKILL.md">
           <div class="card-name"><span class="slash">/</span>map</div>
-          <p class="card-desc">Objects mode: interactive OOUX/ORCA walkthrough (Objects, Relationships, Calls-to-Action, Attributes), seeding the object map and an entity-relationship diagram before any code exists. Site mode plans the proposed route/component architecture as a diagram. Flow mode turns a journey or workflow into a Mermaid flowchart.</p>
-          <div class="card-modes"><span>objects</span><span>site</span><span>flow</span></div>
+          <p class="card-desc">Turns a prototype's structure — proposed or built — into something you can see instead of just read.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">objects</span>Interactive OOUX/ORCA walkthrough (Objects, Relationships, Calls-to-Action, Attributes), seeding the object map and an entity-relationship diagram before any code exists.</li>
+            <li><span class="mode-tag">site</span>Plans the proposed route/component architecture as a diagram, before any of it is built.</li>
+            <li><span class="mode-tag">flow</span>Turns a persona journey or branching workflow into a Mermaid flowchart.</li>
+          </ul>
         </a>
         <a class="card" href="skills/interrogate/SKILL.md">
           <div class="card-name"><span class="slash">/</span>interrogate</div>
@@ -854,13 +877,20 @@
         </a>
         <a class="card" href="skills/styleguide/SKILL.md">
           <div class="card-name"><span class="slash">/</span>styleguide</div>
-          <p class="card-desc">Establishes the two-layer token architecture (raw palette, then auto-flipping semantic roles) and generates DESIGN.md. Forge mode casts a real brand's values in from live CSS, a brand guide, or a verified hex matrix.</p>
-          <div class="card-modes"><span>default</span><span>forge</span></div>
+          <p class="card-desc">Establishes the two-layer token architecture (raw palette, then auto-flipping semantic roles) and generates DESIGN.md.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">default</span>Starts from a placeholder palette, for a new prototype with no real brand yet.</li>
+            <li><span class="mode-tag">forge</span>Casts a real brand's colors, fonts, and spacing into the same architecture, from live CSS, a brand guide, or a verified hex matrix.</li>
+          </ul>
         </a>
         <a class="card" href="skills/audit/SKILL.md">
           <div class="card-name"><span class="slash">/</span>audit</div>
-          <p class="card-desc">Finds problems, never fixes them. Craft mode feeds refine directly below; a11y runs once the UI has stabilized.</p>
-          <div class="card-modes"><span>craft</span><span>code</span><span>a11y</span></div>
+          <p class="card-desc">Finds problems, never fixes them.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">craft</span>Scored UX critique — hierarchy, cognitive load, IA, consistency, responsive behavior, delight — feeds refine directly below.</li>
+            <li><span class="mode-tag">code</span>Coding-standards check: token adherence, structure and reuse, mechanical hygiene.</li>
+            <li><span class="mode-tag">a11y</span>Deep WCAG 2.1/2.2 AA pass, criterion by criterion, run once the UI has stabilized.</li>
+          </ul>
         </a>
         <a class="card" href="skills/refine/SKILL.md">
           <div class="card-name"><span class="slash">/</span>refine</div>
@@ -872,8 +902,11 @@
         </a>
         <a class="card" href="skills/map/SKILL.md">
           <div class="card-name"><span class="slash">/</span>map</div>
-          <p class="card-desc">Document mode regenerates the site diagram three ways (interactive modal, Mermaid, SVG) from the real built app, and reconciles the object model if it's drifted. Audit mode does that reconciliation alone, without the diagram refresh.</p>
-          <div class="card-modes"><span>audit</span><span>document</span></div>
+          <p class="card-desc">Keeps every diagram honest once real code exists.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">audit</span>Reconciles the object model against actual code alone, without a diagram refresh.</li>
+            <li><span class="mode-tag">document</span>Regenerates the site diagram three ways (interactive modal, Mermaid, SVG) from the real built app, and reconciles the object model if it's drifted.</li>
+          </ul>
         </a>
       </div>
     </section>
@@ -889,13 +922,18 @@
       <div class="cards">
         <a class="card" href="skills/audit/SKILL.md">
           <div class="card-name"><span class="slash">/</span>audit</div>
-          <p class="card-desc">Code mode: token adherence, structure and reuse, mechanical hygiene, run before anything goes out the door.</p>
-          <div class="card-modes"><span>code</span></div>
+          <p class="card-desc">Coding-standards audit, run before anything goes out the door.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">code</span>Token adherence, structure and reuse, mechanical hygiene.</li>
+          </ul>
         </a>
         <a class="card" href="skills/package/SKILL.md">
           <div class="card-name"><span class="slash">/</span>package</div>
-          <p class="card-desc">Builds the static handoff bundle: the full three-folder package for a developer, or the bare-essentials production folder.</p>
-          <div class="card-modes"><span>full</span><span>lite</span></div>
+          <p class="card-desc">Two distinct handoffs, not one script trying to do both.</p>
+          <ul class="card-modes">
+            <li><span class="mode-tag">full</span>Unminified site + raw source + docs, a three-folder zip for a developer to read, extract, or rebuild.</li>
+            <li><span class="mode-tag">lite</span>Minified production/ folder only, bare essentials, for someone who just needs to run it.</li>
+          </ul>
         </a>
         <a class="card" href="skills/showcase/SKILL.md">
           <div class="card-name"><span class="slash">/</span>showcase</div>
@@ -934,21 +972,28 @@
     <div class="cards">
       <a class="card" href="skills/help/SKILL.md">
         <div class="card-name"><span class="slash">/</span>help</div>
-        <p class="card-desc">Reads the current repo's real state and recommends the next 1-3 skills, with the reason: the situational counterpart to this page.</p>
-      </a>
-      <a class="card" href="skills/router/SKILL.md">
-        <div class="card-name"><span class="slash">/</span>router</div>
-        <p class="card-desc">The full browsable index this page is drawn from: every skill, every phase, in one interactive reference.</p>
+        <p class="card-desc">Where you are and what's out there, two ways.</p>
+        <ul class="card-modes">
+          <li><span class="mode-tag">default</span>The situational advisor: reads the repo's real state and recommends the next 1-3 skills, with the reason.</li>
+          <li><span class="mode-tag">atlas</span>The full browsable index this page is drawn from: every skill, every phase, in one interactive reference.</li>
+        </ul>
       </a>
       <a class="card" href="skills/wiki/SKILL.md">
         <div class="card-name"><span class="slash">/</span>wiki</div>
-        <p class="card-desc">Compiles docs/notes/ and any other document dropped into docs/ into a small, interlinked markdown wiki as the project accumulates them, including a constellation graph view. Note mode is the lowest-ceremony capture in the suite: a quick thought dropped into docs/notes/my-notes/ and folded in immediately, no separate compile step to remember.</p>
-        <div class="card-modes"><span>compile</span><span>note</span></div>
+        <p class="card-desc">Compiles scattered notes into a small, interlinked markdown wiki as the project accumulates them, including a constellation graph view.</p>
+        <ul class="card-modes">
+          <li><span class="mode-tag">compile</span>The full pass: ingest every unprocessed source, answer a query, lint for contradictions, regenerate the graph.</li>
+          <li><span class="mode-tag">note</span>Lowest-ceremony capture: a quick thought dropped in and folded straight into the wiki, no separate compile step.</li>
+        </ul>
       </a>
       <a class="card" href="skills/figma/SKILL.md">
         <div class="card-name"><span class="slash">/</span>figma</div>
         <p class="card-desc">Moves work to and from Figma, whichever direction the moment calls for.</p>
-        <div class="card-modes"><span>capture</span><span>import</span><span>sync</span></div>
+        <ul class="card-modes">
+          <li><span class="mode-tag">capture</span>Sends a live prototype screen into Figma as editable layers. No MCP needed.</li>
+          <li><span class="mode-tag">import</span>Brings a Figma frame or selection into the codebase as real, convention-conformant code.</li>
+          <li><span class="mode-tag">sync</span>Bidirectional token sync between index.css/DESIGN.md and a Figma library's Variables.</li>
+        </ul>
       </a>
     </div>
   </div>
@@ -964,8 +1009,16 @@
     <div class="cards">
       <a class="card" href="skills/skill-manager/SKILL.md">
         <div class="card-name"><span class="slash">/</span>skill-manager</div>
-        <p class="card-desc">Install, delete, disable, enable, list, and sync skills in the shared library at ~/.agents/skills, symlinked into Claude Code and Gemini CLI. Also shows what any installed skill does.</p>
-        <div class="card-modes"><span>install</span><span>delete</span><span>disable</span><span>enable</span><span>sync</span><span>list</span><span>details</span></div>
+        <p class="card-desc">Manages the shared skill library at ~/.agents/skills, symlinked into Claude Code and Gemini CLI.</p>
+        <ul class="card-modes">
+          <li><span class="mode-tag">install</span>Clone or copy a skill into the library.</li>
+          <li><span class="mode-tag">delete</span>Permanently remove a skill.</li>
+          <li><span class="mode-tag">disable</span>Move a skill out of active use without deleting it.</li>
+          <li><span class="mode-tag">enable</span>Restore a disabled skill.</li>
+          <li><span class="mode-tag">sync</span>Verify and repair the Claude Code / Gemini CLI symlinks.</li>
+          <li><span class="mode-tag">list</span>Show active and disabled skills, each with its one-line description.</li>
+          <li><span class="mode-tag">details</span>Show full info on one skill: status, path, source, complete SKILL.md.</li>
+        </ul>
       </a>
     </div>
   </div>

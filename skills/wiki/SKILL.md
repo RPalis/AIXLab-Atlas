@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown + [[wikilinks]], no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
+description: Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown, cross-referenced with standard `[text](file.md)` links, no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Raw notes get re-read from scratch every time they're needed. This skill instead **compiles** them into a small set of interlinked, up-to-date pages — automating the bookkeeping (cross-referencing, catching contradictions, keeping pages current), not the thinking.
 
-**Tool-agnostic by design**: plain markdown files with `[[wikilink]]`-style cross-references, no Obsidian or specific app required — a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). It lives inside `docs/notes/`, the project's general notes home, so pointing Obsidian (or any other markdown editor) at `docs/notes/` to work outside the IDE also opens the wiki; the wiki just doesn't depend on it.
+**Tool-agnostic by design**: plain markdown files cross-referenced with standard `[text](file.md)` links — and `[text](file.md#section)` for a specific section — not Obsidian-only `[[wikilink]]` syntax. Standard links render and stay clickable in Obsidian, GitHub, VS Code, and any other markdown tool, so a teammate can read, grep, and search this wiki with nothing but a text editor, consistent with this suite's self-containment principle (AGENTS.md §2.5). It lives inside `docs/notes/`, the project's general notes home, so pointing Obsidian (or any other markdown editor) at `docs/notes/` to work outside the IDE also opens the wiki; the wiki just doesn't depend on it.
 
 Two modes, same destination:
 - **`compile`** (default) — the full pass: ingest every unprocessed source, answer a query, lint for contradictions/staleness, regenerate the graph view.
@@ -53,9 +53,9 @@ When adding a new source (a `my-notes/` entry, an external document dropped into
 
 1. Read the source. Identify which existing entity pages it touches, and whether it introduces a new entity.
 2. **New entity creation is a gate, not automatic.** If this is genuinely a new durable topic, say so explicitly and use consistent naming with what's already in the wiki (check `index.md` first) rather than creating a near-duplicate page under a slightly different name.
-3. Update every touched entity page: add the new information, and if it contradicts something already written, flag the contradiction inline (`> ⚠️ Conflicts with earlier note in [[other-entity]], needs resolution`) rather than silently overwriting. **For an external document**, summarize and link to it (a relative path, e.g. `[client feedback](../client-feedback.md)`) rather than copying its full content into the entity page; the wiki indexes and cross-references, it doesn't need to own a second copy of a doc someone else maintains.
+3. Update every touched entity page: add the new information, and if it contradicts something already written, flag the contradiction inline (`> ⚠️ Conflicts with earlier note in [Other Entity](other-entity.md), needs resolution`) rather than silently overwriting. **For an external document**, summarize and link to it (a relative path, e.g. `[client feedback](../client-feedback.md)`) rather than copying its full content into the entity page; the wiki indexes and cross-references, it doesn't need to own a second copy of a doc someone else maintains.
 4. Update `index.md` with any new/changed entries.
-5. Append one line to `log.md`: `## [YYYY-MM-DD] ingest, <source>, touched: [[entity-a]], [[entity-b]]`.
+5. Append one line to `log.md`: `## [YYYY-MM-DD] ingest, <source>, touched: [Entity A](entities/entity-a.md), [Entity B](entities/entity-b.md)`.
 
 ### Step 2: Query the wiki
 
@@ -74,9 +74,9 @@ Report findings, don't silently fix everything. A contradiction usually needs a 
 
 ### Step 4: Visualize
 
-The wiki's entities and `[[wikilinks]]` are already a graph. Every ingest should keep this current, not just the pages themselves.
+The wiki's entities and the links between their pages are already a graph. Every ingest should keep this current, not just the pages themselves.
 
-**Mermaid graph** (for embedding in `index.md` or any doc): one node per entity, one edge per `[[wikilink]]` between them:
+**Mermaid graph** (for embedding in `index.md` or any doc): one node per entity, one edge per cross-reference link between them:
 
 ```mermaid
 flowchart LR
@@ -84,7 +84,7 @@ flowchart LR
     PainPoint-ContextSwitching --> Decision-UnifiedInbox[[Unified inbox decision]]
 ```
 
-**`constellation.html`**: a standalone, self-contained interactive graph view, separate from the Mermaid diagram because it needs to support click-to-explore (unlike a static Mermaid embed). Build it as a single HTML file with an inline Vis.js network (same library and interaction pattern as [`map`](../map/SKILL.md)'s `site` mode modal, but standalone rather than embedded in a running prototype: open it directly in a browser, no dev server or app required). Entity pages become nodes, wikilinks become edges, clicking a node shows that entity's summary. Regenerate it during the periodic linting pass (Step 3), not on every single ingest — it's a snapshot view, not a live one.
+**`constellation.html`**: a standalone, self-contained interactive graph view, separate from the Mermaid diagram because it needs to support click-to-explore (unlike a static Mermaid embed). Build it as a single HTML file with an inline Vis.js network (same library and interaction pattern as [`map`](../map/SKILL.md)'s `site` mode modal, but standalone rather than embedded in a running prototype: open it directly in a browser, no dev server or app required). Entity pages become nodes, their cross-reference links become edges, clicking a node shows that entity's summary. Regenerate it during the periodic linting pass (Step 3), not on every single ingest — it's a snapshot view, not a live one.
 
 **Completion criterion:** every entity page is reachable from `index.md`, every ingest leaves a `log.md` line, and no two pages state contradictory facts without an explicit `⚠️ Conflicts` flag.
 

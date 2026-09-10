@@ -14,7 +14,7 @@ This is the actual framework: four phases, each with a recommended path through 
 
 Several skills below are **multi-mode**: one skill covering several related-but-distinct jobs (`audit`, `figma`, `map`, `interview`, `package`). Say which mode you want, or the skill asks.
 
-Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual state of the current repo and tells you the next 1-3 moves.
+Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual state of the current repo and tells you the next 1-3 moves. Want the whole roadmap instead? `help`'s `atlas` mode is the full browsable directory.
 
 ### Before Discover
 Nothing exists yet.
@@ -65,7 +65,7 @@ Ship it, validate it, hand it off.
 ### Usable Anytime
 Not gated to one phase. Reach for these whenever the situation calls for them, from any point in Discover through Deliver.
 
-- **[`help`](skills/help/SKILL.md)**: the situational advisor version of this whole section: reads the repo, tells you what's next.
+- **[`help`](skills/help/SKILL.md)**: default mode is the situational advisor version of this whole section (reads the repo, tells you what's next); `atlas` mode is the full browsable directory.
 - **[`decisions`](skills/decisions/SKILL.md)** / **[`interrogate`](skills/interrogate/SKILL.md)**: capturing and interrogating decisions, wherever in the process one comes up.
 - **[`wiki`](skills/wiki/SKILL.md)**: two modes. `note` mode is a quick, low-ceremony capture for a thought worth keeping, mid-task, dropped into `docs/notes/my-notes/` and folded straight in. Default `compile` mode compiles scattered notes into an interlinked wiki as the project accumulates them, including any spec, transcript, or research doc a teammate, PM, client, or user drops directly into `docs/`.
 - **[`figma`](skills/figma/SKILL.md)**: moving work to and from Figma, whenever it's part of the workflow: `capture` (a screen to Figma as layers), `import` (a Figma frame in as code), or `sync` (a full token-system sync).
@@ -109,8 +109,7 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 
 | Skill Name | Phase | Purpose | Trigger / Commands |
 |---|---|---|---|
-| [`router`](skills/router/SKILL.md) | **Router** | Master index & navigation guide across the entire design process | `/router`, "design skills", "prototype workflow" |
-| [`help`](skills/help/SKILL.md) | **Router** | Reads the current repo's actual state and recommends the next 1-3 skills, with reasons | `/help`, "what should I do next", "which skill do I need" |
+| [`help`](skills/help/SKILL.md) | **Router** | Two modes: default reads the current repo's actual state and recommends the next 1-3 skills, with reasons; `atlas` is the full browsable directory across the entire design process | `/help`, `/help atlas`, "what should I do next", "which skill do I need", "design skills", "prototype workflow" |
 | [`setup`](skills/setup/SKILL.md) | **Before Discover** | Bootstrap a prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md, docs/notes/. Works on an existing product too, appending rather than overwriting | `/setup`, "start a new prototype repo", "bootstrap this project", "add UX Atlas to this repo" |
 | [`brief`](skills/brief/SKILL.md) | **Before Discover** | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md`. On an existing product, drafts from the codebase first and confirms it instead | `/brief`, "product brief", "get this out of my head", "discovery interview", "brief for our existing app" |
 | [`workshop`](skills/workshop/SKILL.md) | **Discover** | Two modes: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck) or `ingest` (convert workshop board photos into a deck, doc, CSV, or replicated FigJam board) | `/workshop`, `/workshop ingest`, "plan a workshop", "design thinking session", "digitize this whiteboard", "turn these sticky notes into a doc" |

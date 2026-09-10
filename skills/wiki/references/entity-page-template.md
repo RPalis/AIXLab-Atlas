@@ -12,8 +12,8 @@
 - [YYYY-MM-DD] [next note]
 
 ## Related
-- [[other-entity-slug]]
-- [[another-entity-slug]]
+- [Other Entity Name](other-entity-slug.md)
+- [Another Entity Name](another-entity-slug.md)
 
 ## Open Questions
 [Anything still unresolved about this entity: cross-check against docs/UNKNOWNS.md]

@@ -10,13 +10,12 @@ This repository is the single source of truth for **UX Atlas**, a modular, end-t
 
 It distills real-world prototyping patterns, two-layer design token architectures, atomic component documentation, visual architecture mapping, and packaging workflows into a portable, standalone skill suite. This folder is meant to be handed to a teammate as-is: every skill works from a fresh clone with `install.sh` and nothing else installed.
 
-The process is **Discover → Decide → Design → Deliver**; see [`router`](skills/router/SKILL.md) and the README for the full narrative flow through each phase. Structurally:
+The process is **Discover → Decide → Design → Deliver**; see [`help`](skills/help/SKILL.md)'s `atlas` mode and the README for the full narrative flow through each phase. Structurally:
 
 ```mermaid
 flowchart TD
-    subgraph Router ["Navigation & Master Router"]
-        R0[router]
-        RH[help]
+    subgraph Router ["Navigation"]
+        RH["help (default / atlas mode)"]
     end
 
     subgraph Before ["0. Before Discover"]
@@ -63,13 +62,13 @@ flowchart TD
     end
 
     P00B --> Discover
-    R0 -.-> Before
-    R0 -.-> Discover
-    R0 -.-> Decide
-    R0 -.-> Design
-    R0 -.-> Deliver
-    R0 -.-> Anytime
-    R0 -.-> Meta
+    RH -.-> Before
+    RH -.-> Discover
+    RH -.-> Decide
+    RH -.-> Design
+    RH -.-> Deliver
+    RH -.-> Anytime
+    RH -.-> Meta
 ```
 
 ---
@@ -119,6 +118,10 @@ Every prototype repository must include a **"Prototype Tools" section inside the
 - `setup` records the real folder name as the first line of the project's own `AGENTS.md`, before the doc-ownership list. Before creating or reading anything under `docs/...` in a specific project, resolve the real name from that line rather than assuming the literal folder is named `docs`.
 - On a project that already had a plain `docs/` folder before this convention existed, `setup` leaves it as-is rather than renaming it out from under other tooling or muscle memory — it only names new folders `<project-slug>-docs/`. Renaming an existing `docs/` is something to ask the user about explicitly, not do silently.
 
+### 8. Internal Doc Links Are Standard Markdown, Never `[[Wikilinks]]`
+- Every cross-reference between docs — skill-to-skill (`skills/*/SKILL.md`), inside a generated project's docs, and inside `wiki`'s own entity pages — uses standard markdown link syntax: `[link text](path.md)`, or `[link text](path.md#section)` to point at a specific section. Both Obsidian and every other markdown tool (GitHub, VS Code, a plain text search) render and follow this syntax; `[[wikilink]]`-style double-bracket links are Obsidian/Logseq-specific and render as literal bracketed text everywhere else, which directly contradicts this suite's "no Obsidian dependency" claim wherever it's made.
+- This applies even though `wiki`'s docs describe themselves as building an "interlinked" knowledge base with a graph view — the graph comes from parsing the standard links between pages, not from a special link syntax.
+
 ---
 
 ## 3. Current Skills Directory
@@ -127,8 +130,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 
 | Skill Folder | Name | Lifecycle Phase | Primary Focus |
 |---|---|---|---|
-| `skills/router` | `router` | **Router** | Interactive guide & roadmap across the whole Discover→Decide→Design→Deliver process |
-| `skills/help` | `help` | **Router** | Reads the actual repo state and recommends the next 1-3 skills, with reasons; the situational counterpart to `router` |
+| `skills/help` | `help` | **Router** | **Multi-mode**: default reads the actual repo state and recommends the next 1-3 skills, with reasons; `atlas` is the full browsable directory & roadmap across the whole Discover→Decide→Design→Deliver process |
 | `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
 | `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
@@ -184,11 +186,18 @@ disable-model-invocation: true # Set to true for user-initiated workflows / slas
 2. **Visual Flowchart** (where the skill has multiple decision branches): Mermaid diagram mapping the steps or decision tree.
 3. **Step-by-Step Execution Guide**:
    - Clearly numbered steps (`### Step 1: ...` or `## Step 1: ...`).
-   - Copy-paste ready CLI commands and code snippets.
+   - Each step states a goal and, where useful, a concrete artifact or output — see **Goal-Oriented Steps** below for how literal that gets.
    - Explicit **Completion Criterion** for each phase.
 4. **Templates & Artifact Specifications**: Full markdown templates or boilerplate structures, stored in this skill's own `templates/` or `references/`, never assumed to live in another skill.
 
 Do not include an "Attribution & Lineage" section or otherwise name source projects/repos in shipped skill content; see §2.5 and §5A.
+
+### Goal-Oriented Steps, Not Rigid Procedures
+A step exists to set a goal and a bar for done — not to script the exact sequence of actions an agent must replay verbatim. Default to stating the outcome to reach, why it matters, and how to tell it's done; leave the mechanics (which file to check first, what order to ask questions, exact phrasing of a question) to the agent's judgment in the moment. This isn't a new behavior so much as making explicit what most of this suite's interactive skills (`persona`, `journey`, `audit`, `interrogate`, `help`) already do — reading signals, forming a hypothesis, asking when it's ambiguous — rather than a fixed script.
+
+The exception is real, not rhetorical: when the literal mechanism *is* the constraint — a build that only works with a specific flag, a package name that has to be exact, a token name that has to match a spec character-for-character, a file path a later skill will read from — spell it out verbatim and say why it's non-negotiable. `scaffold`'s install commands, `styleguide`'s token names, and `package`'s zip layout are correctly literal for this reason; don't soften them into vague goals just for style. The test: if two competent agents could satisfy the step in different ways and both outcomes would be fine, write it as a goal. If only one specific way actually works, write that way down exactly.
+
+A step written as "Step 3: run `grep -rn foo bar`" when what actually matters is "confirm every reference to `foo` is gone" should read as the latter — state the goal, and mention the command only as a suggested fast path, not the instruction itself.
 
 ### Prose Hygiene
 Before calling a skill (or any doc in this repo) done, check its prose for the tells that make agent-generated writing read as generated rather than considered. This applies to conversational responses about this repo's work too, not just files written to disk.
@@ -236,7 +245,7 @@ Before calling a skill (or any doc in this repo) done, check its prose for the t
 4. **Add Supporting Files**: Place any reusable templates or reference docs in `templates/` or `references/`, fully inline, not a pointer to an external skill.
 5. **Update Repository Indices (Invariants)**:
    - Add the new skill to the table and Mermaid chart in [README.md](README.md).
-   - Add the new skill to the decision tree and directory in [`skills/router/SKILL.md`](skills/router/SKILL.md).
+   - Add the new skill to the decision tree and directory in [`skills/help/SKILL.md`](skills/help/SKILL.md)'s `atlas` mode.
    - Add the new skill to Section 3 of this document.
 6. **Install & Symlink**:
    ```bash
@@ -271,6 +280,8 @@ When 2-3 skills would otherwise differ only by *which specific thing* they check
 
 `map` absorbing `concepting` (`objects`/`site`/`flow`/`audit`/`document` modes) is a different case worth naming explicitly: `concepting` and `map` didn't already share a pipeline the way the pairs above did — they were genuinely different verbs (define the object model via interrogation vs. render structure as a diagram). The merge was a deliberate product decision, not a discovered subroutine coupling: `concepting`'s own ORCA process was always supposed to produce a relationship diagram (its template even had an unused `erDiagram` block), but nothing in its process steps ever rendered one — exactly the gap `map` exists to close. Folding it in put every diagram a prototype needs (object relationships, proposed IA, journeys, as-built architecture) under one skill, with `site` (plan, Decide) and `document` (as-built, Design) as the before/after pair for architecture the same way `workshop`'s `plan`/`ingest` are for a workshop. Don't cite this as precedent for merging two skills just because both happen to produce diagrams or touch the same doc — the actual test is still whether the jobs share a shape (or, as here, whether a real capability gap only closes by putting them in the same place), not topical adjacency.
 
+`help` absorbing `router` (as default/`atlas` modes) fits the main pattern above rather than the `map`/`concepting` exception: the two were always a stated pair pointing at each other ("`router` is the full directory... this skill is the 'you are here' pin"), same underlying content (the suite's phase-by-phase map) rendered two ways — situational (default, filtered by repo state) vs. exhaustive (`atlas`, the static directory). No capability gap closed by merging; it's the same "one workflow shape, named modes" case as `workshop`'s `plan`/`ingest`.
+
 ### Verification checklist before calling a round done
 ```bash
 # frontmatter name matches folder name
@@ -292,7 +303,7 @@ comm -12 <(ls ~/.agents/skills/ | sort) <(ls skills/ | sort)
 # no stale references left behind by a rename/removal
 grep -rln "<old-name-or-token>" skills/ README.md AGENTS.md
 ```
-Then update README.md, `router`, and this file's §3 table together in the same pass; they describe the same suite three ways and must stay in sync (§5B).
+Then update README.md, `help`'s `atlas` mode, and this file's §3 table together in the same pass; they describe the same suite three ways and must stay in sync (§5B).
 
 ### `install.sh` is a real, sometimes-destructive action
 The install topology is a hub and spokes: `~/.agents/skills/<name>` is the one real symlink into this repo, and every client directory it manages (`~/.claude/skills/`, `~/.gemini/skills/`, `~/.gemini/config/skills/`) gets a symlink chained to that hub entry, not a second direct link to the repo. This matches how other, unrelated skill packs are typically wired on a shared machine (one real copy, everything else pointing at it), so don't add a client that links straight to `$SOURCE_DIR` instead of the hub.

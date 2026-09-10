@@ -45,6 +45,7 @@ Some starting points aren't "the project is at phase X"; they're a specific even
 - **A decision was already made and needs to survive past this conversation** → [`decisions`](../decisions/SKILL.md).
 - **A real process is broken or slow, and it needs mapping/fixing, not just a persona narrative** → [`journey`](../journey/SKILL.md).
 - **Need to define what success looks like, or an existing goal has no real metric behind it** → [`metrics`](../metrics/SKILL.md).
+- **Don't know who else is out there, or need a real feature/workflow/UX comparison against competitors** → [`competitors`](../competitors/SKILL.md)'s `discover` mode.
 
 Check on-ramps before falling back to the phase table. A mid-Design project that just got back from a stakeholder workshop still needs `workshop`'s `ingest` mode first, not whatever Design-phase skill the file signals suggest.
 
@@ -73,10 +74,11 @@ Understand the users and the problem before proposing anything.
 
 1. **Kicking off with a team or stakeholders?** → [`workshop`](../workshop/SKILL.md)'s `plan` mode plans a working session: activities, timing, agenda.
 2. **Coming out of a physical workshop with photos of the board?** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode turns whiteboard/sticky-note photos into a deck, doc, CSV, or a replicated FigJam board.
-3. **Need real user input** (early, or validating a working prototype)? → [`interview`](../interview/SKILL.md), phase-aware, builds the question bank and script.
-4. **Formalize who the users are and their day-to-day** → [`persona`](../persona/SKILL.md), producing `docs/PERSONA_WALKTHROUGH.md`.
-5. **A real process is broken or slow, and it needs fixing, not just a persona narrative?** → [`journey`](../journey/SKILL.md): maps the current-state process — a swimlane (`map`) or, for a customer-facing process where timing and cross-team handoffs matter, a full service blueprint (`blueprint`) — scores pain points by severity × frequency, and scopes fix directions with measurable targets. Producing `docs/JOURNEY_MAP.md`.
-6. **Define what success looks like** → [`metrics`](../metrics/SKILL.md): OKRs framed against the right framework for the product's medium and adoption model (HEART, CASTLE, or SELECT), each Key Result tagged by category. Producing `docs/OKR.md`.
+3. **Who else is in this market?** → [`competitors`](../competitors/SKILL.md)'s `discover` mode: researches the web for candidate competitors, lets the user pick which to profile, then captures their features, workflow, and UX patterns. Producing `docs/COMPETITIVE_ANALYSIS.md`.
+4. **Need real user input** (early, or validating a working prototype)? → [`interview`](../interview/SKILL.md), phase-aware, builds the question bank and script.
+5. **Formalize who the users are and their day-to-day** → [`persona`](../persona/SKILL.md), producing `docs/PERSONA_WALKTHROUGH.md`.
+6. **A real process is broken or slow, and it needs fixing, not just a persona narrative?** → [`journey`](../journey/SKILL.md): maps the current-state process — a swimlane (`map`) or, for a customer-facing process where timing and cross-team handoffs matter, a full service blueprint (`blueprint`) — scores pain points by severity × frequency, and scopes fix directions with measurable targets. Producing `docs/JOURNEY_MAP.md`.
+7. **Define what success looks like** → [`metrics`](../metrics/SKILL.md): OKRs framed against the right framework for the product's medium and adoption model (HEART, CASTLE, or SELECT), each Key Result tagged by category. Producing `docs/OKR.md`.
 
 Once there's a real sense of the users and their needs, move to **Decide**.
 
@@ -133,6 +135,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 
 #### Discover
 - **[`workshop`](../workshop/SKILL.md)**: Two modes for the same event, from opposite sides. `plan` (default): activity selection, written agenda, optional FigJam board and/or slide deck, before the workshop happens. `ingest`: convert photos of the physical workshop board that resulted (whiteboard, stickies, affinity map, risk matrix) into a PowerPoint deck, Word/Markdown doc, CSV, or a replicated FigJam board, after it happened.
+- **[`competitors`](../competitors/SKILL.md)**: Two modes. `discover` (default): researches the web to surface candidate competitors and alternatives the stakeholder may not already know about, lets them pick which to profile, then captures each one's key features, core workflow, and UX patterns. `add`: appends one more competitor found later without re-running the full scan. Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s lightweight competitive-landscape question once it's run.
 - **[`persona`](../persona/SKILL.md)**: Transform user research, interview notes, or domain briefs into rich persona cards, mental models, friction maps, and step-by-step "Day in the Life" walkthroughs.
 - **[`interview`](../interview/SKILL.md)**: Phase-aware research kit (question bank, script, synthesis template) for discovery interviews early on or validation interviews against a working prototype.
 - **[`journey`](../journey/SKILL.md)**: Four modes, one artifact (`docs/JOURNEY_MAP.md`). `map`: the current-state process as it actually runs today — actors, steps, handoffs — as a swimlane diagram. `blueprint`: the service-blueprint variant for a customer-facing process, alternative to `map` — Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and cross-team handoff wait times. `pain-points`: scores each step or wait time's friction (severity × frequency) with root cause. `solutions`: explores fix directions per pain point and sets a measurable target. As-is, not proposed — distinct from `persona`'s day-in-the-life narrative and `map`'s `flow` mode (future-state).

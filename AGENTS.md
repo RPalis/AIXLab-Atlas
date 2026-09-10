@@ -24,7 +24,10 @@ flowchart TD
 
     subgraph Discover ["1. Discover"]
         P0W["workshop (plan / ingest mode)"]
+        P0C["competitors (discover / add mode)"]
         P0U[interview] --> P1[persona]
+        P1 --> P0J["journey (map / blueprint mode)"]
+        P1 --> P0M[metrics]
     end
 
     subgraph Decide ["2. Decide"]
@@ -134,6 +137,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
 | `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
+| `skills/competitors` | `competitors` | **Discover** | **Multi-mode**: default `discover` (researches the web for candidate competitors the stakeholder may not already know about, lets them pick which to profile, captures each one's key features, core workflow, and UX patterns) or `add` (appends one more competitor found later, without re-running the full scan). Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s competitive-landscape question once run |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
 | `skills/journey` | `journey` | **Discover** | **Multi-mode**: `map` (current-state process as a swimlane diagram — as-is, not proposed) or `blueprint` (service-blueprint variant for a customer-facing process: Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and handoff wait times) — alternative starting points; `pain-points` (scores friction per step or wait time, severity × frequency, with root cause), `solutions` (fix directions + measurable target per pain point). Writes `docs/JOURNEY_MAP.md` |

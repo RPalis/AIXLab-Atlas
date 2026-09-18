@@ -1,7 +1,7 @@
 ---
 name: figma
-description: Move work to and from Figma in one of three ways: capture (add a button/context-menu that sends a live prototype screen into Figma as editable layers, no MCP needed), import (bring a Figma frame/selection into the codebase as convention-conformant code via the Figma MCP), or sync (bidirectional token sync between index.css/DESIGN.md and a Figma library's Variables via the Figma MCP). Use whenever Figma is part of the workflow, in either direction.
-disable-model-invocation: true
+description: >-
+  Move work to and from Figma in one of three ways: capture (add a button/context-menu that sends a live prototype screen into Figma as editable layers, no MCP needed), import (bring a Figma frame/selection into the codebase as convention-conformant code via the Figma MCP), or sync (bidirectional token sync between index.css/DESIGN.md and a Figma library's Variables via the Figma MCP). Use whenever Figma is part of the workflow, in either direction.
 ---
 
 # Figma
@@ -15,6 +15,11 @@ Three ways of moving work between this suite and Figma, sharing one skill as "Fi
 `import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools) — if unavailable, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Mode: capture
 

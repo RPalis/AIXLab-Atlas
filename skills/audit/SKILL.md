@@ -1,7 +1,7 @@
 ---
 name: audit
-description: Run one of three prototype audits, craft (scored UX critique across hierarchy, IA, consistency, responsive behavior, and delight), code (coding-standards check for token adherence, structure/reuse, and mechanical hygiene), or a11y (deep WCAG 2.1/2.2 AA pass, criterion by criterion). Each mode only identifies problems, none of them fix anything. Use when reviewing a prototype for UX quality, coding practice, or accessibility compliance.
-disable-model-invocation: true
+description: >-
+  Run one of three prototype audits, craft (scored UX critique across hierarchy, IA, consistency, responsive behavior, and delight), code (coding-standards check for token adherence, structure/reuse, and mechanical hygiene), or a11y (deep WCAG 2.1/2.2 AA pass, criterion by criterion). Each mode only identifies problems, none of them fix anything. Use when reviewing a prototype for UX quality, coding practice, or accessibility compliance.
 ---
 
 # Audit
@@ -18,6 +18,11 @@ All three only identify; none edit code. More than one mode can run back-to-back
 A single pass reliably misses things, since the reviewer anchors on whatever it noticed first. For an audit gating a real handoff or ship decision, run a second pass with fresh eyes (a separate `Explore` or `general-purpose` agent given only the target and the mode's checklist, no visibility into the first pass's findings) and reconcile both lists before reporting. Skip this for a routine in-progress check — it roughly doubles the cost and isn't worth it until the finding actually matters.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Mode: craft
 

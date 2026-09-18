@@ -27,6 +27,8 @@ Per user type, in priority order, with what "done" looks like:
 
 ## Competitive Landscape
 
+What the stakeholder already knew, off the top of their head. For a full researched landscape (competitors they don't already know about, feature/workflow/UX comparison), see `docs/COMPETITIVE_ANALYSIS.md` if it exists, or run `competitors`'s `discover` mode.
+
 | Competitor / Alternative | Strengths | Weaknesses | Gap This Product Fills |
 |---|---|---|---|
 | <name, or "manual/spreadsheet"> | | | |

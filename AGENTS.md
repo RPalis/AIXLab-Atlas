@@ -24,7 +24,10 @@ flowchart TD
 
     subgraph Discover ["1. Discover"]
         P0W["workshop (plan / ingest mode)"]
+        P0C["competitors (discover / add mode)"]
         P0U[interview] --> P1[persona]
+        P1 --> P0J["journey (map / blueprint mode)"]
+        P1 --> P0M[metrics]
     end
 
     subgraph Decide ["2. Decide"]
@@ -118,7 +121,10 @@ Every prototype repository must include a **"Prototype Tools" section inside the
 - `setup` records the real folder name as the first line of the project's own `AGENTS.md`, before the doc-ownership list. Before creating or reading anything under `docs/...` in a specific project, resolve the real name from that line rather than assuming the literal folder is named `docs`.
 - On a project that already had a plain `docs/` folder before this convention existed, `setup` leaves it as-is rather than renaming it out from under other tooling or muscle memory — it only names new folders `<project-slug>-docs/`. Renaming an existing `docs/` is something to ask the user about explicitly, not do silently.
 
-### 8. Internal Doc Links Are Standard Markdown, Never `[[Wikilinks]]`
+### 8. Output Discipline
+Every skill's `SKILL.md` carries an `## Output Discipline` section, placed directly after the title/summary header (and the mode list, if the skill has one) and before any flowchart, structure notes, or the first Step/mode heading: chat responses stay short and bullet-first, no recap of what's about to happen — just the result, expand only if asked; generated docs stay plain and scannable at the depth their template calls for, no padding; generated code stays the simplest version that works, stdlib/native first, no speculative abstractions. A new skill copies this section verbatim; don't invent a variant per skill.
+
+### 9. Internal Doc Links Are Standard Markdown, Never `[[Wikilinks]]`
 - Every cross-reference between docs — skill-to-skill (`skills/*/SKILL.md`), inside a generated project's docs, and inside `wiki`'s own entity pages — uses standard markdown link syntax: `[link text](path.md)`, or `[link text](path.md#section)` to point at a specific section. Both Obsidian and every other markdown tool (GitHub, VS Code, a plain text search) render and follow this syntax; `[[wikilink]]`-style double-bracket links are Obsidian/Logseq-specific and render as literal bracketed text everywhere else, which directly contradicts this suite's "no Obsidian dependency" claim wherever it's made.
 - This applies even though `wiki`'s docs describe themselves as building an "interlinked" knowledge base with a graph view — the graph comes from parsing the standard links between pages, not from a special link syntax.
 
@@ -134,6 +140,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
 | `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
+| `skills/competitors` | `competitors` | **Discover** | **Multi-mode**: default `discover` (interrogates market/tool-type/workflows/differentiators one question at a time, researches the web for candidates the stakeholder may not already know about, narrows to the 3-5 closest, profiles each in parallel — features, workflow, UX patterns, a real screenshot) or `add` (appends one more competitor found later, without re-running the full scan). Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s competitive-landscape question once run |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
 | `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
 | `skills/journey` | `journey` | **Discover** | **Multi-mode**: `map` (current-state process as a swimlane diagram — as-is, not proposed) or `blueprint` (service-blueprint variant for a customer-facing process: Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and handoff wait times) — alternative starting points; `pain-points` (scores friction per step or wait time, severity × frequency, with root cause), `solutions` (fix directions + measurable target per pain point). Writes `docs/JOURNEY_MAP.md` |
@@ -144,8 +151,8 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
 | `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
-| `skills/package` | `package` | **Deliver** | Two modes: `full` (site + source + docs handoff zip) or `lite` (minified `production/` folder only) |
-| `skills/showcase` | `showcase` | **Deliver** | Shareable presentation from a prototype: PDF/PowerPoint or reveal.js deck |
+| `skills/package` | `package` | **Deliver** | Two modes: `full` (site + source + docs handoff zip) or `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage) |
+| `skills/showcase` | `showcase` | **Deliver** | Shareable presentation from a prototype: day-in-the-life PowerPoint deck (`deck.json` → bundled pptxgenjs builder, Playwright overflow check) or reveal.js deck |
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
 | `skills/decisions` | `decisions` | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives |
@@ -177,18 +184,18 @@ Skill names in this repo are **single words, no hyphenated compounds, no mandato
 ---
 name: <skill-name>
 description: Precise summary of what the skill does and when to use it. Include explicit triggers ("Use when user asks to...", "create persona", etc.).
-disable-model-invocation: true # Set to true for user-initiated workflows / slash commands
 ---
 ```
 
 ### Required Markdown Sections in `SKILL.md`
 1. **Title & Summary Header**: Clean H1 and 1–2 sentence statement of purpose.
-2. **Visual Flowchart** (where the skill has multiple decision branches): Mermaid diagram mapping the steps or decision tree.
-3. **Step-by-Step Execution Guide**:
+2. **Output Discipline**: the standard block from §2.8, verbatim, directly after the title/summary (and mode list, if any).
+3. **Visual Flowchart** (where the skill has multiple decision branches): Mermaid diagram mapping the steps or decision tree.
+4. **Step-by-Step Execution Guide**:
    - Clearly numbered steps (`### Step 1: ...` or `## Step 1: ...`).
    - Each step states a goal and, where useful, a concrete artifact or output — see **Goal-Oriented Steps** below for how literal that gets.
    - Explicit **Completion Criterion** for each phase.
-4. **Templates & Artifact Specifications**: Full markdown templates or boilerplate structures, stored in this skill's own `templates/` or `references/`, never assumed to live in another skill.
+5. **Templates & Artifact Specifications**: Full markdown templates or boilerplate structures, stored in this skill's own `templates/` or `references/`, never assumed to live in another skill.
 
 Do not include an "Attribution & Lineage" section or otherwise name source projects/repos in shipped skill content; see §2.5 and §5A.
 
@@ -252,7 +259,7 @@ Before calling a skill (or any doc in this repo) done, check its prose for the t
    cd /Users/aaronkiersky/dev/ux-atlas
    ./install.sh
    ```
-7. **Verify Links**: Ensure symlinks exist in `~/.agents/skills/` and `~/.gemini/config/skills/`, and that the new name didn't overwrite an unrelated skill already there.
+7. **Verify Links**: Ensure the hub copy exists in `~/.agents/skills/` and the client symlinks in `~/.claude/skills/` / `~/.gemini/config/skills/`, and that the new name didn't overwrite an unrelated skill already there.
 
 ---
 
@@ -306,6 +313,7 @@ grep -rln "<old-name-or-token>" skills/ README.md AGENTS.md
 Then update README.md, `help`'s `atlas` mode, and this file's §3 table together in the same pass; they describe the same suite three ways and must stay in sync (§5B).
 
 ### `install.sh` is a real, sometimes-destructive action
-The install topology is a hub and spokes: `~/.agents/skills/<name>` is the one real symlink into this repo, and every client directory it manages (`~/.claude/skills/`, `~/.gemini/skills/`, `~/.gemini/config/skills/`) gets a symlink chained to that hub entry, not a second direct link to the repo. This matches how other, unrelated skill packs are typically wired on a shared machine (one real copy, everything else pointing at it), so don't add a client that links straight to `$SOURCE_DIR` instead of the hub.
+The install topology is a hub and spokes: `~/.agents/skills/<name>` is the one real copy, copied from this repo (not symlinked to it), and every client directory selected during install (`~/.claude/skills/`, `~/.gemini/config/skills/`, `~/.cursor/skills/`, etc.) gets a single one-hop symlink to that hub entry. This is the same layout the `skills` CLI produces for other packs on a shared machine (e.g. `setup-matt-pocock-skills`): a real directory in the hub, symlinks everywhere else. Don't add a client that links straight to `$SOURCE_DIR`. Because the hub is a copy, edits in this repo don't reach installed clients until `./install.sh` is re-run. Gemini CLI stays in the picker so nobody hunts for it, but selecting it is deliberately a no-op: it reads `~/.agents/skills/` directly, so the hub copy alone reaches it, and a second link in `~/.gemini/skills/` only makes `gemini skills list` print a "Skill conflict detected" notice per skill. The installer removes any such link earlier versions of it created (checked via `readlink` first). Don't "fix" the no-op by linking.
 
-It tracks what it installed in `~/.agents/skills/.ux-atlas.manifest` and diffs against the current `skills/` directory on every run, so a rename or delete *does* get cleaned up automatically now, but only for entries the manifest confirms this repo actually created (checked via `readlink` before any `rm`). It will never remove a real directory or an unrelated pack's symlink that happens to share a client folder. Installing a skill whose name matches something already at `~/.agents/skills/<name>` still overwrites it outright (that's a plain `rm -rf` before the `ln -s`, no manifest check), so a name collision with a personal skill someone already had there is the one case that isn't self-healing. Confirm with the user before running it when a round included a rename that might collide with something not originally authored in this repo.
+It tracks what it installed in `~/.agents/skills/.ux-atlas.manifest` and diffs against the current `skills/` directory on every run, so a rename or delete *does* get cleaned up automatically: the hub copy is removed outright (the manifest is the proof it was ours), and a client entry is removed only if `readlink` shows it's our symlink, never a real directory or another pack's link. Installing a skill whose name matches something already at `~/.agents/skills/<name>` still overwrites it outright (a plain `rm -rf` before the `cp -R`, no manifest check), so a name collision with a personal skill someone already had there is the one case that isn't self-healing. Confirm with the user before running it when a round included a rename that might collide with something not originally authored in this repo.
+

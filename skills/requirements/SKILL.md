@@ -1,7 +1,7 @@
 ---
 name: requirements
-description: Read a built prototype (its code, docs/OOUX_OBJECT_MAP.md, docs/PERSONA_WALKTHROUGH.md, DESIGN.md, docs/adr/) and write it up as a requirements doc, Epics containing Features with user stories and acceptance criteria, in docs/REQUIREMENTS.md. Optionally publishes the Epics/Features to Jira or Azure DevOps if an MCP server for one is already connected. Use when asked for a PRD, requirements doc, backlog, or to turn a prototype into epics and features, or to push the prototype's scope into Jira/ADO.
-disable-model-invocation: true
+description: >-
+  Read a built prototype (its code, docs/OOUX_OBJECT_MAP.md, docs/PERSONA_WALKTHROUGH.md, DESIGN.md, docs/adr/) and write it up as a requirements doc, Epics containing Features with user stories and acceptance criteria, in docs/REQUIREMENTS.md. Optionally publishes the Epics/Features to Jira or Azure DevOps if an MCP server for one is already connected. Use when asked for a PRD, requirements doc, backlog, or to turn a prototype into epics and features, or to push the prototype's scope into Jira/ADO.
 ---
 
 # Requirements Synthesis
@@ -13,6 +13,11 @@ Turns a built prototype into a **requirements doc**: Epics, each containing Feat
 - A narrative stakeholder presentation → [`showcase`](../showcase/SKILL.md).
 - End-user "how to use this" documentation → [`guide`](../guide/SKILL.md).
 - Recording *why* a specific call was made → [`decisions`](../decisions/SKILL.md); this skill links to existing ADRs, it doesn't write new ones.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Gather the source material
 

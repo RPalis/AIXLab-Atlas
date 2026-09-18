@@ -1,7 +1,7 @@
 ---
 name: styleguide
-description: Build, document, and audit this suite's strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate a spec-conformant DESIGN.md. Default mode starts from a placeholder palette; forge mode casts a real brand's colors, fonts, and spacing into the same architecture from a live site, brand guide, or verified hex values. Use when defining design tokens, standardizing styling rules, documenting design foundations, casting a new brand, or rebranding an existing prototype.
-disable-model-invocation: true
+description: >-
+  Build, document, and audit this suite's strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate a spec-conformant DESIGN.md. Default mode starts from a placeholder palette; forge mode casts a real brand's colors, fonts, and spacing into the same architecture from a live site, brand guide, or verified hex values. Use when defining design tokens, standardizing styling rules, documenting design foundations, casting a new brand, or rebranding an existing prototype.
 ---
 
 # UX Style Documentation & Two-Layer Design Tokens
@@ -13,6 +13,11 @@ Two modes populate Layer 1, same Layer 2 shape either way:
 - **forge** — cast a real brand's colors/fonts/spacing into the architecture, from a live site, brand guide, or verified hex values. Use for a new prototype with a real brand ready, or to rebrand an existing one.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## The Two-Layer Token Architecture
 

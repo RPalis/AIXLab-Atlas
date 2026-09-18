@@ -1,12 +1,18 @@
 ---
 name: skill-manager
-description: Install, delete, disable, enable, list, and sync skills in the unified library at ~/.agents/skills, shared across Claude Code and Gemini CLI via symlinks. Also shows details on what a specific skill does. Trigger on /skill-manager commands or requests to install/remove/disable/list skills, see what a skill does, or fix broken skill symlinks.
+description: >-
+  Install, delete, disable, enable, list, and sync skills in the unified library at ~/.agents/skills, shared across Claude Code and Gemini CLI via symlinks. Also shows details on what a specific skill does. Trigger on /skill-manager commands or requests to install/remove/disable/list skills, see what a skill does, or fix broken skill symlinks.
 ---
 
 # Skill Manager
 
 Manages the canonical skill library at `~/.agents/skills`, symlinked into
 `~/.claude/skills` and `~/.gemini/skills`.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Commands
 

@@ -1,7 +1,7 @@
 ---
 name: brief
-description: Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a reconnaissance pass — drafted from the codebase plus whatever other suite docs already exist (personas, object map, ADRs, etc., handed off by setup) — then confirmed with the stakeholder after. Worth running even mid-lifecycle, not just pre-Discover, as the lay-of-the-land doc most often skipped when the suite is layered onto something already underway. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
-disable-model-invocation: true
+description: >-
+  Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a reconnaissance pass — drafted from the codebase plus whatever other suite docs already exist (personas, object map, ADRs, etc., handed off by setup) — then confirmed with the stakeholder after. Worth running even mid-lifecycle, not just pre-Discover, as the lay-of-the-land doc most often skipped when the suite is layered onto something already underway. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
 ---
 
 # Product Brief
@@ -13,6 +13,12 @@ disable-model-invocation: true
 - Building a question bank for interviewing real external users → [`interview`](../interview/SKILL.md).
 - Planning a multi-stakeholder working session → [`workshop`](../workshop/SKILL.md). `brief` is one person's (or one aligned team's) head, not a group session with activities and timing.
 - Modeling objects and CTAs → [`map`](../map/SKILL.md)'s `objects` mode, which needs the scope `brief` establishes first.
+- A real competitive landscape scan — finding competitors the stakeholder doesn't already know about, profiling their features/workflow/UX → [`competitors`](../competitors/SKILL.md)'s `discover` mode. `brief`'s own competitive-landscape question only captures what's already top of mind.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 0: Explore, then choose pace
 
@@ -48,7 +54,7 @@ The same seven areas whether this is a blank-page interrogation or confirming a 
 2. **Audience & user types.** Not just "who," but the distinct roles if there's more than one (e.g. an admin and an end customer are different user types with different goals). For each: their primary goal in using this product.
 3. **Core tasks.** Per user type, the top tasks they need to accomplish, in priority order, and what "done" looks like for each. This is the seed [`map`](../map/SKILL.md)'s `objects` mode will later turn into CTAs.
 4. **Devices & context of use.** Desktop, mobile, tablet, or a mix; the primary environment (office desk, on the move, a shop floor); any accessibility need already known. Feeds [`scaffold`](../scaffold/SKILL.md)'s site-type choice later.
-5. **Competitive landscape.** Named competitors or alternatives, including "doing it in a spreadsheet" or "not doing it at all" as a real competitor. What's good and bad about each, and the specific gap this product fills that they don't.
+5. **Competitive landscape.** Named competitors or alternatives the stakeholder already knows, off the top of their head, including "doing it in a spreadsheet" or "not doing it at all" as a real competitor. This is a quick capture, not a research pass — if the stakeholder genuinely doesn't know who else is out there, or the answer is thin, note that explicitly and point to [`competitors`](../competitors/SKILL.md)'s `discover` mode rather than pressing them to guess.
 6. **Constraints & non-negotiables.** Anything already fixed and not up for debate: a required integration, an existing brand, a deadline, a mandated platform.
 7. **Success.** What tells the stakeholder this worked, if anything measurable is known yet.
 
@@ -70,6 +76,7 @@ Point to what's next based on what the brief surfaced, not a fixed default:
 - Multiple user types with meaningfully different needs → [`persona`](../persona/SKILL.md) to formalize them.
 - Open questions that need real users to answer → [`interview`](../interview/SKILL.md).
 - A genuinely multi-stakeholder alignment problem surfaced mid-interrogation → [`workshop`](../workshop/SKILL.md).
+- Competitive landscape came back thin, or the stakeholder said they don't know who else is out there → [`competitors`](../competitors/SKILL.md)'s `discover` mode.
 - Scope and tasks solid enough to start structuring → [`map`](../map/SKILL.md)'s `objects` mode.
 
 **Completion criterion:** `docs/PRODUCT_BRIEF.md` exists, every section traces to what the stakeholder actually said, and nothing unresolved was silently invented to fill a gap instead of landing in `docs/UNKNOWNS.md`.

@@ -1,7 +1,7 @@
 ---
 name: interview
-description: Build a phase-aware user research kit (question bank, interview script, and synthesis template) for either discovery (early, open-ended) or validation (later, hypothesis-testing) interviews. Reads docs/UNKNOWNS.md to fold in open questions raised elsewhere in the project. Use when preparing to talk to real users, whether at project start or to validate a working prototype.
-disable-model-invocation: true
+description: >-
+  Build a phase-aware user research kit (question bank, interview script, and synthesis template) for either discovery (early, open-ended) or validation (later, hypothesis-testing) interviews. Reads docs/UNKNOWNS.md to fold in open questions raised elsewhere in the project. Use when preparing to talk to real users, whether at project start or to validate a working prototype.
 ---
 
 # User Interview Kit
@@ -11,6 +11,11 @@ Produces a complete, ready-to-run interview kit, not just a question list. Which
 - **No `docs/PERSONA_WALKTHROUGH.md` or `docs/OOUX_OBJECT_MAP.md` yet** → **Discovery mode**: open-ended questions to lock in who the users are and what they need, feeding directly into [`persona`](../persona/SKILL.md) and [`map`](../map/SKILL.md)'s `objects` mode.
 - **A working prototype already exists** (`frontend/` scaffolded, screens built) → **Validation mode**: targeted, hypothesis-testing questions about specific screens/flows, informed by what's actually been built and any `docs/UNKNOWNS.md` entries.
 - **Both signals present** → ask the user which is the goal for this round rather than guessing; a project can legitimately need both at once (validating shipped features while still discovering an adjacent user segment).
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Read `docs/UNKNOWNS.md`
 

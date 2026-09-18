@@ -1,0 +1,61 @@
+{
+  "title": "A Morning in the Practice",
+  "subtitle": "<Protagonist name>, <Role>  ·  <Day, Month D, YYYY>",
+  "tag": "Day in the life",
+  "footer": "<Project name>  ·  Prototype walkthrough, captured live",
+  "author": "<Org>",
+  "notes": "Every screen in this deck is a real capture of the running prototype, not a mockup.",
+
+  "theme": {
+    "_comment": "Optional. Hex without '#'. Pull from the project's DESIGN.md / index.css raw palette when one exists; otherwise delete this block for the neutral default.",
+    "dark": "152642",
+    "darkMid": "2B3E5C",
+    "accent": "F15840",
+    "accent2": "00A792",
+    "onDark": "C9D3E4",
+    "body": "4A5568",
+    "muted": "8A94A6",
+    "canvas": "F5F7FA",
+    "font": "Calibri"
+  },
+
+  "problem": {
+    "headline": "<The pain in ≤ 40 chars>",
+    "body": "<1-2 sentences, ≤ 220 chars. What the protagonist is up against before the product helps. Numbers here must be the numbers visible in the screenshots.>",
+    "stats": [
+      { "value": "26", "label": "items open before\nshe reads one of them" },
+      { "value": "9", "label": "escalations\nawaiting review" },
+      { "value": "6h 25m", "label": "of committed work\nin a 7-hour day" }
+    ]
+  },
+
+  "story": [
+    {
+      "time": "8:45 AM",
+      "image": "01_landing.png",
+      "imageSide": "right",
+      "headline": "<3-7 words, ≤ 45 chars, what this moment demonstrates>",
+      "body": "<1-3 sentences, ≤ 280 chars. Says what's on screen and why it matters to the protagonist, in the persona's own scene language. No feature lists.>",
+      "quote": "<Optional, ≤ 200 chars. Real text lifted from the UI in the screenshot (an agent's reasoning, a system message), quoted verbatim. Omit the key when there's nothing worth quoting.>",
+      "notes": "<Optional speaker notes.>"
+    },
+    {
+      "time": "8:47 AM",
+      "image": "02_the_list.png",
+      "imageSide": "left",
+      "headline": "…",
+      "body": "…"
+    }
+  ],
+
+  "closing": {
+    "headline": "Before 11 AM",
+    "body": "<1-3 sentences, ≤ 260 chars. What got done, counted, in the protagonist's terms.>",
+    "beats": [
+      { "label": "The agent proposes", "detail": "Reasoning and sources exposed on every recommendation" },
+      { "label": "The advisor decides", "detail": "Confirmation and review stand before every execution" },
+      { "label": "The system remembers", "detail": "Transcript, decisions, action items and audit trail, captured in place" }
+    ],
+    "next": "<the ask: feedback on these flows, a go / no-go on the next phase>"
+  }
+}

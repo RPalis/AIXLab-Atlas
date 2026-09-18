@@ -1,7 +1,7 @@
 ---
 name: metrics
-description: Define OKRs (Objectives and Key Results) for a product using the right metrics framework for its medium and adoption model — HEART (Google's framework, opt-in digital products), CASTLE (NN/g's framework, mandatory-use digital/workplace tools), or SELECT (physical tools and services: Success rate, Error reduction, Learnability, Efficiency, Cognitive & Physical Load, Throughput). Each Key Result gets tagged with its framework category. Discover-phase, usable standalone or after brief/journey. Writes docs/OKR.md. Use when asked to define OKRs, KPIs, success metrics, or goals/targets for a product, or when journey's solutions mode has produced targets that need framing against a real metrics framework.
-disable-model-invocation: true
+description: >-
+  Define OKRs (Objectives and Key Results) for a product using the right metrics framework for its medium and adoption model — HEART (Google's framework, opt-in digital products), CASTLE (NN/g's framework, mandatory-use digital/workplace tools), or SELECT (physical tools and services: Success rate, Error reduction, Learnability, Efficiency, Cognitive & Physical Load, Throughput). Each Key Result gets tagged with its framework category. Discover-phase, usable standalone or after brief/journey. Writes docs/OKR.md. Use when asked to define OKRs, KPIs, success metrics, or goals/targets for a product, or when journey's solutions mode has produced targets that need framing against a real metrics framework.
 ---
 
 # Metrics: OKRs & KPIs
@@ -12,6 +12,11 @@ Turns "what does success look like" into Objectives with measurable Key Results,
 - Scoring how good the current build actually is (hierarchy, cognitive load in the craft sense, accessibility, code standards) → [`audit`](../audit/SKILL.md). `metrics` sets the target; `audit` is one way of checking progress toward a craft-related one.
 - Turning the built prototype into Epics/Features/user stories for a backlog → [`requirements`](../requirements/SKILL.md).
 - Mapping a process and finding where it hurts → [`journey`](../journey/SKILL.md). `journey`'s `solutions` mode proposes per-pain-point targets; this skill is where those targets get framed as real Key Results against a chosen framework, alongside whatever other Objectives the product needs beyond process pain points.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Pick the framework
 

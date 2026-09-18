@@ -1,12 +1,17 @@
 ---
 name: interrogate
-description: Interrogate a design decision relentlessly, one question at a time, until reaching shared understanding, then optionally hand off to decisions to write it up. Use when the user wants to stress-test a UX/product decision, is unsure between design directions, or uses a "grill"-style trigger phrase about a design (not code) question.
-disable-model-invocation: true
+description: >-
+  Interrogate a design decision relentlessly, one question at a time, until reaching shared understanding, then optionally hand off to decisions to write it up. Use when the user wants to stress-test a UX/product decision, is unsure between design directions, or uses a "grill"-style trigger phrase about a design (not code) question.
 ---
 
 # Feature Grill
 
 Interview the user relentlessly about a design decision (feature scope, UX tradeoff, or state-model choice) until reaching shared understanding. Same interrogation discipline as a general planning grill, aimed specifically at design/product decisions rather than implementation plans.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Process
 

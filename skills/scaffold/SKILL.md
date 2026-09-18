@@ -1,7 +1,7 @@
 ---
 name: scaffold
-description: Scaffold a high-fidelity, interactive UX prototype: React 19, TypeScript, Vite, Tailwind CSS v3, Lucide icons, mock local storage stores. Starts from a generic structured base, then optionally layers on site-type-specific guidance (dashboard, chatbot, marketing site, CRM). Use when starting a new prototype from scratch.
-disable-model-invocation: true
+description: >-
+  Scaffold a high-fidelity, interactive UX prototype: React 19, TypeScript, Vite, Tailwind CSS v3, Lucide icons, mock local storage stores. Starts from a generic structured base, then optionally layers on site-type-specific guidance (dashboard, chatbot, marketing site, CRM). Use when starting a new prototype from scratch.
 ---
 
 # Proto-Type
@@ -9,6 +9,11 @@ disable-model-invocation: true
 This skill automates creating a high-fidelity, zero-friction prototype workspace. It has two parts: a **base scaffold** that's a complete, independently useful prototype on its own, and an **optional type layer** for prototypes that fit a recognizable site archetype. Not every prototype fits a type — the base scaffold alone is a fully valid outcome, so don't force one onto something genuinely bespoke.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Base Scaffold
 

@@ -10,12 +10,15 @@ MANIFEST="$HUB/.ux-atlas.manifest"
 # The hub (~/.agents/skills) is the one real copy: skills are copied there from
 # this repo. Every client below gets a single symlink to ~/.agents/skills/<name>,
 # the same layout other skill packs on this machine use (a real directory in the
-# hub, one-hop symlinks everywhere else). Gemini CLI isn't listed: it reads
-# ~/.agents/skills directly, so the hub copy alone reaches it, and a second link
-# in ~/.gemini/skills only makes it print a "Skill conflict detected" line per skill.
-CLIENTS_LABEL=(claude antigravity codex copilot cursor grok)
+# hub, one-hop symlinks everywhere else). Gemini CLI is listed so nobody goes
+# looking for it, but it's a no-op: Gemini reads ~/.agents/skills directly, so
+# the hub copy alone reaches it, and a second link in ~/.gemini/skills only makes
+# it print a "Skill conflict detected" line per skill. Its path is still recorded
+# so the picker can detect it and the cleanup below can retire old links.
+CLIENTS_LABEL=(claude gemini-cli antigravity codex copilot cursor grok)
 CLIENTS_PATH=(
   "$HOME/.claude/skills"
+  "$HOME/.gemini/skills"
   "$HOME/.gemini/config/skills"
   "$HOME/.codex/skills"
   "$HOME/.copilot/skills"
@@ -24,6 +27,7 @@ CLIENTS_PATH=(
 )
 CLIENTS_NAME=(
   "Claude Code"
+  "Gemini CLI"
   "Antigravity (Gemini config)"
   "OpenAI Codex CLI"
   "GitHub Copilot CLI"
@@ -120,6 +124,7 @@ for arg in "$@"; do
     --all) non_interactive=true; selected=("${CLIENTS_LABEL[@]}") ;;
     --none) non_interactive=true ;;
     --claude) non_interactive=true; selected+=("claude") ;;
+    --gemini-cli) non_interactive=true; selected+=("gemini-cli") ;;
     --antigravity) non_interactive=true; selected+=("antigravity") ;;
     --codex) non_interactive=true; selected+=("codex") ;;
     --copilot) non_interactive=true; selected+=("copilot") ;;
@@ -128,7 +133,7 @@ for arg in "$@"; do
     --open) force_open=true ;;
     --no-open) no_open=true ;;
     -h|--help)
-      echo "Usage: ./install.sh [--all|--none|--claude|--antigravity|--codex|--copilot|--cursor|--grok]... [--open|--no-open]"
+      echo "Usage: ./install.sh [--all|--none|--claude|--gemini-cli|--antigravity|--codex|--copilot|--cursor|--grok]... [--open|--no-open]"
       echo "Run with no flags for an interactive arrow-key menu."
       exit 0
       ;;
@@ -176,7 +181,11 @@ if [ "$non_interactive" = false ]; then
       mark="[ ]"
       [ "${checked[$i]}" = "1" ] && mark="[x]"
       note=""
-      [ ! -d "$(dirname "${CLIENTS_PATH[$i]}")" ] && note=" $(dim "(not detected on this machine, will be created)")"
+      if [ "${CLIENTS_LABEL[$i]}" = "gemini-cli" ]; then
+        note=" $(dim "(reads the hub directly, nothing to link)")"
+      elif [ ! -d "$(dirname "${CLIENTS_PATH[$i]}")" ]; then
+        note=" $(dim "(not detected on this machine, will be created)")"
+      fi
       if [ "$i" = "$cursor" ]; then
         printf "  \033[1;38;5;69m> %s %s\033[0m%s\033[K\n" "$mark" "${CLIENTS_NAME[$i]}" "$note"
       else
@@ -294,6 +303,10 @@ for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
       target_dir="${CLIENTS_PATH[$i]}"
+      if [ "$label" = "gemini-cli" ]; then
+        echo "Gemini CLI reads $HUB directly; nothing to link"
+        continue
+      fi
       mkdir -p "$target_dir"
       for skill_name in "${current_skills[@]}"; do
         rm -rf "$target_dir/$skill_name"
@@ -310,16 +323,21 @@ printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"
 echo "Canonical hub (copied): $HUB"
-echo "  -> Gemini CLI reads the hub directly (run /skills reload in an open session)"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
-    [ "${CLIENTS_LABEL[$i]}" = "$label" ] && echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
+    if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
+      if [ "$label" = "gemini-cli" ]; then
+        echo "  -> Gemini CLI: reads the hub directly (run /skills reload in an open session)"
+      else
+        echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
+      fi
+    fi
   done
 done
 echo "=================================================="
 echo ""
 echo "Re-run this script any time (e.g. after a skill rename) to refresh files and clean up stale entries."
-echo "Flags for non-interactive use: --all, --none, --claude, --antigravity, --codex, --copilot, --cursor, --grok, --open, --no-open"
+echo "Flags for non-interactive use: --all, --none, --claude, --gemini-cli, --antigravity, --codex, --copilot, --cursor, --grok, --open, --no-open"
 
 # ---------- open the instructions in a browser ----------
 open_instructions() {

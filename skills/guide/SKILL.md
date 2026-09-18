@@ -1,12 +1,17 @@
 ---
 name: guide
-description: Write end-user documentation for a prototype: a Getting Started section plus a phase-by-phase walkthrough of the actual product experience, with diagrams via map's flow mode. Markdown first, with an optional PDF export. Use when the user wants documentation that teaches someone how to use the app and solve problems, not internal UX/design docs.
-disable-model-invocation: true
+description: >-
+  Write end-user documentation for a prototype: a Getting Started section plus a phase-by-phase walkthrough of the actual product experience, with diagrams via map's flow mode. Markdown first, with an optional PDF export. Use when the user wants documentation that teaches someone how to use the app and solve problems, not internal UX/design docs.
 ---
 
 # User Guide
 
 Writes documentation for the people who will actually *use* the prototype, distinct from every other doc this suite produces, which is for the team *building* it (`docs/PERSONA_WALKTHROUGH.md`, `docs/OOUX_OBJECT_MAP.md`, `DESIGN.md` are all internal). Modeled on a real, previously-shipped user guide shape: a short orientation section, then a phase-by-phase walkthrough of one complete journey through the product.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Write the orientation section
 

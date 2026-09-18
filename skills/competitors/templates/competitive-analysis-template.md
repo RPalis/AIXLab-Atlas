@@ -4,6 +4,10 @@
 
 One or two sentences: the specific category this product competes in, specific enough to have real boundaries ("expense-report software for small agencies," not "business software").
 
+**Core workflows**: the 1-3 tasks a user comes here to do — what competitors are actually being compared against.
+
+**Differentiators**: what's meant to set this product apart from the typical solution in the space.
+
 ## Comparison Matrix
 
 | | <Competitor 1> | <Competitor 2> | <Competitor 3> |
@@ -20,6 +24,9 @@ One or two sentences: the specific category this product competes in, specific e
 ### <Competitor 1 Name>
 
 **Source(s)**: <URL(s), or "stakeholder-provided">
+
+![<Competitor 1 Name> core workflow](competitor-screenshots/<competitor-1-slug>.png)
+<!-- If no screenshot was captured, replace the image line above with: Screenshot: not captured (no browser tooling available). -->
 
 **Summary**: One or two sentences on what they are and where they fit in this market.
 
@@ -42,6 +49,8 @@ One or two sentences: the specific category this product competes in, specific e
 ### <Competitor 2 Name>
 
 **Source(s)**:
+
+![<Competitor 2 Name> core workflow](competitor-screenshots/<competitor-2-slug>.png)
 
 **Summary**:
 

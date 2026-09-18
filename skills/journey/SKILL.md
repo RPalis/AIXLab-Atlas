@@ -1,7 +1,7 @@
 ---
 name: journey
-description: Map a real, current-state process end-to-end (not a proposed one), find where it actually hurts, and scope what to fix. Four modes — map (swimlane diagram of the process as it exists today, actors/steps/handoffs) or blueprint (service-blueprint variant for customer-facing processes: physical evidence/customer/frontstage/backstage/support-process layers, plus duration and cross-team handoff wait times) as alternative starting points, then pain-points (score each step's friction by severity x frequency, with root cause) and solutions (explore directions per pain point and set a measurable target) building on whichever was used. Discover-phase, before Decide. Distinct from persona's Day in the Life (a person's whole day, narrative, feeds screen design) and map's flow mode (a proposed/future-state workflow). Use when a stakeholder describes a broken or slow process, before proposing a fix to a workflow, when asked for a service blueprint, or when asked to journey-map, process-map, or find pain points in how something works today.
-disable-model-invocation: true
+description: >-
+  Map a real, current-state process end-to-end (not a proposed one), find where it actually hurts, and scope what to fix. Four modes — map (swimlane diagram of the process as it exists today, actors/steps/handoffs) or blueprint (service-blueprint variant for customer-facing processes: physical evidence/customer/frontstage/backstage/support-process layers, plus duration and cross-team handoff wait times) as alternative starting points, then pain-points (score each step's friction by severity x frequency, with root cause) and solutions (explore directions per pain point and set a measurable target) building on whichever was used. Discover-phase, before Decide. Distinct from persona's Day in the Life (a person's whole day, narrative, feeds screen design) and map's flow mode (a proposed/future-state workflow). Use when a stakeholder describes a broken or slow process, before proposing a fix to a workflow, when asked for a service blueprint, or when asked to journey-map, process-map, or find pain points in how something works today.
 ---
 
 # Journey Mapping
@@ -22,6 +22,11 @@ Say which mode, or this skill asks — including which of `map`/`blueprint` fits
 - Setting the metrics/targets a whole project is accountable to → [`metrics`](../metrics/SKILL.md). `journey`'s `solutions` mode proposes per-pain-point targets as candidate Key Results; `metrics` is where they get framed against a chosen framework and tracked.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Mode: map
 

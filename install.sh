@@ -7,9 +7,11 @@ HUB="$HOME/.agents/skills"
 MANIFEST="$HUB/.ux-atlas.manifest"
 
 # Known client skill directories. Each entry is "label|path|name".
-# The hub (~/.agents/skills) is not a "client" here, it's infrastructure: every
-# client below is a thin symlink chain into it, matching how skill packs already
-# on this machine are wired (see AGENTS.md's install notes).
+# The hub (~/.agents/skills) is the one real copy: skills are copied there from
+# this repo. Every client below gets a single symlink to ~/.agents/skills/<name>,
+# the same layout other skill packs on this machine use (a real directory in the
+# hub, one-hop symlinks everywhere else). Gemini CLI also reads ~/.agents/skills
+# directly, so a hub-only install already reaches it.
 CLIENTS_LABEL=(claude gemini-cli antigravity codex copilot cursor grok)
 CLIENTS_PATH=(
   "$HOME/.claude/skills"
@@ -186,10 +188,10 @@ if [ "$non_interactive" = false ]; then
     printf "\033[K\n"
   }
 
-  clear
+  [ -t 1 ] && clear 2>/dev/null || true
   print_banner
   echo "$(dim "Source: $SOURCE_DIR")"
-  echo "$(dim "${#current_skills[@]} skills will be linked into: ~/.agents/skills (always), plus whichever clients you pick below.")"
+  echo "$(dim "${#current_skills[@]} skills will be copied to ~/.agents/skills (always), then symlinked into whichever clients you pick below.")"
   echo ""
   echo "↑/↓ move   space toggle   a toggle all   enter confirm   q cancel"
   echo ""
@@ -225,16 +227,16 @@ if [ "$non_interactive" = false ]; then
   done
 fi
 
-clear
+[ -t 1 ] && clear 2>/dev/null || true
 print_banner
 echo "=================================================="
 echo "Installing UX Atlas"
-echo "Source: $SOURCE_DIR"
-echo "Hub:    $HUB"
+echo "Source:   $SOURCE_DIR"
+echo "Hub:      $HUB (copied)"
 if [ ${#selected[@]} -eq 0 ]; then
-  echo "Clients: none selected (hub only)"
+  echo "Clients:  none selected (hub only)"
 else
-  echo "Clients: ${selected[*]}"
+  echo "Clients:  ${selected[*]}"
 fi
 echo "=================================================="
 
@@ -247,27 +249,33 @@ if [ -f "$MANIFEST" ]; then
     still_current=false
     for s in "${current_skills[@]}"; do [ "$s" = "$old_name" ] && still_current=true && break; done
     if [ "$still_current" = false ]; then
-      # only remove it from a client dir if it's still our symlink chain,
-      # never touch a real directory (that belongs to some other skill pack)
-      if [ -L "$HUB/$old_name" ]; then
-        echo "Removing stale skill: $old_name"
-        rm -f "$HUB/$old_name"
+      # The manifest only lists names this script put in the hub, so the hub
+      # entry is ours to remove whether it's today's copied directory or an
+      # older install's symlink.
+      if [ -e "$HUB/$old_name" ] || [ -L "$HUB/$old_name" ]; then
+        echo "Removing stale skill from hub: $old_name"
+        rm -rf "$HUB/$old_name"
       fi
+      # Client dirs: only remove a symlink that points at our hub entry (or at
+      # this repo, from an older install); never a real directory.
       for path in "${CLIENTS_PATH[@]}"; do
         target="$path/$old_name"
-        if [ -L "$target" ] && [ "$(readlink "$target")" = "$HUB/$old_name" ]; then
-          rm -f "$target"
+        if [ -L "$target" ]; then
+          link_dest="$(readlink "$target" 2>/dev/null || true)"
+          if [ "$link_dest" = "$HUB/$old_name" ] || [ "$link_dest" = "$SOURCE_DIR/$old_name" ]; then
+            rm -f "$target"
+          fi
         fi
       done
     fi
   done < "$MANIFEST"
 fi
 
-# ---------- hub: ~/.agents/skills/<name> -> this repo's skills/<name> ----------
+# ---------- hub: copy this repo's skills to ~/.agents/skills/<name> ----------
 for skill_name in "${current_skills[@]}"; do
-  echo "Linking skill: $skill_name"
+  echo "Copying skill to hub: $skill_name"
   rm -rf "$HUB/$skill_name"
-  ln -s "$SOURCE_DIR/$skill_name" "$HUB/$skill_name"
+  cp -R "$SOURCE_DIR/$skill_name" "$HUB/$skill_name"
 done
 
 # ---------- clients: <client>/skills/<name> -> ~/.agents/skills/<name> ----------
@@ -280,7 +288,7 @@ for label in "${selected[@]}"; do
         rm -rf "$target_dir/$skill_name"
         ln -s "$HUB/$skill_name" "$target_dir/$skill_name"
       done
-      echo "Linked ${#current_skills[@]} skills into ${CLIENTS_NAME[$i]} ($target_dir)"
+      echo "Symlinked ${#current_skills[@]} skills into ${CLIENTS_NAME[$i]} ($target_dir)"
     fi
   done
 done
@@ -290,7 +298,7 @@ printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"
-echo "Canonical location: $HUB"
+echo "Canonical hub (copied): $HUB"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     [ "${CLIENTS_LABEL[$i]}" = "$label" ] && echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
@@ -298,7 +306,7 @@ for label in "${selected[@]}"; do
 done
 echo "=================================================="
 echo ""
-echo "Re-run this script any time (e.g. after a skill rename) to relink and clean up stale entries."
+echo "Re-run this script any time (e.g. after a skill rename) to refresh files and clean up stale entries."
 echo "Flags for non-interactive use: --all, --none, --claude, --gemini-cli, --antigravity, --codex, --copilot, --cursor, --grok, --open, --no-open"
 
 # ---------- open the instructions in a browser ----------

@@ -1,7 +1,7 @@
 ---
 name: setup
-description: Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records the docs folder's real name and which skill owns which doc, an empty UNKNOWNS.md, and a notes/ home for the wiki and anything else worth jotting down) before any code or design work starts. Names the docs folder after the project (e.g. pocket-atlas-docs/, not a bare docs/) so it's unambiguous when opened directly as a vault in a third-party tool like Obsidian. Runs first, ahead of scaffold. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead. On an existing product it also inventories every doc the wider suite owns (personas, object map, tokens, ADRs, requirements, etc.), notes anything already present under a different name, feeds that inventory to brief for a fuller lay-of-the-land reconnaissance (even mid-lifecycle, unless a current PRODUCT_BRIEF.md already exists), then hands off to help to turn the inventory into concrete backfill moves. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
-disable-model-invocation: true
+description: >-
+  Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records the docs folder's real name and which skill owns which doc, an empty UNKNOWNS.md, a notes/ home for the wiki and anything else worth jotting down, and a repo/ folder of relative symlinks to the root-level README/AGENTS/CLAUDE/CONTEXT docs so a notes tool opened on the docs folder can read them) before any code or design work starts. Names the docs folder after the project (e.g. pocket-atlas-docs/, not a bare docs/) so it's unambiguous when opened directly as a vault in a third-party tool like Obsidian. Runs first, ahead of scaffold. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead. On an existing product it also inventories every doc the wider suite owns (personas, object map, tokens, ADRs, requirements, etc.), notes anything already present under a different name, feeds that inventory to brief for a fuller lay-of-the-land reconnaissance (even mid-lifecycle, unless a current PRODUCT_BRIEF.md already exists), then hands off to help to turn the inventory into concrete backfill moves. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
 ---
 
 # Setup
@@ -9,6 +9,11 @@ disable-model-invocation: true
 The step before Discover starts. `scaffold` builds the actual application code; this skill only touches the repo's documentation shell (README, a project `AGENTS.md`, `<project-slug>-docs/UNKNOWNS.md`, and `<project-slug>-docs/notes/`) so every skill that runs after it has somewhere consistent to write.
 
 **Docs folder naming:** this suite's docs live in a folder named `<project-slug>-docs/` — a kebab-case slug of the project name — not a bare `docs/`. A generic `docs/` reads as an unlabeled, ambiguous vault when opened directly in a third-party tool like Obsidian; naming it after the project fixes that. See the suite's own `AGENTS.md` §7 for the full convention. Every other skill in this suite writes `docs/...` in its own instructions as shorthand for whatever this skill actually named the folder — they resolve the real name from the project `AGENTS.md` this skill writes (Step 3), not from a literal `docs/` path.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Explore the current state
 
@@ -29,7 +34,7 @@ Don't ask about anything covered in later lifecycle steps. Project name/purpose 
 
 ## Step 3: Write the doc shell
 
-Four things, nothing else. For each: **if it already exists, append what's missing rather than overwriting anything.** A repo `setup` is layered onto may already have a README with real content, or an AGENTS.md from a different tool — that content stays; this skill only fills gaps.
+Four things plus a set of symlinks, nothing else. For each: **if it already exists, append what's missing rather than overwriting anything.** A repo `setup` is layered onto may already have a README with real content, or an AGENTS.md from a different tool — that content stays; this skill only fills gaps.
 
 **`README.md`**: if missing, create it with project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype (or, on an existing product, whatever status is actually true). Leave placeholder headings for sections later skills will fill in (install/run instructions once `scaffold` exists, a feature overview once screens exist) rather than inventing content now. If a README already exists, leave its content untouched; only append a `## Status` line if one isn't already present in some form.
 
@@ -52,6 +57,7 @@ Doc ownership:
 - `<project-slug>-docs/adr/` — owned by `decisions`
 - `<project-slug>-docs/USER_GUIDE.md` — owned by `guide`
 - `<project-slug>-docs/REQUIREMENTS.md` — owned by `requirements`
+- `<project-slug>-docs/repo/` — relative symlinks to the repo's root-level docs (`README.md`, `AGENTS.md`, `CLAUDE.md`/`CONTEXT.md` when present) so they're readable from inside the docs vault; edit the originals at the root, not here
 - `<project-slug>-docs/notes/` — general notes home, safe to open directly in Obsidian or any other markdown editor; use it for **all** project notes. `<project-slug>-docs/notes/my-notes/` inside it is the raw capture zone (fed by `wiki`'s `note` mode quick captures, or typed by hand); `<project-slug>-docs/notes/wiki/` next to it is owned by `wiki`'s default `compile` mode, which compiles `my-notes/` plus any other document dropped into `<project-slug>-docs/` (specs, client feedback, research) into an interlinked knowledge base
 
 ## Working Agreements
@@ -114,6 +120,18 @@ Once `wiki` has run at least once, this folder holds:
 **Editing by hand:** every file here is plain markdown, cross-referenced with standard `[text](file.md)` links rather than Obsidian-only `[[wikilink]]` syntax — no Obsidian or specific tool required, safe to open and edit directly. If you correct or add something by hand, note it in `log.md` yourself, or just let the next `wiki` `compile` pass pick up the change (it checks for anything that doesn't match what it last wrote). Deleting/renaming an entity page by hand is safe too; `compile` mode's linting pass (contradictions, staleness, orphans) will flag anything that's now inconsistent rather than silently breaking.
 ```
 
+**Root-doc symlinks into the docs folder**: the repo's root-level markdown (`README.md`, the project `AGENTS.md`, and `CLAUDE.md` / `CONTEXT.md` when they exist) lives outside the docs folder, so a notes tool opened on `<project-slug>-docs/` as a vault can't see it. Fix that with a `<project-slug>-docs/repo/` folder holding one relative symlink per root doc, so the vault reads them in place without a second copy drifting out of date:
+
+```bash
+mkdir -p <project-slug>-docs/repo
+cd <project-slug>-docs/repo
+for f in README.md AGENTS.md CLAUDE.md CONTEXT.md; do
+  [ -f "../../$f" ] && [ ! -e "$f" ] && ln -s "../../$f" "$f"
+done
+```
+
+Relative targets (`../../README.md`), not absolute, so the links survive a clone or a moved checkout. Only link files that actually exist — never create a dangling link for a doc the repo doesn't have — and skip any name already present (a real file or a link someone made by hand). If `CLAUDE.md` is itself a symlink to `AGENTS.md`, link it anyway; it resolves fine through two hops. Add a one-line `## Repo docs` note to `notes/README.md` (or the docs folder's own README if there is one) saying `repo/` holds links to the root-level docs, not originals — edit the originals at the repo root. On an existing project where the docs folder predates this step, add the `repo/` folder the same way; it's additive.
+
 Do **not** pre-create `COMPETITIVE_ANALYSIS.md`, `PERSONA_WALKTHROUGH.md`, `JOURNEY_MAP.md`, `OKR.md`, `OOUX_OBJECT_MAP.md`, `DESIGN.md`, `adr/`, `REQUIREMENTS.md`, or any of `wiki`'s own real output (`notes/wiki/index.md`, `log.md`, `entities/`, `constellation.html`) or `notes/my-notes/`'s dated capture files. Those belong to `competitors`, `persona`, `journey`, `metrics`, `map`'s `objects` mode, `styleguide`, `decisions`, `requirements`, and `wiki` respectively — a hollow stub standing in for actual content is dead weight, not scaffolding. The two README files above are the exception: they're documentation about the folders, not a stand-in for what the folders will eventually hold, so they're safe to write immediately.
 
 ## Step 4: Hand off
@@ -124,4 +142,4 @@ Do **not** pre-create `COMPETITIVE_ANALYSIS.md`, `PERSONA_WALKTHROUGH.md`, `JOUR
 
 **After `brief` (or immediately, if it was skipped because a current one already exists), point at [`help`](../help/SKILL.md)** to turn Step 1's inventory into the actual next 1-3 moves — which skill backfills what's still missing (personas, object map, tokens, ADRs, requirements) rather than restarting at Discover. `help` is what makes the "atlas" of the project useful: a picture of where everything stands, not just a doc shell.
 
-**Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), the project `AGENTS.md` states the docs folder's real name, `<docs-folder>/UNKNOWNS.md` exists, `<docs-folder>/notes/README.md` + `notes/my-notes/README.md` + `notes/wiki/README.md` all exist, no doc owned by another skill was pre-stubbed (the three READMEs are documentation, not stand-ins, and don't count as stubbing), and the hand-off names both `brief` (or explains why it was skipped) and `help`, grounded in what Step 1's full inventory actually found.
+**Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), the project `AGENTS.md` states the docs folder's real name, `<docs-folder>/UNKNOWNS.md` exists, `<docs-folder>/notes/README.md` + `notes/my-notes/README.md` + `notes/wiki/README.md` all exist, `<docs-folder>/repo/` holds a relative symlink for each root-level doc that exists (`README.md`, `AGENTS.md`, and `CLAUDE.md`/`CONTEXT.md` when present) with no dangling links, no doc owned by another skill was pre-stubbed (the three READMEs are documentation, not stand-ins, and don't count as stubbing), and the hand-off names both `brief` (or explains why it was skipped) and `help`, grounded in what Step 1's full inventory actually found.

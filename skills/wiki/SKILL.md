@@ -1,7 +1,7 @@
 ---
 name: wiki
-description: Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown, cross-referenced with standard `[text](file.md)` links, no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
-disable-model-invocation: true
+description: >-
+  Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown, cross-referenced with standard `[text](file.md)` links, no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
 ---
 
 # Knowledge Wiki
@@ -13,6 +13,11 @@ Raw notes get re-read from scratch every time they're needed. This skill instead
 Two modes, same destination:
 - **`compile`** (default) — the full pass: ingest every unprocessed source, answer a query, lint for contradictions/staleness, regenerate the graph view.
 - **`note`** — the lowest-ceremony capture in the suite: append a quick thought and immediately fold just that one entry into the wiki (`compile` mode's own Step 1), skipping the periodic lint/visualize steps. Use for jotting something down mid-task without stopping to formalize it as an ADR or a full entity page.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Structure
 

@@ -1,12 +1,17 @@
 ---
 name: refine
-description: Fix and unify UI craft, micro-interactions, responsive container layouts, optical alignment, and aesthetic delight for prototypes: the build/fix step after audit has identified what's wrong. Use when redesigning, elevating visual quality, or acting on audit findings.
-disable-model-invocation: true
+description: >-
+  Fix and unify UI craft, micro-interactions, responsive container layouts, optical alignment, and aesthetic delight for prototypes: the build/fix step after audit has identified what's wrong. Use when redesigning, elevating visual quality, or acting on audit findings.
 ---
 
 # Design Refinement & Aesthetic Craft
 
 Elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step — [`audit`](../audit/SKILL.md) is the *find* step.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 0: Confirm there's a findings list to act on
 

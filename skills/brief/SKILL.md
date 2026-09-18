@@ -1,7 +1,7 @@
 ---
 name: brief
-description: Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a reconnaissance pass — drafted from the codebase plus whatever other suite docs already exist (personas, object map, ADRs, etc., handed off by setup) — then confirmed with the stakeholder after. Worth running even mid-lifecycle, not just pre-Discover, as the lay-of-the-land doc most often skipped when the suite is layered onto something already underway. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
-disable-model-invocation: true
+description: >-
+  Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a reconnaissance pass — drafted from the codebase plus whatever other suite docs already exist (personas, object map, ADRs, etc., handed off by setup) — then confirmed with the stakeholder after. Worth running even mid-lifecycle, not just pre-Discover, as the lay-of-the-land doc most often skipped when the suite is layered onto something already underway. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
 ---
 
 # Product Brief
@@ -14,6 +14,11 @@ disable-model-invocation: true
 - Planning a multi-stakeholder working session → [`workshop`](../workshop/SKILL.md). `brief` is one person's (or one aligned team's) head, not a group session with activities and timing.
 - Modeling objects and CTAs → [`map`](../map/SKILL.md)'s `objects` mode, which needs the scope `brief` establishes first.
 - A real competitive landscape scan — finding competitors the stakeholder doesn't already know about, profiling their features/workflow/UX → [`competitors`](../competitors/SKILL.md)'s `discover` mode. `brief`'s own competitive-landscape question only captures what's already top of mind.
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 0: Explore, then choose pace
 

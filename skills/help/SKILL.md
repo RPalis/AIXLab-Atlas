@@ -1,12 +1,17 @@
 ---
 name: help
-description: Two modes. Default mode figures out which skill in this suite to use next, given the actual state of the current project, not a static list — reads what docs already exist to place the project on Discover/Decide/Design/Deliver, then recommends the next 1-3 skills with a reason. `atlas` mode is the full browsable directory of the suite: every skill, every phase, every mode, cross-linked. Use default mode when the user asks "what should I do next," "which skill do I need," or is otherwise unsure where they are in the process. Use `atlas` mode when they want to see the whole roadmap, browse what's available, or understand how the suite fits together.
-disable-model-invocation: true
+description: >-
+  Two modes. Default mode figures out which skill in this suite to use next, given the actual state of the current project, not a static list — reads what docs already exist to place the project on Discover/Decide/Design/Deliver, then recommends the next 1-3 skills with a reason. `atlas` mode is the full browsable directory of the suite: every skill, every phase, every mode, cross-linked. Use default mode when the user asks "what should I do next," "which skill do I need," or is otherwise unsure where they are in the process. Use `atlas` mode when they want to see the whole roadmap, browse what's available, or understand how the suite fits together.
 ---
 
 # Help
 
 Say which mode you want, or this skill asks: **default** ("you are here" — reads the repo, gives the next move) or **`atlas`** (the full map — every skill, every phase, browsable any time).
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Default mode
 
@@ -74,7 +79,7 @@ Understand the users and the problem before proposing anything.
 
 1. **Kicking off with a team or stakeholders?** → [`workshop`](../workshop/SKILL.md)'s `plan` mode plans a working session: activities, timing, agenda.
 2. **Coming out of a physical workshop with photos of the board?** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode turns whiteboard/sticky-note photos into a deck, doc, CSV, or a replicated FigJam board.
-3. **Who else is in this market?** → [`competitors`](../competitors/SKILL.md)'s `discover` mode: researches the web for candidate competitors, lets the user pick which to profile, then captures their features, workflow, and UX patterns. Producing `docs/COMPETITIVE_ANALYSIS.md`.
+3. **Who else is in this market?** → [`competitors`](../competitors/SKILL.md)'s `discover` mode: interrogates market/tool-type/workflows/differentiators, researches the web for candidates, narrows to the 3-5 closest, then profiles each in parallel with features, workflow, UX patterns, and a real screenshot. Producing `docs/COMPETITIVE_ANALYSIS.md`.
 4. **Need real user input** (early, or validating a working prototype)? → [`interview`](../interview/SKILL.md), phase-aware, builds the question bank and script.
 5. **Formalize who the users are and their day-to-day** → [`persona`](../persona/SKILL.md), producing `docs/PERSONA_WALKTHROUGH.md`.
 6. **A real process is broken or slow, and it needs fixing, not just a persona narrative?** → [`journey`](../journey/SKILL.md): maps the current-state process — a swimlane (`map`) or, for a customer-facing process where timing and cross-team handoffs matter, a full service blueprint (`blueprint`) — scores pain points by severity × frequency, and scopes fix directions with measurable targets. Producing `docs/JOURNEY_MAP.md`.
@@ -109,7 +114,7 @@ Ship it, validate it, hand it off.
 
 1. **Code standards** → [`audit`](../audit/SKILL.md)'s `code` mode before anything ships.
 2. **Package** → [`package`](../package/SKILL.md) for the static handoff bundle (`full` or `lite`).
-3. **Present to stakeholders** → [`showcase`](../showcase/SKILL.md) (PDF/PowerPoint or reveal.js deck). **Document for end users** → [`guide`](../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
+3. **Present to stakeholders** → [`showcase`](../showcase/SKILL.md) (day-in-the-life PowerPoint deck or reveal.js deck). **Document for end users** → [`guide`](../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
 4. **Validating with real users?** → loop back to [`interview`](../interview/SKILL.md) in validation mode, which reads `docs/UNKNOWNS.md` for what's still open.
 
 ### Usable Anytime
@@ -135,7 +140,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 
 #### Discover
 - **[`workshop`](../workshop/SKILL.md)**: Two modes for the same event, from opposite sides. `plan` (default): activity selection, written agenda, optional FigJam board and/or slide deck, before the workshop happens. `ingest`: convert photos of the physical workshop board that resulted (whiteboard, stickies, affinity map, risk matrix) into a PowerPoint deck, Word/Markdown doc, CSV, or a replicated FigJam board, after it happened.
-- **[`competitors`](../competitors/SKILL.md)**: Two modes. `discover` (default): researches the web to surface candidate competitors and alternatives the stakeholder may not already know about, lets them pick which to profile, then captures each one's key features, core workflow, and UX patterns. `add`: appends one more competitor found later without re-running the full scan. Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s lightweight competitive-landscape question once it's run.
+- **[`competitors`](../competitors/SKILL.md)**: Two modes. `discover` (default): interrogates market, tool type, workflows, and differentiators one question at a time, researches the web to surface candidates the stakeholder may not already know about, narrows to the 3-5 closest experiences, then profiles each in parallel (one research agent per competitor where available) — key features, core workflow, UX patterns, and a real screenshot. `add`: appends one more competitor found later without re-running the full scan. Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s lightweight competitive-landscape question once it's run.
 - **[`persona`](../persona/SKILL.md)**: Transform user research, interview notes, or domain briefs into rich persona cards, mental models, friction maps, and step-by-step "Day in the Life" walkthroughs.
 - **[`interview`](../interview/SKILL.md)**: Phase-aware research kit (question bank, script, synthesis template) for discovery interviews early on or validation interviews against a working prototype.
 - **[`journey`](../journey/SKILL.md)**: Four modes, one artifact (`docs/JOURNEY_MAP.md`). `map`: the current-state process as it actually runs today — actors, steps, handoffs — as a swimlane diagram. `blueprint`: the service-blueprint variant for a customer-facing process, alternative to `map` — Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and cross-team handoff wait times. `pain-points`: scores each step or wait time's friction (severity × frequency) with root cause. `solutions`: explores fix directions per pain point and sets a measurable target. As-is, not proposed — distinct from `persona`'s day-in-the-life narrative and `map`'s `flow` mode (future-state).
@@ -154,7 +159,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 
 #### Deliver
 - **[`package`](../package/SKILL.md)**: Two modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild) or `lite` (minified `production/` folder only, bare essentials, just to run it).
-- **[`showcase`](../showcase/SKILL.md)**: Build a shareable presentation from the prototype: a static PDF/PowerPoint deck or a reveal.js web deck, narrative sourced from `persona`'s scenes.
+- **[`showcase`](../showcase/SKILL.md)**: Build a shareable presentation from the prototype: a day-in-the-life PowerPoint deck (time-stamped scene per slide beside a real screenshot, generated from `deck.json` with an overflow check first) or a reveal.js web deck, narrative sourced from `persona`'s scenes.
 - **[`guide`](../guide/SKILL.md)**: Write end-user documentation, Getting Started plus a phase-by-phase walkthrough, as a Markdown doc with an optional PDF export.
 - **[`requirements`](../requirements/SKILL.md)**: Read the built prototype (code, OOUX object map, persona walkthrough, ADRs) and write it up as Epics containing Features with user stories and acceptance criteria, as `docs/REQUIREMENTS.md`. Optionally publishes Epics/Features straight to Jira or Azure DevOps once an MCP server for one is connected.
 

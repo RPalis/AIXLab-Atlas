@@ -1,7 +1,7 @@
 ---
 name: decisions
-description: Capture a UX or architecture decision as a lightweight ADR (Architecture Decision Record) in docs/adr/, documenting the rejected alternatives and why. Use when a prototype makes a non-obvious call (a workaround, a template override, a state-model tradeoff) that a teammate or stakeholder will later ask "why did we do it this way?" about.
-disable-model-invocation: true
+description: >-
+  Capture a UX or architecture decision as a lightweight ADR (Architecture Decision Record) in docs/adr/, documenting the rejected alternatives and why. Use when a prototype makes a non-obvious call (a workaround, a template override, a state-model tradeoff) that a teammate or stakeholder will later ask "why did we do it this way?" about.
 ---
 
 # Decision Records (ADRs)
@@ -12,6 +12,11 @@ Not every decision needs one. Write one when a decision:
 - Rejected an obvious/simpler alternative for a specific reason, and someone later is likely to propose that alternative again
 - Trades off two real UX or engineering concerns against each other (not a pure preference)
 - Would be expensive or confusing to reverse without knowing why it was made this way
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Step 1: Write the record
 

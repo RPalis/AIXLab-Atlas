@@ -1,7 +1,7 @@
 ---
 name: persona
-description: Formalize user personas, mental models, pain points, and chronological 'Day in the Life' walkthroughs that drive prototype requirements. Use when user wants to document user archetypes, map a day-in-the-life story, or translate research into prototype user journeys.
-disable-model-invocation: true
+description: >-
+  Formalize user personas, mental models, pain points, and chronological 'Day in the Life' walkthroughs that drive prototype requirements. Use when user wants to document user archetypes, map a day-in-the-life story, or translate research into prototype user journeys.
 ---
 
 # UX Persona & Journey Documentation
@@ -9,6 +9,11 @@ disable-model-invocation: true
 Transforms qualitative research, interviews, or domain requirements into structured **Persona Walkthrough Documents** and **Day in the Life** narratives that serve as the foundational truth for prototype UX design.
 
 ---
+
+## Output Discipline
+- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
+- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
+- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
 ## Core Objectives
 

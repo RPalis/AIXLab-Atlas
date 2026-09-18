@@ -13,7 +13,12 @@ APP="$(basename "$REPO")"
 STAGE="$REPO/.pkg-stage"
 OUT="$REPO/${APP}.zip"
 ROOT="$STAGE/$APP"
-FRONTEND=$(find . -maxdepth 2 \( -name angular.json -o -name package.json \) -path '*/frontend/*' -o -path '*/angular/*' 2>/dev/null | head -1 | xargs -r dirname)
+FRONTEND="${FRONTEND:-}"
+if [ -z "$FRONTEND" ]; then
+  for d in frontend angular react web client app; do [ -f "$REPO/$d/package.json" ] && FRONTEND="$d" && break; done
+fi
+[ -z "$FRONTEND" ] && { echo "No frontend found (looked for frontend/, angular/, ... with a package.json). Set FRONTEND=<dir>."; exit 1; }
+cd "$REPO"
 
 echo "=================================================="
 echo "Packaging (full): ${APP}"

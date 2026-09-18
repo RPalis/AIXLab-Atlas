@@ -94,7 +94,7 @@ cd ux-atlas
 ./install.sh
 ```
 
-That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`), symlinks them to `~/.gemini/skills/` (always), and wires up whichever clients you picked. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
+That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`) and wires up whichever clients you picked. Gemini CLI needs no wiring: it reads the hub directly. Supported clients: Claude Code, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
 
 For scripting, skip the picker with flags:
 
@@ -141,9 +141,9 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 
 ## Installation & Team Setup
 
-The picker in [Getting Started](#getting-started) above pre-checks whichever clients it finds already set up on your machine. Currently supported: **Claude Code** (`~/.claude/skills/`), **Gemini CLI** (`~/.gemini/skills/`), **Antigravity** (`~/.gemini/config/skills/`), **OpenAI Codex CLI** (`~/.codex/skills/`), **GitHub Copilot CLI** (`~/.copilot/skills/`), **Cursor** (`~/.cursor/skills/`), and **Grok CLI** (`~/.grok/skills/`). Each client gets a single symlink to the hub copy (`~/.agents/skills/<name>`), the same layout other skill packs on a shared machine use: one real copy in `~/.agents/skills/`, client tools pointing at it. Gemini CLI also reads `~/.agents/skills/` directly, so it picks the skills up from the hub alone. Re-run `./install.sh` after editing a skill; the hub is a copy, not a link back to this repo.
+The picker in [Getting Started](#getting-started) above pre-checks whichever clients it finds already set up on your machine. Currently supported: **Claude Code** (`~/.claude/skills/`), **Antigravity** (`~/.gemini/config/skills/`), **OpenAI Codex CLI** (`~/.codex/skills/`), **GitHub Copilot CLI** (`~/.copilot/skills/`), **Cursor** (`~/.cursor/skills/`), and **Grok CLI** (`~/.grok/skills/`). Each client gets a single symlink to the hub copy (`~/.agents/skills/<name>`), the same layout other skill packs on a shared machine use: one real copy in `~/.agents/skills/`, client tools pointing at it. **Gemini CLI** isn't in the picker because it reads `~/.agents/skills/` directly and picks the skills up from the hub alone; a second link in `~/.gemini/skills/` only makes it warn about duplicates, so the installer removes any it made in earlier versions. Re-run `./install.sh` after editing a skill; the hub is a copy, not a link back to this repo.
 
-For scripting or CI, skip the picker with flags: `./install.sh --all`, `--none` (hub only), or any combination of `--claude`, `--gemini-cli`, `--antigravity`, `--codex`, `--copilot`, `--cursor`, `--grok`. Add `--open` or `--no-open` to control whether it launches `index.html` afterward without prompting.
+For scripting or CI, skip the picker with flags: `./install.sh --all`, `--none` (hub only), or any combination of `--claude`, `--antigravity`, `--codex`, `--copilot`, `--cursor`, `--grok`. Add `--open` or `--no-open` to control whether it launches `index.html` afterward without prompting.
 
 Re-run `install.sh` any time, especially after a skill gets renamed in this repo. It tracks what it installed last time and removes stale entries (an old skill name's dangling symlink) from the hub and every client it manages, without touching anything else that happens to live in those shared directories.
 

@@ -10,12 +10,12 @@ MANIFEST="$HUB/.ux-atlas.manifest"
 # The hub (~/.agents/skills) is the one real copy: skills are copied there from
 # this repo. Every client below gets a single symlink to ~/.agents/skills/<name>,
 # the same layout other skill packs on this machine use (a real directory in the
-# hub, one-hop symlinks everywhere else). Gemini CLI also reads ~/.agents/skills
-# directly, so a hub-only install already reaches it.
-CLIENTS_LABEL=(claude gemini-cli antigravity codex copilot cursor grok)
+# hub, one-hop symlinks everywhere else). Gemini CLI isn't listed: it reads
+# ~/.agents/skills directly, so the hub copy alone reaches it, and a second link
+# in ~/.gemini/skills only makes it print a "Skill conflict detected" line per skill.
+CLIENTS_LABEL=(claude antigravity codex copilot cursor grok)
 CLIENTS_PATH=(
   "$HOME/.claude/skills"
-  "$HOME/.gemini/skills"
   "$HOME/.gemini/config/skills"
   "$HOME/.codex/skills"
   "$HOME/.copilot/skills"
@@ -24,7 +24,6 @@ CLIENTS_PATH=(
 )
 CLIENTS_NAME=(
   "Claude Code"
-  "Gemini CLI"
   "Antigravity (Gemini config)"
   "OpenAI Codex CLI"
   "GitHub Copilot CLI"
@@ -121,7 +120,6 @@ for arg in "$@"; do
     --all) non_interactive=true; selected=("${CLIENTS_LABEL[@]}") ;;
     --none) non_interactive=true ;;
     --claude) non_interactive=true; selected+=("claude") ;;
-    --gemini-cli) non_interactive=true; selected+=("gemini-cli") ;;
     --antigravity) non_interactive=true; selected+=("antigravity") ;;
     --codex) non_interactive=true; selected+=("codex") ;;
     --copilot) non_interactive=true; selected+=("copilot") ;;
@@ -130,7 +128,7 @@ for arg in "$@"; do
     --open) force_open=true ;;
     --no-open) no_open=true ;;
     -h|--help)
-      echo "Usage: ./install.sh [--all|--none|--claude|--gemini-cli|--antigravity|--codex|--copilot|--cursor|--grok]... [--open|--no-open]"
+      echo "Usage: ./install.sh [--all|--none|--claude|--antigravity|--codex|--copilot|--cursor|--grok]... [--open|--no-open]"
       echo "Run with no flags for an interactive arrow-key menu."
       exit 0
       ;;
@@ -271,6 +269,19 @@ if [ -f "$MANIFEST" ]; then
   done < "$MANIFEST"
 fi
 
+# ---------- retire the ~/.gemini/skills links earlier versions of this script made ----------
+# Gemini CLI reads the hub directly; these only produced conflict warnings. Only
+# remove a link that points at our hub entry or this repo, never anything else.
+for skill_name in "${current_skills[@]}"; do
+  legacy="$HOME/.gemini/skills/$skill_name"
+  if [ -L "$legacy" ]; then
+    link_dest="$(readlink "$legacy" 2>/dev/null || true)"
+    if [ "$link_dest" = "$HUB/$skill_name" ] || [ "$link_dest" = "$SOURCE_DIR/$skill_name" ]; then
+      rm -f "$legacy"
+    fi
+  fi
+done
+
 # ---------- hub: copy this repo's skills to ~/.agents/skills/<name> ----------
 for skill_name in "${current_skills[@]}"; do
   echo "Copying skill to hub: $skill_name"
@@ -299,6 +310,7 @@ printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"
 echo "Canonical hub (copied): $HUB"
+echo "  -> Gemini CLI reads the hub directly (run /skills reload in an open session)"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     [ "${CLIENTS_LABEL[$i]}" = "$label" ] && echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
@@ -307,7 +319,7 @@ done
 echo "=================================================="
 echo ""
 echo "Re-run this script any time (e.g. after a skill rename) to refresh files and clean up stale entries."
-echo "Flags for non-interactive use: --all, --none, --claude, --gemini-cli, --antigravity, --codex, --copilot, --cursor, --grok, --open, --no-open"
+echo "Flags for non-interactive use: --all, --none, --claude, --antigravity, --codex, --copilot, --cursor, --grok, --open, --no-open"
 
 # ---------- open the instructions in a browser ----------
 open_instructions() {

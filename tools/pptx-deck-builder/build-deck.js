@@ -1,11 +1,19 @@
-// Build a day-in-the-life showcase deck (.pptx) from a deck.json.
+// Build a .pptx deck from a deck.json. Two slide shapes share this one builder:
 //
 //   node build-deck.js <deck.json> <screenshots-dir> <out.pptx>
 //
-// Requires pptxgenjs (npm i pptxgenjs). Layout is 16:9 widescreen (13.33 x 7.5 in);
-// every content slide is a narrative column on one side and a real 16:10 screenshot
-// on the other. Text boxes are fixed-size, so keep copy inside the limits in
-// deck-template.json and run render-preview.js before building to catch overflow.
+// Requires pptxgenjs (npm i pptxgenjs). Layout is 16:9 widescreen (13.33 x 7.5 in).
+//
+// - `deck.story`: a day-in-the-life narrative — one slide per scene, narrative column
+//   on one side, a real 16:10 screenshot on the other (used by `showcase`). Text boxes
+//   are fixed-size, so keep copy inside the limits in deck-template.json and run
+//   render-preview.js before building to catch overflow. `<screenshots-dir>` is
+//   required when `deck.story` is present; pass any placeholder path otherwise.
+// - `deck.themes`: title + bullet-list slides, one per theme, no screenshot (used by
+//   `workshop`'s `ingest` mode to summarize a workshop board). Not overflow-checked by
+//   render-preview.js — keep bullets short by convention instead.
+//
+// `deck.problem` and `deck.closing` (stat/beat slides) are shared by both shapes.
 const pptxgen = require('pptxgenjs');
 const fs = require('fs');
 const path = require('path');
@@ -83,8 +91,23 @@ if (deck.problem) {
   slideNum(s, ++n);
 }
 
+/* Themes: one slide per theme (title + bullets + note count) — workshop ingest mode */
+(deck.themes || []).forEach((th) => {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+  text(s, th.title, { x: 0.9, y: 0.7, w: 10.9, h: 0.7, fontSize: 30, bold: true, color: T.dark });
+  let bulletY = 1.6;
+  if (th.count != null) {
+    pill(s, `${th.count} note${th.count === 1 ? '' : 's'}`, 0.9, 1.5, 1.1 + String(th.count).length * 0.12, 0.35, 11, 0.5);
+    bulletY = 2.05;
+  }
+  const bulletsText = (th.notes || []).map((b) => `• ${b}`).join('\n');
+  text(s, bulletsText, { x: 0.9, y: bulletY, w: 10.9, h: 4.8, fontSize: 14, color: T.body, lineSpacing: 22, valign: 'top' });
+  slideNum(s, ++n);
+});
+
 /* Story: one slide per scene */
-deck.story.forEach((sc, i) => {
+(deck.story || []).forEach((sc, i) => {
   const s = pres.addSlide();
   s.background = { color: WHITE };
   const imageSide = sc.imageSide || (i % 2 === 0 ? 'right' : 'left');

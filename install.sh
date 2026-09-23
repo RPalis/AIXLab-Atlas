@@ -2,9 +2,12 @@
 set -e
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/skills" && pwd)"
+SOURCE_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/tools"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HUB="$HOME/.agents/skills"
 MANIFEST="$HUB/.ux-atlas.manifest"
+TOOLS_HUB="$HOME/.agents/tools"
+TOOLS_MANIFEST="$TOOLS_HUB/.ux-atlas.manifest"
 
 # Known client skill directories. Each entry is "label|path|name".
 # The hub (~/.agents/skills) is the one real copy: skills are copied there from
@@ -52,27 +55,34 @@ trap show_cursor EXIT INT TERM
 # like Claude Code / Gemini CLI use). Falls back to a plain bold line when
 # stdout isn't a real terminal.
 print_banner() {
+  # A wireframe globe, not a shaded sphere or a block glyph: an outer limb
+  # (the "(" / ")" curve, like a desktop classroom globe's frame), one front
+  # meridian running pole to pole, one full equator, two shorter tropic
+  # arcs, and a handful of "." shading dots on the lower-right (the
+  # shadowed side) — no continents, just lat/long lines and a touch of depth.
   local -a G=(
-    "     █████     "
-    "  ███  █  ███  "
-    " ███   █   ███ "
-    "███████████████"
-    "███████████████"
-    " ███   █   ███ "
-    "  ███  █  ███  "
-    "     █████     "
+    "     ( | )     "
+    "  ( '  |  ' )  "
+    " (  ---+---  ) "
+    "(------+------)"
+    "(      | .... )"
+    " (  ---+---  ) "
+    "  ( '  |  ' )  "
+    "     ( | )     "
   )
-  local -a U=("██   ██" "██   ██" "██   ██" "██   ██" "██   ██" "██   ██" " ██ ██ " "  ███  ")
-  local -a X=("██   ██" " ██ ██ " "  ███  " "   █   " "   █   " "  ███  " " ██ ██ " "██   ██")
-  local -a A=("  ███  " " █   █ " "██   ██" "██   ██" "███████" "██   ██" "██   ██" "██   ██")
-  local -a T=("███████" "  ███  " "  ███  " "  ███  " "  ███  " "  ███  " "  ███  " "  ███  ")
-  local -a L=("██     " "██     " "██     " "██     " "██     " "██     " "██     " "███████")
-  local -a S=(" ██████" "██     " "██     " " █████ " "     ██" "     ██" "██   ██" " █████ ")
+  # Letters are 8 cells wide (was 7) for a bolder, less compressed wordmark.
+  local -a U=("██    ██" "██    ██" "██    ██" "██    ██" "██    ██" "██    ██" " ██  ██ " "  ████  ")
+  local -a X=("██    ██" " ██  ██ " "  ████  " "   ██   " "   ██   " "  ████  " " ██  ██ " "██    ██")
+  local -a A=("  ████  " " ██  ██ " "██    ██" "██    ██" "████████" "██    ██" "██    ██" "██    ██")
+  local -a T=("████████" "   ██   " "   ██   " "   ██   " "   ██   " "   ██   " "   ██   " "   ██   ")
+  local -a L=("██      " "██      " "██      " "██      " "██      " "██      " "██      " "████████")
+  local -a S=(" ██████ " "██      " "██      " " █████  " "     ██ " "     ██ " "██   ██ " " █████  ")
 
+  # Extra room between the two words ("UX" / "ATLAS"), not just between letters.
   local -a lines=()
   local r
   for r in 0 1 2 3 4 5 6 7; do
-    lines+=("${G[$r]}   ${U[$r]} ${X[$r]}    ${A[$r]} ${T[$r]} ${L[$r]} ${A[$r]} ${S[$r]}")
+    lines+=("${G[$r]}   ${U[$r]} ${X[$r]}      ${A[$r]} ${T[$r]} ${L[$r]} ${A[$r]} ${S[$r]}")
   done
 
   if [ ! -t 1 ]; then
@@ -86,10 +96,12 @@ print_banner() {
   # gradient: blue -> cyan -> green (top to bottom), 256-color
   local -a colors=(27 33 39 45 51 50 49 46)
 
-  # shadow pass: dim charcoal, shifted 3 cols right + 2 rows down
+  # drop-shadow pass: dim charcoal copy of the whole wordmark (letters + globe),
+  # offset 3 cols right + 2 rows down, printed first so the bright gradient
+  # pass below sits on top of it and only the bottom-right sliver peeks out.
   printf "\n\n"
   for i in "${!lines[@]}"; do
-    printf "   \033[2;38;5;236m%s\033[0m\n" "${lines[$i]}"
+    printf "   \033[2;38;5;238m%s\033[0m\n" "${lines[$i]}"
   done
 
   # move cursor back up over the shadow (including the two leading blank lines)
@@ -112,6 +124,20 @@ done
 if [ ${#current_skills[@]} -eq 0 ]; then
   echo "No skills found under $SOURCE_DIR. Nothing to install."
   exit 1
+fi
+
+# ---------- discover current tool set from this repo ----------
+# Skills reference these by relative path (../../tools/<name>/...), which only
+# resolves once installed if tools/ sits next to skills/ in the hub the same way
+# it sits next to skills/ in this repo: ~/.agents/tools/ alongside
+# ~/.agents/skills/<name>/. No per-client symlinking needed — every client's
+# skill symlink already resolves through the hub, so a relative path out of it
+# lands in ~/.agents/tools/ regardless of which client followed it there.
+current_tools=()
+if [ -d "$SOURCE_TOOLS_DIR" ]; then
+  for tool_path in "$SOURCE_TOOLS_DIR"/*; do
+    [ -d "$tool_path" ] && current_tools+=("$(basename "$tool_path")")
+  done
 fi
 
 # ---------- flags ----------
@@ -198,7 +224,7 @@ if [ "$non_interactive" = false ]; then
   [ -t 1 ] && clear 2>/dev/null || true
   print_banner
   echo "$(dim "Source: $SOURCE_DIR")"
-  echo "$(dim "${#current_skills[@]} skills will be copied to ~/.agents/skills (always), then symlinked into whichever clients you pick below.")"
+  echo "$(dim "${#current_skills[@]} skills will be copied to ~/.agents/skills (always), then symlinked into whichever clients you pick below. ${#current_tools[@]} shared tools will be copied to ~/.agents/tools (always, no client symlinks needed).")"
   echo ""
   echo "↑/↓ move   space toggle   a toggle all   enter confirm   q cancel"
   echo ""
@@ -248,6 +274,29 @@ fi
 echo "=================================================="
 
 mkdir -p "$HUB"
+mkdir -p "$TOOLS_HUB"
+
+# ---------- clean up stale tools from a previous install ----------
+if [ -f "$TOOLS_MANIFEST" ]; then
+  while IFS= read -r old_tool; do
+    [ -z "$old_tool" ] && continue
+    still_current=false
+    for t in "${current_tools[@]}"; do [ "$t" = "$old_tool" ] && still_current=true && break; done
+    if [ "$still_current" = false ] && [ -e "$TOOLS_HUB/$old_tool" ]; then
+      echo "Removing stale tool from hub: $old_tool"
+      rm -rf "$TOOLS_HUB/$old_tool"
+    fi
+  done < "$TOOLS_MANIFEST"
+fi
+
+# ---------- hub: copy this repo's tools to ~/.agents/tools/<name> ----------
+for tool_name in "${current_tools[@]}"; do
+  echo "Copying tool to hub: $tool_name"
+  rm -rf "$TOOLS_HUB/$tool_name"
+  cp -R "$SOURCE_TOOLS_DIR/$tool_name" "$TOOLS_HUB/$tool_name"
+  chmod +x "$TOOLS_HUB/$tool_name"/*.sh 2>/dev/null || true
+done
+printf "%s\n" "${current_tools[@]}" > "$TOOLS_MANIFEST"
 
 # ---------- clean up anything this repo installed previously that no longer exists ----------
 if [ -f "$MANIFEST" ]; then
@@ -320,9 +369,23 @@ done
 # ---------- record what we installed, for next run's cleanup ----------
 printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 
+# ---------- record the installed version, so 'setup' can check for updates ----------
+# Best-effort: if this repo isn't a git checkout (e.g. downloaded as a zip),
+# skip silently rather than failing the install over it.
+installed_sha="$(cd "$REPO_DIR" && git rev-parse HEAD 2>/dev/null || true)"
+installed_repo="$(cd "$REPO_DIR" && git remote get-url origin 2>/dev/null || true)"
+if [ -n "$installed_sha" ] && [ -n "$installed_repo" ]; then
+  {
+    echo "repo=$installed_repo"
+    echo "sha=$installed_sha"
+    echo "installed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  } > "$HUB/.ux-atlas.version"
+fi
+
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"
 echo "Canonical hub (copied): $HUB"
+[ ${#current_tools[@]} -gt 0 ] && echo "Tools hub (copied, no client symlinks needed): $TOOLS_HUB (${#current_tools[@]} tools)"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then

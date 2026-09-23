@@ -92,7 +92,9 @@ Ask if not specified; don't guess based on a hunch:
 - **Word / Markdown summary**: for a written record that gets read, not presented.
 - **CSV**: for feeding the raw notes into another tool (spreadsheet, backlog, affinity-mapping software).
 - **Executive summary**: a short prose synthesis, when the ask is "what did we learn," not "show me every sticky note."
-- **FigJam board**: a live, editable replica of the physical board, for a team that wants to keep working on it digitally rather than just read a record of it. Requires the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools); if unavailable, say so and fall back to another format rather than silently skipping the option.
+- **FigJam board**: a live, editable replica of the physical board, for a team that wants to keep working on it digitally rather than just read a record of it. Requires the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools); if unavailable, say so and fall back to another format rather than silently skipping the option. **Autonomous mode** (the connection check, applied without a live user to notify): skip this format, log to `docs/UNKNOWNS.md` that a FigJam replica is available once connected.
+
+**Autonomous mode** (suite `AGENTS.md` §2.9): default to PPTX, consistent with `showcase`'s default — safe to default here specifically because the Markdown summary is always produced first as the real content (see Step 4) and the PPTX conversion is a derived, best-effort step on top of it. If the conversion fails (a missing npm dependency, a broken install), the Markdown deliverable still stands on its own; log the conversion failure and hand over the Markdown rather than blocking on the render step. Log the default; the other formats are available on request, and more than one can still be produced from the same extraction later.
 
 More than one can be produced from the same extracted structure if the user wants both a deck and a raw export.
 
@@ -100,12 +102,18 @@ More than one can be produced from the same extracted structure if the user want
 
 Whatever the format, build it from the same structured extraction; don't re-derive content per format.
 
-**PPTX:**
-- Slide 1, Workshop Summary: date (if known), purpose, list of themes.
-- Slide 2+: one slide per theme, theme title, consolidated notes, note count.
-- Optional closing slides: risk matrix recreation, affinity diagram, action items, decision log. Include only the ones the board actually produced.
+**Word / Markdown:** the canonical text form regardless of which final format was picked (see PPTX below) — title, date/purpose, then one `##` section per theme with its consolidated notes as a bullet list, same structure a slide-per-theme deck would use.
 
-**Word / Markdown:** same section structure as the deck (summary, then one section per theme), as flowing prose/lists rather than slides.
+**PPTX:** derived from the Markdown above, not authored separately — write the Markdown first, then convert:
+
+```bash
+node ../../tools/markdown-to-pptx/md-to-deck.mjs <docs>/<Workshop>-Summary.md deck.json
+node ../../tools/pptx-deck-builder/build-deck.js deck.json . <docs>/<Workshop>-Summary.pptx
+```
+
+[`tools/markdown-to-pptx`](../../tools/markdown-to-pptx/md-to-deck.mjs) turns each `##` section into a `themes` entry (title + bullets + note count) for [`tools/pptx-deck-builder`](../../tools/pptx-deck-builder/build-deck.js) — the same shared builder `showcase` uses, just its `themes` slide shape instead of `story`. No screenshots directory is needed for a themes-only deck; pass any path (the builder only reads from it when `deck.story` is present). This split means the render step (the one part with an npm dependency — pptxgenjs) can fail without losing the deliverable: the Markdown already exists as a complete, standalone summary on its own.
+
+For an action-items or decision-log closing slide, hand-edit `deck.json` after conversion to add a `closing` block (`beats`: `{ "label", "detail" }` pairs — label=action/decision, detail=owner/date or rationale) before running `build-deck.js`; the converter doesn't infer this shape from Markdown since a closing slide isn't just another themed section. A risk matrix or affinity diagram recreation doesn't fit this shape at all — build those as images captured from a FigJam replica instead, if one was produced.
 
 **CSV:** one row per note, columns for theme, note text, and `[unclear]` flag.
 

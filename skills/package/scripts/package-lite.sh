@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # /package lite
-# Produces production/ at the repo root: the real minified production build, laid out as
+# Produces <app-name>-production/ at the repo root: the real minified production build, laid out as
 # index.html at the root (plus the few files that only work there) with everything else under
 # assets/. When the repo has a backend/, its GET responses are captured into
 # assets/backend-snapshot.json and assets/static-backend.js answers the app's API calls from
@@ -11,9 +11,8 @@ set -euo pipefail
 #
 # Overrides (env): FRONTEND=<dir> BACKEND=<dir> BACKEND_URL=<url> HOOKS=<file> OUT=<dir>
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LITE="$HERE/lite"
 REPO="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+LITE="$REPO/tools/package-lite"
 APP="$(basename "$REPO")"
 cd "$REPO"
 
@@ -24,7 +23,7 @@ fi
 [ -z "$FRONTEND" ] && [ -f package.json ] && FRONTEND="."
 [ -z "$FRONTEND" ] && { echo "No frontend found (looked for frontend/, angular/, ... with a package.json). Set FRONTEND=<dir>."; exit 1; }
 BACKEND="${BACKEND:-}"; [ -z "$BACKEND" ] && [ -d backend ] && BACKEND=backend
-OUT="${OUT:-$REPO/production}"
+OUT="${OUT:-$REPO/$APP-production}"
 STAGE="$REPO/.pkg-lite"
 STARTED_PORT=""
 
@@ -104,7 +103,7 @@ else
 fi
 [ -z "$BUILD_OUTPUT" ] && { echo 'Could not locate the build output.'; exit 1; }
 
-# --- Step 3: assemble production/ ---
+# --- Step 3: assemble <app-name>-production/ ---
 rm -rf "$OUT"
 cp -R "$BUILD_OUTPUT" "$OUT"
 find "$OUT" -name '.DS_Store' -delete

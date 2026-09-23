@@ -33,6 +33,8 @@ Read `docs/PRODUCT_BRIEF.md` and `docs/PERSONA_WALKTHROUGH.md` first if they exi
 
 **Completion criterion:** all four areas have a real answer (from existing docs or the stakeholder), specific enough to search on — not a placeholder.
 
+**Autonomous mode** (suite `AGENTS.md` §2.9): if `docs/PRODUCT_BRIEF.md` (or `docs/PERSONA_WALKTHROUGH.md`) already answers all four areas, proceed straight to Step 2 with those answers. If any area is still unanswered with no stakeholder to ask, this is the same hard tier-3 stop `brief`'s own autonomous-mode note names for a genuinely new idea — this skill can't research a market category that hasn't been defined. Log which areas are missing (`../../tools/log-unknown/log-unknown.sh --skill competitors --tier 3 "..."`) and stop rather than guessing at what kind of product this is.
+
 ### Step 2: Search for candidates
 
 Using whatever web search and page-fetching capability is available in the current environment, look for products and companies matching the category and workflows from Step 1. Aim wide enough to be useful — direct competitors, adjacent tools people actually compare this product against, the known names from Step 1 — but stop once the list covers the category rather than padding it for a round number. Note where each candidate came from (a comparison page, a review site, a category listicle, or "stakeholder-provided") so it can be sanity-checked, not just the name.
@@ -41,7 +43,7 @@ If no web research capability is available in the current environment, say so pl
 
 ### Step 3: Let the stakeholder pick
 
-Present the candidate list with a one-line description and source per entry. Ask which ones are worth a full profile, steering toward **3-5** — the closest experiences to what's being built, not the broadest possible coverage. Also ask whether a competitor they already know about is missing from the list, and add it if so.
+Present the candidate list with a one-line description and source per entry. Ask which ones are worth a full profile, steering toward **3-5** — the closest experiences to what's being built, not the broadest possible coverage. Also ask whether a competitor they already know about is missing from the list, and add it if so. **Autonomous mode** (suite `AGENTS.md` §2.9): this selection is a **checkpoint**, not a tier — which competitors anchor the product's competitive positioning is a call a designer wants to have made themselves, even though guessing here would be low-risk. Never auto-select and proceed to profiling in the same run. Report the ranked candidate list and a proposed top-5, and stop — whatever's driving the work resolves the pick with the designer before a full profile pass runs (see `agents/competitors-agent.md`'s two-phase split for the concrete mechanism). Every candidate Step 2 found still gets documented once profiling does run (see Step 5), selected or not. The "anyone we're missing" question has no autonomous answer either — no source has that knowledge — log it to `docs/UNKNOWNS.md` as a standing question rather than skipping it silently.
 
 **Completion criterion:** every candidate presented has a stated source, and the selected subset (ideally 3-5) was an explicit stakeholder choice, not an assumption that more coverage is automatically better.
 
@@ -53,7 +55,11 @@ Each competitor's research is independent of the others, so where the current en
 - **Core workflow** — how a user actually accomplishes the main task, as a short numbered sequence, not a feature list restated as steps.
 - **UX patterns worth noting** — anything notably good, bad, or distinctive, and why it stands out, not a generic "clean UI" observation.
 - **Why they're a real competitor** — a specific signal (user base, funding, category leadership, or being the default substitute people already reach for), not just "they exist in this space."
-- **Screenshot** — if real screenshot/browser tooling is available, capture the product's actual UI (the core-workflow screen, not the marketing homepage) and save it under `<docs>/competitor-screenshots/<competitor-slug>.png`. If not available, say so explicitly and leave the profile's screenshot slot noting "not captured" rather than fabricating or describing imagery that wasn't actually seen.
+- **Screenshot** — if real screenshot/browser tooling is available, capture the product's actual UI (the core-workflow screen, not the marketing homepage) with [`tools/capture-screenshot`](../../tools/capture-screenshot/capture-screenshot.mjs):
+  ```bash
+  node ../../tools/capture-screenshot/capture-screenshot.mjs --url <product-url> --out <docs>/competitor-screenshots/<competitor-slug>.png
+  ```
+  Pass `--click <selector>` if one extra click (dismiss a cookie banner, open the workflow screen) is needed to reach the right state; for anything more involved (login, a multi-step flow), drive it with the built-in browser or Claude in Chrome instead and skip the script. If no screenshot tooling is available at all, say so explicitly and leave the profile's screenshot slot noting "not captured" rather than fabricating or describing imagery that wasn't actually seen.
 
 If the stakeholder already knows a competitor well and web research would just restate what they said, ask them directly and credit it as stakeholder-provided rather than re-deriving it from a search.
 
@@ -62,6 +68,8 @@ If the stakeholder already knows a competitor well and web research would just r
 ### Step 5: Build the comparison matrix and write the doc
 
 Use [`templates/competitive-analysis-template.md`](templates/competitive-analysis-template.md) to write `docs/COMPETITIVE_ANALYSIS.md`: a comparison matrix (one column per competitor, one row per dimension) followed by a full profile section per competitor, screenshot embedded via a standard markdown image link (`![<competitor> core workflow](competitor-screenshots/<slug>.png)`). The matrix and the profiles must agree — a row in the matrix and its corresponding profile section describe the same fact, not a summarized-into-drift version of it.
+
+**Autonomous mode:** append a short "Other candidates found" list after the profiles — every candidate Step 2 turned up that didn't get a full profile, each with its one-line description and source, so nothing found silently disappears even though only the top ~5 were deep-dived. A later `add` pass can promote one of these to a full profile without re-running Step 2.
 
 ### Step 6: Hand off
 

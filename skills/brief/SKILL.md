@@ -30,6 +30,8 @@ Ask the user how they want to run this:
 
 Either pace covers the same ground; only the delivery cadence differs. This is Step 1's pace; skip straight to Step 0.5 first if there's a real product to read.
 
+**Autonomous mode** (suite `AGENTS.md` §2.9): on an existing product, always run Step 0.5's reconnaissance draft — the pace question is moot since nothing is asked live, and a codebase-drafted brief with confirmation flagged is real progress. On a genuinely new idea with no product to read, this skill's whole premise is a stakeholder's own knowledge, which no source can substitute for — this is a hard tier-3 stop (§2.9), not a default to paper over. Log to `docs/UNKNOWNS.md` that a stakeholder interrogation is needed and don't fabricate a brief from nothing.
+
 ## Step 0.5: Existing product? Draft from the codebase first
 
 If Step 0 (or `setup`, handing off) turned up a real `src/` with actual application code, not just a scaffold stub, don't open with a blank interrogation — a lot of the answer is already sitting in the repo. Read before asking:
@@ -71,6 +73,8 @@ Write `docs/PRODUCT_BRIEF.md` using [`templates/product-brief-template.md`](temp
 Anything that needs real competitive research, a real user segment's input, or a stakeholder who wasn't in this conversation, goes to `docs/UNKNOWNS.md` (see AGENTS.md §2.6) rather than being guessed at or left silently blank in the brief.
 
 ## Step 4: Hand off
+
+Log it: `../../tools/log-milestone/log-milestone.sh --skill brief --event "PRODUCT_BRIEF.md confirmed" --why "<the one thing about this product's constraints/audience most worth remembering later>"`.
 
 Point to what's next based on what the brief surfaced, not a fixed default:
 - Multiple user types with meaningfully different needs → [`persona`](../persona/SKILL.md) to formalize them.

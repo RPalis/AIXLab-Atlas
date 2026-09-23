@@ -16,6 +16,8 @@ Five modes, one job: turn a prototype's structure — proposed or built — into
 
 Say which mode, or this skill asks. Don't blend them: a route diagram with journey arrows on it, or a journey diagram organized by page instead of by step, both mean the wrong mode was picked. `site` and `document` both produce an architecture diagram, but from opposite ends of the same question — `site` proposes it before anything is built, `document` documents what's actually there.
 
+**Autonomous mode** (suite `AGENTS.md` §2.9): with no mode named, infer from the same repo-state signals [`help`](../help/SKILL.md)'s Step 1 uses — no `src/` yet → `objects` (the foundational Decide-phase mode, needed before `site` can plan against it); `src/` exists but no recent diagram refresh → `document`; an explicit persona/workflow to diagram → `flow`. If genuinely no signal either way, default to `objects`. Log which mode ran and why.
+
 ---
 
 ## Output Discipline

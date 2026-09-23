@@ -48,6 +48,13 @@ This skill automates creating a high-fidelity, zero-friction prototype workspace
 
 ### Scaffolding Instructions
 
+#### Step 0: Check for an Existing Figma Library
+Before initializing, ask whether a Figma library is already set up for this product. If the user provides a link:
+- Treat it as the source of truth for Step 2's tokens — use [`figma`](../figma/SKILL.md)'s `sync` mode, Import direction, to cast the library's Variables into the Two-Layer Token Architecture (via [`styleguide`](../styleguide/SKILL.md) forge mode) instead of the placeholder palette.
+- **Autonomous mode:** using a real Figma library as the token/component source is also a checkpoint, not a tier — it's a bigger call than the type layer (everything downstream depends on it). If a real library link turns up anywhere in the docs and no designer has confirmed using it, stop before scaffolding anything at all rather than guessing either way; proceeding with the placeholder palette while a real library sits unconfirmed is exactly the kind of guess this rule exists to prevent.
+- If the library also has real component frames (not just Variables), use [`figma`](../figma/SKILL.md)'s `import` mode for the shell/nav components in Step 4 so the base UI matches the library's actual components rather than being designed from scratch.
+- If the user has no Figma library yet, proceed with the placeholder palette and skip this — don't block scaffolding on it.
+
 #### Step 1: Initialize Vite + React + TypeScript App
 ```bash
 npm create vite@latest frontend -- --template react-ts
@@ -66,6 +73,19 @@ Create `shared/types.ts` and `shared/seed.ts` with rich realistic mockup records
 #### Step 4: Scaffold Shell & Navigation
 Integrate `AppShell`, `SideNav`, `Header`, and `PrototypeTools` panel.
 
+#### Step 5: Claim a Free Dev Server Port
+Before the first `npm run dev`, check that Vite's default port (5173) isn't already bound by another running prototype:
+```bash
+lsof -nP -iTCP:5173 -sTCP:LISTEN
+```
+If that returns a process, don't kill it blindly — it may be another prototype the user still has open. Instead pick the next free port (5174, 5175, ...) by repeating the check, then pin it in `frontend/vite.config.ts` so it's stable across restarts instead of Vite silently hopping ports each run:
+```ts
+export default defineConfig({
+  server: { port: 5174, strictPort: true },
+})
+```
+`strictPort: true` makes a real conflict fail loudly instead of silently starting on a different port than the user expects.
+
 ### Template Assets
 - [`templates/App-shell-template.tsx`](templates/App-shell-template.tsx): Ready-to-use prototype shell with dark mode & tools.
 - [`templates/mock-store-template.ts`](templates/mock-store-template.ts): Type-safe `localStorage` mock data hook.
@@ -74,7 +94,7 @@ Integrate `AppShell`, `SideNav`, `Header`, and `PrototypeTools` panel.
 
 ## Optional Type Layer
 
-Once the base scaffold exists, ask whether this prototype fits a recognizable site archetype. If it doesn't fit cleanly, stop here — the base scaffold is complete on its own; don't force-fit a type.
+Once the base scaffold exists, ask whether this prototype fits a recognizable site archetype. If it doesn't fit cleanly, stop here — the base scaffold is complete on its own; don't force-fit a type. **Autonomous mode** (suite `AGENTS.md` §2.9): this is a **checkpoint**, not a tier — the type layer shapes the actual product, so it's never picked without a designer's say, even when a signal in the docs looks clear-cut. Whatever's driving the work resolves this with the designer before dispatching the work that would apply it (see `agents/scaffold-agent.md`); a base scaffold with no type layer applied yet is a complete, valid state to stop at in the meantime, not a stall.
 
 | Type | When to use | Reference |
 |---|---|---|

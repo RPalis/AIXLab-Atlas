@@ -17,7 +17,7 @@ Say which mode you want, or this skill asks: **default** ("you are here" — rea
 
 ### Step 1: Read the signals
 
-Check for these, in this order, to place the project on Discover → Decide → Design → Deliver:
+Run [`tools/detect-project-phase`](../../tools/detect-project-phase/detect-project-phase.sh) — it resolves the same signals below into a `PHASE=` value directly, so this table is the reference for what each phase means, not a manual walkthrough to repeat by hand. The table below writes `docs/...` as shorthand for whatever [`tools/find-docs-folder`](../../tools/find-docs-folder/find-docs-folder.sh) resolves. Its `design` phase collapses this table's last two rows (mid-build vs. nearing-done) — it can't see whether `audit` has run, since `audit` doesn't persist a doc; that distinction still needs a look at the actual state, same as ever:
 
 | Signal found | Reading |
 |---|---|
@@ -38,13 +38,17 @@ Not a rigid state machine — a project can legitimately have `DESIGN.md` before
 
 If file signals are ambiguous, or the user's actual goal doesn't obviously match where the files say they are, ask one direct question: "what are you trying to get done right now?" Don't run the Step 1 table past the user as a report; it's your reasoning, not their answer.
 
+**Autonomous mode** (suite `AGENTS.md` §2.9): with no one to ask, default to the earliest phase any ambiguous signal points at — under-assuming progress just recommends a backfill step that turns out to already be done (cheap to notice, cheap to skip), while over-assuming skips work that's actually still needed. Log the assumption and which signal was ambiguous.
+
 ### On-ramps: situations that skip the linear flow
 
 Some starting points aren't "the project is at phase X"; they're a specific event that has its own answer regardless of overall project phase:
 
 - **Nothing exists yet, not even an idea captured anywhere** → [`setup`](../setup/SKILL.md), always first.
 - **Just came out of a physical workshop with photos of a board** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode.
-- **Something in the running prototype looks or feels wrong right now** → [`audit`](../audit/SKILL.md) (ask which mode, usually `craft`).
+- **Something in the running prototype looks or feels wrong, broadly, and needs finding rather than a specific fix already in mind** → [`audit`](../audit/SKILL.md) (ask which mode, usually `craft`).
+- **A specific, already-decided edit — a marked-up screenshot, or pointing at a live element and saying what to change** → [`redline`](../redline/SKILL.md), not `audit`/`refine` — the difference is whether the fix still needs finding (`audit`) or is already known and just needs doing (`redline`).
+- **Screenshots or URLs of styles the user likes, wanting the app to look more like that** → [`restyle`](../restyle/SKILL.md) for options to choose from right now, or [`moodboard`](../moodboard/SKILL.md) first if references are still accumulating and nothing needs deciding yet.
 - **Stuck on a real tradeoff, can't decide between two directions** → [`interrogate`](../interrogate/SKILL.md).
 - **Need to move something to/from Figma** → [`figma`](../figma/SKILL.md).
 - **A decision was already made and needs to survive past this conversation** → [`decisions`](../decisions/SKILL.md).
@@ -124,6 +128,8 @@ Not gated to one phase.
 - [`wiki`](../wiki/SKILL.md)'s `note` mode: a quick, low-ceremony capture that folds straight in, no separate compile step needed.
 - [`wiki`](../wiki/SKILL.md)'s default `compile` mode: compiling scattered notes as the project accumulates them.
 - [`figma`](../figma/SKILL.md): moving work to and from Figma, whenever it's part of the workflow: `capture` (screen → Figma layers), `import` (Figma frame → code), or `sync` (token system ↔ Figma library).
+- [`redline`](../redline/SKILL.md): one targeted UI edit from a marked-up screenshot (`markup` mode) or a live-picked element plus a plain instruction (`pick` mode) — no confirm step, review the diff.
+- [`moodboard`](../moodboard/SKILL.md) / [`restyle`](../restyle/SKILL.md): an ongoing library of style inspiration synthesized into `VISUAL_LANGUAGE.md` (`moodboard`), and generating a few full-token-set candidate directions from it live-applied to the real app to choose from (`restyle`), handed to `styleguide` to commit.
 - `docs/UNKNOWNS.md`: the running list every skill defers to instead of guessing (AGENTS.md §2.6), tying Discover through Deliver together.
 
 ### Meta: Managing the Suite Itself
@@ -168,6 +174,9 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`interrogate`](../interrogate/SKILL.md)**: Interrogate a design decision one question at a time until reaching shared understanding, then optionally hand off to `decisions`.
 - **[`wiki`](../wiki/SKILL.md)**: Two modes. Default `compile` mode builds and maintains a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect. `note` mode is the lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/my-notes/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
 - **[`figma`](../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).
+- **[`redline`](../redline/SKILL.md)**: Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — each annotation becomes one edit, matched to its real source file) or `pick` (point at a live element in the running prototype and describe the change). No confirm-before-edit step; the diff is the review.
+- **[`moodboard`](../moodboard/SKILL.md)**: Maintains `<docs>/inspiration/` — screenshots or URLs of styles the user likes, dropped in over time — and synthesizes them into a living `VISUAL_LANGUAGE.md`: recurring color, typography, spacing, shape, and elevation patterns plus descriptive adjectives, each citing which reference it came from.
+- **[`restyle`](../restyle/SKILL.md)**: Generates 2-3 candidate visual directions (full token set: color, type, spacing/radius, elevation) from references given directly or from `moodboard`'s synthesis, live-applies each to the running prototype via a temporary switcher so the choice is made against real screens, then hands the winner to `styleguide`'s `forge` mode to actually commit.
 
 #### Meta
 - **[`skill-manager`](../skill-manager/SKILL.md)**: Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library, and show what any installed skill does. Manages the library itself, outside the design lifecycle.

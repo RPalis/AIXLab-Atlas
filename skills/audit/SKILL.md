@@ -6,13 +6,15 @@ description: >-
 
 # Audit
 
-Three audit modes share one skill because they share the same shape of work — find problems, score or rank them, hand off to whoever fixes them — but they check genuinely different things. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app":
+Three audit modes share one skill because they share the same shape of work — find problems, score or rank them, hand off to whoever fixes them — but they check genuinely different things. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app". **Autonomous mode** (see suite `AGENTS.md` §2.9): default to `code` — it's the only mode with no subjective judgment calls (pure grep-able checks), so an unattended run produces a trustworthy result with nobody available to sanity-check a scored critique. Log the default and note that `craft`/`a11y` are available on request.
 
 - **`craft`**: subjective UX critique: visual hierarchy, cognitive load, information architecture, consistency/anti-patterns, responsive behavior, delight. Feeds [`refine`](../refine/SKILL.md).
 - **`code`**: coding-practice audit: design token adherence, structure/style/logic separation, component reuse, semantic HTML5, mechanical focus-state hygiene. Fast and grep-able, not deliberative.
 - **`a11y`**: deep WCAG 2.1/2.2 AA pass, reasoning criterion-by-criterion, not the cheap mechanical checks `code` mode already covers.
 
 All three only identify; none edit code. More than one mode can run back-to-back on the same target when the user wants full coverage; run them independently rather than blending their findings into one report.
+
+**Autonomous mode:** every mode's findings normally exist only as a chat report, which an unattended run has no one to read. Write them to `<docs>/AUDIT_<MODE>_FINDINGS.md` (e.g. `AUDIT_CODE_FINDINGS.md`) instead — same Review Output Format, dated, overwritten each run rather than accumulated. Log a milestone (`../../tools/log-milestone/log-milestone.sh --skill audit --event "<mode> audit: N findings (N P0)"`) only when a P0 turns up; a clean run or routine low-severity findings don't need one.
 
 ### Optional: independent second pass for high-stakes audits
 A single pass reliably misses things, since the reviewer anchors on whatever it noticed first. For an audit gating a real handoff or ship decision, run a second pass with fresh eyes (a separate `Explore` or `general-purpose` agent given only the target and the mode's checklist, no visibility into the first pass's findings) and reconcile both lists before reporting. Skip this for a routine in-progress check — it roughly doubles the cost and isn't worth it until the finding actually matters.
@@ -42,11 +44,11 @@ Inspect the running prototype (or source, if it can't run) against each dimensio
 
 **5. Delight & Craft Heuristics.** Cross-check against [`refine`](../refine/SKILL.md)'s 6 craft heuristics (density/scannability, elevation, micro-interactions, typography, empty/loading states, dark mode fidelity). This dimension scores how close the prototype already is to that skill's bar, not whether it exists as UI at all.
 
-Optionally run the [full Nielsen's 10 Heuristics pass](references/nielsen-heuristics.md) for a deeper, more granular critique than the 5 dimensions above. Useful when the audit needs to justify a bigger investment of follow-up work.
+Optionally run the [full Nielsen's 10 Heuristics pass](references/nielsen-heuristics.md) as its own scored table for a deeper, more granular critique than the 5 dimensions above — useful when the audit needs to justify a bigger investment of follow-up work. Whether or not that fuller pass runs, use the same reference's heuristic list to cite **which specific heuristic each finding violates** in Step 3's Findings list — this is what turns "the empty state is confusing" into a pinpointed, actionable citation ("violates #6, Recognition Rather Than Recall") instead of a vague impression.
 
 ### Step 2: Walk it through 2-3 personas
 
-Pick 2-3 relevant personas from [references/personas.md](references/personas.md) (Alex the power user, Jordan the first-timer, Riley the stress-tester, Casey the mobile user) and walk the primary task through each one's eyes. Report specific red flags tied to exact elements — "icon-only nav in the sidebar confuses Jordan," not "navigation could be clearer."
+Pick 2-3 relevant personas from [references/personas.md](references/personas.md) (Alex the power user, Jordan the first-timer, Riley the stress-tester, Casey the mobile user) and walk the primary task through each one's eyes. Report specific red flags tied to exact elements — "icon-only nav in the sidebar confuses Jordan (violates #6, Recognition Rather Than Recall)," not "navigation could be clearer."
 
 ### Step 3: Report and file as tasks
 
@@ -68,18 +70,18 @@ Pick 2-3 relevant personas from [references/personas.md](references/personas.md)
 
 ## Findings (task list, most impactful first)
 Each finding is a ticket, not prose:
-- **[P0/P1/P2/P3] [Short title]** — Location: `Component.tsx`. Impact: [why it hurts the user]. Fix: [concrete, actionable]. Route to: `refine` (visual) or `audit` in `code` mode (structural/reuse).
+- **[P0/P1/P2/P3] [Short title]** — Location: `Component.tsx`. Violates: `[#N, Heuristic Name]` (from [references/nielsen-heuristics.md](references/nielsen-heuristics.md); `n/a` if it's a structural/code issue with no clean heuristic mapping — don't force one). Impact: [why it hurts the user]. Fix: [concrete, actionable]. Route to: `refine` (visual) or `audit` in `code` mode (structural/reuse).
 
 ## Persona Red Flags
 [Specific breakage per persona from Step 2]
 
 ## Patterns & Systemic Issues
-[Recurring problems, e.g. "hardcoded spacing appears in 6+ views, should use the layout rhythm from DESIGN.md"]
+[Recurring problems, e.g. "hardcoded spacing appears in 6+ views, should use the layout rhythm from DESIGN.md" — call out a heuristic violated by 3+ findings by name, e.g. "#5 Error Prevention violated in 4 places: no confirm-before-destructive pattern established," since a repeated heuristic violation is a systemic gap, not four unrelated findings]
 ```
 
 Severity: **P0** blocks task completion, fix immediately. **P1** major difficulty, fix before next review. **P2** annoyance with a workaround, next pass. **P3** polish, time-permitting.
 
-**Completion criterion:** every P0/P1 finding names a concrete file/component and a concrete fix. No finding that just restates the dimension name without specifics.
+**Completion criterion:** every P0/P1 finding names a concrete file/component and a concrete fix, and cites the specific heuristic it violates (or is explicitly marked `n/a`). No finding that just restates the dimension name without specifics.
 
 ---
 
@@ -90,18 +92,17 @@ Audits **coding practice**: token adherence, structure/style/logic separation, c
 ### 6 Audit Checkpoints
 
 **1. Design Token Compliance (Strict)**
-- **Zero Hardcoded Hex Codes in JSX**: Flag any `text-[#...]`, `bg-[#...]`, or `style={{ color: '...' }}`.
-- **Zero Raw Tailwind Palette Colors**: Flag any `text-slate-500`, `bg-emerald-600`, or `border-zinc-300`. All styling must use semantic tokens (`text-primary`, `bg-surface`, `bg-status-success/15`). This includes status/badge colors, which must never fall back to raw palette classes even for a "quick" state.
+- **Zero Hardcoded Hex Codes / Raw Tailwind Palette Colors**: Run [`tools/check-hardcoded-colors`](../../tools/check-hardcoded-colors/check-hardcoded-colors.sh) against the app's source directory. It flags `text-[#...]`, `bg-[#...]`, bare hex values, and raw palette classes like `text-slate-500`, `bg-emerald-600`, `border-zinc-300` — same check `figma`'s `import` mode runs on newly imported code. All styling must use semantic tokens (`text-primary`, `bg-surface`, `bg-status-success/15`). This includes status/badge colors, which must never fall back to raw palette classes even for a "quick" state. `style={{ color: '...' }}` inline styles aren't caught by the script — check those by hand.
 - **Zero Redundant `dark:` Overrides**: Flag `text-primary dark:text-white` on a token that already auto-flips. A `dark:` override is only legitimate when it pairs two genuinely distinct semantic tokens for a deliberate light/dark divergence, not as a patch on a single token.
 - **Consistent Layout Rhythm**: Page containers should align to one shared max-width/padding convention defined once (e.g. in the app shell), not repeated ad hoc per view. Dense data tables should use consistent cell padding across the app.
 
 **2. Semantic HTML5 & Heading Hierarchy**
 - Ensure each view has a single top-level `<h1>` tag followed by logical `<h2>`, `<h3>` hierarchy.
-- Ensure clickable actions use semantic `<button>` elements (not clickable `<div>`s without ARIA).
+- Ensure clickable actions use semantic `<button>` elements (not clickable `<div>`s without ARIA) — [`tools/audit-mechanical-checks`](../../tools/audit-mechanical-checks/audit-mechanical-checks.sh) flags `<div onClick=...>` candidates as a starting point.
 - Form inputs must have associated `<label>` tags or `aria-label` attributes.
 
 **3. Keyboard Focus Hygiene** (mechanical only; see `a11y` mode for the real WCAG pass)
-- Verify all interactive controls include `:focus-visible` ring styling (`focus:ring-2 focus:ring-focus-ring`).
+- Verify all interactive controls include `:focus-visible` ring styling (`focus:ring-2 focus:ring-focus-ring`) — the same tool's second check flags any file with interactive elements but zero `focus:ring`/`focus-visible` mentions anywhere in it (a coarse, file-level heuristic; a file that passes can still miss it on one element, so don't treat a clean run as the whole answer).
 - Modals must trap keyboard focus and dismiss on `Escape`.
 
 **4. Component & Type Hygiene**
@@ -114,7 +115,7 @@ Audits **coding practice**: token adherence, structure/style/logic separation, c
 - Business/domain logic (state transitions, derived values) belongs in `shared/` or a hook, not duplicated inline in multiple view components.
 
 **6. Prototype Cleanliness & Hygiene**
-- Verify no large binary lock files (`~$*.docx`), temporary scratch files, generated `production/` output, data exports, or uncommitted zip archives clutter the repo root.
+- Verify no large binary lock files (`~$*.docx`), temporary scratch files, generated `production/` output, data exports, or uncommitted zip archives clutter the repo root — the same tool's third check (`audit-mechanical-checks.sh <src> <repo-root>`) covers this.
 - Confirm state mutations are centralized in mock store hooks or shared workflow files.
 - Before a delivery handoff, confirm the static build being shipped was regenerated from current source. Don't assume a previously-built `dist`/`production` folder is still current.
 

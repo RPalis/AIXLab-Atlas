@@ -6,13 +6,13 @@ description: >-
 
 # Figma
 
-Three ways of moving work between this suite and Figma, sharing one skill as "Figma integration" even though their mechanics don't overlap. **Ask which mode if not specified**:
+Three ways of moving work between this suite and Figma, sharing one skill as "Figma integration" even though their mechanics don't overlap. **Ask which mode if not specified**. **Autonomous mode** (suite `AGENTS.md` §2.9): infer from an explicit signal in the request ("bring in this frame" → `import`, "push our tokens to Figma" → `sync`, anything else Figma-related → `capture`, the only mode with no MCP write and nothing to get wrong). With no signal at all, default to `capture`. Never default into `sync`'s Export direction — that writes to a shared external resource (tier 3, §2.9); it always needs an explicit ask or explicit instruction, autonomous or not.
 
 - **`capture`**: prototype screen → Figma, via a client-side script load. No MCP, no API keys, no file IDs.
 - **`import`**: Figma frame/selection → codebase, as real convention-conformant code. Requires the Figma MCP server.
 - **`sync`**: this suite's token system ↔ a Figma library's Variables, bidirectional. Requires the Figma MCP server.
 
-`import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools) — if unavailable, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP.
+`import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools) — if unavailable, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP. **Autonomous mode:** skip the mode entirely, log to `docs/UNKNOWNS.md` as blocked pending the MCP connection (tier 3, §2.9) rather than waiting or guessing at structure.
 
 ---
 
@@ -33,7 +33,13 @@ Figma's `capture.js` exposes `window.figma.captureForDesign()`. Calling it seria
 
 ### Shared code
 
-Both integration methods use the same core helper. Add near the top of the target file (after imports):
+Both integration methods use the same core helper — a static module, identical across every project, so generate it rather than hand-typing it: [`tools/figma-capture-helper`](../../tools/figma-capture-helper/write-capture-helper.sh) writes it to a target path.
+
+```bash
+../../tools/figma-capture-helper/write-capture-helper.sh src/lib/figma-capture.ts
+```
+
+That produces a module exporting `enableFigmaCapture()`:
 
 ```ts
 declare global {
@@ -50,7 +56,7 @@ declare global {
 const FIGMA_CAPTURE_SCRIPT_ID = 'figma-script';
 const FIGMA_CAPTURE_SCRIPT_SRC = 'https://mcp.figma.com/mcp/html-to-design/capture.js';
 
-function enableFigmaCapture() {
+export function enableFigmaCapture() {
   if (document.getElementById(FIGMA_CAPTURE_SCRIPT_ID)) {
     window.figma?.captureForDesign?.({ selector: 'body', delayMs: 300 });
     return;
@@ -65,6 +71,8 @@ function enableFigmaCapture() {
 }
 ```
 
+Import it from wherever the button or context menu gets wired up: `import { enableFigmaCapture } from '<path-to>/figma-capture';`. Placement (which file, which directory) is this skill's call, not the script's — pick a path consistent with the project's existing structure (e.g. beside other `lib/`/`utils/` helpers).
+
 ### Choose an integration method and placement
 
 Ask the user which they prefer. **Don't assume the Prototype Tools menu is scaffolded**:
@@ -72,14 +80,16 @@ Ask the user which they prefer. **Don't assume the Prototype Tools menu is scaff
 - **A standalone button** elsewhere: a toolbar, sidebar footer, or settings menu, for a prototype without that menu or where the user wants it more visible.
 - **A right-click context menu**: no visible UI added, works globally. Default to this if the user has no preference and no Prototype Tools menu exists.
 
+**Autonomous mode:** skip the ask, this is already tier-1 safe (reversible, purely additive UI) — use the Prototype Tools menu if it exists, otherwise the context menu default above. Log which placement was used.
+
 ### Step 1: Identify the integration point
 Find the app's root component or layout wrapper: `App.tsx`, a `Layout`/`Shell` component, or the Prototype Tools menu component if that placement was chosen.
 
 ### Step 2: Read the target file
 Identify the framework, icon library, and styling approach in use.
 
-### Step 3: Add the shared helper code
-Add the TypeScript declaration and `enableFigmaCapture()` helper above.
+### Step 3: Generate the shared helper
+Run `tools/figma-capture-helper/write-capture-helper.sh` (see Shared code, above) to write the helper module, then import `enableFigmaCapture` into the target file.
 
 ### Step 4a: Prototype Tools menu or standalone button
 ```tsx
@@ -158,8 +168,8 @@ Vue/Svelte/plain HTML: same handler logic inside the framework's mount/unmount l
 
 ### Removing Figma capture
 
-1. Search the file for `figma` (case-insensitive) to find all references.
-2. Delete `enableFigmaCapture`, the `Window` type declaration, `FIGMA_CAPTURE_SCRIPT_ID`/`SRC`.
+1. Search the repo for `figma-capture` (case-insensitive) to find the helper module and every import of it.
+2. Delete the helper module written by `tools/figma-capture-helper` and its import.
 3. Button method: delete the callback and button JSX (and the icon import if unused elsewhere).
 4. Context menu method: delete the lifecycle hook containing the `contextmenu` listener.
 
@@ -192,9 +202,9 @@ Follow [`storybook`](../storybook/SKILL.md)'s tier taxonomy: decide whether the 
 
 ### Step 4: Verify before calling it done
 
-Run the same checks `audit`'s `code` mode would: zero hardcoded hex, zero raw Tailwind palette colors, zero redundant `dark:` overrides, and the component extends the native HTML element's attribute interface rather than a hand-rolled prop list. Imported code fails this far more often than hand-written code — Figma's own code-gen defaults to literal values, so don't skip this step just because the import "looked right."
+Run [`tools/check-hardcoded-colors`](../../tools/check-hardcoded-colors/check-hardcoded-colors.sh) against the newly imported file(s) — the same check `audit`'s `code` mode runs. Also check, by hand: zero redundant `dark:` overrides, and the component extends the native HTML element's attribute interface rather than a hand-rolled prop list. Imported code fails this far more often than hand-written code — Figma's own code-gen defaults to literal values, so don't skip this step just because the import "looked right."
 
-**Completion criterion:** `grep -rnE "text-\[#|bg-\[#|#[0-9A-Fa-f]{3,6}"` against the newly imported file returns nothing, and the component lives in the atomic tier/folder that matches what it actually is.
+**Completion criterion:** `tools/check-hardcoded-colors` against the newly imported file returns clean (exit 0), and the component lives in the atomic tier/folder that matches what it actually is.
 
 ---
 
@@ -212,7 +222,7 @@ Effectively [`styleguide`](../styleguide/SKILL.md)'s forge-mode Step 1-3 sourced
 
 1. `get_libraries` to find the target library, then `get_variable_defs` to pull its actual variable values (colors, typography, spacing, radius).
 2. Map each Figma variable onto a role in `semantic-role-mold.md` by name/purpose, the same way forge mode's Step 3 rebinds Layer 2. **Verified beats provided**: if a Figma variable's name is ambiguous about which role it plays, don't guess. Check how it's actually used in the library's components (`search_design_system`) before binding it.
-3. **If a value conflicts with what's already in `index.css`** (this app already has a value for a role the Figma library also defines), don't silently overwrite. This is exactly the conflict forge mode's Step 1 requires asking about. Surface it and ask which is authoritative.
+3. **If a value conflicts with what's already in `index.css`** (this app already has a value for a role the Figma library also defines), don't silently overwrite. This is exactly the conflict forge mode's Step 1 requires asking about. Surface it and ask which is authoritative. **Autonomous mode (tier 3, §2.9):** never guess between the two. Leave `index.css`'s existing value in place (it's what's actually shipping), skip writing that one role, and log the conflict to `docs/UNKNOWNS.md` flagged blocking so a human resolves which is authoritative.
 4. A Figma variable with no matching role in the mold is a new-token candidate, not something to force into an existing role. Flag it to `docs/UNKNOWNS.md` rather than inventing a role on the spot.
 5. Write the resolved values into `index.css` (Layer 1 + Layer 2, per [`styleguide`](../styleguide/SKILL.md)), then regenerate `DESIGN.md`.
 
@@ -223,6 +233,6 @@ Effectively [`styleguide`](../styleguide/SKILL.md)'s forge-mode Step 1-3 sourced
 1. Read the current `index.css` (Layer 1 + Layer 2) and `DESIGN.md`.
 2. Map each semantic role to a Figma Variable using the same `semantic-role-mold.md` correspondence: collections/modes for light vs. dark, matching how `index.css`'s `:root`/`.dark` split already works.
 3. Use `use_figma` (after `/figma-use`) to create or update the target library's Variables. If component documentation should ship alongside (not just raw variables), use `create_new_file`/`upload_assets` to publish a documentation page summarizing `DESIGN.md`'s eight sections. Don't reinvent that structure, just render what `styleguide` already generated.
-4. Confirm with the user before overwriting an existing Figma library's variables — a write to a shared external system, not a local file, so the "confirm before overwriting" bar is higher than usual.
+4. Confirm with the user before overwriting an existing Figma library's variables — a write to a shared external system, not a local file, so the "confirm before overwriting" bar is higher than usual. **Autonomous mode:** this stays tier 3 (§2.9) regardless — a write to a resource other people rely on is never a default-and-log decision. Skip the write, log to `docs/UNKNOWNS.md` as blocked pending explicit human approval, and don't perform it unattended.
 
 **Completion criterion:** every role in `semantic-role-mold.md` that this app actually uses exists as a Figma Variable with the matching light/dark values, and the user explicitly confirmed the write before it happened.

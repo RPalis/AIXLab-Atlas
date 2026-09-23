@@ -29,11 +29,13 @@ docs/notes/
   wiki/
     README.md              # pre-created by setup, "about this wiki" + manual-edit notes
     index.md              # content-oriented catalog, organized by category
-    log.md                 # append-only chronological record of what changed and when
+    log.md                 # append-only chronological record — the whole project's, not just this skill's
     entities/              # one page per durable "thing" worth its own file
       <slug>.md
     constellation.html     # standalone interactive graph view (see Step 4)
 ```
+
+**`log.md` is a whole-project log, not a wiki-only one.** It carries two kinds of entry: `ingest` lines this skill writes for its own compile/note activity (Step 1 below), and `milestone` lines any skill in the suite writes for its own meaningful checkpoints — a phase transition, a brief or persona doc landing, an ADR, a shipped package — via [`tools/log-milestone`](../../tools/log-milestone/log-milestone.sh) rather than editing the file by hand, so every entry stays one consistent format regardless of which skill wrote it. `wiki` still owns the file's structure and is where the periodic lint pass (Step 3) reads it from, but authorship is suite-wide. This makes the log three things at once: a resumable handoff point for an agent picking the project back up later, a narrative record of how the project actually got to its current state, and material [`showcase`](../showcase/SKILL.md) can mine for a case study once the project ships — `--list --why-only` surfaces just the entries with real narrative color for exactly that.
 
 `my-notes/` and `wiki/` themselves are pre-created by [`setup`](../setup/SKILL.md), each with just a `README.md` explaining the folder — not the same as `wiki`'s own output existing yet. `index.md`, `log.md`, `entities/`, and `constellation.html` still only appear once this skill actually has something to put in them (first `note`-mode capture, or `compile` mode's first real ingest); don't treat the pre-created `README.md` as a sign the wiki is already populated.
 

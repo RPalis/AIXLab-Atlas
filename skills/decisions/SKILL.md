@@ -34,3 +34,7 @@ Use [`templates/adr-template.md`](templates/adr-template.md) as a starting shape
 ## Step 2: Link it where it'll be found
 
 Reference the record from wherever the decision is visible in code: a one-line comment pointing at the ADR path near the relevant code, or a link from the feature's section in `docs/OOUX_OBJECT_MAP.md` / `docs/PERSONA_WALKTHROUGH.md` if it affects one of those.
+
+## Step 3: Log it
+
+`../../tools/log-milestone/log-milestone.sh --skill decisions --event "ADR NNNN: <short title>" --why "<the rejected alternative and why, in one line>"` — an ADR is exactly the kind of thing worth surfacing in the project's narrative log, not just its own file.

@@ -12,6 +12,8 @@ Two modes populate Layer 1, same Layer 2 shape either way:
 - **default** — placeholder palette, for a new prototype with no real brand yet.
 - **forge** — cast a real brand's colors/fonts/spacing into the architecture, from a live site, brand guide, or verified hex values. Use for a new prototype with a real brand ready, or to rebrand an existing one.
 
+Before picking a mode, ask whether a Figma library already exists for this product. If the user gives a link, that's forge mode sourced from Figma: hand off to [`figma`](../figma/SKILL.md)'s `sync` mode, Import direction, to pull the library's Variables and map them onto the semantic roles below, rather than sourcing from a live site/brand guide/typed hex values. Only fall back to a live site, brand guide, or default placeholder palette if there's no Figma library yet.
+
 ---
 
 ## Output Discipline
@@ -124,10 +126,10 @@ For a bolder, marketing-forward brand, use a numbered elevation ladder instead (
 `references/semantic-role-mold.md` is the fixed list of semantic roles every prototype in this suite binds. Forge mode casts a specific brand's raw values into that exact mold: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference — it only ever references the semantic roles.
 
 1. **Find the brand's real sources.**
-   - Ask what's available: a live site to pull CSS from, a brand guide (PDF/Figma/doc), or hex codes/font names typed directly.
-   - **Verified beats provided.** If a live site is available, prefer grepping its actual CSS for real class-based color/spacing values over trusting a brand guide's stated values blindly — a guide can be stale or aspirational relative to what's actually shipped.
-   - **If sources conflict** (a brand guide states one hex, the live site renders another), don't silently pick one — ask the user which is authoritative. Guessing here corrupts the one thing this exercise exists to get right.
-   - If tints/shades (lighter/light/dark/foundational) aren't supplied for a color and can't be found in a live source, either ask for them or derive them via consistent HSL-lightness steps, and if derived, label them "computed, not brand-verified" in `DESIGN.md`. Don't present a guess as a fact.
+   - Ask what's available: a live site to pull CSS from, a brand guide (PDF/Figma/doc), hex codes/font names typed directly, or a direction already chosen through [`restyle`](../restyle/SKILL.md) (that skill hands off its winning candidate's full token set here as a confirmed source, not something to re-derive).
+   - **Verified beats guessed.** With no brand guide to work from — hex codes typed directly, or values that need confirming against something real — prefer grepping a live site's actual CSS for real class-based color/spacing values over inventing or half-remembering one. This is about filling gaps, not about which source outranks the other when both exist (see below).
+   - **If a brand guide exists and conflicts with the live site** (a brand guide states one hex, the live site renders another), the brand guide wins — it's the documented source of intended brand direction, and a live site is just as likely to be out of date with it (not fully migrated, mid-rebrand) as the guide is to be stale. Don't silently pick the live value instead; a site that hasn't caught up to its own brand guide isn't a reason to encode its drift as the spec. Still confirm with the user rather than assume the conflict is exactly this and nothing else — a real brand refresh in progress is the one case where the live site *is* right and the guide is what's stale, and only a human knows which situation it actually is. **Autonomous mode** (suite `AGENTS.md` §2.9, tier 3): never guess between them regardless. Use the brand guide's stated value as the provisional value, label it in `DESIGN.md` as "provisional — conflicts with the live site, needs confirmation," and log the conflict to `docs/UNKNOWNS.md` flagged blocking.
+   - If tints/shades (lighter/light/dark/foundational) aren't supplied for a color and can't be found in a live source, either ask for them or derive them via consistent HSL-lightness steps, and if derived, label them "computed, not brand-verified" in `DESIGN.md`. Don't present a guess as a fact. **Autonomous mode:** default to deriving via HSL-lightness steps (already the documented fallback) and label accordingly — this is tier 1, the skill already names the safe default.
    - **Completion criterion:** every hex value about to be written into `index.css` traces to either a verified source or an explicitly labeled computation. None are silently invented.
 
 2. **Cast Layer 1, the raw palette.**

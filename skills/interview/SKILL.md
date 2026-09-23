@@ -10,7 +10,7 @@ Produces a complete, ready-to-run interview kit, not just a question list. Which
 
 - **No `docs/PERSONA_WALKTHROUGH.md` or `docs/OOUX_OBJECT_MAP.md` yet** → **Discovery mode**: open-ended questions to lock in who the users are and what they need, feeding directly into [`persona`](../persona/SKILL.md) and [`map`](../map/SKILL.md)'s `objects` mode.
 - **A working prototype already exists** (`frontend/` scaffolded, screens built) → **Validation mode**: targeted, hypothesis-testing questions about specific screens/flows, informed by what's actually been built and any `docs/UNKNOWNS.md` entries.
-- **Both signals present** → ask the user which is the goal for this round rather than guessing; a project can legitimately need both at once (validating shipped features while still discovering an adjacent user segment).
+- **Both signals present** → ask the user which is the goal for this round rather than guessing; a project can legitimately need both at once (validating shipped features while still discovering an adjacent user segment). **Autonomous mode** (suite `AGENTS.md` §2.9): run [`tools/detect-project-phase`](../../tools/detect-project-phase/detect-project-phase.sh) rather than picking a fixed mode — `PHASE=before-discover`/`early-discover`/`discover-to-decide` defaults to Discovery mode (still locking in who the users are), `PHASE=decide-to-design`/`early-design`/`design`/`deliver` defaults to Validation mode (testing what's already built). Log the default and the `PHASE`/`SIGNAL` it came from; the other mode is available on request.
 
 ## Output Discipline
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.

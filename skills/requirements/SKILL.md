@@ -40,7 +40,7 @@ Read, in this order of trust (real code wins over docs when they disagree):
   - **Acceptance criteria**: a checklist derived from the object's actual CTA rules and states in code (who can trigger it, what states it moves between, validation that actually exists), not generic boilerplate criteria.
   - **Status**: `Built`, `Partial`, or `Planned`, based on what Step 1 actually found in code, not what the docs claim.
 
-Confirm the Epic/Feature breakdown with the user before writing the full doc if the prototype is large enough that the grouping is a real judgment call (more than ~6 Epics, or an Object that could plausibly split two ways). For a small prototype, proceed directly to Step 3.
+Confirm the Epic/Feature breakdown with the user before writing the full doc if the prototype is large enough that the grouping is a real judgment call (more than ~6 Epics, or an Object that could plausibly split two ways). For a small prototype, proceed directly to Step 3. **Autonomous mode** (suite `AGENTS.md` §2.9, tier 2): proceed with the best-supported grouping rather than pausing — it's correctable later, not a one-way door. Note in `docs/REQUIREMENTS.md` itself (a short line under the affected Epic) that the split was an autonomous judgment call, and log it (`../../tools/log-unknown/log-unknown.sh --skill requirements --tier 2 "..."`).
 
 ## Step 3: Write the doc
 
@@ -57,4 +57,4 @@ If one is connected, offer to publish:
 - Each **Feature** as a child issue/work item under its Epic, using the tracker's native parent/child or Epic-link relationship, not just a text reference.
 - Carry the user stories and acceptance criteria into the issue body as-is.
 
-Confirm the target project/board with the user before creating anything, and report back what was created (issue keys/links), the same way [`figma`](../figma/SKILL.md) confirms scope before writing to an external system.
+Confirm the target project/board with the user before creating anything, and report back what was created (issue keys/links), the same way [`figma`](../figma/SKILL.md) confirms scope before writing to an external system. **Autonomous mode:** this stays tier 3 (§2.9) regardless of an MCP being connected — a write to a shared tracker is never a default-and-log decision. Skip the export, finish at the markdown doc, and log that a tracker export is available once a target project/board is confirmed.

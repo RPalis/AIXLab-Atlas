@@ -22,6 +22,8 @@ Turns "what does success look like" into Objectives with measurable Key Results,
 
 Two questions decide it. Answer from `docs/PRODUCT_BRIEF.md` if it exists and is clear on these points; ask directly if it doesn't, or if the brief is ambiguous — don't guess at either answer.
 
+**Autonomous mode** (suite `AGENTS.md` §2.9, tier 2): if the brief is silent or ambiguous and no one's there to ask, resolve from whatever audience/context signal exists — consumer-facing, sold to individuals, a churnable subscription → **HEART**; internal/employee/intranet/enterprise-mandated language → **CASTLE**; kiosk/handheld/hardware language → **SELECT**. If genuinely no signal points either way, default to **HEART** as the more common case across this suite's typical prototypes. Mark the framework choice in `docs/OKR.md` as an assumption pending confirmation, and log it to `docs/UNKNOWNS.md`.
+
 **Question 1 — medium:** is this primarily a **physical** tool or service (a kiosk, a handheld device, an in-person service process, hardware) or a **digital** product?
 - Physical → **SELECT**, skip Question 2.
 - Digital → continue.

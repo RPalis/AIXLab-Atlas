@@ -78,7 +78,7 @@ The service-blueprint variant of `map`: same as-is discipline, but for a custome
 
 ### Step 1: Confirm this is the right mode
 
-Ask if it's not already obvious: does this process have a real customer (or end-user) facing side, with work also happening behind the scenes across multiple teams/systems, where the timing of handoffs between them matters? If it's a single-team internal process with no real frontstage/backstage split, `map` mode is simpler and loses nothing — don't default to `blueprint` just because it sounds more thorough.
+Ask if it's not already obvious: does this process have a real customer (or end-user) facing side, with work also happening behind the scenes across multiple teams/systems, where the timing of handoffs between them matters? If it's a single-team internal process with no real frontstage/backstage split, `map` mode is simpler and loses nothing — don't default to `blueprint` just because it sounds more thorough. **Autonomous mode** (suite `AGENTS.md` §2.9): if genuinely not obvious from context, default to `map` — it's the simpler of the two and produces the same diagram `blueprint` would if the frontstage/backstage split turns out not to matter. Log the default; a `blueprint` pass adding the frontstage/backstage layers is available afterward on request rather than re-running from scratch.
 
 ### Step 2: Identify the process and its boundary
 
@@ -128,12 +128,12 @@ Requires a `## Current State` diagram from `map` or `blueprint` mode; if none ex
 
 ### Step 1: Score each step
 
-Walk the diagram (or table, for a `blueprint`) step by step, wait times included, or ask which to focus on for a large process. For each step or wait time with real friction, capture:
+Walk the diagram (or table, for a `blueprint`) step by step, wait times included, or ask which to focus on for a large process. **Autonomous mode** (suite `AGENTS.md` §2.9): with no one to narrow scope with, default to walking the whole diagram rather than guessing which subset matters — more coverage, not less, is the safe direction here. For each step or wait time with real friction, capture:
 - **Severity** (1-3): how bad it is when it happens — 1 (annoying), 2 (causes rework or delay), 3 (blocks the process or causes a real error downstream)
 - **Frequency** (1-3): how often — 1 (rare/edge case), 2 (regularly), 3 (nearly every time)
 - **Root cause**: the actual reason, not just the symptom ("Manager approval takes 3 days" is a symptom; "approval only happens in a weekly in-person meeting" is a root cause). For a wait-time entry from `blueprint`, the root cause is usually a queuing/batching/handoff issue, not anything wrong with the steps on either side of it.
 
-Don't score a step just because it exists — a step with no real friction gets skipped, not a placeholder low score. Ask rather than guess at severity/frequency; these are usually known by whoever does the work, not inferable from the process alone.
+Don't score a step just because it exists — a step with no real friction gets skipped, not a placeholder low score. Ask rather than guess at severity/frequency; these are usually known by whoever does the work, not inferable from the process alone. **Autonomous mode:** a fabricated severity/frequency number is tier 3 (§2.9) — never invent one. Leave the step unscored, log it to `docs/UNKNOWNS.md` as needing input from whoever does the work, and continue scoring the steps where real evidence exists.
 
 ### Step 2: Write the pain points
 
@@ -157,7 +157,7 @@ Requires a `## Pain Points` section from `pain-points` mode.
 
 ### Step 1: Pick what's worth solving
 
-Not every pain point gets a solution pass — ask which ones to tackle now (usually the top few by score), rather than working the entire list by default. A low-score pain point is documented, not necessarily fixed.
+Not every pain point gets a solution pass — ask which ones to tackle now (usually the top few by score), rather than working the entire list by default. A low-score pain point is documented, not necessarily fixed. **Autonomous mode:** default to the top few by score (the stated usual answer), log the cutoff used, and note the rest are documented but unaddressed.
 
 ### Step 2: Explore directions per pain point
 

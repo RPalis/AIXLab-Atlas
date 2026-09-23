@@ -83,7 +83,7 @@ that placement is a manual step.
   and — the main behavior change from a purely background loop — pauses to
   resolve `scaffold-agent`'s and `competitors-agent`'s checkpoints live with the
   designer before dispatching either. Expect most runs to do a few hops and
-  then correctly hand off to a human, since only 7 of the suite's ~24 skills
+  then correctly hand off to a human, since only 7 of the suite's ~27 skills
   have agents so far.
 
 ## Format

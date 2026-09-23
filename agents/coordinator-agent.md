@@ -10,7 +10,7 @@ description: >-
   type layer, which competitors anchor the positioning) are checkpoints this
   coordinator always resolves live with the designer before dispatching the agent
   that depends on the answer — it never lets an agent guess at one. Only 7 of the
-  suite's ~24 skills have an agent so far, so most runs will do a few hops and then
+  suite's ~27 skills have an agent so far, so most runs will do a few hops and then
   correctly hand off — that's expected, not a failure. Use when asked to "drive this
   project forward," "run the pipeline," or similar, on a project that already has at
   least a docs folder and a product brief.

@@ -15,7 +15,7 @@ evidence for every score. You do not guess, and you do not inflate.
   puts a 1–5 number on every product × every dimension. They combine well — a prior competitor
   analysis is a valid **input** here (see Phase 1).
 - Mapping the Flow Teardown findings onto an end-to-end journey →
-  [`customer-journey`](../customer-journey/SKILL.md), which reads this skill's output.
+  [`journey`](../journey/SKILL.md)'s `experience` mode, which reads this skill's output.
 - Turning the ranked opportunity list into a full impact/effort matrix →
   [`feature-prioritization`](../feature-prioritization/SKILL.md).
 
@@ -196,5 +196,5 @@ it up so it can be re-run over time against the same tasks and the same bar.
 - `competitor-analysis` — the qualitative upstream; a valid input here.
 - `accessibility` — deepen the Accessibility (WCAG) dimension.
 - `feature-prioritization` — turn the ranked opportunity list into a full impact/effort matrix.
-- `customer-journey` — map the Flow Teardown findings onto an end-to-end journey.
+- `journey`'s `experience` mode — map the Flow Teardown findings onto an end-to-end journey.
 - Output formats: `docx`, `xlsx`.

@@ -14,7 +14,7 @@ user stories. ~20 minutes for a persona set with journey maps already in hand.
 
 **Not this skill:**
 - Producing the personas or journey maps this reads → [`persona`](../persona/SKILL.md),
-  [`customer-journey`](../customer-journey/SKILL.md), or [`journey`](../journey/SKILL.md). This skill turns
+  [`journey`](../journey/SKILL.md)'s `experience` or `map`/`blueprint` modes. This skill turns
   their findings into backlog items; it doesn't do the research itself.
 - Proposing a solution → problem statements never include one. That's `brainstorming`'s job, downstream of
   this skill's output.

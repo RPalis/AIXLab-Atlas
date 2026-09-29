@@ -16,7 +16,7 @@ what they *say*.
   [`persona`](../persona/SKILL.md). A theme's evidence feeds a persona card; this skill doesn't
   build the card.
 - Mapping the findings onto a journey →
-  [`customer-journey`](../customer-journey/SKILL.md). This skill's output is a valid input there.
+  [`journey`](../journey/SKILL.md)'s `experience` mode. This skill's output is a valid input there.
 - Turning findings into a backlog →
   [`problem-statement`](../problem-statement/SKILL.md), which reads this skill's Pain Point List.
 
@@ -163,7 +163,7 @@ transcripts going thin, which is where invented detail enters.
 
 ## Supporting skills (use at the right moment)
 
-`persona` (card mode) · `customer-journey` · `feature-prioritization` · `humanizer` (if
+`persona` (card mode) · `journey` (`experience` mode) · `feature-prioritization` · `humanizer` (if
 available), and the output-format skills `docx` / `xlsx` / `pptx`. The card's downstream uses —
 persona draft, journey maps, problem statements, user stories — are where these outputs go next.
 

@@ -1,7 +1,7 @@
 ---
 name: map
 description: >-
-  Five modes for modeling and visualizing a prototype's structure. Decide-phase modes, before code exists — site plans the proposed route/component architecture as a diagram; objects runs interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), producing docs/OOUX_OBJECT_MAP.md plus an entity-relationship diagram; flow turns a persona journey or branching workflow into a Mermaid diagram; audit reconciles the object model against actual built code once it exists, flagging drift. Design-phase mode, once code exists — document regenerates every diagram (the in-app interactive architecture map, Mermaid, SVG) from the real built app, and updates the OOUX diagram if the model has drifted. Any mode can optionally export to FigJam once the Figma MCP server is connected. Use /map site, /map objects, /map flow, /map audit, or /map document, or ask which; use when planning an information architecture, modeling a domain's objects and relationships, structuring data models, visualizing a sitemap or architecture, diagramming a journey/workflow/decision tree, or checking a built prototype against its object model or its architecture diagrams.
+  Five modes for modeling and visualizing a prototype's structure. Decide-phase modes, before code exists — site plans the proposed route/component architecture as a diagram; objects runs interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), producing docs/OOUX_OBJECT_MAP.md plus an entity-relationship diagram; flow designs a complete, evidence-grounded end-to-end user flow for one goal — entry points, every decision branch, error/empty states, recovery paths, exit points, screen by screen — structured so it translates directly into wireframes; audit reconciles the object model against actual built code once it exists, flagging drift. Design-phase mode, once code exists — document regenerates every diagram (the in-app interactive architecture map, Mermaid, SVG) from the real built app, and updates the OOUX diagram if the model has drifted. Any mode can optionally export to FigJam once the Figma MCP server is connected. Use /map site, /map objects, /map flow, /map audit, or /map document, or ask which; use when planning an information architecture, modeling a domain's objects and relationships, structuring data models, visualizing a sitemap or architecture, designing a user flow or task sequence screen by screen, or checking a built prototype against its object model or its architecture diagrams.
 ---
 
 # Map & Domain Modeling
@@ -10,11 +10,16 @@ Five modes, one job: turn a prototype's structure — proposed or built — into
 
 - **`site`** (Decide, before code exists): plans the proposed route/workspace/component architecture as a diagram.
 - **`objects`** (Decide): interactive OOUX/ORCA modeling — Objects, Relationships, Calls-to-Action, Attributes — producing `docs/OOUX_OBJECT_MAP.md` and an entity-relationship diagram.
-- **`flow`** (Decide onward): a persona's journey or a branching workflow's decision points, as a Mermaid diagram.
+- **`flow`** (Decide onward): a complete, evidence-grounded end-to-end user flow for one goal — every entry point, decision branch, error/empty state, recovery path and exit point, screen by screen, structured to translate directly into wireframes.
 - **`audit`** (Decide→Design bridge): reconciles the `objects` model against actual code once it exists. Flags drift; doesn't silently overwrite either side.
 - **`document`** (Design, once code exists): regenerates every diagram from the real built app — the in-app interactive architecture map, Mermaid, SVG — and updates the OOUX diagram if the model has drifted since the last `audit`.
 
-Say which mode, or this skill asks. Don't blend them: a route diagram with journey arrows on it, or a journey diagram organized by page instead of by step, both mean the wrong mode was picked. `site` and `document` both produce an architecture diagram, but from opposite ends of the same question — `site` proposes it before anything is built, `document` documents what's actually there.
+Say which mode, or this skill asks. Don't blend them: a route diagram with journey arrows on it, or a flow organized by page instead of by step, both mean the wrong mode was picked. `site` and `document` both produce an architecture diagram, but from opposite ends of the same question — `site` proposes it before anything is built, `document` documents what's actually there.
+
+**Not this skill:**
+- Deciding the site's overall navigation, labelling and search systems → [`information-architecture`](../information-architecture/SKILL.md). `flow` mode reads its screen names rather than inventing new ones; it doesn't decide the IA itself.
+- Mapping the full emotional experience of a persona through a scenario, or a current-state process → [`journey`](../journey/SKILL.md)'s `experience` or `map`/`blueprint` modes. `flow` mode is the sequence and logic of one task; it isn't about emotion or process-as-it-runs-today.
+- Building the actual screens → [`prototype`](../prototype/SKILL.md). A flow is the sequence and logic, not the visual layout.
 
 ---
 
@@ -139,37 +144,107 @@ npx -y @mermaid-js/mermaid-cli -i docs/ARCHITECTURE_MAP.md -o docs/sitemap.svg
 
 ## Mode: flow
 
-### Step 1: Identify the source
+Design a complete, evidence-grounded end-to-end user flow — entry points, decisions, error/empty states, recovery paths, exit points — for **one goal**, structured so it translates directly into wireframes. Reads existing IA/journey-map artifacts before inventing structure from scratch.
 
-- **A single persona's journey**: source from `docs/PERSONA_WALKTHROUGH.md`'s scenes. Each scene becomes a node, phase groupings become subgraphs.
-- **A branching workflow with multiple scenarios/paths** (different outcomes depending on a decision point, gates, or conditional steps): source from `objects` mode's CTA/state-transition model, or from the user directly if not yet documented there.
+Estimated time: **20-30 minutes** for one flow.
 
-Don't invent steps not present in the source. If incomplete, note the gap (append to `docs/UNKNOWNS.md` if it's a real open question) rather than filling it in.
+### Non-negotiable principles (read first)
 
-### Step 2: Pick the right Mermaid diagram type
+1. **One flow = one goal.** A flow that tries to cover two unrelated goals is two flows. Split them.
+2. **Usability over implementation.** Never bend the flow to fit an internal system's shape or an org boundary — the user's mental model wins, same discipline as `information-architecture`'s own rule.
+3. **Never invent screens, business rules or API behaviour.** If a dependency or constraint isn't given, mark it `ASSUMPTION` and name what it's inferred from.
+4. **Every flow accounts for failure, not just success.** A flow with no error states, empty states or recovery paths is not finished — it is the happy path pretending to be the whole flow.
+5. **Structure for translation, not decoration.** The output must be directly usable by whoever wireframes next — screen name, user goal, primary action, system response, dependencies, every step, no exceptions.
+6. **The output is a first draft, not a final user flow.** Always hand back the Human Review checklist.
 
-- **`flowchart TD`**: a linear or lightly-branching journey (most persona walkthroughs).
-- **`flowchart TD` with decision nodes (`{...}`)**: a workflow with real branch points, different paths depending on a condition (a review gate, an approval outcome).
-- **`stateDiagram-v2`**: when the source is fundamentally a state machine (matches `objects` mode's CTA modeling directly, especially useful for parallel independent tracks; see `objects` mode's guidance on that pattern).
+### When to use this
 
-### Step 3: Build the diagram
+Use **before**: wireframing (`prototype`) · usability testing · developer handoff · creating user stories for UI. Downstream, the output feeds directly into wireframes — a flow with unresolved edge cases produces a wireframe with the same unresolved edge cases, just harder to see.
 
-```mermaid
-flowchart TD
-    A[Scene 1: Morning Triage] --> B{Alert requires action?}
-    B -->|Yes| C[Scene 2: Review & Resolve]
-    B -->|No| D[Scene 3: Continue Routine]
-    C --> E[Scene 4: Log Outcome]
-    D --> E
+### What you'll need
+
+**Required:** problem statement or feature brief + success criteria · primary persona · user goal · an existing `objects`/`site` output or [`information-architecture`](../information-architecture/SKILL.md) output, if available.
+**Optional:** current user flow (to run "as is" → "to be") · wireframes · business rules · API documentation · technical constraints · competitor examples.
+
+If any required input is missing, ask **up to five** clarifying questions before designing. Do not silently assume the missing pieces.
+
+### Reading existing context first
+
+A user flow invented from nothing repeats work the project has already done. Before designing, check for and read whichever of these already exist:
+
+| Source | What it gives the flow |
+|---|---|
+| [`journey`](../journey/SKILL.md)'s `experience` or `map`/`blueprint` output | Stage boundaries, emotional low points, pain points already evidenced per stage |
+| [`information-architecture`](../information-architecture/SKILL.md) output | The page/nav structure the flow must move through — screen names should match its labels, not invent new ones |
+| [`problem-statement`](../problem-statement/SKILL.md) output | The specific goal and acceptance criteria the flow must satisfy |
+| [`competitor-analysis`](../competitor-analysis/SKILL.md) or [`ux-benchmark`](../ux-benchmark/SKILL.md) output | Real precedent for how this task is solved elsewhere — a pattern to adopt/adapt/avoid, not a pain claim |
+| An existing user flow | The "as is" baseline, if redesigning rather than designing fresh |
+
+If a required source doesn't exist yet in the project, say so and ask whether to proceed on stated assumptions or wait for it — do not quietly fabricate the missing IA or persona.
+
+### The workflow
+
+```
+Review flow → Define screens → Design flow → Identify edge cases → Optimise experience → Review & Export
 ```
 
-Keep node labels short (3-6 words) — the diagram is a map, not a transcript; the full narrative stays in the prose doc it's embedded alongside, not crammed into node text.
+**Step 0 — Clarify** (only if required inputs are missing): product, feature, business objective, persona, primary user goal, success criteria, and what context already exists. Then stop and wait.
 
-### Step 4: Embed and cross-link
+**Step 1 — Review.** If an "as is" flow exists, walk it first — note where it already breaks before redesigning anything.
 
-Embed the finished diagram directly in the relevant doc (a mermaid code fence renders natively). Cross-link both directions: the diagram sits next to the prose scene/workflow it visualizes, and if [`guide`](../guide/SKILL.md) documents this workflow for end users, embed the same diagram there too rather than redrawing it.
+**Step 2 — Define screens.** List every screen/modal/decision point the goal requires, grounded in the IA if one exists. Don't invent a screen name the IA doesn't already use.
 
-**Completion criterion:** every node traces to a real scene or state from the source doc, the diagram type matches the source's actual shape (linear vs. branching vs. state machine), and it's embedded in the doc it illustrates, not left as an orphaned file.
+**Step 3 — Design the flow.** Sequence entry point → actions → decisions → success path, screen by screen. For **every** screen/step capture: screen name (matching the IA's own label where one exists), user goal, primary action, system response, dependencies.
+
+**Step 4 — Identify edge cases.** For every decision point and every system response, ask "what else can happen here?" — error states, empty states, timeouts, permission failures, offline, back-navigation. Give each a recovery path or an explicit exit, never a dead end.
+
+**Step 5 — Optimise.** Pass over the whole flow looking to remove unnecessary steps, reduce cognitive load, improve clarity, prevent user errors, reduce abandonment. Note what changed and why.
+
+**Step 6 — Review & export.** Produce the deliverables below, attach the Human Review checklist, export as Markdown, an HTML diagram, or a table.
+
+**Completion criterion:** every screen has a filled schema, every decision point has both branches drawn, and every terminal state resolves to success, an explicit error, or a stated exit.
+
+### Required flow components
+
+Entry points (every way in, not just the primary one) · user actions · system responses · decision points (both branches drawn) · success paths · error states (with recovery) · empty states · recovery paths · exit points.
+
+### Deliverables
+
+1. **Executive Summary** — goal, entry points, headline optimisation, top risk.
+2. **User Flow** — the complete end-to-end flow, screen by screen.
+3. **Screen Inventory** — every screen, modal and decision point required.
+4. **Edge Cases & Error States** — every alternative path, failure scenario, recovery route.
+5. **UX Rationale** — reasoning behind key decisions and simplifications.
+6. **Optimisation Opportunities** — what was removed/simplified and why.
+7. **Validation Checklist** — usability risks, assumptions, what still needs validating.
+
+### Output format (text version)
+
+```
+EXECUTIVE SUMMARY
+[Persona] · [Goal] · [Entry points] — headline simplification, top risk.
+
+SCREEN INVENTORY
+1. [Screen] — [purpose]
+
+USER FLOW
+[Entry] → [Screen 1: action → response] → [Decision] ─Yes→ [Screen 2] ─No→ [Error/Recovery] → … → [Exit/Success]
+
+EDGE CASES & ERROR STATES
+| Trigger | State shown | Recovery path |
+|---|---|---|
+
+VALIDATION CHECKLIST
+- [ ] [assumption or path to verify with real users]
+```
+
+Adapt to the medium — diagram, table, written narrative — based on what the user needs. For a state-machine-shaped flow, `stateDiagram-v2` (see `objects` mode Step 3) may fit better than the flowchart above.
+
+### Human review required
+
+Confirm every source in the table above was actually consulted, not assumed. Verify the flow supports the primary goal. Ensure edge cases and error states have been considered. Remove unnecessary steps. Validate with stakeholders and representative users where possible.
+
+**Treat the output as a first draft, not a final user flow.**
 
 ---
 
@@ -240,4 +315,4 @@ Check whether `docs/OOUX_OBJECT_MAP.md` has drifted since the last `audit` pass 
 
 Any diagram-producing mode can push its diagram into FigJam once the Figma MCP server is connected (`mcp__claude_ai_Figma__*` tools, its diagram-generation capability). Never assume it's present; check first, and if not connected, finish at the Mermaid/SVG output and say so rather than guessing at Figma's structure.
 
-If connected: offer to generate the diagram in FigJam from the same node/edge data (`site`/`document` modes) or step sequence (`flow` mode) or entity/relationship data (`objects` mode) already built for the Mermaid output, not a re-derived version. Confirm the target Figma file or board with the user before creating anything — the same discipline [`figma`](../figma/SKILL.md) and [`requirements`](../requirements/SKILL.md) use before writing to an external system — and report back what was created (file/board link).
+If connected: offer to generate the diagram in FigJam from the same node/edge data (`site`/`document` modes), step sequence (`flow` mode), or entity/relationship data (`objects` mode) already built for the Mermaid output, not a re-derived version. Confirm the target Figma file or board with the user before creating anything — the same discipline [`figma`](../figma/SKILL.md) and [`requirements`](../requirements/SKILL.md) use before writing to an external system — and report back what was created (file/board link).

@@ -123,6 +123,6 @@ Before anything gets sketched:
 - Re-evaluate whether another session is needed.
 - Summarise the key takeaways and directions.
 - Feed the executive summary to the next step — typically
-  [`information-architecture`](../information-architecture/SKILL.md) or `user-flow`.
+  [`information-architecture`](../information-architecture/SKILL.md) or `map`'s `flow` mode.
 - Keep prompts / `.md` files / chat-history context / tooling in the same task-stage folder — this is the
   reusable working set for downstream steps.

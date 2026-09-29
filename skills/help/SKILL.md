@@ -30,7 +30,7 @@ Check for these, in this order, to place the project on Discover → Decide → 
 | Screens built, `audit`'s `code`/`a11y` modes not yet run | Nearing done → **Design → Deliver boundary** |
 | `package`/`showcase`/`guide` output already exists | Shipped once already → **Deliver, or back to Discover for the next round** |
 
-Not a rigid state machine — a project can legitimately have `DESIGN.md` before `PERSONA_WALKTHROUGH.md` (started with a scaffold, backfilling research). Use the signals to form a hypothesis, then confirm it in Step 2 rather than asserting it as fact.
+Not a rigid state machine — a project can legitimately have `DESIGN.md` before `PERSONA_WALKTHROUGH.md` (started with a prototype, backfilling research). Use the signals to form a hypothesis, then confirm it in Step 2 rather than asserting it as fact.
 
 **Check `docs/PRODUCT_BRIEF.md` independently of where the table otherwise places the project.** It's cheap to backfill (`brief`'s reconnaissance pass drafts it from whatever else already exists rather than a blank interview) and everything else reads better against a confirmed one, so a missing brief is always worth surfacing even on a project that's clearly well past Discover by every other signal — a real pattern when this suite gets layered onto a repo after work already started (`setup`'s existing-product hand-off routes through `brief` for exactly this reason, then here). Don't let a later-phase signal from the table above crowd it out of the recommendation.
 
@@ -100,7 +100,7 @@ Once scope, IA, and the object model are settled, move to **Design**.
 ### Design
 Build the actual prototype.
 
-1. **Scaffold** → [`scaffold`](../scaffold/SKILL.md): base React/Vite/Tailwind scaffold, plus an optional site-type layer (`dashboard`, `chatbot`, `marketing-site`, `crm-app`).
+1. **Prototype** → [`prototype`](../prototype/SKILL.md): base React/Vite/Tailwind scaffold, plus an optional site-type layer (`dashboard`, `chatbot`, `marketing-site`, `crm-app`).
 2. **Tokens & brand** → [`styleguide`](../styleguide/SKILL.md) for the two-layer architecture and `DESIGN.md`; its forge mode casts a new brand's real values in first.
 3. **Build, then loop** → [`audit`](../audit/SKILL.md)'s `craft` mode (find problems, scored, as a task list) ↔ [`refine`](../refine/SKILL.md) (fix and unify). Repeat until the score holds.
 4. **Document as it solidifies** → [`storybook`](../storybook/SKILL.md) (components), [`map`](../map/SKILL.md)'s `document` mode (regenerates the site diagram — interactive, Mermaid, SVG — from the real built app, and reconciles the object model if it's drifted; its `audit` mode does the reconciliation alone, without the diagram refresh), [`wiki`](../wiki/SKILL.md) (anything else worth remembering).
@@ -150,7 +150,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`map`](../map/SKILL.md)**: Five modes total (two more live in Design, see below). `objects`: interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), seeding `docs/OOUX_OBJECT_MAP.md` plus an entity-relationship diagram. `site`: plans the proposed route/workspace/component architecture as a diagram, before any of it is built. `flow`: turns a persona walkthrough or the `objects` model's CTAs into a Mermaid flowchart — user journeys and process flows, not site structure (that's `site`). Any mode can export its diagram to FigJam once the Figma MCP server is connected.
 
 #### Design
-- **[`scaffold`](../scaffold/SKILL.md)**: Scaffold a lightweight, zero-backend-dependency React 19 + TypeScript + Vite + Tailwind CSS prototype: a complete base scaffold, plus an optional site-type layer for prototypes that fit a recognizable archetype.
+- **[`prototype`](../prototype/SKILL.md)**: Scaffold a lightweight, zero-backend-dependency React 19 + TypeScript + Vite + Tailwind CSS prototype: a complete base scaffold, plus an optional site-type layer for prototypes that fit a recognizable archetype.
 - **[`styleguide`](../styleguide/SKILL.md)**: Establish the two-layer token architecture (Layer 1 Raw Palette + Layer 2 Semantic auto-flipping CSS variables) and generate a spec-conformant `DESIGN.md`. Default mode uses a placeholder palette; forge mode casts a dedicated brand token preset for a new company or sub-brand from live CSS, brand guidelines, or verified hex matrices.
 - **[`audit`](../audit/SKILL.md)**: Three modes: `craft` (scored critique: hierarchy, cognitive load, IA, consistency, responsive, delight, producing a task list before any fixing), `code` (coding standards: token adherence, structure/reuse, mechanical hygiene), `a11y` (deep WCAG 2.1/2.2 AA sweep, ranked pass/fail per success criterion). None of the modes fix anything.
 - **[`refine`](../refine/SKILL.md)**: Fix and unify. Apply micro-interactions, responsive container grids, dark mode tuning, and refined visual craft. Checks for a recent `audit` `craft`-mode findings list first, and suggests running it if none exists.

@@ -24,7 +24,7 @@ Estimated time: **20–30 minutes** for one flow.
   [`customer-journey`](../customer-journey/SKILL.md), or a current-state process →
   [`journey`](../journey/SKILL.md). This skill reads their stage boundaries and pain points as input; it
   doesn't build them.
-- Building the actual screens → `scaffold`. A flow is the sequence and logic, not the visual layout.
+- Building the actual screens → `prototype`. A flow is the sequence and logic, not the visual layout.
 
 ---
 
@@ -336,5 +336,5 @@ Common sequence: Journey Map → Information Architecture → **User Flow** → 
 
 - Feed the approved flow into the stage-related folder of the project.
 - Keep prompts / `.md` files / chat-history context / tooling in the same task-stage folder.
-- Use this output directly as the input to wireframing (`scaffold`) — it should read the flow, not re-derive
+- Use this output directly as the input to wireframing (`prototype`) — it should read the flow, not re-derive
   one from raw research.

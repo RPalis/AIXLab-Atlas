@@ -179,7 +179,7 @@ Append a `## Solutions` section to `docs/JOURNEY_MAP.md`:
 
 ### Step 5: Hand off
 
-- A direction ready to build → [`map`](../map/SKILL.md)'s `objects` mode to model what it needs, or straight to [`scaffold`](../scaffold/SKILL.md) if the object model already covers it.
+- A direction ready to build → [`map`](../map/SKILL.md)'s `objects` mode to model what it needs, or straight to [`prototype`](../prototype/SKILL.md) if the object model already covers it.
 - A real tradeoff worth a permanent record → [`decisions`](../decisions/SKILL.md).
 - The targets set here → [`metrics`](../metrics/SKILL.md), as candidate Key Results once a framework is chosen.
 

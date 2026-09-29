@@ -15,7 +15,7 @@ Turns a prototype and a set of learning goals into a timed test plan, a moderato
 — ready to run, not just outlined. ~20-30 minutes.
 
 **Not this skill:**
-- Building the prototype this tests → `scaffold`, or writing the interview guide for *discovery* research
+- Building the prototype this tests → `prototype`, or writing the interview guide for *discovery* research
   (before anything is built) → Atlas's `interview`. This skill is specifically for testing something that
   already exists.
 - Clustering or analysing what participants said once sessions run → the researcher's own synthesis pass;

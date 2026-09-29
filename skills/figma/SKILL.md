@@ -68,7 +68,7 @@ function enableFigmaCapture() {
 ### Choose an integration method and placement
 
 Ask the user which they prefer. **Don't assume the Prototype Tools menu is scaffolded**:
-- **A launcher inside the "Prototype Tools" user-menu section**: the natural placement when [`scaffold`](../scaffold/SKILL.md)'s menu already exists in this prototype.
+- **A launcher inside the "Prototype Tools" user-menu section**: the natural placement when [`prototype`](../prototype/SKILL.md)'s menu already exists in this prototype.
 - **A standalone button** elsewhere: a toolbar, sidebar footer, or settings menu, for a prototype without that menu or where the user wants it more visible.
 - **A right-click context menu**: no visible UI added, works globally. Default to this if the user has no preference and no Prototype Tools menu exists.
 
@@ -172,7 +172,7 @@ Vue/Svelte/plain HTML: same handler logic inside the framework's mount/unmount l
 
 ## Mode: import
 
-The Figma MCP server already generates code from a design (`get_design_context`, `get_screenshot`, `get_metadata`), but its raw output doesn't know this suite's conventions: it won't use our semantic token roles, won't land in the right atomic tier, and won't follow [`scaffold`](../scaffold/SKILL.md)'s folder layout. This mode wraps it with precise control over the mapping so imported code looks written for this codebase, not pasted in from elsewhere.
+The Figma MCP server already generates code from a design (`get_design_context`, `get_screenshot`, `get_metadata`), but its raw output doesn't know this suite's conventions: it won't use our semantic token roles, won't land in the right atomic tier, and won't follow [`prototype`](../prototype/SKILL.md)'s folder layout. This mode wraps it with precise control over the mapping so imported code looks written for this codebase, not pasted in from elsewhere.
 
 ### Step 1: Resolve the target and check for an existing mapping
 
@@ -188,7 +188,7 @@ Pull `get_variable_defs` for the target. For each value used:
 
 ### Step 3: Place the generated code correctly
 
-Follow [`storybook`](../storybook/SKILL.md)'s tier taxonomy: decide whether the imported piece is an atom/molecule/organism/widget/page and place it in the matching folder from [`scaffold`](../scaffold/SKILL.md)'s layout. If the tier is ambiguous, ask rather than guessing — a component landing in the wrong tier is exactly the drift `audit`'s `craft` mode consistency checkpoint later catches, better to get it right on import.
+Follow [`storybook`](../storybook/SKILL.md)'s tier taxonomy: decide whether the imported piece is an atom/molecule/organism/widget/page and place it in the matching folder from [`prototype`](../prototype/SKILL.md)'s layout. If the tier is ambiguous, ask rather than guessing — a component landing in the wrong tier is exactly the drift `audit`'s `craft` mode consistency checkpoint later catches, better to get it right on import.
 
 ### Step 4: Verify before calling it done
 

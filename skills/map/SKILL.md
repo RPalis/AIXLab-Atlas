@@ -216,7 +216,7 @@ Produces three synced outputs from the actual route tree and component usage —
    ```
    If the prototype can't add a dependency, load Vis.js as a CDN UMD script (`window.vis`) with a readiness poll instead — only as a fallback when npm install is genuinely blocked, since the typed import is easier to maintain.
 2. Embed [`templates/ArchitectureMapModalComponent.tsx`](templates/ArchitectureMapModalComponent.tsx) in your prototype layout. It accepts `nodes`/`edges` as props; build them from the actual route tree and component usage, don't hardcode the example data.
-3. Wire the trigger into the user menu's Prototype Tools section as "Architecture Map" (see [`scaffold`](../scaffold/SKILL.md)).
+3. Wire the trigger into the user menu's Prototype Tools section as "Architecture Map" (see [`prototype`](../prototype/SKILL.md)).
 4. Set `storybookBasePath` to wherever the embedded static Storybook is served from (default `/storybook/index.html`) so deep links resolve. Give each `component` node a real `storybookId` (matching its Storybook story path, e.g. `organisms-submissionstable--default`) now that Storybook actually exists — `site` mode couldn't do this before code existed.
 
 **Completion criterion:** clicking any `component` node with a `componentType` dims all unrelated nodes and keeps every same-type instance highlighted; clicking a node with a `storybookId` shows a working "View in Storybook" link in the side panel.

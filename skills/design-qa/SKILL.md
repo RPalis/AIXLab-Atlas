@@ -6,7 +6,7 @@ description: >-
   check design fidelity, not code. Use before developer handoff, release/sprint sign-off, reducing design
   debt, or after any change that could have drifted the build from the design. Trigger on "design QA", "does
   the build match the design", "check the shipped product against the spec", or "audit visual fidelity".
-  This release compares build against a code-based design spec (scaffold output + styleguide tokens/DESIGN.md
+  This release compares build against a code-based design spec (prototype output + styleguide tokens/DESIGN.md
   + an approved user-flow); Figma-side design self-QA is deferred with the rest of Figma scope.
 ---
 
@@ -27,7 +27,7 @@ Figma file.
 - Auditing UX quality (flows, IA, heuristics) independent of a specific design spec → Atlas `audit`'s `craft`
   or `heuristic` mode.
 - Building the design spec this compares against → [`user-flow`](../user-flow/SKILL.md), `styleguide`, or
-  `scaffold`. This skill reads their output; it doesn't produce it.
+  `prototype`. This skill reads their output; it doesn't produce it.
 
 ## Output Discipline
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if
@@ -47,7 +47,7 @@ actual (build)**, backed by a screenshot or a measurement — an opinion is not 
 
 **Required**
 - The live build or running prototype to QA
-- The design to compare against: the approved [`user-flow`](../user-flow/SKILL.md) output, `scaffold`'s
+- The design to compare against: the approved [`user-flow`](../user-flow/SKILL.md) output, `prototype`'s
   output, and `styleguide`'s tokens/`DESIGN.md` — together these are "the design" for this release, in place
   of a Figma file
 - The key flows and target breakpoints/viewports

@@ -1,5 +1,5 @@
 ---
-name: scaffold
+name: prototype
 description: >-
   Scaffold a high-fidelity, interactive UX prototype: React 19, TypeScript, Vite, Tailwind CSS v3, Lucide icons, mock local storage stores. Starts from a generic structured base, then optionally layers on site-type-specific guidance (dashboard, chatbot, marketing site, CRM). Use when starting a new prototype from scratch.
 ---

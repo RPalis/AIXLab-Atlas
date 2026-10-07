@@ -9,9 +9,13 @@
 // Requires playwright (npm i playwright) with Chromium installed. If headless Chromium
 // can't find the theme font it falls back to a serif, which is wider — so a pass here
 // is conservative, not optimistic.
-const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
+const load = (name) => {
+  try { return require(require('module').createRequire(path.join(process.cwd(), 'noop.js')).resolve(name)); }
+  catch { return require(name); }
+};
+const { chromium } = load('playwright');
 
 const [, , deckPath, shotsDir, outArg] = process.argv;
 if (!deckPath || !shotsDir) {

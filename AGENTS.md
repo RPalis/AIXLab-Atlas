@@ -24,15 +24,18 @@ flowchart TD
 
     subgraph Discover ["1. Discover"]
         P0W["workshop (plan / ingest mode)"]
-        P0C["competitors (discover / add mode)"]
-        P0U[interview] --> P1[persona]
-        P1 --> P0J["journey (map / blueprint mode)"]
+        P0C["competitors (discover / add / analysis / benchmark mode)"]
+        P0U["interview (questions / analysis mode)"] --> P1[persona]
+        P1 --> P0J["journey (map / blueprint / experience mode)"]
         P1 --> P0M[metrics]
+        P0J --> P0P[problems]
     end
 
     subgraph Decide ["2. Decide"]
-        P1 --> P2["map (objects mode)"]
-        P2 --> P2B["map (site / flow mode)"]
+        P0P --> P2A[brainstorming]
+        P2A --> P2["map (objects mode)"]
+        P2 --> P2I["map (ia mode)"]
+        P2I --> P2B["map (site / flow mode)"]
         P2B --> P7B[decisions]
         P7B -.-> P7C[interrogate]
     end
@@ -40,7 +43,7 @@ flowchart TD
     subgraph Design ["3. Design"]
         P2B --> P3["scaffold (base + optional type layer)"]
         P3 --> P4["styleguide (default / forge mode)"]
-        P4 --> PCA["audit (craft mode)"]
+        P4 --> PCA["audit (craft / heuristic mode)"]
         PCA --> P5[refine]
         P5 --> P6[storybook]
         P6 --> P7["map (document / audit mode)"]
@@ -50,8 +53,10 @@ flowchart TD
 
     subgraph Deliver ["4. Deliver"]
         P7 --> P8["audit (code mode)"]
-        P8 --> P9[package]
-        P9 --> P9B[showcase]
+        P8 --> P8S["audit (spec mode)"]
+        P8 --> P8U["interview (usability mode)"]
+        P8S --> P9[package]
+        P9 --> P9B["showcase (story / reveal / doc / deck mode)"]
         P9 --> P9C[guide]
         P9 --> P9D[requirements]
     end
@@ -112,7 +117,7 @@ Every prototype repository must include a **"Prototype Tools" section inside the
 - Skills in this repo must be 100% self-contained. A skill may only reference another skill that also lives in `skills/` in this repo, never a skill installed elsewhere on the author's machine.
 - If a pattern is adapted from an external tool or skill, vendor/duplicate the actual content this skill needs directly into its own `references/`, don't just point at the external skill and assume it's there.
 - Never require the user's `~/dev` project history, or any other repo, to be present for a skill to function. Those projects may be *mined* for patterns while refining a skill (see §5), but nothing in a skill's shipped instructions should name them or assume access to them.
-- **External tools/services are a different category from skill dependencies** and are fine to require explicitly: `npm install vis-network` (`map`'s `document` mode), and the Figma MCP server (`figma`'s `import`/`sync` modes, `map`'s optional FigJam export, `requirements`' optional tracker export) are genuine external dependencies every skill using them states up front, not something silently assumed. The rule is about not depending on *another locally-installed skill*, not about avoiding every external tool.
+- **External tools/services are a different category from skill dependencies** and are fine to require explicitly: `npm install vis-network` (`map`'s `document` mode), `npm install docx` / `pptxgenjs` (`showcase`'s `doc`, `deck` and `story` modes), and the Figma MCP server (`figma`'s `import`/`sync` modes, `map`'s optional FigJam export, `requirements`' optional tracker export) are genuine external dependencies every skill using them states up front, not something silently assumed. The rule is about not depending on *another locally-installed skill*, not about avoiding every external tool.
 
 ### 6. Unknowns Before Invention
 - If a decision genuinely can't be made without real user input, not something inferable from code, docs, or a reasonable default, append a line to `docs/UNKNOWNS.md` (create it if absent) instead of guessing. This applies across the suite: `persona`, `map`, `audit`, `interrogate`, and `styleguide` all defer to this convention rather than inventing an answer. Append it with [`tools/log-unknown`](tools/log-unknown/log-unknown.sh) (`--skill <name> --tier <2|3> [--blocking] "<text>"`) rather than a hand-written line — one consistent format means the file stays queryable later (`--list-blocking` surfaces every open blocking item in one read), not just readable.
@@ -149,7 +154,7 @@ Every skill's `SKILL.md` carries an `## Output Discipline` section, placed direc
 
 ## 3. Current Skills Directory
 
-Several skills are **multi-mode**: one skill folder, several named modes for related-but-distinct jobs, rather than separate near-duplicate skills (`audit`, `figma`, `map`, `interview`, `package`). Say which mode you want, or the skill asks.
+Several skills are **multi-mode**: one skill folder, several named modes for related-but-distinct jobs, rather than separate near-duplicate skills (`audit`, `figma`, `map`, `interview`, `package`, `competitors`, `journey`). Say which mode you want, or the skill asks.
 
 | Skill Folder | Name | Lifecycle Phase | Primary Focus |
 |---|---|---|---|
@@ -157,19 +162,21 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/setup` | `setup` | **Before Discover** | Bootstraps a prototype repo's doc shell: `README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/`. Also works layered onto an existing product, appending rather than overwriting |
 | `skills/brief` | `brief` | **Before Discover** | Interactively interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints); writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` expects as input. On an existing product, drafts the brief from the codebase first and confirms it instead of a blank interrogation |
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
-| `skills/competitors` | `competitors` | **Discover** | **Multi-mode**: default `discover` (interrogates market/tool-type/workflows/differentiators one question at a time, researches the web for candidates the stakeholder may not already know about, narrows to the 3-5 closest, profiles each in parallel — features, workflow, UX patterns, a real screenshot) or `add` (appends one more competitor found later, without re-running the full scan). Writes `docs/COMPETITIVE_ANALYSIS.md`; supersedes `brief`'s competitive-landscape question once run |
+| `skills/competitors` | `competitors` | **Discover** | **Multi-mode**: default `discover` (interrogates market/tool-type/workflows/differentiators one question at a time, researches the web for candidates the stakeholder may not already know about, narrows to the 3-5 closest, profiles each in parallel — features, workflow, UX patterns, a real screenshot) `add` (appends one more competitor found later, without re-running the full scan), `analysis` (deeper, evidence-rated pass by UX category, confidence-tagged, ranked opportunities), or `benchmark` (scores 3-5 products, yours plus competitors and best-in-class from any industry, 1-5 on one rubric with evidence, plus a flow teardown and an adopt/adapt/avoid pattern library). Writes `docs/COMPETITIVE_ANALYSIS.md` (`docs/UX_BENCHMARK.md` for `benchmark`); supersedes `brief`'s competitive-landscape question once run |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
-| `skills/interview` | `interview` | **Discover / Deliver** | Phase-aware question bank + script + synthesis template for user research |
-| `skills/journey` | `journey` | **Discover** | **Multi-mode**: `map` (current-state process as a swimlane diagram — as-is, not proposed) or `blueprint` (service-blueprint variant for a customer-facing process: Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and handoff wait times) — alternative starting points; `pain-points` (scores friction per step or wait time, severity × frequency, with root cause), `solutions` (fix directions + measurable target per pain point). Writes `docs/JOURNEY_MAP.md` |
+| `skills/interview` | `interview` | **Discover / Deliver** | **Multi-mode**: default `questions` (phase-aware question bank + script + synthesis template for user research), `analysis` (turns interview transcripts into evidence-backed themes: verbatim quotes with interview numbers, weak-signal flags, a plan-first gate), `usability` (timed test plan + moderator script for a built prototype: task scenarios, success criteria, bias review, metrics sheet) |
+| `skills/journey` | `journey` | **Discover** | **Multi-mode**: `map` (current-state process as a swimlane diagram — as-is, not proposed) or `blueprint` (service-blueprint variant for a customer-facing process: Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and handoff wait times) — alternative starting points; `pain-points` (scores friction per step or wait time, severity × frequency, with root cause), `solutions` (fix directions + measurable target per pain point). A fifth mode, `experience`, is a different job: one persona through one scenario, emotions and evidence, every claim cited or `ASSUMPTION`. Writes `docs/JOURNEY_MAP.md` |
 | `skills/metrics` | `metrics` | **Discover** | Defines OKRs against a framework matched to the product's medium/adoption model: HEART (opt-in digital), CASTLE (mandatory-use digital, via NN/g), or SELECT (physical tools/services, this suite's own). Every Key Result tagged by category. Writes `docs/OKR.md` |
-| `skills/map` | `map` | **Decide / Design** | **Multi-mode**: `objects` (interactive OOUX/ORCA modeling; seeds `docs/OOUX_OBJECT_MAP.md` + an entity-relationship diagram), `site` (proposed route/component architecture as a diagram, before it's built), `flow` (persona journey/branching workflow as Mermaid) — all Decide-phase; `audit` (reconciles the object model against built code) and `document` (regenerates the site diagram — Vis.js, Mermaid, SVG — from the real app, plus reconciles the object model if needed) — both Design-phase. Any mode can export to FigJam via the Figma MCP |
+| `skills/problems` | `problems` | **Discover** | Turns personas, journey maps, interview themes and pain points into problem statements (never with a proposed solution) and prioritised, traceable user stories. Pre-build; `requirements` is the built-prototype counterpart. Writes `docs/PROBLEM_STATEMENTS.md` |
+| `skills/brainstorming` | `brainstorming` | **Decide** | Structured ideation against one signed-off problem statement: many ideas, then a scored shortlist of directions (user value, effort, risk), never a single winner. Writes `docs/BRAINSTORM.md` |
+| `skills/map` | `map` | **Decide / Design** | **Multi-mode**: `objects` (interactive OOUX/ORCA modeling; seeds `docs/OOUX_OBJECT_MAP.md` + an entity-relationship diagram), `ia` (content, navigation, labelling and search around the user's mental model as a gated, evidence-graded sitemap; content-first, before `site`), `site` (proposed route/component architecture as a diagram, before it's built), `flow` (a complete, evidence-grounded end-to-end user flow for one goal) — all Decide-phase; `audit` (reconciles the object model against built code) and `document` (regenerates the site diagram — Vis.js, Mermaid, SVG — from the real app, plus reconciles the object model if needed) — both Design-phase. Any mode can export to FigJam via the Figma MCP |
 | `skills/scaffold` | `scaffold` | **Design** | React 19 + TypeScript + Vite + Tailwind scaffold; base + optional site-type layer (dashboard, chatbot, marketing site, CRM) |
 | `skills/styleguide` | `styleguide` | **Design** | **Multi-mode**: default (two-layer token architecture, `index.css` + spec-conformant `DESIGN.md`) or `forge` (cast a new brand's palette & fonts into the suite's fixed semantic token roles) |
-| `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
+| `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `heuristic` (deep Nielsen-heuristic pass, severity-rated 0-4), `code` (coding-standards audit), `spec` (build vs approved design spec, screen by screen), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
 | `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
 | `skills/package` | `package` | **Deliver** | Three modes: `full` (site + source + docs handoff zip), `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage), or `figma` (flat, unminified files each under 1MB, to attach to a Figma Make chat) |
-| `skills/showcase` | `showcase` | **Deliver** | Shareable presentation from a prototype: day-in-the-life PowerPoint deck (`deck.json` → bundled pptxgenjs builder, Playwright overflow check) or reveal.js deck |
+| `skills/showcase` | `showcase` | **Deliver** | **Multi-mode**: `story` (day-in-the-life PowerPoint deck from a prototype: `deck.json` → bundled pptxgenjs builder, Playwright overflow check), `reveal` (reveal.js deck), `doc` (a Markdown report from any suite skill → styled Word document, faithful), `deck` (a Markdown report → condensed PowerPoint, outline confirmed first). Packages the other skills' outputs; never adds content |
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
 | `skills/decisions` | `decisions` | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives |
@@ -309,6 +316,8 @@ Where work naturally splits into diagnosing and prescribing, keep it as two skil
 When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables; `wiki`'s default `compile`/`note` modes — `note` mode's own Step 2 was already just invoking `compile` mode's Step 1 as a subroutine, the same shape as `forge`→`styleguide`; `workshop`'s default `plan`/`ingest` modes — same event, same two possible output shapes (FigJam board, slide deck), built from opposite ends: `plan` before the workshop, `ingest` after it). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.
 
 `map` absorbing `concepting` (`objects`/`site`/`flow`/`audit`/`document` modes) is a different case worth naming explicitly: `concepting` and `map` didn't already share a pipeline the way the pairs above did — they were genuinely different verbs (define the object model via interrogation vs. render structure as a diagram). The merge was a deliberate product decision, not a discovered subroutine coupling: `concepting`'s own ORCA process was always supposed to produce a relationship diagram (its template even had an unused `erDiagram` block), but nothing in its process steps ever rendered one — exactly the gap `map` exists to close. Folding it in put every diagram a prototype needs (object relationships, proposed IA, journeys, as-built architecture) under one skill, with `site` (plan, Decide) and `document` (as-built, Design) as the before/after pair for architecture the same way `workshop`'s `plan`/`ingest` are for a workshop. Don't cite this as precedent for merging two skills just because both happen to produce diagrams or touch the same doc — the actual test is still whether the jobs share a shape (or, as here, whether a real capability gap only closes by putting them in the same place), not topical adjacency.
+
+A contributor's fork added six hyphenated skills in one go (`competitor-analysis`, `ux-benchmark`, `interview-analysis`, `usability-test-plan`, `information-architecture`, `problem-statement`), plus `brainstorming` and a `prototype` rename of `scaffold`. Each was folded in by asking the same two questions: what does it share a workflow shape with, and does it need something that isn't in this repo? `competitors` gained `analysis` (a deeper pass over the same competitor set) and `benchmark` (the scored, any-industry version of the same comparison); `interview` gained `analysis` (after the interviews) and `usability` (a task-based test of a built prototype), with `questions` as the renamed original; `map` gained `ia` (content and navigation structure, content-first before `site`). `problem-statement` did *not* fold into `brief`: `brief` runs before any research exists, while this reads research, so it became `problems`. `scaffold` kept its name: its job is setting things up, and the prototype is built over later prompts. Anything that leaned on separately-installed output skills (`docx`, `xlsx`, `pptx`, `humanizer`) or a skill that didn't exist (`feature-prioritization`) was rewritten to Markdown/CSV (the Word and PowerPoint versions now come from `showcase`'s `doc` and `deck` modes, which declare their own npm dependencies) or had the dangling link removed, per §2.5.
 
 `help` absorbing `router` (as default/`atlas` modes) fits the main pattern above rather than the `map`/`concepting` exception: the two were always a stated pair pointing at each other ("`router` is the full directory... this skill is the 'you are here' pin"), same underlying content (the suite's phase-by-phase map) rendered two ways — situational (default, filtered by repo state) vs. exhaustive (`atlas`, the static directory). No capability gap closed by merging; it's the same "one workflow shape, named modes" case as `workshop`'s `plan`/`ingest`.
 

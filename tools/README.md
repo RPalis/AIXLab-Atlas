@@ -40,10 +40,19 @@ Skills reference tools by relative path, e.g. `../../tools/find-docs-folder/find
   `package-lite/`'s backend snapshot and shim. Used by `package` (`figma` mode).
 - **`pptx-deck-builder/`** — renders a `.pptx` from a `deck.json`: `build-deck.js`
   builds it, `render-preview.js` does an overflow check first via a geometry-faithful
-  HTML render. Two slide shapes share the same builder — `story` (narrative + real
-  screenshot per slide) and `themes` (title + bullet list, no screenshot). Used by
-  `showcase` (`story`) and `workshop`'s `ingest` mode (`themes`, via
-  `markdown-to-pptx` below).
+  HTML render (story slides only). Three slide shapes share the same builder — `story`
+  (narrative + real screenshot per slide), `themes` (title + bullet list, no screenshot)
+  and `slides` (report-style: `callout`, `bullets`, `table` with confidence-colored
+  cells, `quote`, `checklist`, `section`; checked against fixed fit limits before
+  anything is written). Used by `showcase` (`story`, and `deck` mode's `slides`) and
+  `workshop`'s `ingest` mode (`themes`, via `markdown-to-pptx` below). Needs the
+  `pptxgenjs` npm package, found in the current directory first.
+- **`markdown-to-docx/`** — turns a Markdown report into a styled `.docx`
+  (`md-to-docx.mjs`): cover title, headings, nested lists, task lists, callouts, tables
+  with confidence-colored cells, landscape pages for wide tables, images, header and page
+  numbers, theme colors from a small JSON. A faithful conversion with no judgment: it
+  never condenses or rewords. Used by `showcase`'s `doc` mode. Needs the `docx` npm
+  package, found in the current directory first.
 - **`markdown-to-pptx/`** — no-dependency parser that turns a plain Markdown report
   (`# title`, `## section` → slide, bullets/paragraphs → bullet list) into a
   `deck.json` for `pptx-deck-builder`'s `themes` shape. Used by `workshop`'s `ingest`

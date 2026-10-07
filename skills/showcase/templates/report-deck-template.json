@@ -1,0 +1,63 @@
+{
+  "title": "<Report title, from the Markdown's H1>",
+  "subtitle": "<One line: scope, date, who it's for>",
+  "tag": "<Research | Benchmark | Analysis | Plan>",
+  "footer": "<Project name>  ·  First draft for review",
+  "author": "<Org>",
+
+  "theme": {
+    "_comment": "Optional. Hex without '#'. Take from the project's DESIGN.md / index.css raw palette when one exists; delete the block for the neutral default. Same keys as the doc mode's theme.json.",
+    "dark": "152642",
+    "darkMid": "2B3E5C",
+    "accent": "F15840",
+    "accent2": "00A792",
+    "onDark": "C9D3E4",
+    "body": "4A5568",
+    "muted": "8A94A6",
+    "canvas": "F5F7FA",
+    "font": "Calibri"
+  },
+
+  "slides": [
+    {
+      "type": "callout",
+      "tone": "warning",
+      "title": "Read this first",
+      "text": "<The source's evidence warning, ≤ 420 chars. Always the first content slide when the source has one.>"
+    },
+    {
+      "type": "bullets",
+      "kicker": "Executive summary",
+      "title": "<A claim, ≤ 70 chars>",
+      "bullets": ["<≤ 140 chars each, at most 6. Keep the confidence tag or source ref on any claim that had one.>"],
+      "note": "<Optional one-line footnote, e.g. what n of N counts.>",
+      "notes": "<Optional speaker notes: the longer evidence that didn't fit.>"
+    },
+    {
+      "type": "table",
+      "title": "<What the table shows, ≤ 70 chars>",
+      "columns": ["Theme", "n of N", "Confidence", "So what"],
+      "rows": [
+        ["<≤ 60 chars per cell>", "6 of 8", "Verified", "<...>"],
+        ["<...>", "1 of 8", "Weak Signal", "<...>"]
+      ],
+      "caption": "<Optional, ≤ 160 chars. At most 8 rows and 6 columns per slide; split larger tables by category.>"
+    },
+    {
+      "type": "quote",
+      "title": "<Who said it / what it shows>",
+      "quote": "<Verbatim, ≤ 240 chars>",
+      "source": "<Interview #2, transcript p4>"
+    },
+    {
+      "type": "section",
+      "title": "<Divider title>",
+      "subtitle": "<Optional>"
+    },
+    {
+      "type": "checklist",
+      "title": "Verify before sharing",
+      "items": ["<The source's verification list, ≤ 110 chars each, at most 8. Never drop this slide.>"]
+    }
+  ]
+}

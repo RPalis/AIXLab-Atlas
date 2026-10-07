@@ -124,9 +124,9 @@ If `docs/COMPETITIVE_ANALYSIS.md` already exists from `discover`, read it first 
 | Categories to prioritise | Determines depth vs. breadth. |
 | Product stage | Pre-build means the "Our Product" column becomes decisions-to-make. |
 | Target user specifics | A confident power user and a nervous novice make opposite patterns correct. |
-| Slide version wanted | Markdown is always written; a deck is optional. |
+| Word or slide version wanted | Markdown is always written; `showcase` makes the Word or PowerPoint version afterwards. |
 
-**Autonomous mode** (suite `AGENTS.md` §2.9): take the platform, stage and user from `docs/PRODUCT_BRIEF.md` or `docs/PERSONA_WALKTHROUGH.md` when they say. Otherwise default to web, pre-build (the more conservative reading: decisions to make, not claimed capabilities), categories chosen from the product's core workflows, Markdown only. Log each default in one line, and log the stage default as a tier-2 assumption (`../../tools/log-unknown/log-unknown.sh --skill competitors --tier 2 "..."`). If there's no `discover` doc and no competitors supplied, that's the same tier-3 stop `discover` names: skip and log.
+**Autonomous mode** (suite `AGENTS.md` §2.9): take the platform, stage and user from `docs/PRODUCT_BRIEF.md` or `docs/PERSONA_WALKTHROUGH.md` when they say. Otherwise default to web, pre-build (the more conservative reading: decisions to make, not claimed capabilities), categories chosen from the product's core workflows, Markdown only (no Word or deck unless asked). Log each default in one line, and log the stage default as a tier-2 assumption (`../../tools/log-unknown/log-unknown.sh --skill competitors --tier 2 "..."`). If there's no `discover` doc and no competitors supplied, that's the same tier-3 stop `discover` names: skip and log.
 
 **Completion criterion:** every gap either has an answer or was already resolved by an existing doc.
 
@@ -150,7 +150,7 @@ Summarise: patterns every competitor uses (table stakes, not advantages); where 
 
 Append to `docs/COMPETITIVE_ANALYSIS.md` using the "analysis mode addendum" in [`templates/competitive-analysis-template.md`](templates/competitive-analysis-template.md). Sections, in order: Executive Summary, Key Findings, Comparison Matrix, Top Opportunities, Potential Risks, Questions requiring further research, Items to manually verify before sharing. Include the method-and-evidence-standard section defining the three ratings and this analysis's limitations. If the analysis is desk research, put a visible evidence warning at the top.
 
-If a slide version is wanted, run [`tools/markdown-to-pptx`](../../tools/markdown-to-pptx/md-to-deck.mjs) on the Markdown. Lead with the evidence warning slide, split the matrix across slides by category (never shrink type to fit), keep Confidence as a visible column, and keep the verification checklist as a real slide. The deck is a best-effort render; the Markdown stays the source of truth, and compressing for slides means fewer rows, never unrated rows.
+For a Word document or a slide deck, hand the Markdown to [`showcase`](../showcase/SKILL.md)'s `doc` or `deck` mode (e.g. `/showcase COMPETITIVE_ANALYSIS.md`). `deck` mode keeps the evidence warning first, splits the matrix by category, and keeps the verification checklist as a slide; the Markdown stays the source of truth.
 
 **Completion criterion:** every required section is present, every claim is rated, sources are numbered and resolved in a register, and the verification checklist names the specific claims a stakeholder is most likely to challenge.
 

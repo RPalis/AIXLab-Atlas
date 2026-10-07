@@ -234,7 +234,7 @@ Choose persona → Define scenario → Map experience → Identify pain points �
 
 **Step 5 — Highlight opportunities.** Pair each meaningful pain point with an improvement opportunity, cited or `ASSUMPTION`. Assign an owner where possible; note how impact would be measured.
 
-**Step 6 — Review & export.** Produce the six deliverables below, attach the Human Review checklist, and write it as Markdown in the docs folder (a slide version is available through [`tools/markdown-to-pptx`](../../tools/markdown-to-pptx/md-to-deck.mjs), best-effort, with the Markdown as the source of truth).
+**Step 6 — Review & export.** Produce the six deliverables below, attach the Human Review checklist, and write it as Markdown in the docs folder (a Word or PowerPoint version comes from [`showcase`](../showcase/SKILL.md)'s `doc` or `deck` mode, with the Markdown as the source of truth).
 
 **Completion criterion:** all six deliverables exist, every pain point and opportunity carries a citation or `ASSUMPTION`, and the Human Review checklist is attached.
 

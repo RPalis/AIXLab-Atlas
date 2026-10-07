@@ -135,7 +135,7 @@ Ship it, validate it, hand it off.
 
 1. **Code standards** → [`audit`](../audit/SKILL.md)'s `code` mode before anything ships; `spec` mode checks the build against its approved design, screen by screen.
 2. **Package** → [`package`](../package/SKILL.md) for the static handoff bundle (`full` or `lite`), or `figma` for a flat set of files to attach to Figma Make.
-3. **Present to stakeholders** → [`showcase`](../showcase/SKILL.md) (day-in-the-life PowerPoint deck or reveal.js deck). **Document for end users** → [`guide`](../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
+3. **Present to stakeholders** → [`showcase`](../showcase/SKILL.md) (`story`: day-in-the-life PowerPoint deck, or `reveal`: reveal.js deck). **Share a research or analysis report** (a competitor analysis, benchmark, interview analysis, IA) → `showcase`'s `doc` mode for a Word document or `deck` mode for a condensed PowerPoint, from the report's Markdown file. **Document for end users** → [`guide`](../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
 4. **Validating with real users?** → [`interview`](../interview/SKILL.md)'s `usability` mode for a task-based test plan and moderator script, or its `questions` mode in the Validation focus for a conversation about specific screens (reads `docs/UNKNOWNS.md` for what's still open).
 
 ### Usable Anytime
@@ -184,7 +184,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 
 #### Deliver
 - **[`package`](../package/SKILL.md)**: Three modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild), `lite` (minified `production/` folder only, bare essentials, just to run it), or `figma` (flat unminified files, each under 1MB, to attach to a Figma Make chat).
-- **[`showcase`](../showcase/SKILL.md)**: Build a shareable presentation from the prototype: a day-in-the-life PowerPoint deck (time-stamped scene per slide beside a real screenshot, generated from `deck.json` with an overflow check first) or a reveal.js web deck, narrative sourced from `persona`'s scenes.
+- **[`showcase`](../showcase/SKILL.md)**: Four modes. `story`: a day-in-the-life PowerPoint deck from the prototype (time-stamped scene per slide beside a real screenshot, generated from `deck.json` with an overflow check first). `reveal`: a reveal.js web deck. `doc`: converts a Markdown report from any suite skill (e.g. `interview-analysis.md`) faithfully into a styled Word document. `deck`: condenses such a report into a PowerPoint, with the outline confirmed first and confidence tags, sources and the verification checklist kept.
 - **[`guide`](../guide/SKILL.md)**: Write end-user documentation, Getting Started plus a phase-by-phase walkthrough, as a Markdown doc with an optional PDF export.
 - **[`requirements`](../requirements/SKILL.md)**: Read the built prototype (code, OOUX object map, persona walkthrough, ADRs) and write it up as Epics containing Features with user stories and acceptance criteria, as `docs/REQUIREMENTS.md`. Optionally publishes Epics/Features straight to Jira or Azure DevOps once an MCP server for one is connected.
 

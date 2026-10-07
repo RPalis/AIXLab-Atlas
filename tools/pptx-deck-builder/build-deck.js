@@ -13,10 +13,24 @@
 //   `workshop`'s `ingest` mode to summarize a workshop board). Not overflow-checked by
 //   render-preview.js — keep bullets short by convention instead.
 //
-// `deck.problem` and `deck.closing` (stat/beat slides) are shared by both shapes.
-const pptxgen = require('pptxgenjs');
+// - `deck.slides`: a report-style deck condensed from a Markdown report (used by
+//   `showcase`'s `deck` mode). Each entry has a `type`: `callout` (evidence warning or
+//   key message), `bullets`, `table` (color-codes confidence labels), `quote` (a
+//   verbatim line with its source), `checklist`, `section` (divider). Limits are
+//   enforced before anything is written, so a slide that wouldn't fit fails loudly
+//   with its index instead of overflowing in PowerPoint. Rendered after the title and
+//   before `problem`/`story`/`closing` if those are also present.
+//
+// `deck.problem` and `deck.closing` (stat/beat slides) are shared by all shapes.
 const fs = require('fs');
 const path = require('path');
+// Resolve pptxgenjs from the current directory first (`npm i pptxgenjs` in a scratch
+// folder, then run this file from there), then from this file's own location.
+const load = (name) => {
+  try { return require(require('module').createRequire(path.join(process.cwd(), 'noop.js')).resolve(name)); }
+  catch { return require(name); }
+};
+const pptxgen = load('pptxgenjs');
 
 const [, , deckPath, shotsDir, outPath] = process.argv;
 if (!deckPath || !shotsDir || !outPath) {
@@ -39,6 +53,39 @@ const T = Object.assign({
   font: 'Calibri',
 }, deck.theme || {});
 const WHITE = 'FFFFFF';
+const CONF = { verified: 'D6E9D6', likely: 'FCEFCC', 'weak signal': 'FCEFCC', inferred: 'FCEFCC', 'not verified': 'F6D8D6', assumption: 'F6D8D6', proposed: 'DCE6F5' };
+
+// Fit limits for `deck.slides`. Conservative on purpose: the text boxes are fixed-size.
+const LIMITS = { title: 70, bullets: 6, bullet: 140, tableRows: 8, tableCols: 6, cell: 60, callout: 420, quote: 240, source: 90, checklist: 8, item: 110, caption: 160 };
+function checkSlides(slides) {
+  const bad = [];
+  const over = (i, what, got, max) => bad.push(`slides[${i}] ${what}: ${got} > ${max}`);
+  slides.forEach((sl, i) => {
+    if (!['callout', 'bullets', 'table', 'quote', 'checklist', 'section'].includes(sl.type)) return bad.push(`slides[${i}] unknown type "${sl.type}"`);
+    if ((sl.title || '').length > LIMITS.title) over(i, 'title chars', sl.title.length, LIMITS.title);
+    if (sl.type === 'bullets') {
+      if ((sl.bullets || []).length > LIMITS.bullets) over(i, 'bullets', sl.bullets.length, LIMITS.bullets);
+      (sl.bullets || []).forEach((b, k) => b.length > LIMITS.bullet && over(i, `bullet ${k} chars`, b.length, LIMITS.bullet));
+    }
+    if (sl.type === 'checklist') {
+      if ((sl.items || []).length > LIMITS.checklist) over(i, 'items', sl.items.length, LIMITS.checklist);
+      (sl.items || []).forEach((b, k) => b.length > LIMITS.item && over(i, `item ${k} chars`, b.length, LIMITS.item));
+    }
+    if (sl.type === 'table') {
+      if ((sl.columns || []).length > LIMITS.tableCols) over(i, 'columns', sl.columns.length, LIMITS.tableCols);
+      if ((sl.rows || []).length > LIMITS.tableRows) over(i, 'rows (split across slides)', sl.rows.length, LIMITS.tableRows);
+      (sl.rows || []).forEach((r, k) => r.forEach((c) => String(c).length > LIMITS.cell && over(i, `row ${k} cell chars`, String(c).length, LIMITS.cell)));
+      if (sl.caption && sl.caption.length > LIMITS.caption) over(i, 'caption chars', sl.caption.length, LIMITS.caption);
+    }
+    if (sl.type === 'callout' && (sl.text || '').length > LIMITS.callout) over(i, 'text chars', sl.text.length, LIMITS.callout);
+    if (sl.type === 'quote') {
+      if ((sl.quote || '').length > LIMITS.quote) over(i, 'quote chars', sl.quote.length, LIMITS.quote);
+      if ((sl.source || '').length > LIMITS.source) over(i, 'source chars', sl.source.length, LIMITS.source);
+    }
+  });
+  if (bad.length) { console.error('deck.slides does not fit:\n  ' + bad.join('\n  ')); process.exit(1); }
+}
+if (deck.slides) checkSlides(deck.slides);
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
@@ -64,8 +111,8 @@ function slideNum(slide, n) {
 
 let n = 0;
 
-/* Title */
-{
+/* Title (omit with `deck.skipTitle: true`, e.g. to preview one slide on its own) */
+if (!deck.skipTitle) {
   const s = pres.addSlide();
   s.background = { color: T.dark };
   if (deck.tag) pill(s, deck.tag.toUpperCase(), 0.9, 1.62, 0.6 + deck.tag.length * 0.13, 0.38, 11, 1.2);
@@ -75,6 +122,55 @@ let n = 0;
   if (deck.notes) s.addNotes(deck.notes);
   n++;
 }
+
+/* Report slides (condensed from a Markdown report) */
+(deck.slides || []).forEach((sl) => {
+  const s = pres.addSlide();
+  const dark = sl.type === 'section';
+  s.background = { color: dark ? T.dark : WHITE };
+  if (sl.type === 'section') {
+    text(s, sl.title, { x: 0.9, y: 2.7, w: 10.5, h: 1.2, fontSize: 40, bold: true, color: WHITE });
+    if (sl.subtitle) text(s, sl.subtitle, { x: 0.9, y: 4.0, w: 10.5, h: 0.8, fontSize: 18, color: T.onDark });
+  } else {
+    if (sl.kicker) text(s, sl.kicker.toUpperCase(), { x: 0.9, y: 0.55, w: 10.9, h: 0.3, fontSize: 11, bold: true, color: T.accent, charSpacing: 1.2 });
+    text(s, sl.title || '', { x: 0.9, y: 0.85, w: 11.4, h: 0.8, fontSize: 28, bold: true, color: T.dark, valign: 'top' });
+    const top = 1.95;
+    if (sl.type === 'bullets') {
+      const items = (sl.bullets || []).map((b) => ({ text: b, options: { bullet: { indent: 18 }, breakLine: true, paraSpaceAfter: 10 } }));
+      s.addText(items, { x: 0.9, y: top, w: 11.4, h: 4.6, margin: 0, fontFace: T.font, fontSize: 17, color: T.body, valign: 'top' });
+      if (sl.note) text(s, sl.note, { x: 0.9, y: 6.55, w: 11.4, h: 0.4, fontSize: 12, italic: true, color: T.muted });
+    } else if (sl.type === 'checklist') {
+      const items = (sl.items || []).map((b) => ({ text: `\u2610  ${b}`, options: { breakLine: true, paraSpaceAfter: 10 } }));
+      s.addText(items, { x: 0.9, y: top, w: 11.4, h: 4.6, margin: 0, fontFace: T.font, fontSize: 17, color: T.body, valign: 'top' });
+    } else if (sl.type === 'callout') {
+      const warn = sl.tone === 'warning';
+      s.addShape(pres.ShapeType.rect, { x: 0.9, y: top, w: 11.4, h: 3.6, fill: { color: warn ? 'FCEFCC' : T.canvas }, line: { type: 'none' } });
+      s.addShape(pres.ShapeType.rect, { x: 0.9, y: top, w: 0.1, h: 3.6, fill: { color: warn ? 'E0A100' : T.accent }, line: { type: 'none' } });
+      text(s, sl.text, { x: 1.35, y: top + 0.3, w: 10.6, h: 3.0, fontSize: 20, color: T.dark, valign: 'top', lineSpacing: 30 });
+    } else if (sl.type === 'quote') {
+      s.addShape(pres.ShapeType.rect, { x: 0.9, y: top, w: 0.08, h: 2.6, fill: { color: T.accent }, line: { type: 'none' } });
+      text(s, `\u201C${sl.quote}\u201D`, { x: 1.3, y: top, w: 10.6, h: 2.0, fontSize: 26, italic: true, color: T.darkMid, valign: 'top', lineSpacing: 36 });
+      if (sl.source) text(s, sl.source, { x: 1.3, y: top + 2.2, w: 10.6, h: 0.4, fontSize: 14, bold: true, color: T.muted });
+    } else if (sl.type === 'table') {
+      const cols = sl.columns || [];
+      const w = 11.4;
+      const weights = cols.map((c, ci) => Math.max(String(c).length, ...(sl.rows || []).map((r) => String(r[ci] ?? '').length), 8));
+      const sum = weights.reduce((a, b) => a + b, 0);
+      const colW = weights.map((x) => (x / sum) * w);
+      const head = cols.map((c) => ({ text: String(c), options: { bold: true, color: WHITE, fill: { color: T.dark }, fontSize: 14, fontFace: T.font } }));
+      const body = (sl.rows || []).map((r, ri) => cols.map((_, ci) => {
+        const v = String(r[ci] ?? '');
+        const tint = CONF[v.trim().toLowerCase()];
+        return { text: v, options: { fontSize: 14, fontFace: T.font, color: T.body, fill: { color: tint || (ri % 2 ? 'F8FAFC' : WHITE) } } };
+      }));
+      s.addTable([head, ...body], { x: 0.9, y: top, w, colW, rowH: 0.5, border: { type: 'solid', pt: 0.5, color: 'D5DBE5' }, margin: [0.06, 0.08, 0.06, 0.08], valign: 'middle' });
+      if (sl.caption) text(s, sl.caption, { x: 0.9, y: 6.55, w: 11.4, h: 0.4, fontSize: 12, italic: true, color: T.muted });
+    }
+    slideNum(s, n + 1);
+  }
+  if (sl.notes) s.addNotes(sl.notes);
+  n++;
+});
 
 /* Problem */
 if (deck.problem) {

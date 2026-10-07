@@ -155,7 +155,7 @@ for the transcripts.
   Surprises + Contradictions · Weak-Signal Flags · Evidence Log.
 - Add **links to raw files / transcripts / videos**.
 - Run the **⚠️ self-check** over every quote.
-- **Format.** The Markdown report (`docs/INTERVIEW_ANALYSIS.md`) is the deliverable and the approved plan file is always kept. If an evidence log or affinity matrix is wanted as a spreadsheet, also write `docs/interview-evidence-log.csv` (theme, quote, interview #, confidence). If a findings presentation is wanted, run [`tools/markdown-to-pptx`](../../tools/markdown-to-pptx/md-to-deck.mjs) on the Markdown; the deck is a best-effort render and the Markdown stays the source of truth.
+- **Format.** The Markdown report (`docs/INTERVIEW_ANALYSIS.md`) is the deliverable and the approved plan file is always kept. If an evidence log or affinity matrix is wanted as a spreadsheet, also write `docs/interview-evidence-log.csv` (theme, quote, interview #, confidence). For a Word report or a findings presentation, hand the Markdown to [`showcase`](../showcase/SKILL.md)'s `doc` or `deck` mode (e.g. `/showcase interview-analysis.md`); the Markdown stays the source of truth.
 - **No format may drop the confidence tags, interview numbers, or weak-signal flags.**
 - Keep prose plain, and use no em dashes in the final output.
 

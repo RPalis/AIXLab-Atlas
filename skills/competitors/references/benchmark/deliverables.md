@@ -49,11 +49,6 @@ tooling:
 
 Also paste the scorecard into the report as a Markdown table, so the report stands alone.
 
-**Optional slide version.** If a live audience needs to reach a decision, run
-[`tools/markdown-to-pptx`](../../../../tools/markdown-to-pptx/md-to-deck.mjs) on the report. Lead with
-the evidence-warning slide, not the findings. Split the scorecard across slides by dimension group;
-never shrink type to force it onto one. Confidence stays a visible column, not a footnote. Keep the
-Validation Checklist as a real slide. The conversion is best-effort; the Markdown stays the source of
-truth.
+**Word or slide version.** Hand `docs/UX_BENCHMARK.md` to [`showcase`](../../../showcase/SKILL.md)'s `doc` mode (the full record, with confidence cells color-coded) or `deck` mode (condensed: evidence warning first, the scorecard split by dimension group, never shrunk to fit, the Validation Checklist kept as a real slide). The Markdown stays the source of truth.
 
 Figma/FigJam output isn't covered by this mode.

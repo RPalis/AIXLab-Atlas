@@ -9,8 +9,8 @@ human has worked through it.
 - [ ] **Resolve every ⚠️** — confirm the quote is verbatim or drop it.
 - [ ] **Add screenshots and links** where useful.
 - [ ] **Prioritise opportunities based on business goals**, not just frequency.
-- [ ] **Refine the format.** The Markdown report is the source of truth; a CSV evidence log or a
-      slide version (via `tools/markdown-to-pptx`) can be regenerated from it.
+- [ ] **Refine the format.** The Markdown report is the source of truth; a CSV evidence log, a Word report or a slide
+      version (via `showcase`'s `doc` / `deck` modes) can be regenerated from it.
 - [ ] Confirm no confidence tags, interview numbers, or weak-signal flags were lost in formatting.
 - [ ] Read the prose once for filler and em dashes; plain wording only.
 

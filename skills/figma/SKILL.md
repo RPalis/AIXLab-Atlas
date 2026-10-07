@@ -1,7 +1,8 @@
 ---
 name: figma
 description: >-
-  Move work to and from Figma in one of three ways: capture (add a button/context-menu that sends a live prototype screen into Figma as editable layers, no MCP needed), import (bring a Figma frame/selection into the codebase as convention-conformant code via the Figma MCP), or sync (bidirectional token sync between index.css/DESIGN.md and a Figma library's Variables via the Figma MCP). Use whenever Figma is part of the workflow, in either direction.
+  Move work to and from Figma in one of three ways: capture (add a button/context-menu that sends a live prototype screen into Figma as editable layers, no MCP needed), import (bring a Figma frame/selection into the codebase as convention-conformant code via the Figma MCP), or sync (bidirectional token sync between index.css/DESIGN.md and a Figma library's Variables via the Figma MCP). Use whenever Figma is part of the workflow, in either direction. To send the whole prototype to Figma Make as attachable files, that's `package`'s `figma` mode.
+argument-hint: "[capture: screen to Figma | import: Figma to code | sync: tokens both ways]"
 ---
 
 # Figma
@@ -11,6 +12,8 @@ Three ways of moving work between this suite and Figma, sharing one skill as "Fi
 - **`capture`**: prototype screen → Figma, via a client-side script load. No MCP, no API keys, no file IDs.
 - **`import`**: Figma frame/selection → codebase, as real convention-conformant code. Requires the Figma MCP server.
 - **`sync`**: this suite's token system ↔ a Figma library's Variables, bidirectional. Requires the Figma MCP server.
+
+Not a mode here: getting a whole prototype into Figma Make. That's a packaging job (build, flatten, size-check), so it lives in [`package`](../package/SKILL.md)'s `figma` mode (`/package figma`).
 
 `import` and `sync` require the Figma MCP server connected (`mcp__claude_ai_Figma__*` tools) — if unavailable, tell the user to connect it rather than guessing at Figma's structure from a screenshot alone. `capture` has no such requirement; it never touches the MCP. **Autonomous mode:** skip the mode entirely, log to `docs/UNKNOWNS.md` as blocked pending the MCP connection (tier 3, §2.9) rather than waiting or guessing at structure.
 

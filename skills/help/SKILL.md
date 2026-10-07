@@ -2,6 +2,7 @@
 name: help
 description: >-
   Two modes. Default mode figures out which skill in this suite to use next, given the actual state of the current project, not a static list — reads what docs already exist to place the project on Discover/Decide/Design/Deliver, then recommends the next 1-3 skills with a reason. `atlas` mode is the full browsable directory of the suite: every skill, every phase, every mode, cross-linked. Use default mode when the user asks "what should I do next," "which skill do I need," or is otherwise unsure where they are in the process. Use `atlas` mode when they want to see the whole roadmap, browse what's available, or understand how the suite fits together.
+argument-hint: "[blank: what's next | atlas: browse every skill]"
 ---
 
 # Help
@@ -12,6 +13,15 @@ Say which mode you want, or this skill asks: **default** ("you are here" — rea
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+
+## Walkthrough link
+
+End every response, in either mode, with a one-line link to the suite's visual walkthrough (`index.html`) so the user can see the whole workflow without asking. Find it in this order, and use the first that exists:
+
+1. `path=` in `~/.agents/skills/.ux-atlas.version` (written by `install.sh`) → `<path>/index.html`.
+2. The current repo's own `index.html`, if this is the UX Atlas repo itself.
+
+Render it as a clickable markdown link, e.g. `[UX Atlas walkthrough](file:///abs/path/to/index.html)`. If neither resolves (hub installed by hand, repo moved), skip the line silently rather than guessing a path. **Completion criterion:** the link points at a file that exists right now.
 
 ## Default mode
 
@@ -117,7 +127,7 @@ Once the prototype holds up under `audit`'s `craft` and `a11y` modes, move to **
 Ship it, validate it, hand it off.
 
 1. **Code standards** → [`audit`](../audit/SKILL.md)'s `code` mode before anything ships.
-2. **Package** → [`package`](../package/SKILL.md) for the static handoff bundle (`full` or `lite`).
+2. **Package** → [`package`](../package/SKILL.md) for the static handoff bundle (`full` or `lite`), or `figma` for a flat set of files to attach to Figma Make.
 3. **Present to stakeholders** → [`showcase`](../showcase/SKILL.md) (day-in-the-life PowerPoint deck or reveal.js deck). **Document for end users** → [`guide`](../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
 4. **Validating with real users?** → loop back to [`interview`](../interview/SKILL.md) in validation mode, which reads `docs/UNKNOWNS.md` for what's still open.
 
@@ -164,7 +174,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`map`](../map/SKILL.md)**'s remaining two modes: `document` regenerates the site diagram (interactive in-app Vis.js modal, Mermaid, SVG) from the real built app, and reconciles `docs/OOUX_OBJECT_MAP.md` if it's drifted. `audit` does that object-model reconciliation alone, without the diagram refresh — useful for a lighter check mid-build.
 
 #### Deliver
-- **[`package`](../package/SKILL.md)**: Two modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild) or `lite` (minified `production/` folder only, bare essentials, just to run it).
+- **[`package`](../package/SKILL.md)**: Three modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild), `lite` (minified `production/` folder only, bare essentials, just to run it), or `figma` (flat unminified files, each under 1MB, to attach to a Figma Make chat).
 - **[`showcase`](../showcase/SKILL.md)**: Build a shareable presentation from the prototype: a day-in-the-life PowerPoint deck (time-stamped scene per slide beside a real screenshot, generated from `deck.json` with an overflow check first) or a reveal.js web deck, narrative sourced from `persona`'s scenes.
 - **[`guide`](../guide/SKILL.md)**: Write end-user documentation, Getting Started plus a phase-by-phase walkthrough, as a Markdown doc with an optional PDF export.
 - **[`requirements`](../requirements/SKILL.md)**: Read the built prototype (code, OOUX object map, persona walkthrough, ADRs) and write it up as Epics containing Features with user stories and acceptance criteria, as `docs/REQUIREMENTS.md`. Optionally publishes Epics/Features straight to Jira or Azure DevOps once an MCP server for one is connected.

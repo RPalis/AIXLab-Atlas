@@ -2,6 +2,7 @@
 name: showcase
 description: >-
   Build a shareable presentation from a prototype: either a static PowerPoint deck (a day-in-the-life narrative — title, problem-with-numbers, one time-stamped scene per slide with a real 16:10 screenshot beside 1-3 sentences of story, closing with the ask — generated from a deck.json by the bundled pptxgenjs builder, with a Playwright overflow check before the file is written) or a reveal.js web-based deck. Narrative sourced from persona's scenes, screenshots captured from the running prototype at the exact state each slide describes. Use when the user wants to present the prototype to stakeholders, walk them through a day in the life, share a feature overview, or build a demo deck.
+argument-hint: "[pptx: offline PowerPoint deck | reveal: live web deck]"
 ---
 
 # Feature Showcase

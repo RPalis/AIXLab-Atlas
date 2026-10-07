@@ -2,6 +2,7 @@
 name: styleguide
 description: >-
   Build, document, and audit this suite's strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate a spec-conformant DESIGN.md. Default mode starts from a placeholder palette; forge mode casts a real brand's colors, fonts, and spacing into the same architecture from a live site, brand guide, or verified hex values. Use when defining design tokens, standardizing styling rules, documenting design foundations, casting a new brand, or rebranding an existing prototype.
+argument-hint: "[default: placeholder tokens | forge: cast a real brand]"
 ---
 
 # UX Style Documentation & Two-Layer Design Tokens

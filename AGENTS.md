@@ -168,7 +168,7 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode**: `craft` (scored UX critique task list), `code` (coding-standards audit), `a11y` (deep WCAG 2.1/2.2 AA sweep) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
 | `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
-| `skills/package` | `package` | **Deliver** | Two modes: `full` (site + source + docs handoff zip) or `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage) |
+| `skills/package` | `package` | **Deliver** | Three modes: `full` (site + source + docs handoff zip), `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage), or `figma` (flat, unminified files each under 1MB, to attach to a Figma Make chat) |
 | `skills/showcase` | `showcase` | **Deliver** | Shareable presentation from a prototype: day-in-the-life PowerPoint deck (`deck.json` → bundled pptxgenjs builder, Playwright overflow check) or reveal.js deck |
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
@@ -204,8 +204,11 @@ Skill names in this repo are **single words, no hyphenated compounds, no mandato
 ---
 name: <skill-name>
 description: Precise summary of what the skill does and when to use it. Include explicit triggers ("Use when user asks to...", "create persona", etc.).
+argument-hint: "[mode-a: ~5 word gloss | mode-b: ~5 word gloss]"   # multi-mode skills only
 ---
 ```
+
+`argument-hint` is the greyed placeholder shown in the input after the user types `/<skill>`. Multi-mode skills list each mode with a gloss of about five words; single-purpose skills omit it.
 
 ### Required Markdown Sections in `SKILL.md`
 1. **Title & Summary Header**: Clean H1 and 1–2 sentence statement of purpose.

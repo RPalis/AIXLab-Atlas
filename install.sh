@@ -374,13 +374,13 @@ printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 # skip silently rather than failing the install over it.
 installed_sha="$(cd "$REPO_DIR" && git rev-parse HEAD 2>/dev/null || true)"
 installed_repo="$(cd "$REPO_DIR" && git remote get-url origin 2>/dev/null || true)"
-if [ -n "$installed_sha" ] && [ -n "$installed_repo" ]; then
-  {
-    echo "repo=$installed_repo"
-    echo "sha=$installed_sha"
-    echo "installed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  } > "$HUB/.ux-atlas.version"
-fi
+# 'path=' lets 'help' link the walkthrough (index.html) from an installed copy.
+{
+  [ -n "$installed_repo" ] && echo "repo=$installed_repo"
+  [ -n "$installed_sha" ] && echo "sha=$installed_sha"
+  echo "path=$REPO_DIR"
+  echo "installed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+} > "$HUB/.ux-atlas.version"
 
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"

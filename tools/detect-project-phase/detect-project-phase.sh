@@ -81,7 +81,7 @@ fi
 
 # 8. Shipped once already (checked before the generic design bucket, since a
 # shipped project still has DESIGN.md/frontend and would otherwise match rule 6/7)
-PACKAGE_OUT=$(find "$REPO" -maxdepth 1 \( -iname '*-production' -o -iname '*.zip' \) 2>/dev/null | head -1)
+PACKAGE_OUT=$(find "$REPO" -maxdepth 1 \( -iname '*-production' -o -iname '*-figma' -o -iname '*.zip' \) 2>/dev/null | head -1)
 SHOWCASE_OUT=$(find "$DOCS" -maxdepth 1 \( -iname '*.pptx' -o -iname '*-showcase.pptx' \) 2>/dev/null | head -1)
 GUIDE_OUT=""
 [ -f "$DOCS/USER_GUIDE.md" ] && GUIDE_OUT="$DOCS/USER_GUIDE.md"

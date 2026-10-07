@@ -33,6 +33,11 @@ Skills reference tools by relative path, e.g. `../../tools/find-docs-folder/find
   snapshotting, static-host layout normalization, and the in-browser static-backend
   shim. Used by `package` (`lite` mode). No judgment lives here — hook-writing and doc
   reconciliation stay in the skill.
+- **`package-figma/`** — the mechanical steps for `/package figma`: `build-flat.mjs` runs
+  the project's own Vite with unminified, flat-named, size-capped output and libraries left
+  as imports; `finalize.mjs` flattens leftover subfolders, writes `package.json` and
+  `MAKE_PROMPT.txt`, and checks every file against the size limit. Reuses
+  `package-lite/`'s backend snapshot and shim. Used by `package` (`figma` mode).
 - **`pptx-deck-builder/`** — renders a `.pptx` from a `deck.json`: `build-deck.js`
   builds it, `render-preview.js` does an overflow check first via a geometry-faithful
   HTML render. Two slide shapes share the same builder — `story` (narrative + real

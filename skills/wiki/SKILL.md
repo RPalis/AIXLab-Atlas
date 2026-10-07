@@ -2,6 +2,7 @@
 name: wiki
 description: >-
   Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown, cross-referenced with standard `[text](file.md)` links, no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
+argument-hint: "[compile: notes into wiki | note: quick capture]"
 ---
 
 # Knowledge Wiki

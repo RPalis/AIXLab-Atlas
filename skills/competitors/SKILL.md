@@ -2,6 +2,7 @@
 name: competitors
 description: >-
   Two modes for competitive analysis. `discover` (default) interrogates the stakeholder one question at a time on market, tool type, core workflows, and differentiators, researches the web to surface candidate competitors and alternatives they may not already know about, lets them narrow to the 3-5 closest experiences, then profiles each in parallel (one research agent per competitor where available) — key features, core workflow, UX patterns, a screenshot of the real product, and why it's a viable competitor. `add` appends one more competitor found later without re-running the full landscape scan. Writes docs/COMPETITIVE_ANALYSIS.md — a comparison matrix plus a profile per competitor, screenshots included — and supersedes brief's lightweight competitive-landscape question once it's run. Use when the user needs to know who else is in their market, wants a structured feature/workflow/UX comparison against real competitors with visual evidence, or has found one more competitor to add to an existing analysis.
+argument-hint: "[discover: scan the market | add: one more competitor]"
 ---
 
 # Competitive Analysis

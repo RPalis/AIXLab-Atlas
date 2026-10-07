@@ -2,8 +2,9 @@
 name: package-agent
 description: >-
   Runs the UX Atlas `package` skill unattended, `lite` mode by default (produces a
-  runnable static folder with no server process) or `full` mode if explicitly asked
-  for a developer handoff zip. Both modes are already script-driven with a scripted
+  runnable static folder with no server process), `full` mode if explicitly asked
+  for a developer handoff zip, or `figma` mode if explicitly asked for files to
+  attach to Figma Make. All modes are already script-driven with a scripted
   verification step, so this agent mostly executes and reports rather than deciding.
   Use when driving a prototype's Deliver phase asynchronously and it's time to package
   a handoff, or when explicitly asked for an autonomous/background package run.
@@ -28,7 +29,7 @@ explicitly asked for a developer-rebuildable handoff.
 ## Step 3: Run it exactly as written
 
 Follow the skill's Mode section for whichever mode you're running — both are
-already `bash scripts/package-{full,lite}.sh` under the hood, calling the
+already `bash scripts/package-{full,lite,figma}.sh` under the hood, calling the
 mechanical `tools/package-lite/*` scripts for the parts that need them. Don't
 skip the mode's own verification step (source-map check for `full`; the browser
 walk with the backend stopped for `lite`, watching console for
@@ -47,9 +48,9 @@ final report.
 ## Step 4: Log and report
 
 Log the milestone: `tools/log-milestone --skill package --event "Packaged
-(<full|lite>): <app-name>"`.
+(<full|lite|figma>): <app-name>"`.
 
 End with a short structured summary: mode run, output location (`<app-name>.zip`
-or `<app-name>-production/`), verification results (root entries, size, snapshot
+`<app-name>-production/`, or `<app-name>-figma/`), verification results (root entries, size, snapshot
 counts for `lite`; source-map count for `full`), and any remaining console
 warnings or hooks still needed.

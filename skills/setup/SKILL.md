@@ -21,7 +21,7 @@ The step before Discover starts. `scaffold` builds the actual application code; 
 Before anything else, check whether the installed UX Atlas skills are behind the suite's GitHub repo, so a user starting a new project isn't unknowingly working from stale skills.
 
 1. Read `~/.agents/skills/.ux-atlas.version` (written by `install.sh` at install time; a hub installed via `skill-manager` or copied by hand won't have one — treat that as "unknown, skip silently," not an error).
-2. If it exists, parse its `repo=` and `sha=` lines, then check the remote's current `main` HEAD: `git ls-remote <repo> HEAD`.
+2. If it exists and has `repo=` and `sha=` lines (it may carry only `path=` when the suite wasn't installed from a git checkout; treat that as "unknown" too), parse them, then check the remote's current `main` HEAD: `git ls-remote <repo> HEAD`.
 3. If the network call fails (offline, no access) or the file is missing, say nothing and move on — this check must never block setup.
 4. If the remote SHA differs from the recorded `sha=`, tell the user in one line that a newer version of the skill suite is available and how to get it (re-run `install.sh` from a fresh `git pull` of the suite repo, or `/skill-manager sync` if they manage it that way) — then continue with the rest of setup regardless of their answer. This is a heads-up, not a blocker.
 

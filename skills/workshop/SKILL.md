@@ -2,6 +2,7 @@
 name: workshop
 description: >-
   Two modes for design-thinking workshops. Plan mode (default) selects activities based on project phase, goals, timing, and participants, produces a written agenda, and optionally builds a FigJam board and/or slide deck from it — for before a workshop happens. Ingest mode converts photos of a workshop's whiteboards, sticky notes, affinity maps, or risk matrices into a structured digital artifact (deck, doc, CSV, or replicated FigJam board) — for after it happened. Use when the user wants to plan or run a design workshop, team offsite, or facilitated working session, or has photos of a workshop board and wants a clean digital record of it.
+argument-hint: "[plan: agenda before | ingest: board photos after]"
 ---
 
 # Design Workshop

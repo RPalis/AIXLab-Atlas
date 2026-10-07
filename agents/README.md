@@ -53,8 +53,8 @@ that placement is a manual step.
 - **`audit-agent.md`** — runs `audit` in `code` mode (autonomous default per the
   skill itself), writes findings to `<docs>/AUDIT_CODE_FINDINGS.md` since there's
   no chat for an unattended run's report to land in.
-- **`package-agent.md`** — runs `package`'s `lite` or `full` mode end to end;
-  both are already script-driven with a scripted verification step.
+- **`package-agent.md`** — runs `package`'s `lite`, `full`, or `figma` mode end to end;
+  all are already script-driven with a scripted verification step.
 - **`scaffold-agent.md`** — runs `scaffold`'s base scaffold mechanics unattended,
   but expects the type layer and Figma library decisions already resolved by
   whoever dispatches it (checkpoints, never guessed); stops before scaffolding

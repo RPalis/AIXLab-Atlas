@@ -2,6 +2,7 @@
 name: audit
 description: >-
   Run one of three prototype audits, craft (scored UX critique across hierarchy, IA, consistency, responsive behavior, and delight), code (coding-standards check for token adherence, structure/reuse, and mechanical hygiene), or a11y (deep WCAG 2.1/2.2 AA pass, criterion by criterion). Each mode only identifies problems, none of them fix anything. Use when reviewing a prototype for UX quality, coding practice, or accessibility compliance.
+argument-hint: "[craft: UX critique | code: standards check | a11y: WCAG sweep]"
 ---
 
 # Audit

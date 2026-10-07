@@ -24,12 +24,17 @@ const root = path.resolve(args.dir || 'production');
 const assets = path.join(root, 'assets');
 const inject = args.inject && args.inject !== true ? String(args.inject).split(',').map((s) => s.trim()).filter(Boolean) : [];
 
+// Only files that genuinely break when served from a sub-path stay at root:
+// host routing config (_redirects etc.) must be at root for the platform to read them;
+// 404/200 must be at root for SPA-fallback serving to work.
+// Everything else (favicon, manifest, robots, apple-touch icons) can live in assets/ —
+// index.html already <link>-references them, and the rewrite step below updates those paths.
 const KEEP = new Set([
-  'index.html', 'favicon.ico', 'robots.txt', 'sitemap.xml', 'manifest.json', 'manifest.webmanifest', 'site.webmanifest',
-  'browserconfig.xml', '404.html', '200.html', '.htaccess', 'web.config', '_redirects', '_headers', 'staticwebapp.config.json',
-  'vercel.json', 'netlify.toml', 'CNAME', '.nojekyll', 'serve.command', 'serve.bat', 'serve.ps1'
+  'index.html', '404.html', '200.html',
+  '.htaccess', 'web.config', '_redirects', '_headers', 'staticwebapp.config.json',
+  'vercel.json', 'netlify.toml', 'CNAME', '.nojekyll',
 ]);
-const keepAtRoot = (name) => KEEP.has(name) || /^apple-touch-icon.*\.png$/.test(name);
+const keepAtRoot = (name) => KEEP.has(name);
 
 if (!fs.existsSync(path.join(root, 'index.html'))) { console.error(`No index.html in ${root}`); process.exit(1); }
 fs.mkdirSync(assets, { recursive: true });

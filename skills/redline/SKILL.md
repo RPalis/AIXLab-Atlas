@@ -11,6 +11,7 @@ description: >-
   user pastes an annotated screenshot of the prototype, says "make this edit" while
   pointing at something in the running app, or describes a single specific UI change
   to make.
+argument-hint: "[markup: annotated screenshot edits | pick: point and describe]"
 ---
 
 # Redline

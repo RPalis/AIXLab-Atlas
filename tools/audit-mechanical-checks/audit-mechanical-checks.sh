@@ -57,10 +57,10 @@ fi
 
 echo ""
 echo "== repo-root hygiene (checkpoint 6, checked at $REPO) =="
-hygiene_hits=$(find "$REPO" -maxdepth 1 \( -name '~$*' -o -name '*.zip' -o -iname '*-production' -o -name '*.DS_Store' \) 2>/dev/null || true)
+hygiene_hits=$(find "$REPO" -maxdepth 1 \( -name '~$*' -o -name '*.zip' -o -iname '*-production' -o -iname '*-figma' -o -name '*.DS_Store' \) 2>/dev/null || true)
 if [ -n "$hygiene_hits" ]; then
   echo "$hygiene_hits"
-  echo "-> lock files, zips, or a generated production/ folder at the repo root — confirm these are meant to ship or clean them up."
+  echo "-> lock files, zips, or a generated production/ or -figma folder at the repo root — confirm these are meant to ship or clean them up."
   found=1
 else
   echo "none found"

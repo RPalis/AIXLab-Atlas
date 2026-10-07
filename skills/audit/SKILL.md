@@ -1,19 +1,29 @@
 ---
 name: audit
 description: >-
-  Run one of three prototype audits, craft (scored UX critique across hierarchy, IA, consistency, responsive behavior, and delight), code (coding-standards check for token adherence, structure/reuse, and mechanical hygiene), or a11y (deep WCAG 2.1/2.2 AA pass, criterion by criterion). Each mode only identifies problems, none of them fix anything. Use when reviewing a prototype for UX quality, coding practice, or accessibility compliance.
-argument-hint: "[craft: UX critique | code: standards check | a11y: WCAG sweep]"
+  Run one of five prototype audits. craft (scored UX critique across hierarchy, IA, consistency, responsive
+  behavior, and delight — a 5-dimension health score). heuristic (a deep, evidence-based Nielsen-heuristic
+  pass, heuristic by heuristic, severity-rated 0-4, scoped to UX only — not the same rubric as craft, and not
+  interchangeable with it). code (coding-standards check for token adherence, structure/reuse, and mechanical
+  hygiene). spec (compares a built prototype against its approved design spec, screen by screen, at every
+  breakpoint — logs every drift as expected-vs-actual with severity and an owner; checks fidelity, not code).
+  a11y (deep WCAG 2.1/2.2 AA pass, criterion by criterion). Each mode only identifies problems, none of them
+  fix anything. Use when reviewing a prototype for UX quality, coding practice, design fidelity against a
+  spec, or accessibility compliance.
+argument-hint: "[craft: UX critique | heuristic: Nielsen heuristic pass | code: standards check | spec: build vs design spec | a11y: WCAG sweep]"
 ---
 
 # Audit
 
-Three audit modes share one skill because they share the same shape of work — find problems, score or rank them, hand off to whoever fixes them — but they check genuinely different things. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app". **Autonomous mode** (see suite `AGENTS.md` §2.9): default to `code` — it's the only mode with no subjective judgment calls (pure grep-able checks), so an unattended run produces a trustworthy result with nobody available to sanity-check a scored critique. Log the default and note that `craft`/`a11y` are available on request.
+Five audit modes share one skill because they share the same shape of work — find problems, score or rank them, hand off to whoever fixes them — but they check genuinely different things, on different rubrics. **Ask which mode if not specified**; don't guess from a vague "review this" or "audit the app":
 
-- **`craft`**: subjective UX critique: visual hierarchy, cognitive load, information architecture, consistency/anti-patterns, responsive behavior, delight. Feeds [`refine`](../refine/SKILL.md).
+- **`craft`**: subjective UX critique on a 5-dimension, 0-20 health score: visual hierarchy, cognitive load, information architecture, consistency/anti-patterns, responsive behavior, delight. Feeds [`refine`](../refine/SKILL.md). Lighter-weight than `heuristic`; use it for an in-progress check.
+- **`heuristic`**: a deep, evidence-based pass against 12 named usability heuristics, each issue severity-rated 0-4 and tied to a specific heuristic and screen/step. Heavier than `craft` — use it when the audit needs to stand on its own as evidence (a redesign case, a UX backlog, accessibility remediation prioritisation), not as a quick in-progress read.
 - **`code`**: coding-practice audit: design token adherence, structure/style/logic separation, component reuse, semantic HTML5, mechanical focus-state hygiene. Fast and grep-able, not deliberative.
+- **`spec`**: compares a built prototype against its **approved design spec** — screen by screen, at every breakpoint — logging every drift as expected-vs-actual, with severity and an owner. Checks visual fidelity and completeness against a specific spec, not coding standards (`code`) and not subjective UX quality independent of a spec (`craft`/`heuristic`). A code bug spotted here routes to `code` mode, unscored — `spec` never reviews source.
 - **`a11y`**: deep WCAG 2.1/2.2 AA pass, reasoning criterion-by-criterion, not the cheap mechanical checks `code` mode already covers.
 
-All three only identify; none edit code. More than one mode can run back-to-back on the same target when the user wants full coverage; run them independently rather than blending their findings into one report.
+All five only identify; none edit code. More than one mode can run back-to-back on the same target when the user wants full coverage; run them independently rather than blending their findings into one report. **`craft` and `heuristic` are not the same audit and don't produce comparable scores** — a 14/20 `craft` score and a `heuristic` pass with three Severity-3 findings are two different instruments; don't average or merge them into one number. **`spec` and `code` are also not interchangeable** — `spec` checks whether the build matches what was *designed*; `code` checks whether the code meets this suite's own coding standards, regardless of what was designed.
 
 **Autonomous mode:** every mode's findings normally exist only as a chat report, which an unattended run has no one to read. Write them to `<docs>/AUDIT_<MODE>_FINDINGS.md` (e.g. `AUDIT_CODE_FINDINGS.md`) instead — same Review Output Format, dated, overwritten each run rather than accumulated. Log a milestone (`../../tools/log-milestone/log-milestone.sh --skill audit --event "<mode> audit: N findings (N P0)"`) only when a P0 turns up; a clean run or routine low-severity findings don't need one.
 
@@ -45,7 +55,7 @@ Inspect the running prototype (or source, if it can't run) against each dimensio
 
 **5. Delight & Craft Heuristics.** Cross-check against [`refine`](../refine/SKILL.md)'s 6 craft heuristics (density/scannability, elevation, micro-interactions, typography, empty/loading states, dark mode fidelity). This dimension scores how close the prototype already is to that skill's bar, not whether it exists as UI at all.
 
-Optionally run the [full Nielsen's 10 Heuristics pass](references/nielsen-heuristics.md) as its own scored table for a deeper, more granular critique than the 5 dimensions above — useful when the audit needs to justify a bigger investment of follow-up work. Whether or not that fuller pass runs, use the same reference's heuristic list to cite **which specific heuristic each finding violates** in Step 3's Findings list — this is what turns "the empty state is confusing" into a pinpointed, actionable citation ("violates #6, Recognition Rather Than Recall") instead of a vague impression.
+Optionally run `heuristic` mode below for a deeper, more granular critique than the 5 dimensions above. Useful when the audit needs to justify a bigger investment of follow-up work.
 
 ### Step 2: Walk it through 2-3 personas
 
@@ -86,9 +96,125 @@ Severity: **P0** blocks task completion, fix immediately. **P1** major difficult
 
 ---
 
+## Mode: heuristic
+
+Run a structured, evidence-based UX audit of an existing product — heuristic by heuristic — to surface
+usability problems, rank them by severity, and turn each into a specific fix. **Scope is the experience**:
+flows, navigation, information architecture, interaction, content and accessibility signals — **not visual
+design.** A colour, typography, or spacing observation belongs in `craft` mode or `spec` mode, not here.
+
+**Not this mode:** a quick in-progress read (`craft` is lighter and faster for that) or a visual-fidelity
+check against a spec (`spec`).
+
+### Step 1: Gather inputs
+
+Required: the product or key flows to audit (links or a walkthrough, using real screen names), what the
+product is for plus the primary user goals/tasks, a target persona (or the `persona` `card`-mode output),
+and the heuristics/scope to evaluate against (or use the default 12 below).
+
+Optional: analytics, heatmaps or session recordings as evidence; prior research or support tickets; an
+accessibility target (e.g. WCAG 2.2 AA); known problem areas or hypotheses;
+[`competitors`](../competitors/SKILL.md) `analysis` or `benchmark` output.
+
+Ask up to five clarifying questions if anything required is missing. **Do not start until the flows, goals
+and scope are clear.** If you cannot see a flow, say so rather than guessing.
+
+### Step 2: Walk each key flow against every heuristic in scope
+
+Default 12-point UX lens (add or drop for the product, and say why):
+
+1. Visibility of system status / feedback
+2. Match with the real world (language, mental model)
+3. User control & freedom (undo, exits, back)
+4. Consistency & standards (behaviour, not visuals)
+5. Error prevention
+6. Recognition rather than recall (findability, memory load)
+7. Flexibility & efficiency (shortcuts, expert paths)
+8. Recognise, diagnose & recover from errors
+9. Help & documentation
+10. Information architecture & navigation clarity
+11. Content & microcopy clarity
+12. Accessibility (WCAG signals: keyboard, screen reader, structure)
+
+Go step by step through each flow from the persona's goal. At each screen/step, check against every heuristic
+in scope. Log every issue found, with the evidence behind it — **every issue needs evidence: the screen/step
+plus the heuristic it violates**, and analytics or a recording where available. No evidence, don't raise it.
+Label anything you cannot verify directly `NOT VERIFIED`. Never invent a screen or behaviour — if you can't
+see a flow, say so and ask.
+
+### Step 3: Rate severity and write fixes
+
+Rate each issue's severity **0-4**:
+
+| Score | Meaning |
+|---|---|
+| 0 | Not a usability problem |
+| 1 | Cosmetic |
+| 2 | Minor |
+| 3 | Major — fix soon |
+| 4 | Catastrophe — blocks the task |
+
+For every issue include: the heuristic broken and where it happens, what happens (the evidence), the
+severity and why it matters (user impact), a specific actionable recommendation, and effort (quick win /
+project).
+
+Example — *NAVIGATION · Checkout step 3 · no way back to edit the cart without losing entered details ·
+Severity 3 · users abandon rather than re-enter · Fix: add a non-destructive "Edit cart" link that preserves
+form state · quick win.*
+
+### Step 4: Review pass — GATE
+
+Before finalising, check your own work and flag:
+- Any issue without evidence
+- Any visual/UI observation scored as a UX issue — move it to Out of scope (UI)
+- Any vague recommendation
+- Any severity without a user-impact justification
+
+Rewrite anything flagged.
+
+### Step 5: Report
+
+```markdown
+# Heuristic Audit — [target]
+
+## Executive Summary
+[Top usability problems, ranked by severity and business impact]
+
+## Findings Matrix
+| Heuristic | Where | Evidence | Severity (0-4) | Fix | Effort |
+|---|---|---|---|---|---|
+
+## Quick Wins
+[Low-effort, high-impact fixes to ship now]
+
+## Prioritised UX Backlog
+[Issues ordered by user impact × effort]
+
+## Out-of-Scope (UI) Notes
+[Visual observations kept separate, unscored]
+
+## Validation Checklist
+[Findings needing evidence or a user to confirm]
+```
+
+**Completion criterion:** every finding cites its heuristic and evidence, no visual-only observation is
+scored as a UX issue, and the review pass in Step 4 has been run.
+
+### Human review required
+
+- Verify every issue against the real product — an issue without evidence is an opinion.
+- Confirm severity reflects real user impact, not reviewer preference.
+- Keep UI/visual observations out of the UX scores — check nothing crept in.
+- Validate the worst issues with real users where possible — expert review isn't user testing.
+- Remove anything marked Not Verified.
+
+**Treat the output as a first draft, not final research.**
+
+---
+
 ## Mode: code
 
-Audits **coding practice**: token adherence, structure/style/logic separation, component reuse, and cheap mechanical hygiene checks. Not for deep accessibility reasoning (`a11y` mode) or subjective visual/UX critique (`craft` mode) — this mode stays fast and grep-able rather than deliberative.
+Audits **coding practice**: token adherence, structure/style/logic separation, component reuse, and cheap mechanical hygiene checks. Not for deep accessibility reasoning (`a11y` mode), subjective visual/UX critique (`craft`/`heuristic` modes), or fidelity against a design spec (`spec` mode) — this mode stays fast and grep-able rather than deliberative, and it never compares the build against a design; it checks the code against this suite's own standards regardless of what was designed.
 
 ### 6 Audit Checkpoints
 
@@ -136,9 +262,111 @@ Audits **coding practice**: token adherence, structure/style/logic separation, c
 
 ---
 
+## Mode: spec
+
+Compares a built prototype or shipped product against its **approved design spec**, screen by screen, at
+every breakpoint — logging every drift as **expected (design) vs actual (build)**, with severity and an
+owner. Checks design **quality and fidelity**: is the built product complete, consistent, and does it match
+the approved design intent? **This mode does not review code** — engineering quality, functional bugs,
+performance and security stay out of scope and get routed to `code` mode or engineering, not scored here.
+
+**This suite is code-based, not Figma-based:** "the design" for this mode is the approved
+[`map`](../map/SKILL.md) `flow`-mode output, `scaffold`'s own output, and `styleguide`'s tokens/`DESIGN.md`
+— together, in place of a Figma file. Don't invent a Figma-shaped checklist for a project that has none.
+
+**Not this mode:**
+- Reviewing source code, architecture, or functional correctness → `code` mode, or route it to engineering,
+  unscored, under "Route to Engineering."
+- Auditing UX quality independent of a specific spec → `craft` or `heuristic` mode.
+- Building the design spec this compares against → `map`'s `flow` mode, `styleguide`, or `scaffold`. This
+  mode reads their output; it doesn't produce it.
+
+### The evidence rule
+
+**Don't invent specs.** If the approved design/flow doesn't define a state or a breakpoint, that's a
+**design gap** — flag it, don't guess what it should have been. Every discrepancy is **expected (design) vs
+actual (build)**, backed by a screenshot or a measurement — an opinion is not a defect.
+
+### What you'll need
+
+**Required**
+- The live build or running prototype to check
+- The design to compare against: the approved `map` `flow`-mode output, `scaffold`'s output, and
+  `styleguide`'s tokens/`DESIGN.md`
+- The key flows and target breakpoints/viewports
+
+**Optional:** acceptance criteria / definition of done for visual fidelity · redlines, specs, or annotations
+· previous QA passes or known issues · brand and content guidelines.
+
+If any required input is missing, ask **up to five** clarifying questions before starting. State which flows
+and breakpoints you're checking, and don't start until they're clear.
+
+### The workflow
+
+```
+Confirm scope → Walk each screen at each breakpoint → Log discrepancies → Rate & route to owner → Verify fixes
+```
+
+**Step 1 — Confirm scope.** Name the flows and breakpoints in scope. If the design doesn't define one of
+them, that's a design gap — name it now, don't discover it mid-walkthrough.
+
+**Step 2 — Walk each screen/component at each breakpoint.** Check: spacing, sizing, type, colour, alignment,
+radius, elevation, states (hover/focus/active/disabled/empty/error/loading), responsiveness behaviour,
+interaction/motion, content, and whether the rendered UI uses the right design-system tokens and components.
+
+**Step 3 — Log every discrepancy.** For each issue, record:
+
+| Field | Content |
+|---|---|
+| **Area** | layout / type / colour / component / state / responsive / motion / content |
+| **Where** | screen / element + breakpoint |
+| **Expected vs actual** | the design's spec vs what the build actually shows |
+| **Severity** | blocker (breaks design intent) / major (clearly off-spec) / minor (small drift) / nit (polish) |
+| **Design-system reference** | the token or component it should use, where relevant |
+| **Owner** | a design gap → fix in the spec; a build discrepancy → developer |
+
+Example — *SPACING · Card, mobile · expected 16px padding (`space-200`) vs actual 12px in the build ·
+Severity: minor · DS: `space-200` · Owner: developer.*
+
+**Step 4 — Review pass — GATE.** Flag: any issue that's really a code or functional bug (route to `code`
+mode or engineering, don't score it) · any "expected" with no actual design source behind it · any vague
+discrepancy (no expected-vs-actual, or no evidence) · any target breakpoint that wasn't actually checked.
+Rewrite or resolve anything flagged before finalising.
+
+**Step 5 — Summarise.** By severity. Separate design gaps (the spec itself is incomplete) from build
+discrepancies (the build drifted from a complete spec) — they have different owners and different fixes.
+
+**Completion criterion:** every logged issue carries expected-vs-actual evidence, a severity, and an owner;
+every target breakpoint was checked; anything that was really a code bug is in the Route-to-Engineering list,
+unscored.
+
+### Final outputs
+
+1. **Design QA Checklist** — the checks actually run, and against which flows/breakpoints.
+2. **Discrepancy Log** — every issue: area, where, expected vs actual, evidence, severity, owner.
+3. **Design Gaps** — where the spec itself doesn't define something the build needed.
+4. **Build Discrepancies** — where the build drifts from a complete spec, ready to file as tickets.
+5. **Prioritised Fix List** — by severity and impact on the design intent.
+6. **Route-to-Engineering Notes** — functional/code issues found in passing, explicitly out of scope here.
+
+### Human review required
+
+- This is `spec` fidelity, not `code` correctness — keep functional/engineering issues in the
+  Route-to-Engineering list, don't score them here.
+- Every build discrepancy needs expected-vs-actual evidence (screenshot or measurement) — an opinion isn't a
+  defect.
+- Check every target breakpoint, not just desktop.
+- Fix design gaps in the spec before re-checking the build discrepancies that depended on them.
+- A designer signs off on fidelity; engineering signs off on function — this mode's output supports the
+  former, not the latter.
+
+**Treat the output as a first draft, not final research.**
+
+---
+
 ## Mode: a11y
 
-A full WCAG 2.1 (and 2.2 where relevant) **Level AA** pass, organized by the four POUR principles. This is the deep audit; `code` mode keeps only cheap mechanical checks (focus-ring class present, Escape closes modals) as a fast hygiene pass, while this mode reasons about success criteria and produces a ranked, criterion-by-criterion report. Like `craft` mode, it only identifies issues; it doesn't fix them.
+A full WCAG 2.1 (and 2.2 where relevant) **Level AA** pass, organized by the four POUR principles. This is the deep audit; `code` mode keeps only cheap mechanical checks (focus-ring class present, Escape closes modals) as a fast hygiene pass, while this mode reasons about success criteria and produces a ranked, criterion-by-criterion report. Like `craft`/`heuristic`/`spec` modes, it only identifies issues; it doesn't fix them.
 
 ### Step 1: Perceivable
 

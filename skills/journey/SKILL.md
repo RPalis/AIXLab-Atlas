@@ -1,26 +1,28 @@
 ---
 name: journey
 description: >-
-  Map a real, current-state process end-to-end (not a proposed one), find where it actually hurts, and scope what to fix. Four modes — map (swimlane diagram of the process as it exists today, actors/steps/handoffs) or blueprint (service-blueprint variant for customer-facing processes: physical evidence/customer/frontstage/backstage/support-process layers, plus duration and cross-team handoff wait times) as alternative starting points, then pain-points (score each step's friction by severity x frequency, with root cause) and solutions (explore directions per pain point and set a measurable target) building on whichever was used. Discover-phase, before Decide. Distinct from persona's Day in the Life (a person's whole day, narrative, feeds screen design) and map's flow mode (a proposed/future-state workflow). Use when a stakeholder describes a broken or slow process, before proposing a fix to a workflow, when asked for a service blueprint, or when asked to journey-map, process-map, or find pain points in how something works today.
-argument-hint: "[map: current-state swimlane | blueprint: service layers | pain-points: score friction | solutions: fix directions]"
+  Five modes, two different subjects. Current-state process modes: map (swimlane diagram of the process as it exists today, actors/steps/handoffs) or blueprint (service-blueprint variant for customer-facing processes: physical evidence/customer/frontstage/backstage/support-process layers, plus duration and cross-team handoff wait times) as alternative starting points, then pain-points (score each step's friction by severity x frequency, with root cause) and solutions (explore directions per pain point and set a measurable target) building on whichever was used. Persona-experience mode: experience maps one persona through one specific scenario — actions, thoughts, emotions, pain points and opportunities per stage, every claim cited or marked ASSUMPTION, with an emotion curve. Discover-phase, before Decide. Distinct from persona's Day in the Life (a person's whole day, narrative, feeds screen design) and map's flow mode (a proposed/future-state workflow). Use when a stakeholder describes a broken or slow process, before proposing a fix to a workflow, when asked for a service blueprint, when asked to journey-map, process-map, or find pain points in how something works today, or when asked to map a customer/user journey through one scenario with emotions and evidence.
+argument-hint: "[map: current-state swimlane | blueprint: service layers | pain-points: score friction | solutions: fix directions | experience: persona scenario journey]"
 ---
 
 # Journey Mapping
 
-Four modes, one artifact: `docs/JOURNEY_MAP.md`. Where this process actually stands today, where it actually hurts, and what's worth fixing first — grounded in the current state, not a proposed one.
+Five modes, two different jobs sharing one skill because they're the same *shape* of work — trace a sequence, find where it hurts, evidence every claim — even though `map`/`blueprint`/`pain-points`/`solutions` and `experience` map genuinely different subjects.
 
-- **`map`** (default): the process as it exists today — actors, steps, handoffs, systems touched — as a swimlane diagram.
-- **`blueprint`**: alternative to `map` for a customer-facing service process where the frontstage/backstage split and cross-team handoff timing are the point — the real service-blueprint layers (Physical Evidence, Customer Actions, Frontstage, Backstage, Support Processes), plus duration per step and wait time at each handoff.
-- **`pain-points`**: for each step, score real friction (severity × frequency) and its root cause. Needs a current-state diagram from `map` or `blueprint` to run against.
+- **`map`** (default): the *process* as it exists today — actors, steps, handoffs, systems touched — as a swimlane diagram. `docs/JOURNEY_MAP.md`.
+- **`blueprint`**: alternative to `map` for a customer-facing service process where the frontstage/backstage split and cross-team handoff timing are the point.
+- **`pain-points`**: for each step, score real friction (severity × frequency) and its root cause. Needs a current-state diagram from `map` or `blueprint`.
 - **`solutions`**: for the pain points worth acting on, explore fix directions and set a measurable target.
+- **`experience`**: one *persona* through one specific scenario — actions, thoughts, emotions, pain points and opportunities per stage, an emotion curve, every claim cited or marked `ASSUMPTION`. `docs/CUSTOMER_JOURNEY.md`. Does not require `map`/`blueprint` to have run first — it's a different subject, not a later stage of the same one.
 
-Say which mode, or this skill asks — including which of `map`/`blueprint` fits, if it's not obvious (see `blueprint`'s Step 1). `map` and `blueprint` are alternative starting points, not sequential to each other; `pain-points` and `solutions` build on whichever was used, and aren't required to run in the same sitting — they're re-run standalone later (a process changes, a fix ships, worth re-scoring).
+Say which mode, or this skill asks. `map` and `blueprint` are alternative starting points for the *process* track, not sequential to each other; `pain-points` and `solutions` build on whichever was used. `experience` is independent of all four — pick it directly when the question is "what does this feel like for one user," not "how does this process actually run."
 
 **Not this skill:**
-- A single persona's whole day across many tasks and tools, narrative-driven, feeding screen/scene design → [`persona`](../persona/SKILL.md)'s Day in the Life walkthrough. Persona is about a *person*; `journey` is about a *process* — one might narrate a morning, the other maps how expense approvals actually move through four people and two systems.
+- A single persona's whole day across many tasks and tools, narrative-driven, feeding screen/scene design → [`persona`](../persona/SKILL.md)'s `day` mode. Persona is about a *person's whole day*; `journey`'s `experience` mode is about *one scenario*, with an emotion curve and per-stage evidence discipline `persona` doesn't have.
 - A proposed or future-state workflow (what should happen once something's built) → [`map`](../map/SKILL.md)'s `flow` mode. `journey`'s `map` mode is deliberately as-is; if the process being diagrammed doesn't exist yet, that's `flow` mode, not this.
 - Modeling objects/CTAs for something being built → [`map`](../map/SKILL.md)'s `objects` mode, which `journey`'s `solutions` mode hands off to once a fix direction is picked.
 - Setting the metrics/targets a whole project is accountable to → [`metrics`](../metrics/SKILL.md). `journey`'s `solutions` mode proposes per-pain-point targets as candidate Key Results; `metrics` is where they get framed against a chosen framework and tracked.
+- Turning `experience`'s findings into a backlog → [`problems`](../problems/SKILL.md), which reads this skill's output as one of its inputs.
 
 ---
 
@@ -185,3 +187,101 @@ Append a `## Solutions` section to `docs/JOURNEY_MAP.md`:
 - The targets set here → [`metrics`](../metrics/SKILL.md), as candidate Key Results once a framework is chosen.
 
 **Completion criterion:** every tackled pain point has a chosen direction with its rejected alternatives named, a stated target (or an explicit "not yet knowable"), and a hand-off to whichever skill acts on it next.
+
+---
+
+## Mode: experience
+
+Transform research into a structured, end-to-end **persona experience** through **one scenario** — actions, thoughts, emotions, pain points and opportunities — with every finding traceable to evidence and every gap labelled honestly. This is a different subject from `map`/`blueprint`: those trace how a *process* runs regardless of who's in it; `experience` traces how *one person* feels moving through *one specific situation*.
+
+Estimated time: **20-30 minutes** for a single persona + single scenario.
+
+### Non-negotiable principles (read first)
+
+1. **One map = one persona = one scenario.** Never combine personas or scenarios into a single map. If the user has several, make several.
+2. **Never invent user behaviours, emotions or pain points.** If there is no evidence, do not fabricate it.
+3. **Label every unsupported claim as `ASSUMPTION`.** Do not present assumptions as facts. An assumption is allowed — disguising one as evidence is not.
+4. **Every pain point and every opportunity must reference supporting research.** If none exists, mark it `ASSUMPTION`.
+5. **Every stage carries a confidence rating: High / Medium / Low.** Confidence reflects how much real evidence backs that stage, not how plausible it sounds.
+6. **The output is a first draft, not a final map.** Always hand back the Human Review checklist.
+
+### What you'll need
+
+**Required:** one persona or user segment (a `persona` `card`-mode output, if one exists) · one scenario to map · relevant research findings (interviews, surveys, analytics).
+**Optional (strengthens the map):** existing journey maps · current user flows · a `map` `flow`-mode diagram · business processes · screenshots or prototypes.
+
+If any required input is missing, ask **up to five** clarifying questions before mapping. Do not silently assume the missing pieces.
+
+### Extracting context from uploaded files
+
+Research usually arrives as documents, not clean text. Treat everything extracted as **source evidence**, citable by filename + location (page, slide, sheet, row, timestamp). PDFs, `.docx`, `.pptx`, `.xlsx`/`.csv`, images and live web research all count — quote users in their own words wherever possible; if a file is unreadable or ambiguous, say so rather than guess its contents. Build a lightweight evidence ledger (claim → source → confidence) the map's citations point back to.
+
+### The workflow
+
+```
+Choose persona → Define scenario → Map experience → Identify pain points → Highlight opportunities → Review & Export
+```
+
+**Step 0 — Clarify** (only if required inputs are missing): product, feature/service, business objective, scenario objective, persona, success outcome, what research exists. Then stop and wait.
+
+**Step 1 — Choose persona.** Lock exactly one persona/segment, grounded in research. One map = one point of view.
+
+**Step 2 — Define the scenario.** State the single scenario, the user's success outcome, and the business + scenario objectives. Confirm start and end boundaries.
+
+**Step 3 — Map the experience.** Break the scenario into **5-8 logical stages**. For **every** stage capture: user goal, user actions (narrative, not click-by-click), thoughts (verbatims where possible), emotions (plotted on a curve), pain points (cited or `ASSUMPTION`), opportunities (cited or `ASSUMPTION`), supporting evidence, and a confidence rating (High/Medium/Low).
+
+**Step 4 — Identify pain points.** For each stage surface friction, then across the whole scenario identify: emotional low points, critical moments, drop-off risks, unmet needs, service gaps. Each pain point cites research or is marked `ASSUMPTION`.
+
+**Step 5 — Highlight opportunities.** Pair each meaningful pain point with an improvement opportunity, cited or `ASSUMPTION`. Assign an owner where possible; note how impact would be measured.
+
+**Step 6 — Review & export.** Produce the six deliverables below, attach the Human Review checklist, and write it as Markdown in the docs folder (a slide version is available through [`tools/markdown-to-pptx`](../../tools/markdown-to-pptx/md-to-deck.mjs), best-effort, with the Markdown as the source of truth).
+
+**Completion criterion:** all six deliverables exist, every pain point and opportunity carries a citation or `ASSUMPTION`, and the Human Review checklist is attached.
+
+### The six required deliverables
+
+1. **Executive Summary** — who, scenario, headline highs/lows, top opportunities.
+2. **Experience Map** — the structured stage-by-stage map.
+3. **Emotional Journey** — the emotion curve, marking highs and lows.
+4. **Pain Points & Opportunities** — friction paired with improvement, per stage, each cited.
+5. **Prioritised Opportunity List** — ranked (impact × confidence, or impact × effort), owners where known.
+6. **Assumptions & Validation Checklist** — every `ASSUMPTION` and every stage needing manual verification.
+
+### Output format (text version)
+
+```
+EXECUTIVE SUMMARY
+[Persona] · [Scenario] · [Success outcome] — headline highs, lows, top 3 opportunities.
+
+ACTOR: [Persona name + brief description]
+SCENARIO: [What they're trying to do + expectations]
+
+| Layer         | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 |
+|---------------|---------|---------|---------|---------|---------|
+| User goal     |         |         |         |         |         |
+| Actions       |         |         |         |         |         |
+| Thoughts      |         |         |         |         |         |
+| Emotions      |   ↗     |   ↘     |   ↗     |   ↘     |   ↗     |
+| Pain points   |         |         |         |         |         |
+| Opportunities |         |         |         |         |         |
+| Evidence      |         |         |         |         |         |
+| Confidence    |  H/M/L  |  H/M/L  |  H/M/L  |  H/M/L  |  H/M/L  |
+
+PRIORITISED OPPORTUNITIES: [opp] — impact / confidence / owner …
+ASSUMPTIONS & VALIDATION CHECKLIST: - [ ] [assumption or stage to verify]
+```
+
+Write to `docs/CUSTOMER_JOURNEY.md`. Use [`templates/experience-template.md`](templates/experience-template.md) for the full document shape.
+
+### Human review required
+
+- [ ] Verify every stage is supported by research.
+- [ ] Remove or clearly label any assumptions.
+- [ ] Ensure the emotional journey reflects real evidence.
+- [ ] Validate opportunities against business goals.
+
+**Treat the output as a first draft, not a final map.**
+
+### What's next
+
+Hand off to [`problems`](../problems/SKILL.md) — a confirmed pain point or opportunity here is exactly the kind of input it expects.

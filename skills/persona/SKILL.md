@@ -21,7 +21,7 @@ and dramatizes it: a chronological walkthrough of their actual day, tied to real
 that serves as prototype UX ground truth.
 
 **Not this skill:**
-- Researching other companies' products → [`competitor-analysis`](../competitor-analysis/SKILL.md).
+- Researching other companies' products → [`competitors`](../competitors/SKILL.md).
   A competitor's UX pattern is legitimate input to `day`'s friction map, this skill doesn't
   research competitors itself.
 - Mapping a real, current-state operational process end-to-end →

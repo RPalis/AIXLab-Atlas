@@ -1,0 +1,28 @@
+{
+  "skill": "restyle",
+  "cases": [
+    {
+      "query": "/restyle with three Dribbble URLs",
+      "expected_behavior": [
+        "Produces 2-3 full token sets",
+        "Applies each live through a temporary switcher",
+        "Every pair meets contrast (check-token-contrast clean)"
+      ],
+      "setup": "Running prototype"
+    },
+    {
+      "query": "Pick direction B",
+      "expected_behavior": [
+        "Hands the chosen set to styleguide forge mode to commit",
+        "Removes the temporary switcher"
+      ],
+      "setup": "Directions generated"
+    },
+    {
+      "query": "/restyle with no references",
+      "expected_behavior": [
+        "Asks for references or a moodboard"
+      ]
+    }
+  ]
+}

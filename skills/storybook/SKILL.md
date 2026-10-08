@@ -1,7 +1,9 @@
 ---
 name: storybook
 description: >-
-  Build, maintain, and embed a 5-tier Atomic Design Storybook documentation site (Foundations, Atoms, Molecules, Organisms, Widgets) with interactive examples and embedded in-app prototype viewing.
+  Builds a 5-tier Atomic Design Storybook for the prototype and embeds it in the app. Use when the
+  prototype needs component documentation.
+disable-model-invocation: true
 ---
 
 # UX Atomic Storybook Builder & Documentation
@@ -11,9 +13,7 @@ This skill scaffolds and maintains a comprehensive **Atomic Design System Storyb
 ---
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## The 5-Tier Component Hierarchy
 

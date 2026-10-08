@@ -1,0 +1,28 @@
+{
+  "skill": "persona",
+  "cases": [
+    {
+      "query": "/persona card with no research",
+      "expected_behavior": [
+        "Refuses to skip research grounding and asks for sources",
+        "Does not invent quotes"
+      ]
+    },
+    {
+      "query": "/persona card from five interview summaries",
+      "expected_behavior": [
+        "Produces 2-4 personas with goals, frustrations, context and a defining quote",
+        "Applies a relevance test to every field"
+      ],
+      "setup": "Interview summaries present"
+    },
+    {
+      "query": "/persona day",
+      "expected_behavior": [
+        "Asks which persona if there is more than one",
+        "Writes numbered scenes tied to real screens"
+      ],
+      "setup": "Two persona cards exist"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill": "package",
+  "cases": [
+    {
+      "query": "/package lite",
+      "expected_behavior": [
+        "Builds from current source, not a stale dist",
+        "Output runs on a static host with the backend embedded as a snapshot"
+      ],
+      "setup": "Vite app with an Express backend"
+    },
+    {
+      "query": "/package figma",
+      "expected_behavior": [
+        "Writes flat files, each under 1 MB",
+        "Writes MAKE_PROMPT.txt"
+      ],
+      "setup": "Vite frontend"
+    },
+    {
+      "query": "/package full",
+      "expected_behavior": [
+        "Produces site, development and documentation folders in one zip",
+        "Excludes node_modules"
+      ],
+      "setup": "Built prototype"
+    }
+  ]
+}

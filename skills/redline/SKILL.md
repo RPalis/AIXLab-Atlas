@@ -1,16 +1,9 @@
 ---
 name: redline
 description: >-
-  Turn a specific, scoped UI change request into a real edit — either a marked-up
-  screenshot (`markup` mode: circles, arrows, strikethroughs, callouts) or a live-picked
-  element in the running prototype plus a plain-language instruction (`pick` mode).
-  Locates the real source file, applies the edit following this suite's token/tier
-  conventions, and reports what changed — doesn't pause to confirm first, the diff is
-  the review. Distinct from `refine` (broad craft polish across many screens) and
-  `figma`'s `capture` mode (prototype → Figma, the opposite direction). Use when the
-  user pastes an annotated screenshot of the prototype, says "make this edit" while
-  pointing at something in the running app, or describes a single specific UI change
-  to make.
+  Applies one specific UI change to the running prototype, from an annotated screenshot (markup
+  mode) or a picked element plus a note (pick mode). Edits the real source and reports the diff. Use
+  when the user pastes a marked-up screenshot or points at one element to change.
 argument-hint: "[markup: annotated screenshot edits | pick: point and describe]"
 ---
 
@@ -34,9 +27,7 @@ a general quality pass.
   code, the other direction, and Figma is never involved.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 Say which mode if it's not obvious from what was shared — an image attached
 means `markup`, "let me show you"/pointing at the running app means `pick`.

@@ -1,0 +1,50 @@
+{
+  "skill": "audit",
+  "cases": [
+    {
+      "query": "/audit code on src/",
+      "expected_behavior": [
+        "Runs tools/design-check and tools/audit-mechanical-checks and cites their output",
+        "Reports findings as file:line with a token-class replacement",
+        "Does not edit any file"
+      ],
+      "setup": "Prototype with one raw bg-slate-50 and one dark: variant"
+    },
+    {
+      "query": "/audit perf",
+      "expected_behavior": [
+        "Builds and serves the production output before measuring",
+        "Reports each metric with how it was measured, or marks it Not Verified",
+        "Names a file and line or a measurement for every finding",
+        "Does not edit any file"
+      ],
+      "setup": "Vite prototype with a 600 kB script chunk"
+    },
+    {
+      "query": "/audit a11y",
+      "expected_behavior": [
+        "Runs tools/check-token-contrast and cites it for contrast",
+        "Cites WCAG 2.2 criterion numbers including 2.5.8 for target size",
+        "Does not call 2.5.5 an AA criterion"
+      ],
+      "setup": "Prototype with text-muted at 2.4:1"
+    },
+    {
+      "query": "Review this prototype",
+      "expected_behavior": [
+        "Asks which mode (craft, heuristic, code, spec, a11y, perf) instead of guessing"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "review this prototype for UX quality",
+      "check the app for accessibility problems",
+      "why is my prototype slow to load"
+    ],
+    "should_not_start": [
+      "write a new onboarding screen",
+      "fix the spacing on the dashboard"
+    ]
+  }
+}

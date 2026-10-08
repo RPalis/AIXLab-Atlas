@@ -1,10 +1,9 @@
 ---
 name: problems
 description: >-
-  Transform research findings (personas, journey maps, pain points) into clear problem statements and
-  actionable, prioritised user stories. Trigger on "write the problem statement", "create user stories",
-  "problem statements and user stories", "prioritise the backlog from research", or when personas/journey
-  maps/pain points exist and need to become buildable backlog items.
+  Turns research (personas, journeys, pain points) into problem statements and prioritized user
+  stories. Never proposes solutions. Use when research exists and needs to become a backlog.
+disable-model-invocation: true
 ---
 
 # Problem Statements & User Stories
@@ -27,12 +26,7 @@ user stories. ~20 minutes for a persona set with journey maps already in hand.
   modes as supporting evidence, don't invent them here.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if
-  asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep
-  substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
-  unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Why use this
 

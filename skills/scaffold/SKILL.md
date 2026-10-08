@@ -1,7 +1,10 @@
 ---
 name: scaffold
 description: >-
-  Scaffold a high-fidelity, interactive UX prototype: React 19, TypeScript, Vite, Tailwind CSS v3, Lucide icons, mock local storage stores. Starts from a generic structured base, then optionally layers on site-type-specific guidance (dashboard, chatbot, marketing site, CRM). Use when starting a new prototype from scratch.
+  Creates a new prototype: React 19, TypeScript, Vite, Tailwind CSS v4, Lucide and local mock data.
+  Adds an optional site-type layer (dashboard, chatbot, marketing site, CRM, mobile app). Use when
+  starting a prototype from scratch.
+disable-model-invocation: true
 ---
 
 # Proto-Type
@@ -11,9 +14,7 @@ This skill automates creating a high-fidelity, zero-friction prototype workspace
 ---
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Base Scaffold
 
@@ -60,12 +61,22 @@ Before initializing, ask whether a Figma library is already set up for this prod
 npm create vite@latest frontend -- --template react-ts
 cd frontend
 npm install lucide-react clsx tailwind-merge react-router-dom
-npm install -D tailwindcss@3 postcss autoprefixer
-npx tailwindcss init -p
+npm install -D tailwindcss@4 @tailwindcss/vite
+```
+
+Add the Tailwind plugin to `frontend/vite.config.ts`. Tailwind v4 needs no PostCSS file and no `tailwind.config.js`:
+```ts
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
 ```
 
 #### Step 2: Configure Tailwind & CSS Tokens
-Implement the two-layer token architecture in `frontend/src/index.css` (Layer 1 raw colors + Layer 2 semantic tokens) and mirror semantic utilities in `frontend/tailwind.config.js`; see [`styleguide`](../styleguide/SKILL.md).
+Copy the two-layer token file from [`styleguide`](../styleguide/SKILL.md)'s [`templates/index.css`](../styleguide/templates/index.css) to `frontend/src/index.css`. It already holds Layer 1, Layer 2 (light and `.dark`), the Tailwind v4 `@theme inline` mapping and a reduced-motion rule. Import it once in `main.tsx`. Run `styleguide` forge mode later to replace the placeholder palette with a real brand.
 
 #### Step 3: Implement Shared Domain Types & Mock Seed Data
 Create `shared/types.ts` and `shared/seed.ts` with rich realistic mockup records (avoid placeholder "Lorem Ipsum").
@@ -102,5 +113,6 @@ Once the base scaffold exists, ask whether this prototype fits a recognizable si
 | **Chatbot / Conversational** | Core surface is a chat/assistant interaction | [`references/chatbot.md`](references/chatbot.md) |
 | **Marketing Site** | Core surface is persuasion/conversion: landing pages, campaigns, product marketing | [`references/marketing-site.md`](references/marketing-site.md) |
 | **CRM / Record-Management App** | Core surface is managing records through a lifecycle: contacts, deals, tickets, cases | [`references/crm-app.md`](references/crm-app.md) |
+| **Mobile App** | The product ships as a phone or tablet app (iOS, Android or both) | [`references/mobile-app.md`](references/mobile-app.md) |
 
 A prototype can also combine types (a product with both a marketing site and a CRM-style admin area); apply each reference to the relevant section rather than picking one for the whole app.

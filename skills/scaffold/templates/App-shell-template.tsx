@@ -72,7 +72,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               className="p-1.5 rounded hover:bg-surface text-secondary hover:text-primary transition-colors"
               title="Toggle Dark/Light Mode"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+              {isDark ? <Sun className="w-4 h-4 text-status-warning-text" /> : <Moon className="w-4 h-4" />}
             </button>
             <button 
               onClick={() => setIsStorybookOpen(true)}
@@ -87,7 +87,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               className="p-1.5 rounded hover:bg-surface text-secondary hover:text-primary transition-colors flex items-center gap-1"
               title="View UX Architecture Graph"
             >
-              <Network className="w-4 h-4 text-indigo-500" />
+              <Network className="w-4 h-4 text-brand" />
               <span className="hidden md:inline font-medium">UX Map</span>
             </button>
             <button 

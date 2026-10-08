@@ -1,0 +1,26 @@
+{
+  "skill": "guide",
+  "cases": [
+    {
+      "query": "/guide",
+      "expected_behavior": [
+        "Writes Getting Started plus a phase-by-phase walkthrough from the real product",
+        "Uses map flow diagrams where a flow helps"
+      ],
+      "setup": "Built prototype with docs"
+    },
+    {
+      "query": "/guide with no built screens",
+      "expected_behavior": [
+        "Says there is nothing to document yet and points to scaffold"
+      ]
+    },
+    {
+      "query": "/guide pdf",
+      "expected_behavior": [
+        "Writes Markdown first, then offers the PDF export"
+      ],
+      "setup": "Guide already written"
+    }
+  ]
+}

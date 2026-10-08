@@ -1,7 +1,9 @@
 ---
 name: wiki
 description: >-
-  Build and maintain a persistent, interlinked markdown wiki from notes scattered across a project. Default (compile) mode ingests, queries, lints, and visualizes the wiki from interview synthesis, meeting notes, research, resolved decisions with no other home, and external documents (specs, transcripts, research) a teammate, PM, client, or user dropped straight into docs/. Note mode is the lowest-ceremony capture point in the suite — a quick thought jotted mid-task, folded straight into the wiki immediately, no separate compile step. Tool-agnostic (plain markdown, cross-referenced with standard `[text](file.md)` links, no Obsidian dependency). Based on the "LLM wiki" pattern. Includes a graph visualization of how entities connect: a Mermaid diagram and a standalone interactive "constellation" view.
+  Compiles project notes into an interlinked Markdown wiki (compile mode) or files a quick note
+  straight into it (note mode). Use when the user drops documents into the docs folder, jots a
+  thought, or asks to organize notes.
 argument-hint: "[compile: notes into wiki | note: quick capture]"
 ---
 
@@ -16,9 +18,7 @@ Two modes, same destination:
 - **`note`** — the lowest-ceremony capture in the suite: append a quick thought and immediately fold just that one entry into the wiki (`compile` mode's own Step 1), skipping the periodic lint/visualize steps. Use for jotting something down mid-task without stopping to formalize it as an ADR or a full entity page.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Structure
 

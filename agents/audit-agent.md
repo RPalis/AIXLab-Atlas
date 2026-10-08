@@ -11,6 +11,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 ---
 
+**Where the skill lives.** Look in this order: `skills/audit/SKILL.md` (inside the suite repo), `~/.agents/skills/audit/SKILL.md` (hub install), then the plugin cache: `find ~/.claude/plugins -path '*/skills/audit/SKILL.md' | head -1`. Paths inside that file are relative to it.
+
 You are running unattended — no human is watching this session, so every "ask the
 user" point in the skill you're about to follow resolves via its own stated
 autonomous-mode default instead of waiting for an answer.
@@ -32,7 +34,7 @@ only mode with no subjective judgment calls. Don't switch to `craft` or `a11y`
 unless you were explicitly told which mode to run before you started.
 
 Run the mode's checks as written, including the tools it calls out
-(`tools/check-hardcoded-colors`, `tools/audit-mechanical-checks`) — their paths in
+(`tools/design-check`, `tools/audit-mechanical-checks`) — their paths in
 the `SKILL.md` are relative to that file's real location, so they resolve
 correctly once you've read the file from wherever it actually lives.
 

@@ -1,0 +1,29 @@
+{
+  "skill": "setup",
+  "cases": [
+    {
+      "query": "/setup on an empty folder 'pocket-atlas'",
+      "expected_behavior": [
+        "Creates pocket-atlas-docs/ with UNKNOWNS.md, GLOSSARY.md, notes/",
+        "Writes a project AGENTS.md whose first line names the docs folder"
+      ],
+      "setup": "Empty repo"
+    },
+    {
+      "query": "/setup on a repo with an existing README and AGENTS.md",
+      "expected_behavior": [
+        "Appends under a UX Atlas heading and overwrites nothing",
+        "Leaves an existing docs/ folder named docs"
+      ],
+      "setup": "README.md and AGENTS.md exist"
+    },
+    {
+      "query": "/setup on an existing product",
+      "expected_behavior": [
+        "Inventories suite docs and anything under another name",
+        "Hands off to brief and help"
+      ],
+      "setup": "Repo with src/ and a personas.md"
+    }
+  ]
+}

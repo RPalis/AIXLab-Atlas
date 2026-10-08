@@ -1,0 +1,34 @@
+{
+  "skill": "decisions",
+  "cases": [
+    {
+      "query": "Record that we chose localStorage over IndexedDB for mock data",
+      "expected_behavior": [
+        "Writes docs/adr/0001-*.md numbered from the highest existing ADR",
+        "States what was decided, why, and the rejected alternative with its reason"
+      ]
+    },
+    {
+      "query": "Record the decision in a project that already has ADR 0003",
+      "expected_behavior": [
+        "Numbers the new record 0004"
+      ],
+      "setup": "docs/adr/ has 0001-0003"
+    },
+    {
+      "query": "Write an ADR for renaming a button",
+      "expected_behavior": [
+        "Pushes back or asks if this needs a record (not a non-obvious tradeoff)"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "write up why we picked this state model",
+      "record this decision so we don't relitigate it"
+    ],
+    "should_not_start": [
+      "fix the button color"
+    ]
+  }
+}

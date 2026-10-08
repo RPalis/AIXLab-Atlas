@@ -4,7 +4,7 @@
 
 A comprehensive, end-to-end suite of specialized AI Agent Skills for UX designers, product designers, and design engineers building high-fidelity interactive prototypes, from discovery through delivery.
 
-This library is fully self-contained: every skill works standalone from this folder alone, with no dependency on any other installed skill. Clone or copy this repo, run `install.sh`, and the whole lifecycle is available.
+This library is fully self-contained: every skill works standalone from this folder alone, with no dependency on any other installed skill. Install it as a Claude Code plugin, or clone this repo and run `install.sh`, and the whole lifecycle is available.
 
 ---
 
@@ -95,15 +95,26 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 
 ## Getting Started
 
-Clone this fork and run the installer:
+### Option 1: Claude Code plugin (recommended for teams)
 
 ```bash
-git clone https://github.com/RPalis/ux-atlas-aixlab.git
-cd ux-atlas-aixlab
+claude plugin marketplace add kiersky-coforge/ux-atlas
+claude plugin install ux-atlas@ux-atlas
+```
+
+Skills appear as `/ux-atlas:<skill>` (for example `/ux-atlas:persona`). The plugin ships the skills, the shared `tools/`, the unattended-run `agents/`, and an opt-in edit-time design check. Updates come from the marketplace. Do not combine it with `./install.sh --claude`: every skill would be listed twice.
+
+### Option 2: Clone and run the installer
+
+Use this for Gemini CLI, Codex, Copilot, Cursor and the other clients, or for Claude Code without the plugin:
+
+```bash
+git clone https://github.com/kiersky-coforge/ux-atlas.git
+cd ux-atlas
 ./install.sh
 ```
 
-That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`) and wires up whichever clients you picked. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
+That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`) and wires up whichever clients need a link. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
 
 For scripting, skip the picker with flags:
 
@@ -113,55 +124,92 @@ For scripting, skip the picker with flags:
 
 See [Installation & Team Setup](#installation-team-setup) below for how the installer is structured and how to re-run it safely.
 
+### Option 3: One skill at a time (claude.ai upload, API, a single project)
+
+```bash
+node scripts/build-portable.mjs          # writes dist/portable/<skill>/ and <skill>.zip
+```
+
+Each portable skill keeps only Agent Skills spec keys, carries the tools it uses, and has no links to other skills.
+
+### Your first minute
+
+You do not need to know the skill names. Describe what you are doing, or type `help` (`/ux-atlas:help` with the plugin). It reads your project and tells you the next skill and the exact command to type. Most phase skills start only when you type them. A few (`help`, `audit`, `refine`, `redline`, `styleguide`, `decisions`, `interrogate`, `wiki`) also start from plain language.
+
 ---
 
 ## Skills Catalog
 
-Full reference: every skill, alphabetical-ish by phase for lookup rather than narrative order.
+Full reference: every skill, alphabetical-ish by phase for lookup rather than narrative order. With the plugin, put `/ux-atlas:` before each command. **Invoked by**: `you` means the skill starts only when you type it; `you or the agent` means it can also start from plain language.
 
-| Skill Name | Phase | Purpose | Trigger / Commands |
-|---|---|---|---|
-| [`help`](skills/help/SKILL.md) | **Router** | Two modes: default reads the current repo's actual state and recommends the next 1-3 skills, with reasons; `atlas` is the full browsable directory across the entire design process | `/help`, `/help atlas`, "what should I do next", "which skill do I need", "design skills", "prototype workflow" |
-| [`setup`](skills/setup/SKILL.md) | **Before Discover** | Bootstrap a prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md, docs/notes/. Works on an existing product too, appending rather than overwriting | `/setup`, "start a new prototype repo", "bootstrap this project", "add UX Atlas to this repo" |
-| [`brief`](skills/brief/SKILL.md) | **Before Discover** | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md`. On an existing product, drafts from the codebase first and confirms it instead | `/brief`, "product brief", "get this out of my head", "discovery interview", "brief for our existing app" |
-| [`workshop`](skills/workshop/SKILL.md) | **Discover** | Two modes: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck) or `ingest` (convert workshop board photos into a deck, doc, CSV, or replicated FigJam board). Usable both as a Discover opener and mid-sequence to socialize findings | `/workshop`, `/workshop ingest`, "plan a workshop", "design thinking session", "digitize this whiteboard", "turn these sticky notes into a doc" |
-| [`competitors`](skills/competitors/SKILL.md) | **Discover** | Four modes: `discover` (interrogate market/tool-type/workflows/differentiators, research the web for candidates, narrow to the 3-5 closest, profile each in parallel with a real screenshot), `add` (append one more competitor found later), `analysis` (a deeper, evidence-rated pass organised by UX category, confidence-tagged, with a ranked opportunity list), `benchmark` (score 3-5 products, yours plus competitors and best-in-class from any industry, 1-5 on one rubric with evidence, a flow teardown and an adopt/adapt/avoid pattern library). Writes `docs/COMPETITIVE_ANALYSIS.md` (or `docs/UX_BENCHMARK.md`); supersedes `brief`'s competitive-landscape question | `/competitors discover`, `/competitors add`, `/competitors analysis`, `/competitors benchmark`, "who are our competitors", "competitive analysis", "UX benchmark", "score these products", "find alternatives to our product" |
-| [`interview`](skills/interview/SKILL.md) | **Discover / Deliver** | Three modes: `questions` (phase-aware question bank + script + synthesis template for user research), `analysis` (turn interview transcripts into evidence-backed themes: verbatim quotes with interview numbers, weak-signal flags, a plan-first approval gate, six required outputs), `usability` (a timed test plan + moderator script for a built prototype: task scenarios with success criteria, a bias-review pass, a metrics sheet; the researcher moderates, never an AI) | `/interview questions`, `/interview analysis`, `/interview usability`, "interview questions", "user research", "analyse these interviews", "synthesise this research", "write a usability test plan", "build a moderator script" |
-| [`persona`](skills/persona/SKILL.md) | **Discover** | Two modes: `card` (research-grounded persona profiles, 2-4, with a relevance test) and `day` (one card's chronological "Day in the Life" walkthrough — always needs a card first) | `/persona card`, `/persona day`, "persona doc", "day in the life" |
-| [`journey`](skills/journey/SKILL.md) | **Discover** | Five modes, two jobs: `map` (current-state swimlane) or `blueprint` (service-blueprint variant) as alternative process-mapping starting points, `pain-points` (severity × frequency scoring) and `solutions` (fix directions + measurable targets) building on either; `experience` (a different job — one persona through one scenario, emotions and evidence, every claim cited or `ASSUMPTION`) | `/journey map`, `/journey blueprint`, `/journey pain-points`, `/journey solutions`, `/journey experience`, "map this process", "service blueprint", "where are the pain points", "map the customer journey" |
-| [`problems`](skills/problems/SKILL.md) | **Discover** | Transforms personas, journey maps, interview themes and pain points into problem statements (no proposed solutions) and prioritised, traceable user stories. The last step of Discover. Pre-build — see `requirements` for the built-prototype counterpart | `/problems`, "write the problem statement", "create user stories", "prioritise the backlog from research" |
-| [`metrics`](skills/metrics/SKILL.md) | **Discover** | OKRs framed against the right model for the product (HEART, CASTLE, or SELECT), each Key Result tagged by category. Writes `docs/OKR.md` | `/metrics`, "define OKRs", "what does success look like", "key results" |
-| [`brainstorming`](skills/brainstorming/SKILL.md) | **Decide** | Turns one signed-off problem statement into 15 ideas, 3 assumption-breakers, clustered into 3-4 named directions scored user value/effort/risk. Produces a shortlist, never a single winner | `/brainstorming`, "run a brainstorm", "ideation session", "generate ideas for this problem" |
-| [`map`](skills/map/SKILL.md) | **Decide / Design** | Six modes: `objects` (interactive OOUX/ORCA modeling + entity-relationship diagram), `ia` (content, navigation, labelling and search around the user's mental model; every page/label/path traces to an input or is tagged `PROPOSED`; gated on a feedback-loop check), `site` (proposed route/component architecture, before it's built), `flow` (a complete, evidence-grounded end-to-end user flow for one goal — entry points, every decision branch, error/empty states, recovery paths, exit points, screen by screen), `audit` (reconcile the object model against built code), `document` (regenerate the site diagram from the real app, plus reconcile if needed). Any mode can export to FigJam via Figma MCP | `/map objects`, `/map ia`, `/map site`, `/map flow`, `/map audit`, `/map document`, "ooux map", "feature concept", "sitemap", "organise the navigation", "IA for [product]", "architecture map", "design the user flow", "what screens do we need for X" |
-| [`scaffold`](skills/scaffold/SKILL.md) | **Design** | React 19 + Vite + Tailwind + Lucide prototype set up as a base scaffold + optional site-type layer. Covers both the structural (wireframe-equivalent) pass and the hi-fi interactive build as one continuous skill | `/scaffold`, "new prototype", "scaffold app" |
-| [`styleguide`](skills/styleguide/SKILL.md) | **Design** | Generate 2-layer token architecture (Raw + Semantic) and a spec-conformant `DESIGN.md`; forge mode casts a new brand's palette & fonts into the suite's fixed semantic token roles | `/styleguide`, `/styleguide forge`, "design tokens", "style guide", "create DESIGN.md", "brand forge", "cast brand tokens" |
-| [`audit`](skills/audit/SKILL.md) | **Design / Deliver** | Five modes: `craft` (fast, 5-dimension scored UX critique), `heuristic` (deep, evidence-based Nielsen-heuristic pass, severity-rated 0-4 — not the same rubric as `craft`, not comparable to it), `code` (coding-standards audit), `spec` (compares the build against its approved design — `map` flow output + `scaffold` output + `styleguide` tokens — screen by screen, at every breakpoint; design fidelity only, not code), `a11y` (deep WCAG AA sweep) | `/audit craft`, `/audit heuristic`, `/audit code`, `/audit spec`, `/audit a11y`, "audit this prototype", "does the build match the design" |
-| [`refine`](skills/refine/SKILL.md) | **Design** | Fix and unify: micro-interactions, responsive grids, dark mode, polish | `/refine`, "polish UI", "refine styling" |
-| [`storybook`](skills/storybook/SKILL.md) | **Design** | 5-tier Atomic Storybook docs + embed live Storybook in prototype menu | `/storybook`, "setup storybook", "atomic docs" |
-| [`package`](skills/package/SKILL.md) | **Deliver** | Three modes: `full` (site + source + docs handoff zip), `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage), or `figma` (flat, unminified files each under 1MB, to attach to a Figma Make chat) | `/package full`, `/package lite`, `/package figma`, "package prototype", "send to Figma Make" |
-| [`showcase`](skills/showcase/SKILL.md) | **Deliver** | Four modes: `story` (day-in-the-life PowerPoint deck from `deck.json` + real screenshots, with an overflow check), `reveal` (reveal.js web deck), `doc` (a Markdown report from any suite skill, converted faithfully into a styled Word document), `deck` (a Markdown report condensed into a PowerPoint, outline confirmed first, confidence tags and the verification checklist kept) | `/showcase story`, `/showcase doc interview-analysis.md`, `/showcase deck COMPETITIVE_ANALYSIS.md`, "build a deck", "turn this analysis into a Word doc", "presentation for this prototype" |
-| [`guide`](skills/guide/SKILL.md) | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough | `/guide`, "write a user guide", "end-user docs" |
-| [`requirements`](skills/requirements/SKILL.md) | **Deliver** | Reads the *built* prototype into Epics & Features with user stories and acceptance criteria; optional Jira/ADO export via MCP. Post-build — see `problems` for the pre-build counterpart | `/requirements`, "PRD", "epics and features", "turn this into a backlog" |
-| [`decisions`](skills/decisions/SKILL.md) | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives | `/decisions`, "ADR", "record this decision" |
-| [`interrogate`](skills/interrogate/SKILL.md) | **Anytime** | Interrogate a design decision one question at a time; hands off to `decisions` | `/interrogate`, "grill this decision", "stress-test this design call" |
-| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | Two modes: default `compile` (compile `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki with a `constellation` graph view) or `note` (quick, low-ceremony capture into `docs/notes/my-notes/` that folds immediately into the wiki) | `/wiki`, `/wiki note`, "build a wiki", "compile these notes", "quick note", "jot this down", "don't let me forget" |
-| [`figma`](skills/figma/SKILL.md) | **Anytime** | Multi-mode: `capture` (live screen → Figma layers), `import` (Figma frame → code), `sync` (bidirectional token sync with a Figma library) | `/figma capture`, `/figma import`, `/figma sync` |
-| [`redline`](skills/redline/SKILL.md) | **Anytime** | Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). No confirm step; review the diff | `/redline`, "make this edit", paste an annotated screenshot |
-| [`moodboard`](skills/moodboard/SKILL.md) | **Anytime** | Maintains `<docs>/inspiration/` (screenshots/URLs dropped in over time) and synthesizes a living `VISUAL_LANGUAGE.md` — recurring color/type/spacing/shape/elevation patterns, each citing its source | `/moodboard`, "add this to our inspiration", "what direction do our references suggest" |
-| [`restyle`](skills/restyle/SKILL.md) | **Anytime** | Generates 2-3 full-token-set candidate directions from references (or a `moodboard`), live-applied to the running app via a temporary switcher, then hands the chosen one to `styleguide` `forge` mode to commit | `/restyle`, "give me some style variations", "make our app look like these" |
-| [`skill-manager`](skills/skill-manager/SKILL.md) | **Meta** | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any skill does | `/skill-manager install`, `/skill-manager list`, `/skill-manager details` |
+| Skill Name | Phase | Invoked by | Purpose | Trigger / Commands |
+|---|---|---|---|---|
+| [`help`](skills/help/SKILL.md) | **Router** | you or the agent | Three modes: default reads the current repo's actual state and recommends the next 1-3 skills, with reasons and the exact command to run; `atlas` is the full browsable directory across the entire design process; `doctor` checks the project's docs, tokens, contrast and design rules and names the skill that fixes each problem | `/help`, `/help atlas`, `/help doctor`, "what should I do next", "which skill do I need", "design skills", "prototype workflow" |
+| [`setup`](skills/setup/SKILL.md) | **Before Discover** | you | Bootstrap a prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md, docs/notes/. Works on an existing product too, appending rather than overwriting | `/setup`, "start a new prototype repo", "bootstrap this project", "add UX Atlas to this repo" |
+| [`brief`](skills/brief/SKILL.md) | **Before Discover** | you | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md`. On an existing product, drafts from the codebase first and confirms it instead | `/brief`, "product brief", "get this out of my head", "discovery interview", "brief for our existing app" |
+| [`workshop`](skills/workshop/SKILL.md) | **Discover** | you | Two modes: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck) or `ingest` (convert workshop board photos into a deck, doc, CSV, or replicated FigJam board). Usable both as a Discover opener and mid-sequence to socialize findings | `/workshop`, `/workshop ingest`, "plan a workshop", "design thinking session", "digitize this whiteboard", "turn these sticky notes into a doc" |
+| [`competitors`](skills/competitors/SKILL.md) | **Discover** | you | Four modes: `discover` (interrogate market/tool-type/workflows/differentiators, research the web for candidates, narrow to the 3-5 closest, profile each in parallel with a real screenshot), `add` (append one more competitor found later), `analysis` (a deeper, evidence-rated pass organised by UX category, confidence-tagged, with a ranked opportunity list), `benchmark` (score 3-5 products, yours plus competitors and best-in-class from any industry, 1-5 on one rubric with evidence, a flow teardown and an adopt/adapt/avoid pattern library). Writes `docs/COMPETITIVE_ANALYSIS.md` (or `docs/UX_BENCHMARK.md`); supersedes `brief`'s competitive-landscape question | `/competitors discover`, `/competitors add`, `/competitors analysis`, `/competitors benchmark`, "who are our competitors", "competitive analysis", "UX benchmark", "score these products", "find alternatives to our product" |
+| [`interview`](skills/interview/SKILL.md) | **Discover / Deliver** | you | Three modes: `questions` (phase-aware question bank + script + synthesis template for user research), `analysis` (turn interview transcripts into evidence-backed themes: verbatim quotes with interview numbers, weak-signal flags, a plan-first approval gate, six required outputs), `usability` (a timed test plan + moderator script for a built prototype: task scenarios with success criteria, a bias-review pass, a metrics sheet; the researcher moderates, never an AI) | `/interview questions`, `/interview analysis`, `/interview usability`, "interview questions", "user research", "analyse these interviews", "synthesise this research", "write a usability test plan", "build a moderator script" |
+| [`persona`](skills/persona/SKILL.md) | **Discover** | you | Two modes: `card` (research-grounded persona profiles, 2-4, with a relevance test) and `day` (one card's chronological "Day in the Life" walkthrough — always needs a card first) | `/persona card`, `/persona day`, "persona doc", "day in the life" |
+| [`journey`](skills/journey/SKILL.md) | **Discover** | you | Five modes, two jobs: `map` (current-state swimlane) or `blueprint` (service-blueprint variant) as alternative process-mapping starting points, `pain-points` (severity × frequency scoring) and `solutions` (fix directions + measurable targets) building on either; `experience` (a different job — one persona through one scenario, emotions and evidence, every claim cited or `ASSUMPTION`) | `/journey map`, `/journey blueprint`, `/journey pain-points`, `/journey solutions`, `/journey experience`, "map this process", "service blueprint", "where are the pain points", "map the customer journey" |
+| [`problems`](skills/problems/SKILL.md) | **Discover** | you | Transforms personas, journey maps, interview themes and pain points into problem statements (no proposed solutions) and prioritised, traceable user stories. The last step of Discover. Pre-build — see `requirements` for the built-prototype counterpart | `/problems`, "write the problem statement", "create user stories", "prioritise the backlog from research" |
+| [`metrics`](skills/metrics/SKILL.md) | **Discover** | you | OKRs framed against the right model for the product (HEART, CASTLE, or SELECT), each Key Result tagged by category. Writes `docs/OKR.md` | `/metrics`, "define OKRs", "what does success look like", "key results" |
+| [`brainstorming`](skills/brainstorming/SKILL.md) | **Decide** | you | Turns one signed-off problem statement into 15 ideas, 3 assumption-breakers, clustered into 3-4 named directions scored user value/effort/risk. Produces a shortlist, never a single winner | `/brainstorming`, "run a brainstorm", "ideation session", "generate ideas for this problem" |
+| [`map`](skills/map/SKILL.md) | **Decide / Design** | you | Six modes: `objects` (interactive OOUX/ORCA modeling + entity-relationship diagram), `ia` (content, navigation, labelling and search around the user's mental model; every page/label/path traces to an input or is tagged `PROPOSED`; gated on a feedback-loop check), `site` (proposed route/component architecture, before it's built), `flow` (a complete, evidence-grounded end-to-end user flow for one goal — entry points, every decision branch, error/empty states, recovery paths, exit points, screen by screen), `audit` (reconcile the object model against built code), `document` (regenerate the site diagram from the real app, plus reconcile if needed). Any mode can export to FigJam via Figma MCP | `/map objects`, `/map ia`, `/map site`, `/map flow`, `/map audit`, `/map document`, "ooux map", "feature concept", "sitemap", "organise the navigation", "IA for [product]", "architecture map", "design the user flow", "what screens do we need for X" |
+| [`scaffold`](skills/scaffold/SKILL.md) | **Design** | you | React 19 + Vite + Tailwind v4 + Lucide prototype set up as a base scaffold + optional site-type layer (dashboard, chatbot, marketing site, CRM, mobile app). Covers both the structural (wireframe-equivalent) pass and the hi-fi interactive build as one continuous skill | `/scaffold`, "new prototype", "scaffold app" |
+| [`styleguide`](skills/styleguide/SKILL.md) | **Design** | you or the agent | Generate 2-layer token architecture (Raw + Semantic) and a spec-conformant `DESIGN.md`; forge mode casts a new brand's palette & fonts into the suite's fixed semantic token roles | `/styleguide`, `/styleguide forge`, "design tokens", "style guide", "create DESIGN.md", "brand forge", "cast brand tokens" |
+| [`audit`](skills/audit/SKILL.md) | **Design / Deliver** | you or the agent | Six modes: `craft` (fast, 5-dimension scored UX critique), `heuristic` (deep, evidence-based Nielsen-heuristic pass, severity-rated 0-4 — not the same rubric as `craft`, not comparable to it), `code` (coding-standards audit), `spec` (compares the build against its approved design — `map` flow output + `scaffold` output + `styleguide` tokens — screen by screen, at every breakpoint; design fidelity only, not code), `a11y` (deep WCAG 2.2 AA sweep, with a mobile and screen-reader step), `perf` (measured load, interaction and layout-shift numbers against budgets, with causes) | `/audit craft`, `/audit heuristic`, `/audit code`, `/audit spec`, `/audit a11y`, `/audit perf`, "audit this prototype", "why is this slow", "does the build match the design" |
+| [`refine`](skills/refine/SKILL.md) | **Design** | you or the agent | Fix and unify against a measurable craft floor, by lens: motion, UX copy, hardening (real data, failures, other languages), first-run, performance, mobile and touch | `/refine`, "polish UI", "refine styling" |
+| [`storybook`](skills/storybook/SKILL.md) | **Design** | you | 5-tier Atomic Storybook docs + embed live Storybook in prototype menu | `/storybook`, "setup storybook", "atomic docs" |
+| [`package`](skills/package/SKILL.md) | **Deliver** | you | Three modes: `full` (site + source + docs handoff zip), `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage), or `figma` (flat, unminified files each under 1MB, to attach to a Figma Make chat) | `/package full`, `/package lite`, `/package figma`, "package prototype", "send to Figma Make" |
+| [`showcase`](skills/showcase/SKILL.md) | **Deliver** | you | Four modes: `story` (day-in-the-life PowerPoint deck from `deck.json` + real screenshots, with an overflow check), `reveal` (reveal.js web deck), `doc` (a Markdown report from any suite skill, converted faithfully into a styled Word document), `deck` (a Markdown report condensed into a PowerPoint, outline confirmed first, confidence tags and the verification checklist kept) | `/showcase story`, `/showcase doc interview-analysis.md`, `/showcase deck COMPETITIVE_ANALYSIS.md`, "build a deck", "turn this analysis into a Word doc", "presentation for this prototype" |
+| [`guide`](skills/guide/SKILL.md) | **Deliver** | you | End-user documentation: Getting Started + phase-by-phase walkthrough | `/guide`, "write a user guide", "end-user docs" |
+| [`requirements`](skills/requirements/SKILL.md) | **Deliver** | you | Reads the *built* prototype into Epics & Features with user stories and acceptance criteria; optional Jira/ADO export via MCP. Post-build — see `problems` for the pre-build counterpart | `/requirements`, "PRD", "epics and features", "turn this into a backlog" |
+| [`decisions`](skills/decisions/SKILL.md) | **Anytime** | you or the agent | Lightweight ADRs capturing a decision and its rejected alternatives | `/decisions`, "ADR", "record this decision" |
+| [`interrogate`](skills/interrogate/SKILL.md) | **Anytime** | you or the agent | Interrogate a design decision one question at a time; hands off to `decisions` | `/interrogate`, "grill this decision", "stress-test this design call" |
+| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | you or the agent | Two modes: default `compile` (compile `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki with a `constellation` graph view) or `note` (quick, low-ceremony capture into `docs/notes/my-notes/` that folds immediately into the wiki) | `/wiki`, `/wiki note`, "build a wiki", "compile these notes", "quick note", "jot this down", "don't let me forget" |
+| [`figma`](skills/figma/SKILL.md) | **Anytime** | you | Multi-mode: `capture` (live screen → Figma layers), `import` (Figma frame → code), `sync` (bidirectional token sync with a Figma library) | `/figma capture`, `/figma import`, `/figma sync` |
+| [`redline`](skills/redline/SKILL.md) | **Anytime** | you or the agent | Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). No confirm step; review the diff | `/redline`, "make this edit", paste an annotated screenshot |
+| [`moodboard`](skills/moodboard/SKILL.md) | **Anytime** | you | Maintains `<docs>/inspiration/` (screenshots/URLs dropped in over time) and synthesizes a living `VISUAL_LANGUAGE.md` — recurring color/type/spacing/shape/elevation patterns, each citing its source | `/moodboard`, "add this to our inspiration", "what direction do our references suggest" |
+| [`restyle`](skills/restyle/SKILL.md) | **Anytime** | you | Generates 2-3 full-token-set candidate directions from references (or a `moodboard`), live-applied to the running app via a temporary switcher, then hands the chosen one to `styleguide` `forge` mode to commit | `/restyle`, "give me some style variations", "make our app look like these" |
+| [`skill-manager`](skills/skill-manager/SKILL.md) | **Meta** | you | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any skill does | `/skill-manager install`, `/skill-manager list`, `/skill-manager details` |
 
 ---
 
 ## Installation & Team Setup
 
-The picker in [Getting Started](#getting-started) above pre-checks whichever clients it finds already set up on your machine. Currently supported: **Claude Code** (`~/.claude/skills/`), **Gemini CLI** (no link needed, see below), **Antigravity** (`~/.gemini/config/skills/`), **OpenAI Codex CLI** (`~/.codex/skills/`), **GitHub Copilot CLI** (`~/.copilot/skills/`), **Cursor** (`~/.cursor/skills/`), and **Grok CLI** (`~/.grok/skills/`). Each client gets a single symlink to the hub copy (`~/.agents/skills/<name>`), the same layout other skill packs on a shared machine use: one real copy in `~/.agents/skills/`, client tools pointing at it. **Gemini CLI** is in the picker so it's not missing when you expect it, but selecting it links nothing: Gemini reads `~/.agents/skills/` directly and picks the skills up from the hub alone. A second link in `~/.gemini/skills/` only makes it warn about duplicates, so the installer also removes any it made in earlier versions. Re-run `./install.sh` after editing a skill; the hub is a copy, not a link back to this repo.
+The picker in [Getting Started](#getting-started) above pre-checks whichever clients it finds already set up on your machine. The hub (`~/.agents/skills/`) holds the one real copy of each skill. Which clients need a link:
 
-For scripting or CI, skip the picker with flags: `./install.sh --all`, `--none` (hub only), or any combination of `--claude`, `--gemini-cli` (accepted, links nothing), `--antigravity`, `--codex`, `--copilot`, `--cursor`, `--grok`. Add `--open` or `--no-open` to control whether it launches `index.html` afterward without prompting.
+| Client | Reads `~/.agents/skills/` itself | What the installer does |
+|---|---|---|
+| Claude Code | No | Links each skill into `~/.claude/skills/` and links `agents/` into `~/.claude/agents/` (or use the plugin) |
+| Gemini CLI | Yes | Nothing; selecting it is a no-op |
+| OpenAI Codex CLI | Yes | Nothing; selecting it is a no-op |
+| GitHub Copilot CLI | Yes | Nothing; selecting it is a no-op |
+| Cursor | Yes (and also reads `~/.claude/skills/` and `~/.codex/skills/`) | Nothing; selecting it is a no-op |
+| Antigravity, Grok CLI | Not confirmed | Links into `~/.gemini/config/skills/` and `~/.grok/skills/` |
+
+A second link in a client that already reads the hub only makes every skill appear twice, so the installer also removes any links it made in earlier versions. Re-run `./install.sh` after editing a skill; the hub is a copy, not a link back to this repo. Skills reach shared scripts through `../../tools/`, so `install.sh` also copies `tools/` to `~/.agents/tools/`.
+
+For scripting or CI, skip the picker with flags: `./install.sh --all`, `--none` (hub only), or any combination of `--claude`, `--gemini-cli`, `--codex`, `--copilot`, `--cursor` (these four are accepted and link nothing), `--antigravity`, `--grok`. Add `--open` or `--no-open` to control whether it launches `index.html` afterward without prompting.
 
 Re-run `install.sh` any time, especially after a skill gets renamed in this repo. It tracks what it installed last time and removes stale entries (an old skill name's dangling symlink) from the hub and every client it manages, without touching anything else that happens to live in those shared directories.
 
 Every skill name in this repo is checked against what actually already lives in a user's global skills folder before it's finalized, not just guessed at (e.g. this suite uses `package` rather than `handoff`, since a different, already-installed `handoff` skill turned up at install time; and `interrogate` rather than `grill`, since `grilling`/`grill-with-docs` are common generic skill names) so installing this suite won't silently overwrite unrelated skills already on your machine.
+
+---
+
+## Checks that run without an agent
+
+These scripts give the same answer every run. Skills call them, and you can run them yourself or in CI.
+
+| Command | What it checks |
+|---|---|
+| `node tools/design-check/design-check.mjs <src>` | Raw hex, raw palette classes, `dark:` variants, `transition-all`, and motion with no `prefers-reduced-motion` rule. `--json` for CI. Exit 0 clean, 1 findings. |
+| `node tools/check-token-contrast/check-token-contrast.mjs src/index.css` | WCAG contrast for every semantic role pair in light and dark. |
+| `node tools/design-hook/design-hook.mjs --enable` | Turns on the edit-time check for a project (Claude Code). Findings go back to the agent in the same turn. |
+| `node tools/doctor/doctor.mjs` | Project health: docs folder, tokens, `DESIGN.md` drift, contrast, design findings, open blocking unknowns. Also `help doctor`. |
+| `npm test` | Validates every skill against the Agent Skills spec and this suite's rules, plus tool tests. |
 
 ---
 
@@ -175,3 +223,9 @@ Every skill name in this repo is checked against what actually already lives in 
 6. **Unknowns Before Invention**: A decision that genuinely needs real user input gets logged to `docs/UNKNOWNS.md` instead of guessed at, and resolved answers get promoted into whichever doc already owns that domain.
 
 See [AGENTS.md](AGENTS.md) for the full authoring standard, naming rules, and how to refine or extend a skill.
+
+---
+
+## License
+
+UX Atlas is released under the [MIT License](LICENSE). Copyright (c) 2026 Aaron Kiersky (@akiersky), who holds the copyright and grants this license. Anyone may use, copy, modify and share the skills, tools and docs in this repo, including for commercial work, as long as the copyright and license notice stay with copies.

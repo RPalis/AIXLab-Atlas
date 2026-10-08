@@ -42,12 +42,20 @@ export const ArchitectureMapModalComponent: React.FC<ArchitectureMapModalProps> 
 
     const dataNodes = new DataSet(nodes);
     const dataEdges = new DataSet(edges);
+    // vis.js paints to a canvas, so Tailwind classes cannot reach it. Read the live semantic
+    // tokens instead; every pair below already meets contrast in light and dark.
+    const css = getComputedStyle(document.documentElement);
+    const token = (name: string) => css.getPropertyValue(name).trim();
+    const group = (bg: string, border: string, font: string, bold = false) => ({
+      color: { background: token(bg), border: token(border) },
+      font: { color: token(font), bold },
+    });
     const options = {
       groups: {
-        root: { color: { background: '#00828A', border: '#005F64' }, font: { color: '#ffffff', bold: true } },
-        shell: { color: { background: '#334155', border: '#1E293B' }, font: { color: '#ffffff' } },
-        workspace: { color: { background: '#002D62', border: '#001A38' }, font: { color: '#ffffff' } },
-        component: { color: { background: '#3B82F6', border: '#1D4ED8' }, font: { color: '#ffffff' } },
+        root: group('--action-accent', '--action-primary', '--action-accent-foreground', true),
+        shell: group('--surface-hover', '--surface-border', '--text-primary'),
+        workspace: group('--surface', '--border-emphasis', '--text-primary'),
+        component: group('--action-secondary', '--border-input', '--text-primary'),
       },
       physics: { stabilization: true, barnesHut: { gravitationalConstant: -3000, springLength: 95 } },
       interaction: { hover: true, tooltipDelay: 200 },
@@ -96,15 +104,15 @@ export const ArchitectureMapModalComponent: React.FC<ArchitectureMapModalProps> 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
       <div
-        className={`bg-surface border border-surface-border shadow-2xl flex flex-col overflow-hidden transition-all ${
+        className={`bg-surface border border-surface-border shadow-hover flex flex-col overflow-hidden transition-[width,height,border-radius] ${
           isFullscreen ? 'w-full h-full rounded-none' : 'w-full max-w-5xl h-[80vh] rounded-2xl'
         }`}
       >
         <div className="p-4 border-b border-surface-border flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-bold text-primary shrink-0">
-            <NetworkIcon className="w-5 h-5 text-indigo-500" />
+            <NetworkIcon className="w-5 h-5 text-brand" />
             <span>Architecture Map</span>
           </div>
           <div className="flex-1 flex items-center gap-2 max-w-xs">

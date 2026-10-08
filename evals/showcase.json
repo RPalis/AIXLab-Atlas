@@ -1,0 +1,28 @@
+{
+  "skill": "showcase",
+  "cases": [
+    {
+      "query": "/showcase doc interview-analysis.md",
+      "expected_behavior": [
+        "Converts faithfully with no condensing or rewording",
+        "Keeps confidence cells and tags"
+      ],
+      "setup": "interview-analysis.md exists"
+    },
+    {
+      "query": "/showcase deck COMPETITIVE_ANALYSIS.md",
+      "expected_behavior": [
+        "Confirms the slide outline before building",
+        "Keeps confidence tags, sources and the verification checklist"
+      ]
+    },
+    {
+      "query": "/showcase story",
+      "expected_behavior": [
+        "Builds one scene per slide with a real screenshot",
+        "Runs the overflow check"
+      ],
+      "setup": "Built prototype and persona walkthrough"
+    }
+  ]
+}

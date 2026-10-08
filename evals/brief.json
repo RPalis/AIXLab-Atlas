@@ -1,0 +1,28 @@
+{
+  "skill": "brief",
+  "cases": [
+    {
+      "query": "/brief on an empty repo",
+      "expected_behavior": [
+        "Asks one question at a time with a recommended answer",
+        "Covers product, audience, user types, tasks, devices, competitors, constraints",
+        "Writes PRODUCT_BRIEF.md in the docs folder"
+      ]
+    },
+    {
+      "query": "/brief on an existing React app",
+      "expected_behavior": [
+        "Drafts the brief from the codebase first and asks only to confirm gaps",
+        "Logs unresolvable items to UNKNOWNS.md instead of inventing them"
+      ],
+      "setup": "Repo with src/ and a README but no docs folder"
+    },
+    {
+      "query": "/brief in autonomous mode",
+      "expected_behavior": [
+        "Takes safe defaults and logs each one",
+        "Does not pause to ask"
+      ]
+    }
+  ]
+}

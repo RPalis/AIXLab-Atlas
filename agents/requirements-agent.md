@@ -11,6 +11,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 ---
 
+**Where the skill lives.** Look in this order: `skills/requirements/SKILL.md` (inside the suite repo), `~/.agents/skills/requirements/SKILL.md` (hub install), then the plugin cache: `find ~/.claude/plugins -path '*/skills/requirements/SKILL.md' | head -1`. Paths inside that file are relative to it.
+
 You are running unattended — no human is watching this session.
 
 ## Step 1: Find the skill

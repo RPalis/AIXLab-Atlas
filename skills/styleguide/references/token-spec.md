@@ -9,14 +9,16 @@
 | `surface-hover` | `--surface-hover` | Gray 100 / `#F3F4F6` | Gray 800 / `#1F2937` | Table row hover, list hover |
 | `surface-border` | `--surface-border` | Gray 200 / `#E5E7EB` | Gray 700 / `#374151` | Dividers, card strokes |
 | `text-primary` | `--text-primary` | Gray 900 / `#111827` | Gray 50 / `#F9FAFB` | Main headings, primary labels |
-| `text-secondary` | `--text-secondary` | Gray 600 / `#4B5563` | Gray 400 / `#9CA3AF` | Subtitles, supporting copy |
-| `text-muted` | `--text-muted` | Gray 400 / `#9CA3AF` | Gray 500 / `#6B7280` | Placeholders, timestamps |
+| `text-secondary` | `--text-secondary` | Gray 600 / `#4B5563` | Gray 300 / `#D1D5DB` | Subtitles, supporting copy |
+| `text-muted` | `--text-muted` | `#5B6472` (4.5:1 or better on every light surface) | Gray 400 / `#9CA3AF` | Placeholders, timestamps |
 | `action-primary` | `--action-primary` | Primary Brand Hue | Brand Accent Hue | Primary CTAs, active highlights |
 | `action-primary-hover` | `--action-primary-hover` | Primary Hover Tier | Accent Hover Tier | Hover state on primary CTA |
 | `action-primary-active` | `--action-primary-active` | Primary Active Tier | Accent Active Tier | Pressed/active state on primary CTA |
 | `shadow-card` | `--shadow-card` | Soft, low-opacity | Slightly stronger opacity | Resting elevation on cards/panels |
 | `shadow-hover` | `--shadow-hover` | Medium opacity | Stronger opacity | Elevation on hover/focus |
 | `scrollbar-thumb` | `--scrollbar-thumb` | Gray 200 | Gray 700 | Custom scrollbar styling |
-| `focus-ring` | `--focus-ring` | Primary / 40% alpha | Accent / 50% alpha | Keyboard focus outlines |
+| `focus-ring` | `--focus-ring` | Primary, solid | Accent, solid | Keyboard focus outlines (3:1 against the page and surface) |
+
+Contrast floors: text pairs 4.5:1, focus ring and input borders 3:1. `tools/check-token-contrast` checks every pair in both themes. The full, passing default set is in [`../templates/index.css`](../templates/index.css).
 
 See [`semantic-role-mold.md`](semantic-role-mold.md) for the complete role list including status, border, and action-secondary/accent roles.

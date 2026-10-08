@@ -10,7 +10,23 @@ _Avoid_: Library, toolkit, framework
 
 **Skill**:
 One folder under `skills/` with a `SKILL.md` that owns a single lifecycle-phase job (e.g. `styleguide`, `persona`, `map`). The unit the suite is composed of.
-_Avoid_: Plugin, module, command
+_Avoid_: Module, command
+
+**Plugin**:
+The Claude Code packaging of the whole suite (`.claude-plugin/`): skills, tools, agents and an opt-in hook installed as one unit. Skills in it are named `/ux-atlas:<skill>`. Not a synonym for skill.
+_Avoid_: Using "plugin" for a single skill
+
+**User-invoked / model-invoked**:
+A user-invoked skill has `disable-model-invocation: true`: it starts only when the user types it, and its description costs no context in Claude Code. A model-invoked skill can also start from plain language. `help` is the model-invoked front door.
+_Avoid_: Manual/automatic skill
+
+**Tool**:
+A deterministic script in `tools/` with no judgment in it (`design-check`, `check-token-contrast`, `doctor`). A skill decides; a tool does.
+_Avoid_: Helper, utility
+
+**Router**:
+The short `SKILL.md` of a multi-mode skill. It names the modes and the rules they share, and points to one `references/<mode>.md` per mode.
+_Avoid_: Index file
 
 **Mode**:
 A named sub-job inside a multi-mode skill, for related-but-distinct jobs that share one workflow shape rather than warranting separate skills (e.g. `styleguide`'s default vs. `forge`, `figma`'s `capture`/`import`/`sync`).

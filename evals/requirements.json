@@ -1,0 +1,26 @@
+{
+  "skill": "requirements",
+  "cases": [
+    {
+      "query": "/requirements",
+      "expected_behavior": [
+        "Reads code, OOUX map, persona doc, DESIGN.md and ADRs",
+        "Writes Epics containing Features with user stories and acceptance criteria"
+      ],
+      "setup": "Built prototype with docs"
+    },
+    {
+      "query": "/requirements and publish to Jira",
+      "expected_behavior": [
+        "Checks that a Jira or ADO MCP server is connected and confirms the target before writing"
+      ],
+      "setup": "No MCP server connected"
+    },
+    {
+      "query": "/requirements before anything is built",
+      "expected_behavior": [
+        "Points to problems for the pre-build backlog"
+      ]
+    }
+  ]
+}

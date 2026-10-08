@@ -23,9 +23,24 @@ Skills reference tools by relative path, e.g. `../../tools/find-docs-folder/find
 - **`find-docs-folder/`** — resolves this suite's docs folder for the current repo
   (reads the project `AGENTS.md`, falls back to `*-docs/` or `docs/`). Used by `setup`,
   `help`, `showcase`.
-- **`check-hardcoded-colors/`** — greps a path for raw hex colors and raw Tailwind
-  palette classes that should be semantic tokens instead. Used by `audit` (`code`
-  mode) and `figma` (`import` mode verification).
+- **`design-check/`** — checks component source against the suite's design rules: raw
+  hex, raw Tailwind palette classes, `dark:` variants, `transition-all`, and motion with
+  no `prefers-reduced-motion` rule. `--json`, `--rules`, inline
+  `design-check-ignore <rule>: <reason>` suppressions, exit 0 clean / 1 findings / 2
+  error. Used by `audit` (`code`, `perf`), `refine`, `styleguide`, `figma` (`import`),
+  `doctor` and `design-hook`. Needs Node.
+- **`check-hardcoded-colors/`** — kept for existing callers. Runs `design-check` with
+  only the two color rules.
+- **`check-token-contrast/`** — computes WCAG contrast for every semantic role pair in
+  `index.css`, in light and dark (text 4.5:1, focus ring and input borders 3:1).
+  `--json`, exit 0 all pass / 1 failures. Used by `audit` (`a11y`, `code`), `styleguide`,
+  `refine` and `doctor`.
+- **`design-hook/`** — Claude Code `PostToolUse` hook that runs `design-check` on the file
+  just edited and returns findings to the agent. Opt in per project with `--enable`; it
+  stays silent everywhere else. Ships in the plugin through `hooks/hooks.json`.
+- **`doctor/`** — one read of a prototype's health: a context digest (docs folder, phase,
+  token file, open blocking unknowns) plus a problem list, each with the fixing skill.
+  Used by `help` (`doctor` mode).
 - **`figma-capture-helper/`** — writes the static `enableFigmaCapture()` boilerplate
   (Figma's `capture.js` loader) into a target file, so the snippet is generated once
   from a template instead of hand-typed per project. Used by `figma` (`capture` mode).

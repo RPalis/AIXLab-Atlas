@@ -1,0 +1,26 @@
+{
+  "skill": "moodboard",
+  "cases": [
+    {
+      "query": "/moodboard with three new screenshots in inspiration/",
+      "expected_behavior": [
+        "Adds them to the library and updates VISUAL_LANGUAGE.md",
+        "Describes patterns and adjectives, not literal token values",
+        "Cites the source reference for each pattern"
+      ]
+    },
+    {
+      "query": "/moodboard with an empty folder",
+      "expected_behavior": [
+        "Says there is nothing to synthesize"
+      ]
+    },
+    {
+      "query": "What direction do my references suggest?",
+      "expected_behavior": [
+        "Answers from VISUAL_LANGUAGE.md, with sources"
+      ],
+      "setup": "VISUAL_LANGUAGE.md exists"
+    }
+  ]
+}

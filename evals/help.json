@@ -1,0 +1,46 @@
+{
+  "skill": "help",
+  "cases": [
+    {
+      "query": "what should I do next?",
+      "expected_behavior": [
+        "Runs tools/detect-project-phase and names the signal behind each recommendation",
+        "Gives 1-3 skills, each with the exact command to run",
+        "Ends with the walkthrough link when it resolves"
+      ],
+      "setup": "Repo with persona doc but no object map"
+    },
+    {
+      "query": "/help doctor",
+      "expected_behavior": [
+        "Runs tools/doctor and lists each problem with one fixing skill",
+        "Changes nothing on disk"
+      ],
+      "setup": "Project with a stale DESIGN.md"
+    },
+    {
+      "query": "I want to start designing an app for field technicians",
+      "expected_behavior": [
+        "Recommends setup first, then brief",
+        "Tells the user to type the command because setup is user-invoked"
+      ],
+      "setup": "Empty repo"
+    },
+    {
+      "query": "/help atlas",
+      "expected_behavior": [
+        "Shows every skill grouped by phase and links each"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "I'm starting a UX project and don't know where to begin",
+      "what can this suite do",
+      "which skill do I need for user research"
+    ],
+    "should_not_start": [
+      "fix this TypeScript error"
+    ]
+  }
+}

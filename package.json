@@ -1,0 +1,17 @@
+{
+  "name": "ux-atlas",
+  "version": "0.2.0",
+  "private": true,
+  "description": "UX Atlas: agent skills for taking a UX prototype from research to handoff.",
+  "license": "MIT",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "test": "node scripts/validate.mjs && node scripts/sync-skill-metadata.mjs --check && node --test tests/*.test.mjs",
+    "build:docs": "node scripts/build-skill-docs.mjs",
+    "build:portable": "node scripts/build-portable.mjs",
+    "sync": "node scripts/sync-skill-metadata.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

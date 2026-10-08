@@ -1,0 +1,37 @@
+{
+  "skill": "map",
+  "cases": [
+    {
+      "query": "/map objects",
+      "expected_behavior": [
+        "Proposes one object at a time and confirms each",
+        "Renders an erDiagram with real cardinality that matches the table",
+        "Writes OOUX_OBJECT_MAP.md"
+      ]
+    },
+    {
+      "query": "/map ia with no content inventory",
+      "expected_behavior": [
+        "Stops at the pre-flight gate and asks for the inventory and user goals",
+        "Does not start structuring"
+      ]
+    },
+    {
+      "query": "/map flow for 'reset my password'",
+      "expected_behavior": [
+        "Draws both branches of every decision",
+        "Includes error, empty and recovery states",
+        "Ends with the human review checklist"
+      ],
+      "setup": "Persona and IA docs exist"
+    },
+    {
+      "query": "/map document",
+      "expected_behavior": [
+        "Regenerates the Mermaid, SVG and interactive map from the real route tree",
+        "Skips object reconciliation and says so when nothing drifted"
+      ],
+      "setup": "Built prototype"
+    }
+  ]
+}

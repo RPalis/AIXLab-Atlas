@@ -1,0 +1,32 @@
+{
+  "skill": "interview",
+  "cases": [
+    {
+      "query": "/interview questions",
+      "expected_behavior": [
+        "Asks whether the round is discovery or validation",
+        "Reads UNKNOWNS.md and folds open questions into the kit",
+        "Produces a question bank, script and synthesis template"
+      ],
+      "setup": "UNKNOWNS.md has three open questions"
+    },
+    {
+      "query": "/interview analysis with 5 transcripts",
+      "expected_behavior": [
+        "Plans first and waits for approval before analyzing",
+        "Every theme carries verbatim quotes with interview numbers",
+        "Flags weak signals instead of promoting them"
+      ],
+      "setup": "5 transcript files"
+    },
+    {
+      "query": "/interview usability",
+      "expected_behavior": [
+        "Writes realistic task scenarios with success criteria and a timed agenda",
+        "Runs a bias review pass",
+        "States that a human researcher moderates"
+      ],
+      "setup": "Built prototype"
+    }
+  ]
+}

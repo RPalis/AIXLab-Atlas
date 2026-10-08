@@ -1,7 +1,10 @@
 ---
 name: setup
 description: >-
-  Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records the docs folder's real name and which skill owns which doc, an empty UNKNOWNS.md, a notes/ home for the wiki and anything else worth jotting down, and a repo/ folder of relative symlinks to the root-level README/AGENTS/CLAUDE/CONTEXT docs so a notes tool opened on the docs folder can read them) before any code or design work starts. Names the docs folder after the project (e.g. pocket-atlas-docs/, not a bare docs/) so it's unambiguous when opened directly as a vault in a third-party tool like Obsidian. Runs first, ahead of prototype. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead. On an existing product it also inventories every doc the wider suite owns (personas, object map, tokens, ADRs, requirements, etc.), notes anything already present under a different name, feeds that inventory to brief for a fuller lay-of-the-land reconnaissance (even mid-lifecycle, unless a current PRODUCT_BRIEF.md already exists), then hands off to help to turn the inventory into concrete backfill moves. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
+  Bootstraps a prototype repo's doc shell: README, project AGENTS.md, UNKNOWNS.md, notes folder and
+  a docs folder named after the project. Appends to an existing repo and inventories its docs. Use
+  first, before any other suite work.
+disable-model-invocation: true
 ---
 
 # Setup
@@ -11,9 +14,7 @@ The step before Discover starts. `scaffold` builds the actual application code; 
 **Docs folder naming:** this suite's docs live in a folder named `<project-slug>-docs/` — a kebab-case slug of the project name — not a bare `docs/`. A generic `docs/` reads as an unlabeled, ambiguous vault when opened directly in a third-party tool like Obsidian; naming it after the project fixes that. See the suite's own `AGENTS.md` §7 for the full convention. Every other skill in this suite writes `docs/...` in its own instructions as shorthand for whatever this skill actually named the folder — they resolve the real name from the project `AGENTS.md` this skill writes (Step 3), not from a literal `docs/` path.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 - If `setup` itself fired because the user described what they wanted rather than typing `/setup`, say so in one line ("Using the `setup` skill (`/setup`) to bootstrap your docs.") — the same convention Step 3's `AGENTS.md` block asks every downstream skill to follow, so it should hold from the very first skill a user encounters.
 
 ## Step 0: Check for a newer skill suite version
@@ -46,7 +47,7 @@ Don't ask about anything covered in later lifecycle steps. Project name/purpose 
 
 ## Step 3: Write the doc shell
 
-Four things plus a set of symlinks, nothing else. For each: **if it already exists, append what's missing rather than overwriting anything.** A repo `setup` is layered onto may already have a README with real content, or an AGENTS.md from a different tool — that content stays; this skill only fills gaps.
+Five things plus a set of symlinks, nothing else. For each: **if it already exists, append what's missing rather than overwriting anything.** A repo `setup` is layered onto may already have a README with real content, or an AGENTS.md from a different tool — that content stays; this skill only fills gaps.
 
 **`README.md`**: if missing, create it with project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype (or, on an existing product, whatever status is actually true). Leave placeholder headings for sections later skills will fill in (install/run instructions once `scaffold` exists, a feature overview once screens exist) rather than inventing content now. If a README already exists, leave its content untouched; only append a `## Status` line if one isn't already present in some form.
 
@@ -59,6 +60,7 @@ This prototype is built with UX Atlas. Docs folder: `<project-slug>-docs/`.
 
 Doc ownership:
 - `<project-slug>-docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
+- `<project-slug>-docs/GLOSSARY.md` — the project's shared terms; appended to by `interrogate` and `decisions` when a conversation settles what a word means
 - `<project-slug>-docs/PRODUCT_BRIEF.md` — owned by `brief`
 - `<project-slug>-docs/COMPETITIVE_ANALYSIS.md` — owned by `competitors`
 - `<project-slug>-docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
@@ -74,6 +76,9 @@ Doc ownership:
 
 ## Working Agreements
 
+- **Keep replies short.** Short, bullet-first chat replies; plain, scannable docs; the simplest code that works (stdlib and native first).
+- **Not sure what to do next?** Run `help` (`/ux-atlas:help` when UX Atlas is installed as a plugin, `/help` otherwise). It reads this project and names the next skill and the exact command.
+- **Use the project's words.** Check `<project-slug>-docs/GLOSSARY.md` before naming anything in UI copy, code or docs.
 - **Capture decisions as they happen.** A non-obvious call made while working in this repo doesn't wait for someone to ask "why did we do it this way?" later: write it up with `decisions` if it's a real tradeoff with a rejected alternative, or with `wiki`'s `note` mode if it's smaller than that but still worth keeping.
 - **Don't let a thought evaporate at the end of a session.** Anything worth remembering that doesn't have an obvious home yet, an idea, a risk, an observation, goes through `wiki`'s `note` mode immediately. It lands in `<project-slug>-docs/notes/my-notes/` and folds into `<project-slug>-docs/notes/wiki/` on its own; nothing needs a separate pass to not get lost.
 - **Use `<project-slug>-docs/notes/` for all project notes.** Meeting notes, scratch thoughts, research, anything a teammate, PM, client, or user hands over, belongs there (or elsewhere under `<project-slug>-docs/` if it's a standalone document someone else maintains) rather than scattered across the repo or left outside version control entirely. `wiki` picks up anything placed there.
@@ -83,6 +88,17 @@ Doc ownership:
 ```
 
 **`<project-slug>-docs/UNKNOWNS.md`**: if missing, create it empty with just a one-line header (`# Unknowns`). This is the one doc safe to pre-create with no content: an append-only running list from day one, not authored output any one skill produces. If it already exists, leave it alone entirely.
+
+**`<project-slug>-docs/GLOSSARY.md`**: if missing, create it with this content. If it exists, leave it alone.
+
+```markdown
+# Glossary
+
+The project's shared terms. Add a term when a conversation settles what it means. One sentence per definition. List the words not to use for it, so the product, the code and the docs all say the same thing.
+
+**Term**: One-sentence definition.
+_Avoid_: other words that mean the same thing.
+```
 
 **`<project-slug>-docs/notes/`**: if missing, create the folder with a single `notes/README.md` explaining what it's for, so it's never an unexplained empty folder:
 

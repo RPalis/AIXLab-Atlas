@@ -16,6 +16,20 @@ weighted average on the scorecard.
 
 ---
 
+## Contents
+
+- 1. Features / capability coverage
+- 2. Task flows & efficiency (steps, friction, dead-ends)
+- 3. Information architecture (structure, grouping, labels)
+- 4. Navigation & findability (nav patterns, wayfinding)
+- 5. Layout & visual hierarchy
+- 6. UX / interaction patterns (forms, feedback, empty & error states)
+- 7. Onboarding & first-run
+- 8. Content & microcopy clarity
+- 9. Accessibility (WCAG signals)
+- 10. Trust & credibility (pricing, security, social proof)
+- Enterprise / captive-audience note
+
 ## 1. Features / capability coverage
 *Does the product actually do what the task needs?*
 

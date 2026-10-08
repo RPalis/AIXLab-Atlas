@@ -1,14 +1,10 @@
 ---
 name: moodboard
 description: >-
-  Maintains a persistent library of visual inspiration (screenshots or URLs dropped
-  into <docs>/inspiration/) and synthesizes it into a living VISUAL_LANGUAGE.md — the
-  recurring color/typography/spacing/shape/elevation patterns across everything
-  collected, plus 2-4 descriptive adjectives, not literal token values. Other skills
-  (`restyle`, optionally `scaffold`/`refine`) read this doc as design input. Use when
-  the user wants an ongoing collection of style inspiration for a product, drops new
-  reference screenshots into the inspiration folder, or asks what direction their
-  references suggest.
+  Keeps a library of visual inspiration and distills it into VISUAL_LANGUAGE.md: the recurring
+  color, type, spacing, shape and elevation patterns. Use when the user collects style references or
+  asks what direction they suggest.
+disable-model-invocation: true
 ---
 
 # Moodboard
@@ -31,9 +27,7 @@ synthesis instead.
   not a single-session ask.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Structure
 

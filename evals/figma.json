@@ -1,0 +1,27 @@
+{
+  "skill": "figma",
+  "cases": [
+    {
+      "query": "/figma sync",
+      "expected_behavior": [
+        "Checks the Figma MCP server is connected before doing anything",
+        "If not connected, says so and stops without guessing at Figma structure"
+      ]
+    },
+    {
+      "query": "/figma import with a frame URL",
+      "expected_behavior": [
+        "Maps the frame to semantic tokens, not raw hex",
+        "Runs tools/design-check on the new code and reports it clean"
+      ],
+      "setup": "Figma MCP connected"
+    },
+    {
+      "query": "/figma capture",
+      "expected_behavior": [
+        "Adds the capture button without needing the MCP server",
+        "Uses tools/figma-capture-helper rather than hand-typing the snippet"
+      ]
+    }
+  ]
+}

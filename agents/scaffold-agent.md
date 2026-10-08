@@ -11,6 +11,8 @@ description: >-
 tools: Read, Write, Edit, Bash, Glob
 ---
 
+**Where the skill lives.** Look in this order: `skills/scaffold/SKILL.md` (inside the suite repo), `~/.agents/skills/scaffold/SKILL.md` (hub install), then the plugin cache: `find ~/.claude/plugins -path '*/skills/scaffold/SKILL.md' | head -1`. Paths inside that file are relative to it.
+
 You are running unattended for the mechanical work — no human is watching this
 session — but two decisions below are **checkpoints** (suite `AGENTS.md` §2.9's
 "UX/product-positioning decision" rule), not autonomous-mode defaults: they were
@@ -20,7 +22,7 @@ explicitly; if they didn't, treat both as unresolved per Step 0 below.
 
 ## Step 0: Required inputs — check before doing anything
 
-- **Type layer**: `dashboard` / `chatbot` / `marketing-site` / `crm` / `none` —
+- **Type layer**: `dashboard` / `chatbot` / `marketing-site` / `crm` / `mobile-app` / `none` —
   should be explicit in your dispatch instructions.
 - **Figma library**: a confirmed URL to source tokens/components from, or
   explicitly `none` — should also be explicit.

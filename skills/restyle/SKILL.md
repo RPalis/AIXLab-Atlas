@@ -1,14 +1,10 @@
 ---
 name: restyle
 description: >-
-  Generate 2-3 candidate visual directions for the app from reference
-  screenshots/URLs (or an existing `moodboard` VISUAL_LANGUAGE.md) — full token set:
-  color, typography, spacing/radius, elevation — live-applied to the running
-  prototype via a temporary switcher so the designer compares their real screens in
-  each direction, not isolated swatches. Hands the chosen direction to `styleguide`'s
-  `forge` mode to actually commit it. Use when the user shares reference
-  screenshots/URLs of styles they like (e.g. Dribbble shots) and wants a few
-  restyled variations of their own app to pick from.
+  Generates two or three visual directions from reference screenshots, applies each live to the
+  running prototype through a temporary switcher, then commits the winner through styleguide forge
+  mode. Use when the user shares style references and wants to compare options on their own screens.
+disable-model-invocation: true
 ---
 
 # Restyle
@@ -28,9 +24,7 @@ to [`styleguide`](../styleguide/SKILL.md) to make permanent.
 - One targeted edit to one element → [`redline`](../redline/SKILL.md).
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Step 1: Gather the input
 

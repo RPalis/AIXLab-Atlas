@@ -1,0 +1,33 @@
+{
+  "skill": "brainstorming",
+  "cases": [
+    {
+      "query": "/brainstorming",
+      "expected_behavior": [
+        "Asks for or finds one signed-off problem statement before generating anything",
+        "Produces 15 ideas and 3 assumption-breakers"
+      ],
+      "setup": "docs/PROBLEM_STATEMENTS.md exists with one statement marked signed off"
+    },
+    {
+      "query": "/brainstorming with no problem statement present",
+      "expected_behavior": [
+        "Stops and points to problems; does not invent a problem statement"
+      ]
+    },
+    {
+      "query": "/brainstorming then 'just pick the best one'",
+      "expected_behavior": [
+        "Declines to name a single winner",
+        "Returns a scored shortlist of 3-4 named directions with user value, effort and risk"
+      ],
+      "setup": "Ideas already generated"
+    }
+  ],
+  "trigger": {
+    "should_start": [],
+    "should_not_start": [
+      "what should we build"
+    ]
+  }
+}

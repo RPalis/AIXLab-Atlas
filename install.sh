@@ -9,6 +9,13 @@ MANIFEST="$HUB/.ux-atlas.manifest"
 TOOLS_HUB="$HOME/.agents/tools"
 TOOLS_MANIFEST="$TOOLS_HUB/.ux-atlas.manifest"
 
+# Clients that read ~/.agents/skills directly (checked against each product's skills docs):
+# Gemini CLI, OpenAI Codex, GitHub Copilot and Cursor. Linking them again only makes every skill
+# appear twice, so selecting one is a no-op and old links this script made are retired. Claude Code
+# does not read the hub, so it still needs a link. Antigravity and Grok are linked until their docs say otherwise.
+HUB_DIRECT="gemini-cli codex copilot cursor"
+is_hub_direct() { case " $HUB_DIRECT " in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
+
 # Known client skill directories. Each entry is "label|path|name".
 # The hub (~/.agents/skills) is the one real copy: skills are copied there from
 # this repo. Every client below gets a single symlink to ~/.agents/skills/<name>,
@@ -207,7 +214,7 @@ if [ "$non_interactive" = false ]; then
       mark="[ ]"
       [ "${checked[$i]}" = "1" ] && mark="[x]"
       note=""
-      if [ "${CLIENTS_LABEL[$i]}" = "gemini-cli" ]; then
+      if is_hub_direct "${CLIENTS_LABEL[$i]}"; then
         note=" $(dim "(reads the hub directly, nothing to link)")"
       elif [ ! -d "$(dirname "${CLIENTS_PATH[$i]}")" ]; then
         note=" $(dim "(not detected on this machine, will be created)")"
@@ -327,17 +334,22 @@ if [ -f "$MANIFEST" ]; then
   done < "$MANIFEST"
 fi
 
-# ---------- retire the ~/.gemini/skills links earlier versions of this script made ----------
-# Gemini CLI reads the hub directly; these only produced conflict warnings. Only
-# remove a link that points at our hub entry or this repo, never anything else.
-for skill_name in "${current_skills[@]}"; do
-  legacy="$HOME/.gemini/skills/$skill_name"
-  if [ -L "$legacy" ]; then
-    link_dest="$(readlink "$legacy" 2>/dev/null || true)"
-    if [ "$link_dest" = "$HUB/$skill_name" ] || [ "$link_dest" = "$SOURCE_DIR/$skill_name" ]; then
-      rm -f "$legacy"
-    fi
-  fi
+# ---------- retire links earlier versions of this script made for hub-direct clients ----------
+# These clients read the hub directly; the extra links only produced duplicates or conflict
+# warnings. Only remove a link that points at our hub entry or this repo, never anything else.
+for label in $HUB_DIRECT; do
+  for i in "${!CLIENTS_LABEL[@]}"; do
+    [ "${CLIENTS_LABEL[$i]}" = "$label" ] || continue
+    for skill_name in "${current_skills[@]}"; do
+      legacy="${CLIENTS_PATH[$i]}/$skill_name"
+      if [ -L "$legacy" ]; then
+        link_dest="$(readlink "$legacy" 2>/dev/null || true)"
+        if [ "$link_dest" = "$HUB/$skill_name" ] || [ "$link_dest" = "$SOURCE_DIR/$skill_name" ]; then
+          rm -f "$legacy"
+        fi
+      fi
+    done
+  done
 done
 
 # ---------- hub: copy this repo's skills to ~/.agents/skills/<name> ----------
@@ -347,13 +359,47 @@ for skill_name in "${current_skills[@]}"; do
   cp -R "$SOURCE_DIR/$skill_name" "$HUB/$skill_name"
 done
 
+# ---------- agents: copy agents/*.md to ~/.agents/agents, link into Claude Code ----------
+# The agent files drive skills unattended. Claude Code reads ~/.claude/agents; the other clients ignore these.
+AGENTS_HUB="$HOME/.agents/agents"
+SOURCE_AGENTS_DIR="$REPO_DIR/agents"
+mkdir -p "$AGENTS_HUB"
+agent_files=()
+if [ -d "$SOURCE_AGENTS_DIR" ]; then
+  for f in "$SOURCE_AGENTS_DIR"/*.md; do
+    [ -f "$f" ] && agent_files+=("$(basename "$f")")
+  done
+fi
+for a in "${agent_files[@]}"; do
+  rm -f "$AGENTS_HUB/$a"
+  cp "$SOURCE_AGENTS_DIR/$a" "$AGENTS_HUB/$a"
+done
+for label in "${selected[@]}"; do
+  if [ "$label" = "claude" ]; then
+    mkdir -p "$HOME/.claude/agents"
+    for a in "${agent_files[@]}"; do
+      rm -f "$HOME/.claude/agents/$a"
+      ln -s "$AGENTS_HUB/$a" "$HOME/.claude/agents/$a"
+    done
+    echo "Linked ${#agent_files[@]} agents into Claude Code (~/.claude/agents)"
+  fi
+done
+
+# ---------- warn if the plugin install is also present ----------
+if grep -qs '"ux-atlas' "$HOME/.claude/plugins/installed_plugins.json" 2>/dev/null; then
+  echo ""
+  echo "NOTE: the UX Atlas Claude Code plugin is also installed. Claude Code will list every skill twice"
+  echo "      (once as /ux-atlas:<skill>, once as /<skill>). Keep one: run 'claude plugin uninstall ux-atlas'"
+  echo "      or re-run this script without --claude."
+fi
+
 # ---------- clients: <client>/skills/<name> -> ~/.agents/skills/<name> ----------
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
       target_dir="${CLIENTS_PATH[$i]}"
-      if [ "$label" = "gemini-cli" ]; then
-        echo "Gemini CLI reads $HUB directly; nothing to link"
+      if is_hub_direct "$label"; then
+        echo "${CLIENTS_NAME[$i]} reads $HUB directly; nothing to link"
         continue
       fi
       mkdir -p "$target_dir"
@@ -389,8 +435,8 @@ echo "Canonical hub (copied): $HUB"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
-      if [ "$label" = "gemini-cli" ]; then
-        echo "  -> Gemini CLI: reads the hub directly (run /skills reload in an open session)"
+      if is_hub_direct "$label"; then
+        echo "  -> ${CLIENTS_NAME[$i]}: reads the hub directly (reload skills in an open session)"
       else
         echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
       fi

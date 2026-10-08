@@ -1,0 +1,26 @@
+{
+  "skill": "storybook",
+  "cases": [
+    {
+      "query": "/storybook",
+      "expected_behavior": [
+        "Extracts real tokens from the codebase",
+        "Generates Foundations, Atoms, Molecules, Organisms and Widgets stories",
+        "Embeds the static build in the app"
+      ],
+      "setup": "Built prototype"
+    },
+    {
+      "query": "/storybook on a refresh",
+      "expected_behavior": [
+        "Audits the existing Storybook against the real code and fixes drift"
+      ]
+    },
+    {
+      "query": "/storybook with no components",
+      "expected_behavior": [
+        "Says there is nothing to document"
+      ]
+    }
+  ]
+}

@@ -1,11 +1,10 @@
 ---
 name: brainstorming
 description: >-
-  Turn one signed-off problem statement into many ideas, then a scored shortlist the team takes into sketching
-  — never a single winner. Use before defining information architecture, solution definition, building
-  wireframes, or committing to a single direction. Trigger on "run a brainstorm", "ideation session",
-  "generate ideas for this problem", "what directions could we take", or when a problem statement exists and
-  needs options before a direction is picked.
+  Turns one signed-off problem statement into many ideas and a scored shortlist of directions, never
+  a single winner. Use when a problem statement exists and the team needs options before it picks a
+  direction.
+disable-model-invocation: true
 ---
 
 # Brainstorming Planner
@@ -23,12 +22,7 @@ scored set of directions — not a single winner. ~20-30 minutes.
   happen after this skill, once a direction is picked and validated.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if
-  asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep
-  substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
-  unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## The evidence rule
 

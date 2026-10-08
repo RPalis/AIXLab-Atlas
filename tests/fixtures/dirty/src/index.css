@@ -1,0 +1,2 @@
+:root { --bg-page:#F9FAFB; --surface:#FFFFFF; --surface-hover:#F3F4F6; --text-primary:#111827; --text-secondary:#4B5563; --text-muted:#9CA3AF; --text-brand:#00828A; }
+.dark { --bg-page:#0B0F19; --surface:#111827; --surface-hover:#1F2937; --text-primary:#F9FAFB; --text-secondary:#9CA3AF; --text-muted:#6B7280; --text-brand:#38BDF8; }

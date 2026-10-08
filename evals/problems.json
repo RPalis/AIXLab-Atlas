@@ -1,0 +1,26 @@
+{
+  "skill": "problems",
+  "cases": [
+    {
+      "query": "/problems",
+      "expected_behavior": [
+        "Writes statements with no proposed solution",
+        "Each user story traces to a persona, pain point or theme"
+      ],
+      "setup": "Persona, journey and interview docs exist"
+    },
+    {
+      "query": "/problems with no research docs",
+      "expected_behavior": [
+        "Says research is missing and stops"
+      ]
+    },
+    {
+      "query": "/problems and 'also suggest the fix'",
+      "expected_behavior": [
+        "Keeps solutions out of the statements and points to brainstorming"
+      ],
+      "setup": "Research exists"
+    }
+  ]
+}

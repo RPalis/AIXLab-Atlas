@@ -1,0 +1,24 @@
+{
+  "skill": "metrics",
+  "cases": [
+    {
+      "query": "/metrics for a mandatory-use internal tool",
+      "expected_behavior": [
+        "Picks CASTLE and says why"
+      ]
+    },
+    {
+      "query": "/metrics for a consumer app people choose to use",
+      "expected_behavior": [
+        "Picks HEART"
+      ]
+    },
+    {
+      "query": "/metrics for a physical kiosk",
+      "expected_behavior": [
+        "Picks SELECT",
+        "Tags every Key Result with its framework category"
+      ]
+    }
+  ]
+}

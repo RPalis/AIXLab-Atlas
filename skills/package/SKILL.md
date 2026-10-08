@@ -1,8 +1,11 @@
 ---
 name: package
 description: >-
-  Package the current repo for handoff, in three modes: "full" (unminified site + raw source + docs, three-folder zip, for a developer to read/rebuild), "lite" (minified <app-name>-production/ folder that runs on any static host with no backend process — index.html at the root, everything else in assets/, the backend's API embedded as a snapshot with edits persisted to localStorage), or "figma" (a flat <app-name>-figma/ folder of a few unminified html/js/css files, each under 1MB, to attach to a Figma Make chat). Repo-agnostic — frontend (React/Vue/etc. or Angular; "figma" needs a Vite frontend), optional backend, optional Electron. Use /package full, /package lite, or /package figma.
+  Packages the repo for handoff. Modes: full (site, source and docs zip), lite (static-host folder),
+  figma (flat files for Figma Make). Use when the prototype is ready to go to developers,
+  stakeholders or Figma.
 argument-hint: "[full: site + source + docs | lite: static-host folder | figma: Make-ready files]"
+disable-model-invocation: true
 ---
 
 # App Packaging
@@ -23,9 +26,7 @@ Repo-agnostic — works whether the repo is a frontend-only prototype or a full-
 Run either **on request**, after a batch of edits, not after every single change.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Mode: `full`
 

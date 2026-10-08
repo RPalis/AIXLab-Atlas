@@ -1,7 +1,9 @@
 ---
 name: refine
 description: >-
-  Fix and unify UI craft, micro-interactions, responsive container layouts, optical alignment, and aesthetic delight for prototypes: the build/fix step after audit has identified what's wrong. Use when redesigning, elevating visual quality, or acting on audit findings.
+  Fixes and unifies UI craft in a prototype: spacing, hierarchy, motion, UX copy, empty and error
+  states, responsive and mobile layouts. Acts on audit findings. Use when asked to polish, redesign
+  or raise the visual quality of screens.
 ---
 
 # Design Refinement & Aesthetic Craft
@@ -9,9 +11,7 @@ description: >-
 Elevates prototype UI from basic wireframe quality to extraordinary, presentation-ready product craft. It's the *fix* step — [`audit`](../audit/SKILL.md) is the *find* step.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Step 0: Confirm there's a findings list to act on
 
@@ -23,35 +23,31 @@ This skill narrows `audit`'s `craft`-mode findings into concrete design decision
 
 ---
 
-## 6 Craft Heuristics for Prototypes
+## Step 1: Pick the lens
 
-### 1. Information Density & Scannability
-- Avoid endless blank white space or oversized cartoonish cards.
-- Format dense financial and tabular data cleanly with `tabular-nums`, consistent column alignments (numbers right-aligned, text left-aligned), and subtle row hover highlights (`hover:bg-surface-hover/60`).
+Match the findings to a lens, then open only that reference. A pass can use more than one lens. Always apply the craft floor.
 
-### 2. Layering, Elevation & Subtle Glassmorphism
-- Use crisp, multi-layer shadows (`shadow-sm`, `shadow-md`, `shadow-xl`) and subtle border strokes (`border border-surface-border`).
-- Apply subtle backdrop blurs (`backdrop-blur-md bg-surface/80`) to floating headers, dialogs, and flyout menus.
+| If the findings are about | Open |
+|---|---|
+| Any screen (always) | [`references/craft-floor.md`](references/craft-floor.md) |
+| Animation, transitions, feedback, reduced motion | [`references/motion.md`](references/motion.md) |
+| Labels, buttons, errors, empty states, tone | [`references/ux-copy.md`](references/ux-copy.md) |
+| Real data, failures, forms, long text, other languages, right-to-left | [`references/harden.md`](references/harden.md) |
+| New-user experience, onboarding, blank screens | [`references/first-run.md`](references/first-run.md) |
+| Slow load, jank, heavy bundles, images, fonts | [`references/performance.md`](references/performance.md) |
+| Phone or tablet layout, touch, safe areas, platform feel | [`references/mobile.md`](references/mobile.md) |
 
-### 3. Intentional Micro-Interactions & Transitions
-- Add fluid CSS transitions (`transition-all duration-150 ease-out`) to buttons, tab switches, disclosures, and hover cards.
-- Provide clear visual feedback on destructive actions (e.g. subtle red glow on danger buttons).
+**Completion criterion:** every finding in scope maps to a lens, and the reference for each lens was opened.
 
-### 4. Typography Hierarchy & Contrast
-- Pair high-contrast primary text (`text-primary`) with balanced secondary metadata (`text-secondary text-xs`).
-- Ensure all text passes WCAG AA contrast (4.5:1 for body copy).
+## Step 2: Fix in one batch
 
-### 5. Empty States & Loading States
-- Design helpful, branded empty states with clear iconography and a direct CTA (never a blank white screen).
-- Use subtle animated skeleton loaders rather than generic spinning wheels.
+1. Read the target components and their tokens before editing.
+2. Make every fix for this pass in one batch. Use semantic token classes. Do not add raw hex, raw palette classes or `dark:` variants.
+3. Run `node ../../tools/design-check/design-check.mjs <src>` and `node ../../tools/check-token-contrast/check-token-contrast.mjs <src/index.css>`. Both must be clean.
+4. Check the result once in light and dark, and at phone and desktop width. Fix what that single round shows.
 
-### 6. Dark Mode Fidelity
-- Avoid pure black `#000000` for dark mode surfaces. Use rich dark slate/navy tones (`#0B0F19`, `#111827`) with layered border definitions to preserve visual depth.
+## Step 3: Stop
 
----
+Verify in bounded passes. Build fully, check once across themes and widths, fix everything in one batch, confirm with at most one more round, then stop. Open-ended polishing costs more than it gains. Report what changed, grouped by finding, and say what the remaining findings need (usually another `audit` run).
 
-## Process
-
-1. **Inspect component JSX.** Scan target views for visual friction, generic layouts, or missing micro-interactions.
-2. **Apply refinement tweaks.** Replace generic styling with semantic design tokens and micro-interactions.
-3. **Verify in light and dark modes.** Toggle the theme switcher and check every token pair still holds contrast and legibility in both modes.
+**Completion criterion:** each fixed finding is listed with the file changed, both checks are clean, and the pass ended after at most two check rounds.

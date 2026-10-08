@@ -1,7 +1,8 @@
 ---
 name: decisions
 description: >-
-  Capture a UX or architecture decision as a lightweight ADR (Architecture Decision Record) in docs/adr/, documenting the rejected alternatives and why. Use when a prototype makes a non-obvious call (a workaround, a template override, a state-model tradeoff) that a teammate or stakeholder will later ask "why did we do it this way?" about.
+  Records a non-obvious UX or architecture decision as a short ADR in docs/adr/, with the rejected
+  alternatives and why. Use when a choice will later prompt the question why it was done this way.
 ---
 
 # Decision Records (ADRs)
@@ -14,9 +15,7 @@ Not every decision needs one. Write one when a decision:
 - Would be expensive or confusing to reverse without knowing why it was made this way
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Step 1: Write the record
 
@@ -32,6 +31,9 @@ Use [`templates/adr-template.md`](templates/adr-template.md) as a starting shape
 **Completion criterion:** a teammate unfamiliar with the discussion could read the record and understand not just what was chosen, but why the obvious alternative was rejected.
 
 ## Step 2: Link it where it'll be found
+
+If the decision settled what a term means, add or update the term in `<docs>/GLOSSARY.md`, and use that word in the record.
+
 
 Reference the record from wherever the decision is visible in code: a one-line comment pointing at the ADR path near the relevant code, or a link from the feature's section in `docs/OOUX_OBJECT_MAP.md` / `docs/PERSONA_WALKTHROUGH.md` if it affects one of those.
 

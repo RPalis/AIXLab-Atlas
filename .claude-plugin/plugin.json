@@ -1,0 +1,19 @@
+{
+  "name": "ux-atlas",
+  "version": "0.2.0",
+  "description": "End-to-end UX skills: Discover, Decide, Design, Deliver. Research, information architecture, design tokens, audits, prototypes, and handoff.",
+  "author": {
+    "name": "Aaron Kiersky"
+  },
+  "repository": "https://github.com/kiersky-coforge/ux-atlas",
+  "license": "MIT",
+  "keywords": [
+    "ux",
+    "design",
+    "research",
+    "prototype",
+    "design-tokens",
+    "accessibility",
+    "agent-skills"
+  ]
+}

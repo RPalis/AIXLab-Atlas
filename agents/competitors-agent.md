@@ -13,6 +13,8 @@ description: >-
 tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch
 ---
 
+**Where the skill lives.** Look in this order: `skills/competitors/SKILL.md` (inside the suite repo), `~/.agents/skills/competitors/SKILL.md` (hub install), then the plugin cache: `find ~/.claude/plugins -path '*/skills/competitors/SKILL.md' | head -1`. Paths inside that file are relative to it.
+
 You are running unattended for the mechanical research work — no human is
 watching this session — but which candidates get a full profile is a
 **checkpoint** (suite `AGENTS.md` §2.9's "UX/product-positioning decision"

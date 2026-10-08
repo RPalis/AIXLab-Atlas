@@ -1,0 +1,27 @@
+{
+  "skill": "scaffold",
+  "cases": [
+    {
+      "query": "/scaffold",
+      "expected_behavior": [
+        "Uses Vite, React 19, TypeScript and Tailwind v4 with @tailwindcss/vite",
+        "Creates no tailwind.config.js or postcss config",
+        "Copies the styleguide index.css template",
+        "Claims a free dev port before first run"
+      ]
+    },
+    {
+      "query": "/scaffold for a field-service phone app",
+      "expected_behavior": [
+        "Asks which platform (iOS, Android or both) before applying the mobile-app layer",
+        "Adds safe-area utilities and a bottom tab bar"
+      ]
+    },
+    {
+      "query": "/scaffold in autonomous mode",
+      "expected_behavior": [
+        "Builds the base scaffold and stops before choosing a type layer"
+      ]
+    }
+  ]
+}

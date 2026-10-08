@@ -1,0 +1,43 @@
+{
+  "skill": "refine",
+  "cases": [
+    {
+      "query": "/refine with an audit craft findings list",
+      "expected_behavior": [
+        "Maps each finding to a lens and opens only that reference",
+        "Fixes in one batch",
+        "Runs design-check and check-token-contrast and both are clean",
+        "Ends after at most two check rounds"
+      ],
+      "setup": "Findings list in the conversation"
+    },
+    {
+      "query": "/refine for a phone layout",
+      "expected_behavior": [
+        "Opens mobile.md and applies target size, safe areas and 200% text rules"
+      ]
+    },
+    {
+      "query": "Make this screen feel nicer, no findings",
+      "expected_behavior": [
+        "Proceeds but says this is undirected refinement"
+      ]
+    },
+    {
+      "query": "Add a glow and glassmorphism to the cards",
+      "expected_behavior": [
+        "Declines decorative blur and glow per the craft floor and offers a token-based depth option"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "polish this screen",
+      "raise the visual quality of the dashboard",
+      "fix the findings from the audit"
+    ],
+    "should_not_start": [
+      "write a persona"
+    ]
+  }
+}

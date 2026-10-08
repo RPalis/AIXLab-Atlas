@@ -1,0 +1,33 @@
+{
+  "skill": "wiki",
+  "cases": [
+    {
+      "query": "Jot this down: stakeholders want offline mode",
+      "expected_behavior": [
+        "Files a note in notes/my-notes and folds it into the wiki in the same turn"
+      ]
+    },
+    {
+      "query": "/wiki compile with a spec PDF dropped in the docs folder",
+      "expected_behavior": [
+        "Ingests the external document into interlinked pages",
+        "Uses standard markdown links, never [[wikilinks]]"
+      ]
+    },
+    {
+      "query": "/wiki on an empty notes folder",
+      "expected_behavior": [
+        "Says there is nothing to compile"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "don't let me forget that",
+      "organize these meeting notes"
+    ],
+    "should_not_start": [
+      "package the prototype"
+    ]
+  }
+}

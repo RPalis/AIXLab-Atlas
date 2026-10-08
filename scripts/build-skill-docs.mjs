@@ -42,8 +42,19 @@ for (const name of skillNames) {
     console.error(`skipping ${name}: no closing frontmatter delimiter`);
     continue;
   }
-  lines.splice(closeIdx, 0, 'disable-model-invocation: true');
-  docs[name] = lines.join('\n');
+  if (!lines.slice(0, closeIdx).some((l) => l.startsWith('disable-model-invocation:'))) {
+    lines.splice(closeIdx, 0, 'disable-model-invocation: true');
+  }
+  let doc = lines.join('\n');
+  // Multi-mode skills keep each mode in references/<mode>.md; append the top-level reference files so
+  // the viewer still shows the whole skill, not only its router.
+  const refDir = path.join(SKILLS_DIR, name, 'references');
+  if (fs.existsSync(refDir)) {
+    for (const f of fs.readdirSync(refDir).filter((f) => f.endsWith('.md')).sort()) {
+      doc += `\n\n<!-- references/${f} -->\n` + fs.readFileSync(path.join(refDir, f), 'utf8');
+    }
+  }
+  docs[name] = doc;
 }
 
 const json = JSON.stringify(docs);

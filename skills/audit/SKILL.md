@@ -31,6 +31,9 @@ A single pass reliably misses things, since the reviewer anchors on whatever it 
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
+## Read the wiki first
+- In `spec` mode, read the wiki's artifacts, decisions and sources before you compare the build with the approved design, and cite their IDs. Read only: the [`wiki`](../wiki/SKILL.md) skill alone writes to it. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
+
 ## Modes
 
 Open the reference file for the chosen mode and follow it. Load only that file. Cross-references between modes name the mode, so open that mode's file when one is named.

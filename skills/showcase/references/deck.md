@@ -6,6 +6,8 @@ A condensed presentation of a report, for a live audience that has to reach a de
 
 ### Step 1: Read the source and the audience
 
+If the input is an ADR folder or several ADR files, join them first: `../../../tools/adr-bundle/adr-bundle.sh <folder-or-files> > <docs>/exports/decisions-source.md`. Use that file as the source, with the `decisions` recipe in [`references/report-deck-recipes.md`](report-deck-recipes.md).
+
 Read the whole Markdown file, and pre-flight it the same way as `doc` mode's Step 1. Ask, only if not already clear: who is the audience, and what decision should the deck help them reach? That decides which findings lead. **Autonomous mode:** assume a stakeholder readout and log it.
 
 ### Step 2: Draft the slide outline and confirm it

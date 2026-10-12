@@ -13,13 +13,16 @@ Interview the user relentlessly about a design decision (feature scope, UX trade
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
+## Read the wiki first
+- If the project has a wiki, read it before you ask the user, and cite source IDs such as `(S-004)`. Read only: the [`wiki`](../wiki/SKILL.md) skill alone writes to it. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
+
 ## Process
 
 1. **Walk the decision tree one branch at a time.** Ask one question, wait for the answer, then ask the next, never a batch of questions at once. Each question should resolve a real dependency the next question needs (don't ask about visual polish before scope is settled, don't ask about scope before you know who the user even is).
 2. **Always offer a recommended answer.** State your recommendation and the reasoning behind it before waiting for their response. This isn't a neutral survey, it's a collaborator with a point of view that can be overridden.
 3. **Look up facts, ask about decisions.** If something is discoverable from the codebase, existing docs (`docs/PERSONA_WALKTHROUGH.md`, `docs/OOUX_OBJECT_MAP.md`, `DESIGN.md`), or prior `docs/adr/` records, go find it. Don't make the user repeat what's already written down. Only ask about things that are genuinely theirs to decide.
 4. **Surface rejected alternatives explicitly.** When a question resolves toward one option over another, say why the alternative doesn't work. This is the material that makes the eventual record actually useful, not just the final answer.
-5. **Sharpen terms as you go.** When the user calls one thing by two names, or one name covers two things, stop and settle it. Record the settled term in `<docs>/GLOSSARY.md` (create it if absent): the term, a one-sentence definition, and the words to avoid. Use the settled word in every later question.
+5. **Sharpen terms as you go.** When the user calls one thing by two names, or one name covers two things, stop and settle it. Record the settled term in `<docs>/GLOSSARY.md` (create it if absent): the term, a one-sentence definition, and the words to avoid. Use the settled word in every later question. Treat an unfamiliar acronym the same way: ask what it stands for, then record it.
 6. **Don't act until confirmed.** State the full shared understanding back before touching any code or docs, and wait for explicit confirmation.
 
 ## Step: Offer the handoff

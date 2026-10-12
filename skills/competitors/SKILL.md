@@ -25,6 +25,9 @@ Say which mode if not specified. Running this for the first time on a project al
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
+## Read the wiki first
+- If the project has a wiki, read it before you ask the user, and cite source IDs such as `(S-004)`. Read only: the [`wiki`](../wiki/SKILL.md) skill alone writes to it. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
+
 ## The evidence rule — shared across all modes
 
 **Do not invent information. Never assume a feature exists.**

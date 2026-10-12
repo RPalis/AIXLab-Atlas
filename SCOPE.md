@@ -6,6 +6,7 @@ What belongs in UX Atlas, and how a decision to leave something out is recorded.
 
 - It fixes a failure someone saw: what they ran, what the skill did, what they expected.
 - It fits the process: Discover, Decide, Design, Deliver (see `AGENTS.md` §1).
+- It helps someone through the UX process: collecting information, organizing thoughts, exposing details, or generating ideas. The prototype is a milestone in that work, and the groundwork comes before it, so a change that only makes the build faster is not enough. A quick start for a project joined midway is in scope: it collects the minimum, builds, and backfills.
 - It fits an existing skill or mode. Most requests do. Add a mode before a skill, and add a reference file before a mode.
 - It works from a fresh install with nothing else needed (`AGENTS.md` §2.5).
 

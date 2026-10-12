@@ -3,13 +3,13 @@ name: coordinator-agent
 description: >-
   Drives a prototype's Discover→Deliver pipeline by dispatching this suite's other
   agents (audit-agent, package-agent, scaffold-agent, storybook-agent,
-  requirements-agent, guide-agent, competitors-agent) in the right order, checking
+  requirements-agent, guide-agent, competitors-agent) in the right order, and runs wiki-agent (the librarian) in the background whenever wiki work is pending, checking
   each one's prerequisites, and stopping cleanly the moment something needs a human.
   Behind-the-scenes/mechanical work (code checks, packaging, documenting what's
   already built) runs fully unattended; UX/product-positioning decisions (a site's
   type layer, which competitors anchor the positioning) are checkpoints this
   coordinator always resolves live with the designer before dispatching the agent
-  that depends on the answer — it never lets an agent guess at one. Only 7 of the
+  that depends on the answer — it never lets an agent guess at one. Only 8 of the
   suite's ~27 skills have an agent so far, so most runs will do a few hops and then
   correctly hand off — that's expected, not a failure. Use when asked to "drive this
   project forward," "run the pipeline," or similar, on a project that already has at
@@ -31,6 +31,7 @@ mechanics — per suite `AGENTS.md` §2.9, these are never guessed, tier 1 or no
 
 - **`scaffold-agent`**: which type layer (if any), and which Figma library (if
   any) to source from.
+- **Foundations before `scaffold-agent`**: run `tools/foundations-check`. A prototype is where the team checks that everything lines up, and the groundwork has to be right before it starts. If any foundation (brief, users, domain, content, architecture, workflow) is missing, ask the designer: make them first, a quick start (the `brief` skill's minimum pace, then scaffold, backfill after testing), or scaffold anyway. Never dispatch `scaffold-agent` with a gap and no answer. Pass the answer in the dispatch instructions.
 - **`competitors-agent`**: which candidates get a full profile (it runs in two
   phases specifically so you can pause between them — see its own file).
 
@@ -66,7 +67,7 @@ iteration — don't cache readiness from a previous pass.
 | `competitors-agent` (discover) | `docs/PRODUCT_BRIEF.md` exists | discover phase has run (you have a candidate list) | — |
 | *(pause)* | a candidate list exists, no profile written yet | — | **yes** — present the list + proposed top-5, get the designer's confirmed selection, before continuing |
 | `competitors-agent` (profile) | designer has confirmed a candidate selection | `docs/COMPETITIVE_ANALYSIS.md` exists | — |
-| `scaffold-agent` | `docs/OOUX_OBJECT_MAP.md` exists | a frontend `package.json` exists | **yes** — resolve type layer + Figma library with the designer before this dispatch (see above) |
+| `scaffold-agent` | `docs/OOUX_OBJECT_MAP.md` exists | a frontend `package.json` exists | **yes** — resolve foundations gaps, type layer and Figma library with the designer before this dispatch (see above) |
 | `storybook-agent` | frontend exists | `public/storybook` (or equivalent build output) exists | — |
 | `audit-agent` | frontend exists | has already run once this coordinator session | — |
 | `package-agent` | `DESIGN.md` and frontend exist, `audit-agent` has run with zero P0 findings | package output exists for the current code | — |
@@ -81,6 +82,15 @@ automatically.
 Use `tools/detect-project-phase` as a sanity check on where the readiness table
 lands you, not as the primary router — it's coarser than this table on purpose,
 and this table already encodes the finer distinctions the phase tool can't see.
+
+## The librarian runs alongside
+
+`wiki-agent` is not a row in the table above. It has no prerequisite and no "done": the wiki is never finished. Run it beside the other agents instead:
+
+- At the start of each iteration, run `tools/wiki-status`. If it lists `UNREGISTERED`, `NEW` or `CHANGED` items and no `wiki-agent` is already running, dispatch `wiki-agent` in the background. Do not wait for it. Do not count it as an iteration.
+- Dispatch it once more just before the final report if items are still pending.
+- Never run two at once. Do not dispatch another agent that writes to `notes/wiki/` while it runs. Other agents only read the wiki.
+- Report its "Needs review" list and any new blocking unknown in your final report. `LOOSE` files and drafts need the designer, so name them.
 
 ## The loop
 

@@ -1,6 +1,6 @@
 # UX Atlas
 
-A portable, standalone suite of AI Agent Skills for taking a UX prototype through Discover → Decide → Design → Deliver. This repo is the suite's own source — the skills it ships, not a prototype built with them.
+A portable, standalone suite of AI Agent Skills that supports the whole product design workflow through Discover → Decide → Design → Deliver. The prototype is a major milestone in it, not the goal, and the groundwork comes first. A quick start (minimum information, then a prototype to test, then backfill) is a supported path. This repo is the suite's own source — the skills it ships, not a prototype built with them.
 
 ## Language
 
@@ -42,7 +42,19 @@ _Avoid_: docs/, output folder
 
 **Living doc**:
 A doc owned by exactly one skill and kept in sync with its source of truth as that source changes, never hand-edited out of sync (e.g. `DESIGN.md` is regenerated from `index.css` by `styleguide`, not edited directly).
-_Avoid_: Generated doc, artifact, output
+_Avoid_: Generated doc, output. Not an _artifact_ (see below): a living doc is owned by a skill, an artifact by the team.
+
+**Source**:
+Material another person wrote that a project depends on: a client file, another team's artifact, a saved copy of a link. Lives in a prototype's `sources/`, is immutable, and gets a stable ID (`S-004`) in the wiki's `sources.md`. If someone else wrote it, it is a source, whatever they call it.
+_Avoid_: Resource, asset, input
+
+**Artifact**:
+Material the project team makes and keeps by hand: a workflow, a sitemap, a hand-made persona. Lives in a prototype's `artifacts/`, is editable, and gets an ID (`A-001`) in the wiki's `artifacts.md`. Not a _living doc_ (owned by a skill). Not a _source_ (written by others).
+_Avoid_: Resource, asset, deliverable
+
+**Librarian**:
+The `wiki` skill, and its background `wiki-agent`, as the only writer to a prototype's `notes/wiki/`. Every other skill reads the wiki first and cites source IDs.
+_Avoid_: Wiki bot, indexer
 
 **Token (Layer 1 / Layer 2)**:
 A CSS custom property in the suite's mandatory two-layer architecture. Layer 1 (Raw Brand Palette) holds raw brand hex/RGB values at `:root`; Layer 2 (Semantic Roles) holds UI-intent variables (`--bg-page`, `--action-primary`) bound to Layer 1 and rebound under `.dark`. Component code only ever references Layer 2.

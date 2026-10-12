@@ -6,7 +6,7 @@ Welcome to the **UX Atlas** repository. This document defines the engineering st
 
 ## 1. Repository Purpose & Architecture
 
-This repository is the single source of truth for **UX Atlas**, a modular, end-to-end collection of AI Agent Skills designed to power high-craft, interactive prototype creation across UX designers, product designers, and design engineers.
+This repository is the single source of truth for **UX Atlas**, a modular, end-to-end collection of AI Agent Skills that supports the whole product design workflow for UX designers, product designers, and design engineers: collecting information, organizing thoughts, exposing details, and generating ideas. The prototype is a major milestone and the place the team checks that everything lines up, but it is one phase of that process, not its goal. Collecting information and settling key points such as architecture and workflow patterns have to be right before prototyping starts, so `scaffold` checks the foundations first. The check is a prompt, not a block: a quick start (`brief`'s minimum pace, then a prototype to test, then backfill) and scaffold-anyway are supported, and are the user's call. The suite is not built to reach a prototype as fast as possible. A skill earns its place by helping someone through the process, and a skill that only speeds up the build is not enough reason to add one.
 
 It distills real-world prototyping patterns, two-layer design token architectures, atomic component documentation, visual architecture mapping, and packaging workflows into a portable, standalone skill suite. This folder is meant to be handed to a teammate as-is: every skill works from a fresh clone with `install.sh` and nothing else installed.
 
@@ -38,6 +38,7 @@ flowchart TD
         P2I --> P2B["map (site / flow mode)"]
         P2B --> P7B[decisions]
         P7B -.-> P7C[interrogate]
+        MB[moodboard]
     end
 
     subgraph Design ["3. Design"]
@@ -49,6 +50,10 @@ flowchart TD
         P6 --> P7["map (document / audit mode)"]
         P5 --> P7D["audit (a11y mode)"]
         P6 --> P7F[wiki]
+        FIG["figma (capture / import / sync)"]
+        RS[restyle]
+        MB --> RS
+        RS -.-> P4
     end
 
     subgraph Deliver ["4. Deliver"]
@@ -59,13 +64,7 @@ flowchart TD
         P9 --> P9B["showcase (story / reveal / doc / deck mode)"]
         P9 --> P9C[guide]
         P9 --> P9D[requirements]
-    end
-
-    subgraph Anytime ["Usable Anytime"]
-        FIG["figma (capture / import / sync)"]
         RL["redline (markup / pick)"]
-        MB[moodboard] --> RS[restyle]
-        RS -.-> P4
     end
 
     subgraph Meta ["Meta: Managing the Suite Itself"]
@@ -78,7 +77,6 @@ flowchart TD
     RH -.-> Decide
     RH -.-> Design
     RH -.-> Deliver
-    RH -.-> Anytime
     RH -.-> Meta
 ```
 
@@ -86,7 +84,7 @@ flowchart TD
 
 ## 2. Core Prototyping Principles (Non-Negotiables)
 
-Every skill in this library must uphold these six foundational principles:
+These principles govern the prototype phase and the docs around it. The prototype is one phase of the process, not its goal. The research, framing and ideation skills follow their own rules. Every skill in this library must uphold these six foundational principles:
 
 ### 1. Two-Layer Design Token Discipline
 - **Layer 1 (Raw Brand Palette)**: Defined at `:root` in `index.css`. Captures raw brand hex values, grayscales, and RGB status triplets (e.g. `--brand-primary: #00828A; --status-success-rgb: 22 163 74;`).
@@ -151,7 +149,7 @@ Every skill's `SKILL.md` carries an `## Output Discipline` section with one bull
   - See `agents/coordinator-agent.md` for the concrete mechanism: it resolves every checkpoint live, in conversation, before dispatching the agent whose work depends on the answer.
 
 ### 10. Internal Doc Links Are Standard Markdown, Never `[[Wikilinks]]`
-- Every cross-reference between docs — skill-to-skill (`skills/*/SKILL.md`), inside a generated project's docs, and inside `wiki`'s own entity pages — uses standard markdown link syntax: `[link text](path.md)`, or `[link text](path.md#section)` to point at a specific section. Both Obsidian and every other markdown tool (GitHub, VS Code, a plain text search) render and follow this syntax; `[[wikilink]]`-style double-bracket links are Obsidian/Logseq-specific and render as literal bracketed text everywhere else, which directly contradicts this suite's "no Obsidian dependency" claim wherever it's made.
+- Every cross-reference between docs — skill-to-skill (`skills/*/SKILL.md`), inside a generated project's docs, and inside `wiki`'s own topic pages — uses standard markdown link syntax: `[link text](path.md)`, or `[link text](path.md#section)` to point at a specific section. Both Obsidian and every other markdown tool (GitHub, VS Code, a plain text search) render and follow this syntax; `[[wikilink]]`-style double-bracket links are Obsidian/Logseq-specific and render as literal bracketed text everywhere else, which directly contradicts this suite's "no Obsidian dependency" claim wherever it's made.
 - This applies even though `wiki`'s docs describe themselves as building an "interlinked" knowledge base with a graph view — the graph comes from parsing the standard links between pages, not from a special link syntax.
 
 ---
@@ -185,11 +183,11 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/requirements` | `requirements` | **Deliver** | Reads the built prototype (code, OOUX map, persona doc, ADRs) into a requirements doc: Epics containing Features with user stories and acceptance criteria; optional Jira/ADO export via MCP once connected |
 | `skills/decisions` | `decisions` | **Anytime** | Lightweight ADRs capturing a decision and its rejected alternatives |
 | `skills/interrogate` | `interrogate` | **Anytime** | Interrogates a design decision one question at a time; hands off to `decisions` |
-| `skills/wiki` | `wiki` | **Anytime** | **Multi-mode**: default `compile` (compiles `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki, incl. a `constellation` graph view) or `note` (quick, low-ceremony capture into `docs/notes/my-notes/` that immediately runs `compile` mode's own ingest step on itself, no separate compile pass needed) |
-| `skills/figma` | `figma` | **Anytime** | **Multi-mode**: `capture` (live screen → Figma layers), `import` (Figma frame → convention-conformant code), `sync` (bidirectional token sync with a Figma library) |
-| `skills/redline` | `redline` | **Anytime** | **Multi-mode**: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). Locates the real source file, edits following this suite's token/tier conventions, no confirm step — reports the diff |
-| `skills/moodboard` | `moodboard` | **Anytime** | Maintains a persistent library of visual inspiration (`<docs>/inspiration/`) and synthesizes it into a living `VISUAL_LANGUAGE.md` — recurring color/typography/spacing/shape/elevation patterns plus descriptive adjectives, each citing its source reference. Read by `restyle` as design input |
-| `skills/restyle` | `restyle` | **Anytime** | Generates 2-3 full-token-set candidate visual directions from references (or a `moodboard`), live-applies each to the running prototype via a temporary switcher so the designer compares real screens, then hands the chosen direction to `styleguide` `forge` mode to commit for real |
+| `skills/wiki` | `wiki` | **Anytime** | **Multi-mode** (the project librarian): default `compile` (ingests a client file, another team's artifact or a link into a cited wiki, or sweeps everything unprocessed; `docs/sources/` is immutable, `docs/artifacts/` holds hand-made work, `docs/notes/wiki/` is written only by this skill), `note` (quick capture into `docs/notes/my-notes/`, folded in at once), `lint` (contradictions, gaps, drift, regenerates the graph view), or `publish` (read-only static site; private sources and draft pages stay out). Other skills read the wiki first and cite source IDs |
+| `skills/figma` | `figma` | **Design** | **Multi-mode**: `capture` (live screen → Figma layers), `import` (Figma frame → convention-conformant code), `sync` (bidirectional token sync with a Figma library) |
+| `skills/redline` | `redline` | **Deliver** | **Multi-mode**: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). Locates the real source file, edits following this suite's token/tier conventions, no confirm step — reports the diff |
+| `skills/moodboard` | `moodboard` | **Decide** | Maintains a persistent library of visual inspiration (`<docs>/inspiration/`) and synthesizes it into a living `VISUAL_LANGUAGE.md` — recurring color/typography/spacing/shape/elevation patterns plus descriptive adjectives, each citing its source reference. Read by `restyle` as design input |
+| `skills/restyle` | `restyle` | **Design** | Generates 2-3 full-token-set candidate visual directions from references (or a `moodboard`), live-applies each to the running prototype via a temporary switcher so the designer compares real screens, then hands the chosen direction to `styleguide` `forge` mode to commit for real |
 | `skills/skill-manager` | `skill-manager` | **Meta** | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any installed skill does. Sits outside Discover→Decide→Design→Deliver: it manages the skill library itself, not a prototype. |
 
 ---
@@ -362,6 +360,14 @@ Several docs are meant to be revisited and updated, not generated once and left:
 
 ### Find, then fix: as two skills, not one
 Where work naturally splits into diagnosing and prescribing, keep it as two skills: one finds problems and produces a task list, a second fixes them (`audit`'s `craft` mode → `refine`; the same shape as `audit`'s `a11y` and `code` modes relative to whatever acts on their findings). This keeps "did this actually get better" answerable by just rerunning the finder.
+
+### The wiki has one writer: the librarian
+`wiki` follows Karpathy's LLM-wiki pattern: raw sources never edited, a wiki the model maintains, and a schema of rules (`skills/wiki/SKILL.md` and its references). Three working rules came out of designing it, and they hold for any skill that touches project knowledge:
+- **Who wrote it decides where it lives.** Others wrote it: `docs/sources/`, immutable. We wrote it: `docs/artifacts/`, or the fixed path a skill uses. A skill-owned doc stays where its skill writes it. The wiki registers both and copies neither.
+- **One writer.** Only `wiki` (and its background `wiki-agent`, one at a time) edits `docs/notes/wiki/`. Every other skill reads it first, cites stable IDs (`S-004`, `A-001`), and writes through its usual path (`log-milestone`, `log-unknown`, `decisions`). The shared rule is `skills/wiki/references/reading-rule.md`. Link to it from a skill's own `SKILL.md`. Do not copy it.
+- **Never edit what a person wrote.** The one exception is a marked footer in `my-notes/` and `artifacts/` files, written by `tools/wiki-footer`, that lists where the file was incorporated. It also marks the file as processed for `tools/wiki-status`.
+Markdown stays the working format; HTML is an output only. `wiki publish` builds a read-only static site (decks linked, not embedded). Pushes to other tools are one-way copies, so the team edits in a Markdown editor.
+Registers (`sources.md`, `artifacts.md`, `decisions.md`) hold one row per item. Only topics get their own page. The decision and its rejected alternatives are in `ux-atlas-docs/adr/0001-wiki-librarian-sources-artifacts.md`.
 
 ### Related-but-distinct jobs sharing one workflow shape → one skill, named modes
 When 2-3 skills would otherwise differ only by *which specific thing* they check/do while sharing the same overall shape (find-and-report, or move-work-to-external-system), merge them into one skill with explicit named modes instead of maintaining near-duplicate skills (`audit`'s `craft`/`code`/`a11y`; `figma`'s `capture`/`import`/`sync`; `styleguide`'s default/`forge` modes — the same `index.css`/`DESIGN.md` pipeline with two different Step-1 sources, not two separate deliverables; `wiki`'s default `compile`/`note` modes — `note` mode's own Step 2 was already just invoking `compile` mode's Step 1 as a subroutine, the same shape as `forge`→`styleguide`; `workshop`'s default `plan`/`ingest` modes — same event, same two possible output shapes (FigJam board, slide deck), built from opposite ends: `plan` before the workshop, `ingest` after it). The mode boundary still needs to be explicit (see above); merging isn't a license to blur what each mode actually checks. Don't force a merge where the jobs *don't* share a shape: `decisions` and `interrogate` stayed separate because one interrogates and the other records, genuinely different verbs, not variations on one job; `storybook` stayed separate from `styleguide` for the same reason — it's an ongoing, separately-scoped deliverable (a whole embedded component-doc site), not a variant Step 1 of the token pipeline.

@@ -2,7 +2,7 @@
   "name": "ux-atlas",
   "version": "0.2.0",
   "private": true,
-  "description": "UX Atlas: agent skills for taking a UX prototype from research to handoff.",
+  "description": "UX Atlas: agent skills for the whole UX process, from collecting information to handoff. The prototype is one phase of it, not the goal.",
   "license": "MIT",
   "scripts": {
     "validate": "node scripts/validate.mjs",

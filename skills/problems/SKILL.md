@@ -28,6 +28,9 @@ user stories. ~20 minutes for a persona set with journey maps already in hand.
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
+## Read the wiki first
+- If the project has a wiki, read it before you ask the user, and cite source IDs such as `(S-004)`. Read only: the [`wiki`](../wiki/SKILL.md) skill alone writes to it. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
+
 ## Why use this
 
 Use before: ideation workshops, backlog refinement, sprint planning, wireframing, writing acceptance criteria,

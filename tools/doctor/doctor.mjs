@@ -36,6 +36,17 @@ else {
   if (!fs.existsSync(agents) || !/Docs folder: `[^`]+`/.test(fs.readFileSync(agents, 'utf8'))) problem('docs', 'AGENTS.md does not name the docs folder, so skills must guess it.', 'setup');
 }
 
+// wiki: files waiting for the librarian
+if (digest.docs) {
+  const ws = sh('wiki-status/wiki-status.sh', repo);
+  const lines = (ws.stdout || '').split('\n').filter(l => /^(UNREGISTERED|LOOSE|NEW|CHANGED|DRAFTS)/.test(l));
+  digest.wikiPending = lines.length;
+  const count = (k) => lines.filter(l => l.startsWith(k)).length;
+  if (count('UNREGISTERED') + count('NEW') + count('CHANGED')) problem('wiki', `${count('UNREGISTERED') + count('NEW') + count('CHANGED')} source(s) or note(s) not yet in the wiki.`, 'wiki');
+  if (count('LOOSE')) problem('wiki', `${count('LOOSE')} loose file(s) in the docs root that belong in sources/.`, 'wiki');
+  if (count('DRAFTS')) problem('wiki', 'Wiki draft page(s) are waiting for review.', 'wiki (review the Needs review list in log.md)');
+}
+
 // unknowns
 if (digest.docs) {
   const f = path.join(repo, digest.docs, 'UNKNOWNS.md');

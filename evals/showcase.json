@@ -23,6 +23,16 @@
         "Runs the overflow check"
       ],
       "setup": "Built prototype and persona walkthrough"
+    },
+    {
+      "query": "/showcase deck adr/",
+      "setup": "A docs folder with five ADRs, each with Decision, Why, Rejected alternatives and Scope sections",
+      "expected_behavior": [
+        "Joins the ADRs with adr-bundle before reading, and does not edit the ADR files",
+        "Shows an outline first, with a Left out list, and waits for a yes",
+        "Gives each decision a claim headline and a table of rejected alternatives with their reasons",
+        "Adds no decision, reason or alternative that is not in an ADR"
+      ]
     }
   ]
 }

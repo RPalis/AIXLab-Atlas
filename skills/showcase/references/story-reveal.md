@@ -56,7 +56,7 @@ The deck is data plus [`tools/pptx-deck-builder`](../../../tools/pptx-deck-build
 Keep `deck.json` and the capture script alongside the screenshots in the docs folder so the deck can be regenerated after the prototype changes — re-capture, rebuild, done.
 
 #### reveal.js web deck (`reveal`)
-Use [`templates/reveal-template.html`](../templates/reveal-template.html) as the starting structure: one `<section>` per scene, screenshots as background or inline images, minimal transition config (`slide` is safer than heavy 3D transitions for a professional audience). This produces a single self-contained HTML file, with no build step and no server required to view it.
+Use [`templates/reveal-template.html`](../templates/reveal-template.html) as the starting structure: one `<section>` per scene, screenshots as background or inline images, minimal transition config (`slide` is safer than heavy 3D transitions for a professional audience). This produces a single self-contained HTML file, with no build step and no server required to view it. Save it as `<docs>/exports/<name>.html`, with its screenshots under `<docs>/exports/shots/` and relative paths in the HTML. Add a row for it in `notes/wiki/artifacts.md` (kind `deck`) and [`wiki`](../../wiki/SKILL.md)'s `publish` mode links it from the site. The same goes for a `.pptx` or `.docx` in `exports/` (kind `download`).
 
 ### Step 4: Review before sharing
 

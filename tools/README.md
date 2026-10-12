@@ -99,6 +99,23 @@ Skills reference tools by relative path, e.g. `../../tools/find-docs-folder/find
   §2.6/§2.9: every skill's "log it to `docs/UNKNOWNS.md`" autonomous-mode fallback
   goes through this instead of a hand-written line, so the file stays something an
   agent can query later, not just something a human reads.
+- **`wiki-status/`** — lists what the wiki has not processed: unregistered files in
+  `sources/`, loose files in the docs root, new or changed notes and artifacts (by the
+  footer), drafts, folders with no README, and days since the last lint. `--check` exits 1 when work is pending.
+  Used by `wiki`, `wiki-agent`, `coordinator-agent`, `help`, `doctor` and `package`.
+- **`wiki-footer/`** — writes or replaces the "incorporated into the wiki" footer at the end
+  of a hand-written file, between `<!-- wiki:begin -->` markers. Never touches text above it.
+  Used by `wiki`. Never run on `sources/`.
+- **`wiki-site/`** — builds the read-only static site from the wiki with the publish filter
+  (drafts, `my-notes/` and un-opted sources stay out; links to them become plain text). Needs
+  `npm i marked`. Used by `wiki` (`publish` mode) and `package`.
+- **`foundations-check/`** — reports which prototyping foundations exist (brief, users, domain,
+  content, architecture, workflow), each with the skill that makes the missing ones. `--check`
+  exits 1 when any is missing. A prompt, not a block. Used by `scaffold`, `scaffold-agent`,
+  `coordinator-agent` and `help`.
+- **`adr-bundle/`** — joins ADRs (a folder or a list of files) into one Markdown document on
+  stdout, each ADR's headings moved down one level under a single H1. Nothing is added or
+  dropped. Used by `showcase` (`doc`, `deck`) to present decisions, which live one per file.
 - **`log-milestone/`** — appends a checkpoint entry to the project's wiki log
   (`docs/notes/wiki/log.md`): `--skill <name> --event "<fact>" [--why "<narrative>"]`.
   Widens that file from `wiki`'s own ingest history into a whole-project log, for

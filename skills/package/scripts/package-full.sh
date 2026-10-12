@@ -82,9 +82,18 @@ for f in package.json package-lock.json docker-compose.yml README.md; do
 done
 
 # --- Step 4: documentation/ — text-only project docs ---
-docsrc="$REPO/docs"; [ -d "$REPO/documentation" ] && docsrc="$REPO/documentation"
+TOOLS="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && cd ../../../tools && pwd)"  # repo: tools/, installed: ~/.agents/tools
+docsname="$("$TOOLS/find-docs-folder/find-docs-folder.sh" "$REPO" 2>/dev/null || true)"
+docsrc="$REPO/${docsname:-docs}"; [ -d "$REPO/documentation" ] && docsrc="$REPO/documentation"
+# sources/ holds other people's material (often confidential) and my-notes/ is raw capture:
+# neither ships in a handoff. The wiki (compiled, cited) does, and so does wiki-site/ if built.
 [ -d "$docsrc" ] && rsync -a --exclude '.DS_Store' --exclude '*.docx' --exclude '*.pdf' --exclude '*.pptx' --exclude '*.zip' \
-  "$docsrc/" "$ROOT/documentation/"
+  --exclude '/sources/' --exclude 'my-notes/' "$docsrc/" "$ROOT/documentation/"
+[ -d "$REPO/wiki-site" ] && rsync -a --exclude '.DS_Store' "$REPO/wiki-site/" "$ROOT/documentation/wiki-site/"
+if [ -f "$docsrc/notes/wiki/sources.md" ] && [ -x "$TOOLS/wiki-status/wiki-status.sh" ]; then
+  pending="$("$TOOLS/wiki-status/wiki-status.sh" "$REPO" | grep -E '^(UNREGISTERED|LOOSE|NEW|CHANGED|DRAFTS)' || true)"
+  [ -n "$pending" ] && echo "Note: the wiki has unprocessed work (run the wiki skill, then wiki publish, to refresh wiki-site/):" && echo "$pending"
+fi
 [ -f "$REPO/DESIGN.md" ] && cp "$REPO/DESIGN.md" "$ROOT/documentation/"
 
 # --- top-level handoff README ---
@@ -93,7 +102,7 @@ cat > "$ROOT/README.md" <<EOF
 
 - **site/** — the built static app (index.html + JS + source maps). Drop it on any static web server; no Node runtime needed.
 - **development/** — the full source (no node_modules). Run \`npm install\` then rebuild from here.
-- **documentation/** — how the app works (PERSONA_WALKTHROUGH.md, OOUX_OBJECT_MAP.md, DESIGN.md, ADRs, etc.).
+- **documentation/** — how the app works (PERSONA_WALKTHROUGH.md, OOUX_OBJECT_MAP.md, DESIGN.md, ADRs, the project wiki, and wiki-site/ when built). Raw client and team material (sources/) and personal notes are not included.
 
 ## Run it locally
 

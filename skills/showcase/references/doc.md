@@ -6,6 +6,8 @@ A faithful conversion: every heading, paragraph, list, table, quote, code block 
 
 ### Step 1: Read the source and pre-flight it
 
+If the input is an ADR folder or several ADR files, join them first: `../../../tools/adr-bundle/adr-bundle.sh <folder-or-files> > <docs>/exports/decisions-source.md`. Use that file as the source from here on. It is an exact join, so "faithful" still holds.
+
 Resolve the path (as given, or under the project's docs folder via [`tools/find-docs-folder`](../../../tools/find-docs-folder/find-docs-folder.sh)). Read the whole file. Before converting, report anything in it that a reader would trip on, **without changing it**: unfilled template placeholders (`<...>`), unresolved ⚠️ flags, anything marked `Not Verified` or `ASSUMPTION`, a missing evidence warning on desk research. The conversion keeps all of it; a stakeholder reading a polished document will assume it was checked, so say what wasn't.
 
 ### Step 2: Theme

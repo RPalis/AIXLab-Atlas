@@ -136,6 +136,25 @@ for (const n of names) {
   catch (e) { err('evals', `${n}: ${e.message}`); }
 }
 
+// index.html: the hero's skill count and each phase's ribbon count must match (run scripts/build-skill-docs.mjs)
+{
+  const idx = path.join(ROOT, 'index.html');
+  if (fs.existsSync(idx)) {
+    const html = fs.readFileSync(idx, 'utf8').split('<script type="application/json" id="skill-docs">')[0];
+    const ones = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+    const tens = ['', '', 'twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+    const words = (n) => n < 20 ? ones[n] : tens[Math.floor(n / 10)] + (n % 10 ? '-' + ones[n % 10] : '');
+    const hero = (html.match(/<p class="hero-subhead">([\w-]+) <span/) || [])[1];
+    if (hero !== words(names.length)) err('index.html', `hero says "${hero}" skills but there are ${names.length} (run: node scripts/build-skill-docs.mjs)`);
+    for (const phase of ['before', 'discover', 'decide', 'design', 'deliver', 'anytime']) {
+      const s = html.indexOf(`id="${phase}"`);
+      const n = (html.slice(s, html.indexOf('</section>', s)).match(/class="card-name"/g) || []).length;
+      const shown = (html.match(new RegExp(`<a href="#${phase}" data-phase="${phase}">\\s*<div class="num">[\\s\\S]*?<div class="count">(\\d+) skill`)) || [])[1];
+      if (Number(shown) !== n) err('index.html', `${phase} ribbon says ${shown} but the section has ${n} cards (run: node scripts/build-skill-docs.mjs)`);
+    }
+  }
+}
+
 if (showWarn) for (const w of warns) console.log('warn  ' + w);
 for (const e of errors) console.log('ERROR ' + e);
 console.log(`${names.length} skills, ${errors.length} errors, ${warns.length} warnings`);

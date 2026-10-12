@@ -27,6 +27,12 @@ explicitly; if they didn't, treat both as unresolved per Step 0 below.
 - **Figma library**: a confirmed URL to source tokens/components from, or
   explicitly `none` — should also be explicit.
 
+- **Foundations**: run `tools/foundations-check`. Either all six foundations exist,
+  or the dispatch instructions say the designer chose a quick start (a minimum
+  brief exists) or to scaffold without the missing ones. If any is missing and there is no such go-ahead, **stop before
+  Step 1**. Do not scaffold. Report which foundations are missing and the skill
+  that makes each, and end the run. This is a checkpoint, not a default.
+
 If **type layer** wasn't given: that's fine, it doesn't block anything. Run
 Steps 1-2 (base scaffold) only, skip Step 3 entirely, and in your final report
 note "type layer needs a decision" plus whatever signal you noticed in

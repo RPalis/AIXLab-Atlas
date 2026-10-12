@@ -2,7 +2,7 @@
 
 Part of the [`help`](../SKILL.md) skill. Shared rules in `SKILL.md` still apply.
 
-Welcome to **UX Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
+Welcome to **UX Atlas**, a modular, end-to-end framework that supports the whole product design process: collecting information, organizing thoughts, exposing details, and generating ideas. A prototype is a major milestone, where the team checks that everything lines up, but the groundwork (collected information, architecture, workflow patterns) has to be right before prototyping starts. A quick start (the minimum information, then a prototype to test, then backfill) is supported for a project joined midway. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
 
 Several skills below are **multi-mode**: one skill, several named modes for related-but-distinct jobs (`audit`'s `craft`/`heuristic`/`code`/`spec`/`a11y`/`perf`, `figma`'s `capture`/`import`/`sync`, `map`'s `objects`/`ia`/`site`/`flow`/`audit`/`document`, `interview`'s `questions`/`analysis`/`usability`, `competitors`' `discover`/`add`/`analysis`/`benchmark`). Say which mode you want, or the skill will ask.
 
@@ -22,7 +22,7 @@ Not sure where to start, or which skill fits what you're doing right now? Defaul
 ### Before Discover
 Nothing exists yet, not even `README.md`.
 
-0. [`setup`](../../setup/SKILL.md) creates the repo's doc shell — a docs folder named after the project (e.g. `pocket-atlas-docs/`, not a bare `docs/`), `README.md`, a project `AGENTS.md` recording that name, empty `UNKNOWNS.md`, `notes/` for the wiki and anything else worth jotting down — before any research, design, or code starts. Works on an existing product too, appending to whatever's already there instead of overwriting it, then hands off to `brief` for a lay-of-the-land pass (even mid-lifecycle) and default `help` mode for the full gap analysis of what to backfill.
+0. [`setup`](../../setup/SKILL.md) creates the repo's doc shell — a docs folder named after the project (e.g. `pocket-atlas-docs/`, not a bare `docs/`), `README.md`, a project `AGENTS.md` recording that name, empty `UNKNOWNS.md`, `sources/` for what others hand over (immutable), `artifacts/` for what we make by hand, `notes/` for raw notes and the wiki — before any research, design, or code starts. Works on an existing product too, appending to whatever's already there instead of overwriting it, then hands off to `brief` for a lay-of-the-land pass (even mid-lifecycle) and default `help` mode for the full gap analysis of what to backfill.
 1. [`brief`](../../brief/SKILL.md) interrogates whoever already has the idea in their head: what the product is, who it's for, the distinct user types, their core tasks, devices/context of use, competitive landscape, constraints. Writes `docs/PRODUCT_BRIEF.md`, the domain brief [`persona`](../../persona/SKILL.md) expects as input. On an existing product, it drafts from the codebase first and confirms the gaps instead of starting blank.
 
 ### Discover
@@ -48,6 +48,7 @@ Frame the problem, scope the objects, make the calls that are expensive to rever
 4. **Plan the build architecture** → [`map`](../../map/SKILL.md)'s `site` mode: the proposed route/workspace/component structure as a diagram, before any of it is built.
 5. **Sketch a journey or workflow** → [`map`](../../map/SKILL.md)'s `flow` mode, sourcing from a persona walkthrough or the `objects` model's CTAs.
 6. **Hit a genuinely hard call?** → [`interrogate`](../../interrogate/SKILL.md) interrogates it one question at a time, then optionally hands off to [`decisions`](../../decisions/SKILL.md) for a permanent ADR.
+7. **Collect visual references** → [`moodboard`](../../moodboard/SKILL.md): a library of style inspiration, synthesized into `VISUAL_LANGUAGE.md` for `restyle` to use later.
 
 Once scope, IA, and the object model are settled, move to **Design**.
 
@@ -59,7 +60,8 @@ Build the actual prototype.
 3. **Build, then loop** → [`audit`](../../audit/SKILL.md)'s `craft` mode (find problems, scored, as a task list) ↔ [`refine`](../../refine/SKILL.md) (fix and unify). Repeat until the score holds. Need a deeper, evidence-based pass? `heuristic` mode runs 12 named usability heuristics, severity-rated.
 4. **Document as it solidifies** → [`storybook`](../../storybook/SKILL.md) (components), [`map`](../../map/SKILL.md)'s `document` mode (regenerates the site diagram — interactive, Mermaid, SVG — from the real built app, and reconciles the object model if it's drifted; its `audit` mode does the reconciliation alone, without the diagram refresh), [`wiki`](../../wiki/SKILL.md) (anything else worth remembering).
 5. **Accessibility and speed** → [`audit`](../../audit/SKILL.md)'s `a11y` mode (WCAG 2.2 AA, with a mobile and screen-reader step) and `perf` mode (measured load and interaction numbers), once the UI has stabilized enough that findings won't immediately go stale. Run `node tools/check-token-contrast/check-token-contrast.mjs src/index.css` first; it needs no agent.
-6. **Moving to/from Figma?** → see Usable Anytime, below.
+6. **Moving to/from Figma?** → [`figma`](../../figma/SKILL.md): `capture` (screen → Figma layers), `import` (Figma frame → code), or `sync` (token system ↔ Figma library).
+7. **Compare other looks on the real app** → [`restyle`](../../restyle/SKILL.md): a few full-token-set candidate directions from references or a `moodboard`, live-applied to the running prototype, then handed to `styleguide` `forge` to commit.
 
 Once the prototype holds up under `audit`'s `craft` and `a11y` modes, move to **Deliver**.
 
@@ -70,16 +72,15 @@ Ship it, validate it, hand it off.
 2. **Package** → [`package`](../../package/SKILL.md) for the static handoff bundle (`full` or `lite`), or `figma` for a flat set of files to attach to Figma Make.
 3. **Present to stakeholders** → [`showcase`](../../showcase/SKILL.md) (`story`: day-in-the-life PowerPoint deck, or `reveal`: reveal.js deck). **Share a research or analysis report** (a competitor analysis, benchmark, interview analysis, IA) → `showcase`'s `doc` mode for a Word document or `deck` mode for a condensed PowerPoint, from the report's Markdown file. **Document for end users** → [`guide`](../../guide/SKILL.md), diagrams via `map`'s `flow` mode. **Write it up as a backlog** → [`requirements`](../../requirements/SKILL.md): reads the built prototype into Epics & Features, optional Jira/ADO export.
 4. **Validating with real users?** → [`interview`](../../interview/SKILL.md)'s `usability` mode for a task-based test plan and moderator script, or its `questions` mode in the Validation focus for a conversation about specific screens (reads `docs/UNKNOWNS.md` for what's still open).
+5. **One specific change from a screenshot or a pointed-at element** → [`redline`](../../redline/SKILL.md): `markup` (a marked-up screenshot) or `pick` (a live element plus a note). No confirm step; review the diff.
 
 ### Usable Anytime
 Not gated to one phase.
 
 - [`decisions`](../../decisions/SKILL.md) / [`interrogate`](../../interrogate/SKILL.md): capturing and interrogating decisions, whenever one comes up.
-- [`wiki`](../../wiki/SKILL.md)'s `note` mode: a quick, low-ceremony capture that folds straight in, no separate compile step needed.
-- [`wiki`](../../wiki/SKILL.md)'s default `compile` mode: compiling scattered notes as the project accumulates them.
-- [`figma`](../../figma/SKILL.md): moving work to and from Figma, whenever it's part of the workflow: `capture` (screen → Figma layers), `import` (Figma frame → code), or `sync` (token system ↔ Figma library).
-- [`redline`](../../redline/SKILL.md): one targeted UI edit from a marked-up screenshot (`markup` mode) or a live-picked element plus a plain instruction (`pick` mode) — no confirm step, review the diff.
-- [`moodboard`](../../moodboard/SKILL.md) / [`restyle`](../../restyle/SKILL.md): an ongoing library of style inspiration synthesized into `VISUAL_LANGUAGE.md` (`moodboard`), and generating a few full-token-set candidate directions from it live-applied to the real app to choose from (`restyle`), handed to `styleguide` to commit.
+- [`wiki`](../../wiki/SKILL.md)'s default `compile` mode: ingest a client file, another team's artifact or a link into the cited wiki, or sweep everything unprocessed. Also runs in the background as `wiki-agent`.
+- [`wiki`](../../wiki/SKILL.md)'s `note` mode: a quick, low-ceremony capture that folds straight in.
+- [`wiki`](../../wiki/SKILL.md)'s `lint` and `publish` modes: a health check, and a read-only static site for people without the repo.
 - `docs/UNKNOWNS.md`: the running list every skill defers to instead of guessing (AGENTS.md §2.6), tying Discover through Deliver together.
 
 ### Meta: Managing the Suite Itself
@@ -106,6 +107,7 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 #### Decide
 - **[`brainstorming`](../../brainstorming/SKILL.md)**: Runs a structured ideation pass against one signed-off problem statement: 15 ideas, assumption-breakers, clustered into named directions, each scored for user value, effort and risk. Produces a shortlist, never a single winner.
 - **[`map`](../../map/SKILL.md)**: Six modes total (two more live in Design, see below). `objects`: interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), seeding `docs/OOUX_OBJECT_MAP.md` plus an entity-relationship diagram. `ia`: structures content, navigation, labelling and search around the user's mental model as a gated, evidence-graded sitemap (every node traced to an input or tagged `PROPOSED`); content-first, run before `site`. `site`: plans the proposed route/workspace/component architecture as a diagram, before any of it is built. `flow`: a complete, evidence-grounded end-to-end user flow for one goal — entry points, every decision branch, error/empty states, recovery paths, exit points — not site structure (that's `site`). Any mode can export its diagram to FigJam once the Figma MCP server is connected.
+- **[`moodboard`](../../moodboard/SKILL.md)**: Maintains `<docs>/inspiration/` — screenshots or URLs of styles the user likes, dropped in over time — and synthesizes them into a living `VISUAL_LANGUAGE.md`: recurring color, typography, spacing, shape, and elevation patterns plus descriptive adjectives, each citing which reference it came from.
 
 #### Design
 - **[`scaffold`](../../scaffold/SKILL.md)**: Scaffold a lightweight, zero-backend-dependency React 19 + TypeScript + Vite + Tailwind CSS v4 prototype: a complete base scaffold, plus an optional site-type layer for prototypes that fit a recognizable archetype.
@@ -114,21 +116,20 @@ One skill sits outside the lifecycle entirely — it manages the skill library, 
 - **[`refine`](../../refine/SKILL.md)**: Fix and unify. Apply micro-interactions, responsive container grids, dark mode tuning, and refined visual craft. Checks for a recent `audit` `craft`-mode findings list first, and suggests running it if none exists.
 - **[`storybook`](../../storybook/SKILL.md)**: Organize UI into the 5 Atomic Design tiers (Foundations, Atoms, Molecules, Organisms, Widgets), build Storybook stories, and embed static Storybook inside the prototype's user menu.
 - **[`map`](../../map/SKILL.md)**'s remaining two modes: `document` regenerates the site diagram (interactive in-app Vis.js modal, Mermaid, SVG) from the real built app, and reconciles `docs/OOUX_OBJECT_MAP.md` if it's drifted. `audit` does that object-model reconciliation alone, without the diagram refresh — useful for a lighter check mid-build.
+- **[`figma`](../../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).
+- **[`restyle`](../../restyle/SKILL.md)**: Generates 2-3 candidate visual directions (full token set: color, type, spacing/radius, elevation) from references given directly or from `moodboard`'s synthesis, live-applies each to the running prototype via a temporary switcher so the choice is made against real screens, then hands the winner to `styleguide`'s `forge` mode to actually commit.
 
 #### Deliver
 - **[`package`](../../package/SKILL.md)**: Three modes: `full` (unminified site + raw source + docs, a three-folder handoff zip for a developer to rebuild), `lite` (minified `production/` folder only, bare essentials, just to run it), or `figma` (flat unminified files, each under 1MB, to attach to a Figma Make chat).
 - **[`showcase`](../../showcase/SKILL.md)**: Four modes. `story`: a day-in-the-life PowerPoint deck from the prototype (time-stamped scene per slide beside a real screenshot, generated from `deck.json` with an overflow check first). `reveal`: a reveal.js web deck. `doc`: converts a Markdown report from any suite skill (e.g. `interview-analysis.md`) faithfully into a styled Word document. `deck`: condenses such a report into a PowerPoint, with the outline confirmed first and confidence tags, sources and the verification checklist kept.
 - **[`guide`](../../guide/SKILL.md)**: Write end-user documentation, Getting Started plus a phase-by-phase walkthrough, as a Markdown doc with an optional PDF export.
 - **[`requirements`](../../requirements/SKILL.md)**: Read the built prototype (code, OOUX object map, persona walkthrough, ADRs) and write it up as Epics containing Features with user stories and acceptance criteria, as `docs/REQUIREMENTS.md`. Optionally publishes Epics/Features straight to Jira or Azure DevOps once an MCP server for one is connected.
+- **[`redline`](../../redline/SKILL.md)**: Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — each annotation becomes one edit, matched to its real source file) or `pick` (point at a live element in the running prototype and describe the change). No confirm-before-edit step; the diff is the review.
 
 #### Usable Anytime
 - **[`decisions`](../../decisions/SKILL.md)**: Capture a non-obvious UX or architecture decision, and the alternatives it rejected, as a short ADR in `docs/adr/`.
 - **[`interrogate`](../../interrogate/SKILL.md)**: Interrogate a design decision one question at a time until reaching shared understanding, then optionally hand off to `decisions`.
-- **[`wiki`](../../wiki/SKILL.md)**: Two modes. Default `compile` mode builds and maintains a small, interlinked, tool-agnostic markdown wiki, including a `constellation` graph view of how entities connect. `note` mode is the lowest-ceremony capture in the suite: a quick thought dropped into `docs/notes/my-notes/`, then immediately folded into the wiki. No formal ADR, no separate compile step to remember to run.
-- **[`figma`](../../figma/SKILL.md)**: Three modes: `capture` (button/right-click that sends a live screen into Figma as editable layers, no MCP needed), `import` (a Figma frame/selection into the codebase as convention-conformant code), `sync` (bidirectional token sync between `index.css`/`DESIGN.md` and a Figma library).
-- **[`redline`](../../redline/SKILL.md)**: Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — each annotation becomes one edit, matched to its real source file) or `pick` (point at a live element in the running prototype and describe the change). No confirm-before-edit step; the diff is the review.
-- **[`moodboard`](../../moodboard/SKILL.md)**: Maintains `<docs>/inspiration/` — screenshots or URLs of styles the user likes, dropped in over time — and synthesizes them into a living `VISUAL_LANGUAGE.md`: recurring color, typography, spacing, shape, and elevation patterns plus descriptive adjectives, each citing which reference it came from.
-- **[`restyle`](../../restyle/SKILL.md)**: Generates 2-3 candidate visual directions (full token set: color, type, spacing/radius, elevation) from references given directly or from `moodboard`'s synthesis, live-applies each to the running prototype via a temporary switcher so the choice is made against real screens, then hands the winner to `styleguide`'s `forge` mode to actually commit.
+- **[`wiki`](../../wiki/SKILL.md)**: The project librarian, four modes. `compile` (default) turns client files, other teams' artifacts, links and your notes into an interlinked wiki where every claim cites a stable source ID. `note` is a quick capture. `lint` finds contradictions, gaps and drift. `publish` builds a read-only static site. Raw material lives in `sources/` (immutable) and hand-made work in `artifacts/`.
 
 #### Meta
 - **[`skill-manager`](../../skill-manager/SKILL.md)**: Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library, and show what any installed skill does. Manages the library itself, outside the design lifecycle.

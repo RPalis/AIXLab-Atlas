@@ -2,7 +2,7 @@
 
 **[Design Process](#the-design-process-discover-decide-design-deliver) · [Getting Started](#getting-started) · [Skills Catalog](#skills-catalog) · [Installation & Team Setup](#installation-team-setup) · [Philosophy & Core Principles](#philosophy-core-principles)**
 
-A comprehensive, end-to-end suite of specialized AI Agent Skills for UX designers, product designers, and design engineers building high-fidelity interactive prototypes, from discovery through delivery.
+A comprehensive, end-to-end suite of specialized AI Agent Skills for UX designers, product designers, and design engineers. It supports the whole product design workflow, from discovery through delivery: collecting information, organizing thoughts, exposing details, and generating ideas. A prototype is a major milestone, where the team checks that everything lines up, but the groundwork comes first: collecting information and settling the architecture and workflow patterns have to be right before prototyping starts. When you join a project midway, or need something to look at and test soon, a quick start collects the minimum, builds the prototype, and backfills the rest from what testing shows.
 
 This library is fully self-contained: every skill works standalone from this folder alone, with no dependency on any other installed skill. Install it as a Claude Code plugin, or clone this repo and run `install.sh`, and the whole lifecycle is available.
 
@@ -10,7 +10,7 @@ This library is fully self-contained: every skill works standalone from this fol
 
 ## The Design Process: Discover → Decide → Design → Deliver
 
-This is the actual framework: four phases, each with a recommended path through and branches for different situations. Most work travels through all four in order; some skills are usable at any point along the way (see **Usable Anytime** below) rather than belonging to one phase.
+This is the actual framework: four phases, each with a recommended path through and branches for different situations. Most work travels through all four in order; a few skills (`help`, `decisions`, `interrogate`, `wiki`) are usable at any point along the way (see **Usable Anytime** below) rather than belonging to one phase.
 
 Several skills below are **multi-mode**: one skill covering several related-but-distinct jobs (`audit`, `figma`, `map`, `interview`, `package`, `persona`, `journey`, `competitors`). Say which mode you want, or the skill asks.
 
@@ -19,7 +19,7 @@ Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual s
 ### Before Discover
 Nothing exists yet.
 
-0. **[`setup`](skills/setup/SKILL.md)** creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/notes/` for the wiki and anything else worth jotting down) before any research, design, or code starts. Also works layered onto an existing product: it appends to whatever's already there instead of overwriting it.
+0. **[`setup`](skills/setup/SKILL.md)** creates the repo's doc shell (`README.md`, a project `AGENTS.md`, empty `docs/UNKNOWNS.md`, `docs/sources/` for what others hand over, `docs/artifacts/` for what you make by hand, and `docs/notes/` for raw notes and the wiki) before any research, design, or code starts. Also works layered onto an existing product: it appends to whatever's already there instead of overwriting it.
 1. **[`brief`](skills/brief/SKILL.md)** interrogates whoever already has the idea (product, audience, user types, core tasks, devices, competitors, constraints) and writes `docs/PRODUCT_BRIEF.md`, the domain brief `persona` later expects as input. On an existing product it drafts from the codebase first and confirms the gaps, rather than starting from a blank interview.
 
 ### Discover
@@ -47,6 +47,7 @@ Turn one problem into a direction, then scope the objects, before making the cal
 4. **[`map`](skills/map/SKILL.md)**'s **`site`** mode plans the proposed route/workspace/component architecture as a diagram, before any of it is built.
 5. **Sequencing one specific task, screen by screen?** **[`map`](skills/map/SKILL.md)**'s **`flow`** mode designs a complete, evidence-grounded flow — entry points, every decision branch, error/empty states, recovery paths, exit points — structured so it translates directly into wireframes. Reads the IA's screen names rather than inventing new ones.
 6. **Hit a genuinely hard call along the way**, a tradeoff, a rejected-alternative decision, something worth interrogating rather than guessing at? **[`interrogate`](skills/interrogate/SKILL.md)** interrogates it one question at a time, then optionally hands off to **[`decisions`](skills/decisions/SKILL.md)** to write it up as a permanent ADR. `decisions` also works standalone for a decision made outside an interrogation session.
+7. **Collecting visual references before the look is chosen?** **[`moodboard`](skills/moodboard/SKILL.md)** keeps a library of screenshots and URLs of styles you like, dropped in over time, and synthesizes them into a living `VISUAL_LANGUAGE.md` that `restyle` reads later.
 
 → With a direction, structure and object model settled, move to **Design**.
 
@@ -58,7 +59,8 @@ Build the actual prototype.
 3. Build out the screens, then **loop between two skills**: **[`audit`](skills/audit/SKILL.md)**'s `craft` mode finds problems (a fast, 5-dimension scored critique, output as a task list) and **[`refine`](skills/refine/SKILL.md)** fixes and unifies them. Run the loop again until the score holds. **Need a deeper, evidence-based pass** — a redesign case, prioritising a UX backlog, or accessibility remediation planning? **`audit`**'s `heuristic` mode runs a full Nielsen-heuristic evaluation, issue by issue, severity-rated 0-4. It is **not the same rubric as `craft`** and the two scores aren't comparable — `craft` is the lightweight in-progress check, `heuristic` is the one that stands on its own as evidence.
 4. Document the system as it solidifies: **[`storybook`](skills/storybook/SKILL.md)** for component docs, **[`map`](skills/map/SKILL.md)**'s `document` mode to regenerate the site diagram (interactive, Mermaid, SVG) from the real built app and reconcile the object model if it's drifted (its `audit` mode does the reconciliation alone, without the diagram refresh), **[`wiki`](skills/wiki/SKILL.md)** for anything else worth remembering that doesn't have a dedicated doc.
 5. **[`audit`](skills/audit/SKILL.md)**'s `a11y` mode runs the deep WCAG AA sweep once the UI has stabilized enough that findings won't immediately go stale. Some teams run this before usability testing (catch accessibility issues while they're cheap to fix); others run it after, once real user sessions have already surfaced the highest-impact problems. Both orders are valid — pick the one that fits how the team works, not a fixed rule.
-6. **Pulling from or pushing to Figma along the way?** See **Usable Anytime** below.
+6. **Pulling from or pushing to Figma along the way?** **[`figma`](skills/figma/SKILL.md)**: `capture` (a screen to Figma as layers), `import` (a Figma frame in as code), or `sync` (a full token-system sync).
+7. **Want the look to go a different way, and compare real options?** **[`restyle`](skills/restyle/SKILL.md)** takes screenshots or URLs of styles you like (or a `moodboard`'s synthesis) and generates a few full-token-set candidate directions, live-applied to your running app so you compare real screens, not swatches. It then hands the pick to `styleguide` to commit for real.
 
 → Once the prototype holds up under `audit`'s `craft`, `heuristic`, and `a11y` modes, move to **Deliver**.
 
@@ -71,19 +73,17 @@ Ship it, validate it, hand it off.
 4. **[`package`](skills/package/SKILL.md)** builds the static handoff bundle.
 5. **Need to present this to stakeholders?** **[`showcase`](skills/showcase/SKILL.md)** builds a day-in-the-life PowerPoint deck (`story`: time-stamped scenes, real screenshots, generated from `deck.json`) or a reveal.js deck (`reveal`), narrative sourced from `persona`. It also packages any suite report for sharing: give it a Markdown file (e.g. `/showcase interview-analysis.md`) and `doc` mode makes a styled Word document while `deck` mode condenses it into a PowerPoint, with the Markdown staying the source of truth. **Need end-user documentation?** **[`guide`](skills/guide/SKILL.md)** writes it, diagrams via `map`'s `flow` mode. **Need it written up as a backlog?** **[`requirements`](skills/requirements/SKILL.md)** turns the *built* prototype into Epics and Features, optionally pushed straight to Jira or Azure DevOps — the post-build counterpart to Discover's `problems`, not a replacement for it.
 6. **Validating with real users?** Loop back to **[`interview`](skills/interview/SKILL.md)** in validation mode. It reads `docs/UNKNOWNS.md` for what's still an open question and builds the next round's guide around it.
+7. **Feedback came back as a marked-up screenshot, or one thing needs to change?** **[`redline`](skills/redline/SKILL.md)** applies one targeted UI edit from a marked-up screenshot (`markup` mode: circles, arrows, strikethroughs, callouts) or a live-picked element plus a plain instruction (`pick` mode). It doesn't confirm first; the diff is the review.
 
 ### Usable Anytime
 Not gated to one phase. Reach for these whenever the situation calls for them, from any point in Discover through Deliver.
 
 - **[`help`](skills/help/SKILL.md)**: default mode is the situational advisor version of this whole section (reads the repo, tells you what's next); `atlas` mode is the full browsable directory.
 - **[`decisions`](skills/decisions/SKILL.md)** / **[`interrogate`](skills/interrogate/SKILL.md)**: capturing and interrogating decisions, wherever in the process one comes up.
-- **[`wiki`](skills/wiki/SKILL.md)**: two modes. `note` mode is a quick, low-ceremony capture for a thought worth keeping, mid-task, dropped into `docs/notes/my-notes/` and folded straight in. Default `compile` mode compiles scattered notes into an interlinked wiki as the project accumulates them, including any spec, transcript, or research doc a teammate, PM, client, or user drops directly into `docs/`.
-- **[`figma`](skills/figma/SKILL.md)**: moving work to and from Figma, whenever it's part of the workflow: `capture` (a screen to Figma as layers), `import` (a Figma frame in as code), or `sync` (a full token-system sync).
-- **[`redline`](skills/redline/SKILL.md)**: one targeted UI edit from a marked-up screenshot (`markup` mode — circles, arrows, strikethroughs, callouts) or a live-picked element plus a plain instruction (`pick` mode). Doesn't confirm first; the diff is the review.
-- **[`moodboard`](skills/moodboard/SKILL.md)** / **[`restyle`](skills/restyle/SKILL.md)**: give it screenshots or URLs of styles you like (a folder of them, over time, via `moodboard`; or right now, via `restyle`) and get a few full-token-set candidate directions, live-applied to your actual running app so you compare real screens, not swatches — then `restyle` hands the pick to `styleguide` to commit for real.
+- **[`wiki`](skills/wiki/SKILL.md)**: the project librarian, in four modes. `compile` (default) turns client files, other teams' artifacts, links you pass it, and your notes into an interlinked wiki where every claim cites a stable source ID, and keeps it current. `note` is a quick capture. `lint` finds contradictions, gaps and drift. `publish` builds a read-only static site for people without the repo. It also runs in the background as `wiki-agent`.
 - **[`docs/UNKNOWNS.md`](AGENTS.md)**: the running list every skill defers to instead of guessing (see AGENTS.md §2.6), not a skill itself, but the thread that ties Discover through Deliver together.
 
-> **Use `docs/notes/` for all project notes.** `setup` creates it as this project's general notes home, safe to open directly in Obsidian or any other markdown editor. Drop meeting notes, scratch thoughts, and anything a teammate, PM, client, or user hands you there (`docs/notes/my-notes/` for raw capture); `wiki` compiles what's worth keeping, and can also cross-reference standalone documents placed elsewhere in `docs/`.
+> **Who wrote it decides where it goes.** What a client or another team hands you goes in `docs/sources/` and is never edited. What you make and keep by hand goes in `docs/artifacts/`. Meeting notes and scratch thoughts go in `docs/notes/my-notes/`. The `wiki` skill is the only writer to `docs/notes/wiki/`; every other skill reads it first and cites source IDs. Open the docs folder in Obsidian, Plainva or any markdown editor.
 
 ### Managing the suite itself
 
@@ -94,6 +94,8 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 ---
 
 ## Getting Started
+
+**Use a Markdown editor for the project docs.** Every project's docs folder is plain Markdown, so everyone edits the same files and the `wiki` skill reads them with nothing to import. Good starters: [Obsidian](https://obsidian.md), [Plainva](https://github.com/KDOJP/plainva) (open source, beta) or [Visual Studio Code](https://code.visualstudio.com). Notion, OneNote and Apple Notes keep their own copies, so edits there do not flow back. For people without an editor, `wiki publish` builds a read-only site (pages, `reveal` decks, and downloads such as `.pptx` and `.docx`) that can sit beside the prototype.
 
 ### Option 1: Claude Code plugin (recommended for teams)
 
@@ -167,11 +169,11 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 | [`requirements`](skills/requirements/SKILL.md) | **Deliver** | you | Reads the *built* prototype into Epics & Features with user stories and acceptance criteria; optional Jira/ADO export via MCP. Post-build — see `problems` for the pre-build counterpart | `/requirements`, "PRD", "epics and features", "turn this into a backlog" |
 | [`decisions`](skills/decisions/SKILL.md) | **Anytime** | you or the agent | Lightweight ADRs capturing a decision and its rejected alternatives | `/decisions`, "ADR", "record this decision" |
 | [`interrogate`](skills/interrogate/SKILL.md) | **Anytime** | you or the agent | Interrogate a design decision one question at a time; hands off to `decisions` | `/interrogate`, "grill this decision", "stress-test this design call" |
-| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | you or the agent | Two modes: default `compile` (compile `docs/notes/` and any other document dropped into `docs/` into a small, interlinked, tool-agnostic markdown wiki with a `constellation` graph view) or `note` (quick, low-ceremony capture into `docs/notes/my-notes/` that folds immediately into the wiki) | `/wiki`, `/wiki note`, "build a wiki", "compile these notes", "quick note", "jot this down", "don't let me forget" |
-| [`figma`](skills/figma/SKILL.md) | **Anytime** | you | Multi-mode: `capture` (live screen → Figma layers), `import` (Figma frame → code), `sync` (bidirectional token sync with a Figma library) | `/figma capture`, `/figma import`, `/figma sync` |
-| [`redline`](skills/redline/SKILL.md) | **Anytime** | you or the agent | Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). No confirm step; review the diff | `/redline`, "make this edit", paste an annotated screenshot |
-| [`moodboard`](skills/moodboard/SKILL.md) | **Anytime** | you | Maintains `<docs>/inspiration/` (screenshots/URLs dropped in over time) and synthesizes a living `VISUAL_LANGUAGE.md` — recurring color/type/spacing/shape/elevation patterns, each citing its source | `/moodboard`, "add this to our inspiration", "what direction do our references suggest" |
-| [`restyle`](skills/restyle/SKILL.md) | **Anytime** | you | Generates 2-3 full-token-set candidate directions from references (or a `moodboard`), live-applied to the running app via a temporary switcher, then hands the chosen one to `styleguide` `forge` mode to commit | `/restyle`, "give me some style variations", "make our app look like these" |
+| [`wiki`](skills/wiki/SKILL.md) | **Anytime** | you or the agent | The project librarian, four modes: default `compile` (ingest a client file, another team's artifact or a link into a cited, interlinked wiki; or sweep everything unprocessed), `note` (quick capture into `docs/notes/my-notes/`), `lint` (contradictions, gaps, drift) or `publish` (read-only static site). Raw material lives in `docs/sources/` (immutable), hand-made work in `docs/artifacts/` | `/wiki`, `/wiki note`, "ingest this link", "I added things", "quick note", "jot this down", "publish the wiki" |
+| [`figma`](skills/figma/SKILL.md) | **Design** | you | Multi-mode: `capture` (live screen → Figma layers), `import` (Figma frame → code), `sync` (bidirectional token sync with a Figma library) | `/figma capture`, `/figma import`, `/figma sync` |
+| [`redline`](skills/redline/SKILL.md) | **Deliver** | you or the agent | Two modes: `markup` (a marked-up screenshot — circles, arrows, strikethroughs, callouts — becomes one edit per annotation) or `pick` (point at a live element in the running prototype, describe the change). No confirm step; review the diff | `/redline`, "make this edit", paste an annotated screenshot |
+| [`moodboard`](skills/moodboard/SKILL.md) | **Decide** | you | Maintains `<docs>/inspiration/` (screenshots/URLs dropped in over time) and synthesizes a living `VISUAL_LANGUAGE.md` — recurring color/type/spacing/shape/elevation patterns, each citing its source | `/moodboard`, "add this to our inspiration", "what direction do our references suggest" |
+| [`restyle`](skills/restyle/SKILL.md) | **Design** | you | Generates 2-3 full-token-set candidate directions from references (or a `moodboard`), live-applied to the running app via a temporary switcher, then hands the chosen one to `styleguide` `forge` mode to commit | `/restyle`, "give me some style variations", "make our app look like these" |
 | [`skill-manager`](skills/skill-manager/SKILL.md) | **Meta** | you | Install, delete, disable, enable, list, and sync skills in the shared `~/.agents/skills` library; show what any skill does | `/skill-manager install`, `/skill-manager list`, `/skill-manager details` |
 
 ---

@@ -23,6 +23,15 @@
         "Takes safe defaults and logs each one",
         "Does not pause to ask"
       ]
+    },
+    {
+      "query": "/brief minimum",
+      "setup": "A new engagement, the user wants something to test within a few days",
+      "expected_behavior": [
+        "Asks only the minimum: what it is and the core task, who for, devices, the main steps in order, the key objects",
+        "Does not ask about competitors or success measures",
+        "Writes Status: minimum at the top and logs the skipped areas as tier 2 unknowns"
+      ]
     }
   ]
 }

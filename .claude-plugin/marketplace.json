@@ -1,6 +1,6 @@
 {
   "name": "ux-atlas",
-  "description": "UX Atlas: a suite of agent skills for taking a UX prototype from research to handoff.",
+  "description": "UX Atlas: agent skills for the whole UX process, from collecting information to handoff. The prototype is one phase of it, not the goal.",
   "owner": { "name": "Aaron Kiersky" },
   "plugins": [
     {

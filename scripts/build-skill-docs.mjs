@@ -67,6 +67,20 @@ const contentStart = start + openTag.length;
 const end = html.indexOf(closeTag, contentStart);
 if (end === -1) throw new Error('could not find closing </script> for #skill-docs');
 
-const updated = html.slice(0, contentStart) + json + html.slice(end);
+let updated = html.slice(0, contentStart) + json + html.slice(end);
+
+// Keep the numbers on the page true: the hero's total skill count (a word) and each phase's
+// count in the ribbon (the cards in that phase's section). scripts/validate.mjs checks both.
+const ones = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const tens = ['', '', 'twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+const words = (n) => n < 20 ? ones[n] : tens[Math.floor(n / 10)] + (n % 10 ? '-' + ones[n % 10] : '');
+const total = Object.keys(docs).length;
+updated = updated.replace(/(<p class="hero-subhead">)[\w-]+( <span class="slash">\/<\/span>skills)/, `$1${words(total)}$2`);
+for (const phase of ['before', 'discover', 'decide', 'design', 'deliver', 'anytime']) {
+  const s = updated.indexOf(`id="${phase}"`);
+  const body = updated.slice(s, updated.indexOf('</section>', s));
+  const n = (body.match(/class="card-name"/g) || []).length;
+  updated = updated.replace(new RegExp(`(<a href="#${phase}" data-phase="${phase}">\\s*<div class="num">[\\s\\S]*?<div class="count">)\\d+ skills?(</div>)`), `$1${n} skill${n === 1 ? '' : 's'}$2`);
+}
 fs.writeFileSync(INDEX_HTML, updated);
 console.log(`wrote ${Object.keys(docs).length} skill docs into index.html`);

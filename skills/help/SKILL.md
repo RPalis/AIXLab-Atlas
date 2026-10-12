@@ -12,6 +12,10 @@ argument-hint: "[blank: what's next | atlas: browse every skill | doctor: check 
 
 This is the front door to the suite. Most phase skills are user-invoked, so the agent cannot start them on its own, and a new user may not know they exist. This skill closes that gap: it reads the project, then tells the user which skill to run next and the exact command to type.
 
+The suite supports the whole design process, not only the build. When the project's next move is to collect research, organize what is known, expose a detail, or generate ideas, recommend that. Do not steer toward a prototype because it is the faster path.
+
+A prototype is a major milestone, where the team checks that everything lines up. Collecting information and settling architecture and workflow patterns come first, and have to be right before prototyping. Before you recommend [`scaffold`](../scaffold/SKILL.md), run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). If a foundation is missing, recommend the skill that makes it first, and say why. Offer the quick start when the user joined midway or needs something to look at and test soon: `brief`'s minimum pace, then `scaffold`, then backfill the rest from testing. That is a valid path.
+
 Modes: **default** ("you are here": reads the repo, gives the next move), **`atlas`** (the full map of every skill and phase), **`doctor`** (a health check of the project's docs, tokens and design rules). With no mode named, run default.
 
 ## Output Discipline
@@ -58,6 +62,7 @@ If file signals are ambiguous, or the user's actual goal doesn't obviously match
 Some starting points aren't "the project is at phase X"; they're a specific event that has its own answer regardless of overall project phase:
 
 - **Nothing exists yet, not even an idea captured anywhere** → [`setup`](../setup/SKILL.md), always first.
+- **Joined a project midway, or a prototype is needed soon to look at and test** → [`brief`](../brief/SKILL.md)'s minimum pace, then [`scaffold`](../scaffold/SKILL.md). Backfill persona, `map`'s `ia` and `journey` afterwards, using what testing shows.
 - **Just came out of a physical workshop with photos of a board** → [`workshop`](../workshop/SKILL.md)'s `ingest` mode.
 - **Something in the running prototype looks or feels wrong, broadly, and needs finding rather than a specific fix already in mind** → [`audit`](../audit/SKILL.md) (ask which mode, usually `craft`).
 - **A specific, already-decided edit — a marked-up screenshot, or pointing at a live element and saying what to change** → [`redline`](../redline/SKILL.md), not `audit`/`refine` — the difference is whether the fix still needs finding (`audit`) or is already known and just needs doing (`redline`).
@@ -74,6 +79,8 @@ Some starting points aren't "the project is at phase X"; they're a specific even
 - **A prototype exists and real users need to try it** → [`interview`](../interview/SKILL.md)'s `usability` mode.
 - **The product is a phone or tablet app** → [`scaffold`](../scaffold/SKILL.md) with its `mobile-app` type layer, then [`audit`](../audit/SKILL.md)'s `a11y` and `perf` modes against the mobile checklists.
 - **Something is slow, janky, or heavy to load** → [`audit`](../audit/SKILL.md)'s `perf` mode, then [`refine`](../refine/SKILL.md).
+- **A client file, another team's artifact, or a link arrived, or the user says "I added things"** → [`wiki`](../wiki/SKILL.md) (`compile`). Run `../../tools/wiki-status/wiki-status.sh` to see what waits: unregistered files in `sources/`, loose files in the docs root, new or changed notes, and drafts to review. Mention pending items even when another skill is the main recommendation.
+- **The wiki has not been linted for two weeks, or a handoff is near** → [`wiki`](../wiki/SKILL.md)'s `lint`, then `publish` if the client needs to read it.
 - **The project feels out of sync (stale `DESIGN.md`, missing docs folder, token problems)** → `doctor` mode of this skill.
 
 Check on-ramps before falling back to the phase table. A mid-Design project that just got back from a stakeholder workshop still needs `workshop`'s `ingest` mode first, not whatever Design-phase skill the file signals suggest.

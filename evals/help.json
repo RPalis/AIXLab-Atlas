@@ -31,6 +31,14 @@
       "expected_behavior": [
         "Shows every skill grouped by phase and links each"
       ]
+    },
+    {
+      "query": "/help",
+      "setup": "Brief and object map exist, no information architecture, no workflow doc, no code",
+      "expected_behavior": [
+        "Does not recommend scaffold first",
+        "Recommends the missing foundation skills (map ia, journey or map flow) with a reason tied to the missing files"
+      ]
     }
   ],
   "trigger": {

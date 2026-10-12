@@ -22,6 +22,27 @@
       "expected_behavior": [
         "Builds the base scaffold and stops before choosing a type layer"
       ]
+    },
+    {
+      "query": "/scaffold",
+      "setup": "A docs folder with only PRODUCT_BRIEF.md and OOUX_OBJECT_MAP.md",
+      "expected_behavior": [
+        "Runs the foundations check before anything else",
+        "Names the missing foundations (users, content, architecture, workflow) and the skill that makes each",
+        "Asks whether to make them first or scaffold anyway, and waits",
+        "If the user says scaffold anyway, logs a tier 2 unknown listing what was skipped"
+      ]
+    },
+    {
+      "query": "I just joined this project midway and need a prototype we can test soon",
+      "setup": "Only a README and some screens of existing code; no brief, persona, object map or IA",
+      "expected_behavior": [
+        "Offers the quick start and treats it as a supported path, not a shortcut to apologize for",
+        "Runs brief's minimum pace: the core task, its main steps, the key objects, and nothing more",
+        "Tags every fact the user did not state as ASSUMPTION and writes Status: minimum in the brief",
+        "Logs the skipped foundations as tier 2 unknowns, then scaffolds",
+        "Says what to backfill after testing"
+      ]
     }
   ]
 }

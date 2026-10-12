@@ -17,6 +17,9 @@ Not every decision needs one. Write one when a decision:
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
+## Read the wiki first
+- If the project has a wiki, read it for the context behind the decision and cite source IDs in the record. Do not edit it: the [`wiki`](../wiki/SKILL.md) skill adds each ADR to its `decisions.md` digest on its next run. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
+
 ## Step 1: Write the record
 
 Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from the highest existing ADR number (start at `0001` if none exist). Freeform prose is fine; no rigid numbered-decision/consequences template needed. Cover:
@@ -25,6 +28,8 @@ Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from the h
 - **Why.** The concrete constraint or reason that drove it.
 - **What was rejected, and why.** The alternative(s) that seemed obvious but didn't work, and the specific reason each was ruled out. This is the part that actually prevents the decision from being silently re-litigated later.
 - **Scope.** What this decision does and doesn't apply to, if it's not universal.
+
+If `docs/adr/README.md` does not exist, create it from the `adr/` template in [`setup`'s folder READMEs](../setup/references/folder-readmes.md#adr).
 
 Use [`templates/adr-template.md`](templates/adr-template.md) as a starting shape, not a rigid form to fill in every field of.
 

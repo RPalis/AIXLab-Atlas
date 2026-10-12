@@ -59,6 +59,18 @@ Speaker notes: the evidence log, full quotes, and links to the raw files.
 
 Lead with the emotion curve or the swimlane's headline finding as a `bullets` slide, one `table` per stage group (action, thought, emotion, pain point, opportunity), then opportunities and the checklist. A diagram in the source can't be rebuilt as a slide: embed it as an image in `doc` mode instead, or mention it and cut it here (and list it under Left out).
 
+## `decisions`: ADRs
+
+Source: the file `tools/adr-bundle` makes from the `adr/` folder, or a few ADRs chosen for the audience. Each ADR is an H2 in the bundle.
+
+1. Overview (`bullets`): one bullet per decision. Use its title and the one-sentence outcome from its "Decision" section.
+2. For each decision, a `callout` slide: the headline states the decision as a claim, and the body is its "Why", verbatim.
+3. For each decision, a `table` slide (columns: Rejected alternative, Why it was rejected). A decision with no rejected alternatives in the source shows one row that says so. Never invent one.
+4. "Scope" text goes in speaker notes on that decision's slides, and also on one closing `bullets` slide, "What these decisions do not cover".
+5. Keep decisions in number order. If the audience needs a different order, say so in the outline and list the reorder in Left out.
+There is no verification checklist in an ADR. The closing slide is the "Scope" slide above. A long bundle (more than about eight decisions) gets one section per theme, only if the ADRs already group that way.
+Speaker notes: the date and the full "Why" if the slide shortened it.
+
 ## Anything else
 
 Executive summary first, one slide per major finding with its claim as the headline, tables for any matrix, the source's checklist last. If the source has no checklist, the final slide is the list of claims a stakeholder is most likely to challenge, taken from the source's own limitations section.

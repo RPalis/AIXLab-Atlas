@@ -45,7 +45,34 @@ This skill automates creating a high-fidelity, zero-friction prototype workspace
    - A persona/role switcher, implemented as React Context (a `PersonaType`/`RoleType` union + a registry + a `switchPersona()` setter) rather than `localStorage` — `localStorage` is fine for incidental UI prefs (panel widths, last-used filters) but shouldn't hold the active persona.
    - "Storybook Design System" launcher opening the embedded Storybook modal.
    - "Architecture Map" launcher opening [`map`](../map/SKILL.md)'s `site` mode modal.
+   - Optional: a "Project wiki" link to `./wiki/index.html`, when the project publishes its wiki next to the prototype (`wiki`'s `publish` mode with `--out <frontend>/public/wiki`). Add it only if that folder exists.
    - A data-reset control is optional, not required. Add one only if the prototype actually persists mock data to `localStorage` and iterative testing benefits from a clean-slate button.
+
+### Before you scaffold: check the foundations
+
+A prototype is a major milestone: it is where the team checks that everything lines up. The groundwork comes first. Collected information, the domain, content and navigation structure, the architecture, and the workflow patterns all have to be settled before prototyping, because a prototype built on a guess hides the guess.
+
+Run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). It lists six foundations and the skill that makes each:
+
+| Foundation | Doc | Made by |
+|---|---|---|
+| brief | `PRODUCT_BRIEF.md` | [`brief`](../brief/SKILL.md) |
+| users | `PERSONA_WALKTHROUGH.md` | [`persona`](../persona/SKILL.md) |
+| domain | `OOUX_OBJECT_MAP.md` | [`map`](../map/SKILL.md) `objects` |
+| content | `INFORMATION_ARCHITECTURE.md` | `map` `ia` |
+| architecture | `ARCHITECTURE_MAP.md` | `map` `site` |
+| workflow | `JOURNEY_MAP.md` or a saved `map` `flow` | [`journey`](../journey/SKILL.md), `map` `flow` |
+
+If all six exist, go on. If any is missing:
+1. Say which are missing, and recommend the order to make them (brief and users first, then domain, content, architecture and workflow).
+2. Offer three ways forward, and recommend the first when there is time:
+   - **Make them first.** Run the skills in the table, then come back.
+   - **Quick start.** For a project joined midway, or when something is needed to look at and test soon. Run [`brief`](../brief/SKILL.md)'s minimum pace (the core task, its main steps, the key objects), then scaffold. The prototype becomes the thing you test. Backfill the rest from what testing shows: [`interview`](../interview/SKILL.md) `usability` to test, [`map`](../map/SKILL.md) `document` to draw the architecture and object model from the built app, then `persona`, `map` `ia` and `journey`.
+   - **Scaffold anyway**, with no extra questions.
+3. This is the user's call. It shapes the product, so it is a checkpoint (suite `AGENTS.md` §2.9) and never a default.
+4. For a quick start or scaffold-anyway, log it: `../../tools/log-unknown/log-unknown.sh --skill scaffold --tier 2 "Scaffolded before: <missing foundations>. Backfill after testing."` Then go on. A quick start is a valid, supported path, not a shortcut to apologize for.
+
+**Autonomous mode:** do not scaffold with a foundation missing. Stop, name what is missing, and log it as a tier 3 unknown. The coordinator resolves this with the designer before it dispatches.
 
 ### Scaffolding Instructions
 

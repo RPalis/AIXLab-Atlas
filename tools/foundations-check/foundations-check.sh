@@ -13,7 +13,7 @@
 # then:  QUICKSTART ...   (only when PRODUCT_BRIEF.md says "Status: minimum")
 #        SUMMARY have=<n> missing=<n>
 #
-# Areas: brief, users, domain, content, architecture, workflow.
+# Areas: brief, users, problem, domain, content, architecture, workflow.
 #   workflow = JOURNEY_MAP.md, or any docs file with "flow" in its name (a `map`
 #   flow output has no fixed filename, so the check looks by name).
 # Exit 0 always, unless --check is set: then exit 1 when anything is missing.
@@ -37,6 +37,7 @@ check() { # area file skill
 
 check brief        PRODUCT_BRIEF.md           "brief"
 check users        PERSONA_WALKTHROUGH.md     "persona"
+check problem      PROBLEM_STATEMENTS.md      "problems"
 check domain       OOUX_OBJECT_MAP.md         "map (objects mode)"
 check content      INFORMATION_ARCHITECTURE.md "map (ia mode)"
 check architecture ARCHITECTURE_MAP.md        "map (site mode)"

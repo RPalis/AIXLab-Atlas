@@ -1,7 +1,7 @@
 ---
 name: brainstorming
 description: >-
-  Turns one signed-off problem statement into many ideas and a scored shortlist of directions, never
+  Turns one locked problem statement (and its How Might We question) into many ideas and a scored shortlist of directions, never
   a single winner. Use when a problem statement exists and the team needs options before it picks a
   direction.
 disable-model-invocation: true
@@ -14,12 +14,11 @@ scored set of directions — not a single winner. ~20-30 minutes.
 
 **Not this skill:**
 - Producing the problem statement this reads → [`problems`](../problems/SKILL.md). This
-  skill takes one signed-off problem statement as input; it doesn't write one.
+  skill takes one locked problem statement as input; it doesn't write one.
 - Planning the session logistics (agenda, timing, activities for a live workshop) →
   Atlas's `workshop` `plan` mode, whose activity catalogue this skill's session can draw from as an optional
   input.
-- Deciding the site's information architecture or building wireframes from the chosen direction → those
-  happen after this skill, once a direction is picked and validated.
+- Deciding the site's information architecture, object model or flows → [`map`](../map/SKILL.md), locked in Decide before this skill runs. Ideas work within those, or challenge them. If an idea challenges a lock, reopen that decision on purpose ([`interrogate`](../interrogate/SKILL.md), then [`decisions`](../decisions/SKILL.md)). Building wireframes from the chosen direction happens after this skill, once a direction is picked and validated.
 
 ## Output Discipline
 - Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
@@ -33,7 +32,7 @@ the problem, or a scored direction with no stated basis for its score, doesn't b
 ## What you'll need
 
 **Required**
-- One signed-off problem statement (the [`problems`](../problems/SKILL.md) output)
+- One locked problem statement and its How Might We question (the [`problems`](../problems/SKILL.md) output)
 - Constraints — tech, brand, timeline
 - Top research findings for context
 

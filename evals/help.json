@@ -39,6 +39,14 @@
         "Does not recommend scaffold first",
         "Recommends the missing foundation skills (map ia, journey or map flow) with a reason tied to the missing files"
       ]
+    },
+    {
+      "query": "/help",
+      "setup": "Persona walkthrough exists, no problem statements, no object map",
+      "expected_behavior": [
+        "Recommends problems before map",
+        "Explains that the problem is locked in Decide before the structure and before design explores solutions"
+      ]
     }
   ],
   "trigger": {

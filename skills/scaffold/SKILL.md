@@ -50,21 +50,22 @@ This skill automates creating a high-fidelity, zero-friction prototype workspace
 
 ### Before you scaffold: check the foundations
 
-A prototype is a major milestone: it is where the team checks that everything lines up. The groundwork comes first. Collected information, the domain, content and navigation structure, the architecture, and the workflow patterns all have to be settled before prototyping, because a prototype built on a guess hides the guess.
+A prototype is a major milestone: it is where the team checks that everything lines up. The groundwork comes first. Collected information, the locked problem, the domain, content and navigation structure, the architecture, and the workflow patterns all have to be settled before prototyping, because a prototype built on a guess hides the guess.
 
-Run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). It lists six foundations and the skill that makes each:
+Run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). It lists seven foundations and the skill that makes each:
 
 | Foundation | Doc | Made by |
 |---|---|---|
 | brief | `PRODUCT_BRIEF.md` | [`brief`](../brief/SKILL.md) |
 | users | `PERSONA_WALKTHROUGH.md` | [`persona`](../persona/SKILL.md) |
+| problem | `PROBLEM_STATEMENTS.md` | [`problems`](../problems/SKILL.md) |
 | domain | `OOUX_OBJECT_MAP.md` | [`map`](../map/SKILL.md) `objects` |
 | content | `INFORMATION_ARCHITECTURE.md` | `map` `ia` |
 | architecture | `ARCHITECTURE_MAP.md` | `map` `site` |
 | workflow | `JOURNEY_MAP.md` or a saved `map` `flow` | [`journey`](../journey/SKILL.md), `map` `flow` |
 
-If all six exist, go on. If any is missing:
-1. Say which are missing, and recommend the order to make them (brief and users first, then domain, content, architecture and workflow).
+If all seven exist, go on. If any is missing:
+1. Say which are missing, and recommend the order to make them (brief and users first, then the locked problem, then domain, content, architecture and workflow).
 2. Offer three ways forward, and recommend the first when there is time:
    - **Make them first.** Run the skills in the table, then come back.
    - **Quick start.** For a project joined midway, or when something is needed to look at and test soon. Run [`brief`](../brief/SKILL.md)'s minimum pace (the core task, its main steps, the key objects), then scaffold. The prototype becomes the thing you test. Backfill the rest from what testing shows: [`interview`](../interview/SKILL.md) `usability` to test, [`map`](../map/SKILL.md) `document` to draw the architecture and object model from the built app, then `persona`, `map` `ia` and `journey`.

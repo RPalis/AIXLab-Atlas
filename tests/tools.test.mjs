@@ -201,11 +201,12 @@ test('foundations-check names each missing foundation and the skill that makes i
   assert.equal(r.status, 1);
   assert.match(r.stdout, /HAVE brief /);
   assert.match(r.stdout, /MISSING users persona/);
+  assert.match(r.stdout, /MISSING problem problems/);
   assert.match(r.stdout, /MISSING content map \(ia mode\)/);
   assert.match(r.stdout, /MISSING architecture map \(site mode\)/);
   assert.match(r.stdout, /HAVE workflow .*checkout-flow\.md/);
-  assert.match(r.stdout, /SUMMARY have=3 missing=3/);
-  for (const f of ['PERSONA_WALKTHROUGH.md', 'INFORMATION_ARCHITECTURE.md', 'ARCHITECTURE_MAP.md']) put(dir, f, '# x\n');
+  assert.match(r.stdout, /SUMMARY have=3 missing=4/);
+  for (const f of ['PERSONA_WALKTHROUGH.md', 'PROBLEM_STATEMENTS.md', 'INFORMATION_ARCHITECTURE.md', 'ARCHITECTURE_MAP.md']) put(dir, f, '# x\n');
   const ok = bash(T('foundations-check/foundations-check.sh'), ['--check', dir]);
   assert.equal(ok.status, 0, ok.stdout);
   put(dir, 'PRODUCT_BRIEF.md', 'Status: minimum\n# b\n');

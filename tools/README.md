@@ -109,8 +109,8 @@ Skills reference tools by relative path, e.g. `../../tools/find-docs-folder/find
 - **`wiki-site/`** — builds the read-only static site from the wiki with the publish filter
   (drafts, `my-notes/` and un-opted sources stay out; links to them become plain text). Needs
   `npm i marked`. Used by `wiki` (`publish` mode) and `package`.
-- **`foundations-check/`** — reports which prototyping foundations exist (brief, users, domain,
-  content, architecture, workflow), each with the skill that makes the missing ones. `--check`
+- **`foundations-check/`** — reports which prototyping foundations exist (brief, users, locked problem,
+  domain, content, architecture, workflow), each with the skill that makes the missing ones. `--check`
   exits 1 when any is missing. A prompt, not a block. Used by `scaffold`, `scaffold-agent`,
   `coordinator-agent` and `help`.
 - **`adr-bundle/`** — joins ADRs (a folder or a list of files) into one Markdown document on

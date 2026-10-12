@@ -1,12 +1,15 @@
 ---
 name: problems
 description: >-
-  Turns research (personas, journeys, pain points) into problem statements and prioritized user
-  stories. Never proposes solutions. Use when research exists and needs to become a backlog.
+  Turns research (personas, journeys, pain points) into locked problem statements, each with a How
+  Might We question, and prioritized user stories. Never proposes solutions. Use when research exists
+  and needs to become a backlog.
 disable-model-invocation: true
 ---
 
 # Problem Statements & User Stories
+
+This is the converge step of the first diamond (Decide). Discover gathered everything. This skill locks the problem statements and How Might We questions that Design then explores solutions for.
 
 Turn validated research into problem statements product teams can act on, then into prioritised, traceable
 user stories. ~20 minutes for a persona set with journey maps already in hand.
@@ -61,7 +64,9 @@ problem statement contains a proposed solution.
 > Before you begin: ask up to five clarifying questions if important information is missing.
 >
 > Identify the key user problems. For each problem statement include: Problem title · Description · Supporting
-> research · User impact · Business impact · Confidence. Do not include proposed solutions.
+> research · User impact · Business impact · Confidence · One How Might We question (open, and with no solution
+> hidden inside it: "How might we reduce re-keying?", never "How might we add autofill?"). Do not include
+> proposed solutions.
 >
 > For each validated problem, generate user stories using the format: As a... I want to... so that... Also
 > include: Priority · Supporting evidence · Success criteria · Dependencies · Risks or assumptions.
@@ -74,13 +79,14 @@ problem statement contains a proposed solution.
 
 ## Final outputs (all six required)
 
-Problem Statements (no proposed solutions) · User Stories (linked to validated need + business goal) · Success
+Problem Statements, each with a How Might We question (no proposed solutions) · User Stories (linked to validated need + business goal) · Success
 Criteria · Prioritised Backlog (user value × business value × frequency × confidence × effort) · Assumptions &
 Validation Checklist.
 
 ## Human review required before backlog entry
 
 - [ ] Every problem statement supported by research
+- [ ] Every How Might We is open and hides no solution
 - [ ] User stories describe outcomes, not solutions
 - [ ] Priorities validate against business objectives
 - [ ] Dependencies and technical feasibility reviewed
@@ -90,5 +96,5 @@ Validation Checklist.
 ## What's next
 
 Write the approved problem statements and user stories to `docs/PROBLEM_STATEMENTS.md`. They feed
-[`brainstorming`](../brainstorming/SKILL.md), [`workshop`](../workshop/SKILL.md) planning, wireframes, and
+[`brainstorming`](../brainstorming/SKILL.md) (which starts from the How Might We questions in Design), [`workshop`](../workshop/SKILL.md) planning, wireframes, and
 [`interview`](../interview/SKILL.md)'s `usability` mode.

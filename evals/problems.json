@@ -21,6 +21,15 @@
         "Keeps solutions out of the statements and points to brainstorming"
       ],
       "setup": "Research exists"
+    },
+    {
+      "query": "/problems",
+      "setup": "Persona walkthrough and journey map exist",
+      "expected_behavior": [
+        "Writes each problem statement with one How Might We question",
+        "Each How Might We is open and hides no solution (\"how might we reduce re-keying\", not \"add autofill\")",
+        "Does not propose a solution anywhere in the output"
+      ]
     }
   ]
 }

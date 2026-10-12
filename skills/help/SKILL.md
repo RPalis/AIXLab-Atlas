@@ -14,7 +14,7 @@ This is the front door to the suite. Most phase skills are user-invoked, so the 
 
 The suite supports the whole design process, not only the build. When the project's next move is to collect research, organize what is known, expose a detail, or generate ideas, recommend that. Do not steer toward a prototype because it is the faster path.
 
-A prototype is a major milestone, where the team checks that everything lines up. Collecting information and settling architecture and workflow patterns come first, and have to be right before prototyping. Before you recommend [`scaffold`](../scaffold/SKILL.md), run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). If a foundation is missing, recommend the skill that makes it first, and say why. Offer the quick start when the user joined midway or needs something to look at and test soon: `brief`'s minimum pace, then `scaffold`, then backfill the rest from testing. That is a valid path.
+A prototype is a major milestone, where the team checks that everything lines up. Collecting information and settling architecture and workflow patterns come first, and have to be right before prototyping. Before you recommend [`scaffold`](../scaffold/SKILL.md) or [`brainstorming`](../brainstorming/SKILL.md), run [`foundations-check`](../../tools/foundations-check/foundations-check.sh). If a foundation is missing, recommend the skill that makes it first, and say why. Offer the quick start when the user joined midway or needs something to look at and test soon: `brief`'s minimum pace, then `scaffold`, then backfill the rest from testing. That is a valid path.
 
 Modes: **default** ("you are here": reads the repo, gives the next move), **`atlas`** (the full map of every skill and phase), **`doctor`** (a health check of the project's docs, tokens and design rules). With no mode named, run default.
 
@@ -40,10 +40,10 @@ Run [`tools/detect-project-phase`](../../tools/detect-project-phase/detect-proje
 |---|---|
 | No `README.md`/`AGENTS.md`, no `docs/`, no `package.json` | Nothing started yet → **before Discover** |
 | `docs/UNKNOWNS.md` exists, no `PERSONA_WALKTHROUGH.md` | Setup done, research not started → **early Discover** |
-| `docs/PERSONA_WALKTHROUGH.md` exists, no `OOUX_OBJECT_MAP.md` | Users understood, scope not framed → **Discover → Decide** |
-| `docs/OOUX_OBJECT_MAP.md` exists, no `package.json`/`src/` | Scope framed, nothing built → **Decide → Design** |
-| `src/` exists, no `index.css` token layer or no `DESIGN.md` | Building, tokens not established → **early Design** |
-| `DESIGN.md` and components exist, no recent `audit` output mentioned | Mid-build → **Design, loop craft-audit ↔ refine** |
+| `docs/PERSONA_WALKTHROUGH.md` exists, no `PROBLEM_STATEMENTS.md` or `OOUX_OBJECT_MAP.md` | Users understood, problem not locked → **Discover → Decide**. Lock the problem (`problems`) before the structure (`map`). |
+| `docs/OOUX_OBJECT_MAP.md` exists, no `package.json`/`src/` | Problem and structure locked, nothing built → **Decide → Design** |
+| `src/` exists, no `index.css` token layer or no `DESIGN.md` | Prototype in progress, visual language not yet locked → **Design** |
+| `DESIGN.md` and components exist, no recent `audit` output mentioned | Visual language locked, still refining → **Design → Deliver, loop craft-audit ↔ refine** |
 | Screens built, `audit`'s `code`/`a11y` modes not yet run | Nearing done → **Design → Deliver boundary** |
 | `package`/`showcase`/`guide` output already exists | Shipped once already → **Deliver, or back to Discover for the next round** |
 

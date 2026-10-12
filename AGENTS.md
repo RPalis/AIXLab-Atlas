@@ -10,7 +10,7 @@ This repository is the single source of truth for **UX Atlas**, a modular, end-t
 
 It distills real-world prototyping patterns, two-layer design token architectures, atomic component documentation, visual architecture mapping, and packaging workflows into a portable, standalone skill suite. This folder is meant to be handed to a teammate as-is: every skill works from a fresh clone with `install.sh` and nothing else installed.
 
-The process is **Discover → Decide → Design → Deliver**; see [`help`](skills/help/SKILL.md)'s `atlas` mode and the README for the full narrative flow through each phase. Structurally:
+The process is **Discover → Decide → Design → Deliver**, and it follows the **double diamond**: Discover diverges (gather everything), Decide converges (lock the problem statements and How Might We questions, and the structure of the solution), Design diverges again (explore several solutions and find the right path), and Deliver converges (one solution, built with development). A skill's phase is the diamond half where its output is made or locked. See [`help`](skills/help/SKILL.md)'s `atlas` mode and the README for the full narrative flow through each phase. Structurally:
 
 ```mermaid
 flowchart TD
@@ -22,49 +22,62 @@ flowchart TD
         P00[setup] --> P00B[brief]
     end
 
-    subgraph Discover ["1. Discover"]
+    subgraph Discover ["1. Discover — diverge: gather everything"]
         P0W["workshop (plan / ingest mode)"]
         P0C["competitors (discover / add / analysis / benchmark mode)"]
         P0U["interview (questions / analysis mode)"] --> P1[persona]
         P1 --> P0J["journey (map / blueprint / experience mode)"]
-        P1 --> P0M[metrics]
-        P0J --> P0P[problems]
     end
 
-    subgraph Decide ["2. Decide"]
-        P0P --> P2A[brainstorming]
-        P2A --> P2["map (objects mode)"]
-        P2 --> P2I["map (ia mode)"]
+    subgraph Decide ["2. Decide — converge: lock problems and structure"]
+        P0P["problems (problem statements + How Might We)"]
+        P0M[metrics]
+        P2["map (objects mode)"] --> P2I["map (ia mode)"]
         P2I --> P2B["map (site / flow mode)"]
+        P0P --> P2
+        P0P --> P0M
         P2B --> P7B[decisions]
         P7B -.-> P7C[interrogate]
         MB[moodboard]
     end
 
-    subgraph Design ["3. Design"]
-        P2B --> P3["scaffold (base + optional type layer)"]
-        P3 --> P4["styleguide (default / forge mode)"]
-        P4 --> PCA["audit (craft / heuristic mode)"]
-        PCA --> P5[refine]
-        P5 --> P6[storybook]
-        P6 --> P7["map (document / audit mode)"]
-        P5 --> P7D["audit (a11y mode)"]
-        P6 --> P7F[wiki]
+    subgraph Design ["3. Design — diverge: explore solutions and test"]
+        P2A[brainstorming]
+        P3["scaffold (base + optional type layer)"]
+        PCA["audit (craft / heuristic mode)"]
+        P5[refine]
+        P7D["audit (a11y / perf mode)"]
+        P7["map (document / audit mode)"]
+        P8U["interview (usability mode)"]
+        P7F[wiki]
         FIG["figma (capture / import / sync)"]
         RS[restyle]
-        MB --> RS
-        RS -.-> P4
+        P2A --> P3
+        P3 --> PCA
+        PCA --> P5
+        P5 --> P7D
+        P5 --> P7
+        P5 --> P8U
+        P5 --> P7F
     end
 
-    subgraph Deliver ["4. Deliver"]
-        P7 --> P8["audit (code mode)"]
-        P8 --> P8S["audit (spec mode)"]
-        P8 --> P8U["interview (usability mode)"]
-        P8S --> P9[package]
-        P9 --> P9B["showcase (story / reveal / doc / deck mode)"]
-        P9 --> P9C[guide]
-        P9 --> P9D[requirements]
+    subgraph Deliver ["4. Deliver — converge: one solution, built with development"]
+        P4["styleguide (default / forge mode)"]
+        P6[storybook]
+        P8["audit (code mode)"]
+        P8S["audit (spec mode)"]
+        P9[package]
+        P9B["showcase (story / reveal / doc / deck mode)"]
+        P9C[guide]
+        P9D[requirements]
         RL["redline (markup / pick)"]
+        P4 --> P6
+        P6 --> P8
+        P8 --> P8S
+        P8S --> P9
+        P9 --> P9B
+        P9 --> P9C
+        P9 --> P9D
     end
 
     subgraph Meta ["Meta: Managing the Suite Itself"]
@@ -72,6 +85,11 @@ flowchart TD
     end
 
     P00B --> Discover
+    P0J --> P0P
+    P2B --> P2A
+    MB --> RS
+    RS -.-> P4
+    P8U --> P4
     RH -.-> Before
     RH -.-> Discover
     RH -.-> Decide
@@ -166,17 +184,17 @@ Several skills are **multi-mode**: one skill folder, several named modes for rel
 | `skills/workshop` | `workshop` | **Discover** | **Multi-mode**: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck, before it happens) or `ingest` (converts photos of the physical workshop board that resulted into a deck, doc, CSV, or replicated FigJam board, after it happens) |
 | `skills/competitors` | `competitors` | **Discover** | **Multi-mode**: default `discover` (interrogates market/tool-type/workflows/differentiators one question at a time, researches the web for candidates the stakeholder may not already know about, narrows to the 3-5 closest, profiles each in parallel — features, workflow, UX patterns, a real screenshot) `add` (appends one more competitor found later, without re-running the full scan), `analysis` (deeper, evidence-rated pass by UX category, confidence-tagged, ranked opportunities), or `benchmark` (scores 3-5 products, yours plus competitors and best-in-class from any industry, 1-5 on one rubric with evidence, plus a flow teardown and an adopt/adapt/avoid pattern library). Writes `docs/COMPETITIVE_ANALYSIS.md` (`docs/UX_BENCHMARK.md` for `benchmark`); supersedes `brief`'s competitive-landscape question once run |
 | `skills/persona` | `persona` | **Discover** | User archetypes, mental models, & Day in the Life walkthroughs |
-| `skills/interview` | `interview` | **Discover / Deliver** | **Multi-mode**: default `questions` (phase-aware question bank + script + synthesis template for user research), `analysis` (turns interview transcripts into evidence-backed themes: verbatim quotes with interview numbers, weak-signal flags, a plan-first gate), `usability` (timed test plan + moderator script for a built prototype: task scenarios, success criteria, bias review, metrics sheet) |
+| `skills/interview` | `interview` | **Discover / Design** | **Multi-mode**: default `questions` (phase-aware question bank + script + synthesis template for user research), `analysis` (turns interview transcripts into evidence-backed themes: verbatim quotes with interview numbers, weak-signal flags, a plan-first gate), `usability` (timed test plan + moderator script for a built prototype: task scenarios, success criteria, bias review, metrics sheet) |
 | `skills/journey` | `journey` | **Discover** | **Multi-mode**: `map` (current-state process as a swimlane diagram — as-is, not proposed) or `blueprint` (service-blueprint variant for a customer-facing process: Physical Evidence/Customer/Frontstage/Backstage/Support-Process layers as a time-ordered table, plus duration and handoff wait times) — alternative starting points; `pain-points` (scores friction per step or wait time, severity × frequency, with root cause), `solutions` (fix directions + measurable target per pain point). A fifth mode, `experience`, is a different job: one persona through one scenario, emotions and evidence, every claim cited or `ASSUMPTION`. Writes `docs/JOURNEY_MAP.md` |
-| `skills/metrics` | `metrics` | **Discover** | Defines OKRs against a framework matched to the product's medium/adoption model: HEART (opt-in digital), CASTLE (mandatory-use digital, via NN/g), or SELECT (physical tools/services, this suite's own). Every Key Result tagged by category. Writes `docs/OKR.md` |
-| `skills/problems` | `problems` | **Discover** | Turns personas, journey maps, interview themes and pain points into problem statements (never with a proposed solution) and prioritised, traceable user stories. Pre-build; `requirements` is the built-prototype counterpart. Writes `docs/PROBLEM_STATEMENTS.md` |
-| `skills/brainstorming` | `brainstorming` | **Decide** | Structured ideation against one signed-off problem statement: many ideas, then a scored shortlist of directions (user value, effort, risk), never a single winner. Writes `docs/BRAINSTORM.md` |
+| `skills/metrics` | `metrics` | **Decide** | Defines OKRs against a framework matched to the product's medium/adoption model: HEART (opt-in digital), CASTLE (mandatory-use digital, via NN/g), or SELECT (physical tools/services, this suite's own). Every Key Result tagged by category. Writes `docs/OKR.md` |
+| `skills/problems` | `problems` | **Decide** | Turns personas, journey maps, interview themes and pain points into locked problem statements, each with a How Might We question (never with a proposed solution) and prioritised, traceable user stories. Pre-build; `requirements` is the built-prototype counterpart. Writes `docs/PROBLEM_STATEMENTS.md` |
+| `skills/brainstorming` | `brainstorming` | **Design** | Structured ideation against one signed-off problem statement: many ideas, then a scored shortlist of directions (user value, effort, risk), never a single winner. Writes `docs/BRAINSTORM.md` |
 | `skills/map` | `map` | **Decide / Design** | **Multi-mode**: `objects` (interactive OOUX/ORCA modeling; seeds `docs/OOUX_OBJECT_MAP.md` + an entity-relationship diagram), `ia` (content, navigation, labelling and search around the user's mental model as a gated, evidence-graded sitemap; content-first, before `site`), `site` (proposed route/component architecture as a diagram, before it's built), `flow` (a complete, evidence-grounded end-to-end user flow for one goal) — all Decide-phase; `audit` (reconciles the object model against built code) and `document` (regenerates the site diagram — Vis.js, Mermaid, SVG — from the real app, plus reconciles the object model if needed) — both Design-phase. Any mode can export to FigJam via the Figma MCP |
 | `skills/scaffold` | `scaffold` | **Design** | React 19 + TypeScript + Vite + Tailwind v4 scaffold; base + optional site-type layer (dashboard, chatbot, marketing site, CRM, mobile app) |
-| `skills/styleguide` | `styleguide` | **Design** | **Multi-mode**: default (two-layer token architecture, `index.css` + spec-conformant `DESIGN.md`) or `forge` (cast a new brand's palette & fonts into the suite's fixed semantic token roles) |
+| `skills/styleguide` | `styleguide` | **Deliver** | **Multi-mode**: default (two-layer token architecture, `index.css` + spec-conformant `DESIGN.md`) or `forge` (cast a new brand's palette & fonts into the suite's fixed semantic token roles) |
 | `skills/audit` | `audit` | **Design / Deliver** | **Multi-mode** (six): `craft` (scored UX critique task list), `heuristic` (deep Nielsen-heuristic pass, severity-rated 0-4), `code` (coding-standards audit), `spec` (build vs approved design spec, screen by screen), `a11y` (deep WCAG 2.2 AA sweep, incl. mobile and screen readers), `perf` (measured load, interaction and layout-shift numbers against budgets, with causes) |
 | `skills/refine` | `refine` | **Design** | Micro-interactions, spacing rhythm, responsive grids, polish |
-| `skills/storybook` | `storybook` | **Design** | 5-tier Storybook documentation & in-app viewer embedding |
+| `skills/storybook` | `storybook` | **Deliver** | 5-tier Storybook documentation & in-app viewer embedding |
 | `skills/package` | `package` | **Deliver** | Three modes: `full` (site + source + docs handoff zip), `lite` (minified `production/` folder that runs on any static host — backend embedded as a snapshot, edits persisted to localStorage), or `figma` (flat, unminified files each under 1MB, to attach to a Figma Make chat) |
 | `skills/showcase` | `showcase` | **Deliver** | **Multi-mode**: `story` (day-in-the-life PowerPoint deck from a prototype: `deck.json` → bundled pptxgenjs builder, Playwright overflow check), `reveal` (reveal.js deck), `doc` (a Markdown report from any suite skill → styled Word document, faithful), `deck` (a Markdown report → condensed PowerPoint, outline confirmed first). Packages the other skills' outputs; never adds content |
 | `skills/guide` | `guide` | **Deliver** | End-user documentation: Getting Started + phase-by-phase walkthrough |

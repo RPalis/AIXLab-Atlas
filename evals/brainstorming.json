@@ -22,6 +22,14 @@
         "Returns a scored shortlist of 3-4 named directions with user value, effort and risk"
       ],
       "setup": "Ideas already generated"
+    },
+    {
+      "query": "/brainstorming",
+      "setup": "A locked problem statement with a How Might We, and an object map and IA already locked",
+      "expected_behavior": [
+        "Starts from the locked How Might We",
+        "Treats the object map and IA as locked, and flags it if an idea challenges one, pointing to interrogate and decisions"
+      ]
     }
   ],
   "trigger": {

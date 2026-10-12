@@ -31,7 +31,7 @@ mechanics — per suite `AGENTS.md` §2.9, these are never guessed, tier 1 or no
 
 - **`scaffold-agent`**: which type layer (if any), and which Figma library (if
   any) to source from.
-- **Foundations before `scaffold-agent`**: run `tools/foundations-check`. A prototype is where the team checks that everything lines up, and the groundwork has to be right before it starts. If any foundation (brief, users, domain, content, architecture, workflow) is missing, ask the designer: make them first, a quick start (the `brief` skill's minimum pace, then scaffold, backfill after testing), or scaffold anyway. Never dispatch `scaffold-agent` with a gap and no answer. Pass the answer in the dispatch instructions.
+- **Foundations before `scaffold-agent`**: run `tools/foundations-check`. A prototype is where the team checks that everything lines up, and the groundwork has to be right before it starts. If any foundation (brief, users, problem, domain, content, architecture, workflow) is missing, ask the designer: make them first, a quick start (the `brief` skill's minimum pace, then scaffold, backfill after testing), or scaffold anyway. Never dispatch `scaffold-agent` with a gap and no answer. Pass the answer in the dispatch instructions.
 - **`competitors-agent`**: which candidates get a full profile (it runs in two
   phases specifically so you can pause between them — see its own file).
 

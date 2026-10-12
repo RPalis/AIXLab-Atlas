@@ -8,6 +8,7 @@ Aligns the suite with the Agent Skills spec and the Claude, Codex and Gemini ski
 See `ux-atlas-docs/SKILL_LIBRARY_COMPETITIVE_ANALYSIS.md` for the reasoning behind each change.
 
 ### Added
+- The workflow now follows the double diamond: Discover diverges, Decide converges (problem statements and How Might We, success measures, structure), Design diverges again, Deliver converges. `problems`, `metrics` moved to Decide; `brainstorming` and `interview` `usability` to Design; `styleguide` and `storybook` to Deliver. `problems` writes a How Might We per problem statement, and `foundations-check` adds the locked problem. See `ux-atlas-docs/adr/0003-double-diamond-phase-placement.md`.
 - `wiki` is now the project librarian. New layers: `docs/sources/` (immutable, written by others), `docs/artifacts/` (written by the team), and registers in the wiki (`sources.md`, `artifacts.md`, `decisions.md`) with stable IDs. Topics replace entities. New `lint` and `publish` modes. See `ux-atlas-docs/adr/0001-wiki-librarian-sources-artifacts.md`.
 - `wiki-agent`: runs the librarian in the background, one at a time. `coordinator-agent` dispatches it when work is pending.
 - `tools/wiki-status`, `tools/wiki-footer`, `tools/wiki-site` (static, filtered site; needs `npm i marked`). The site links `reveal` decks directly, lists `.pptx`, `.docx`, `.pdf` and `.svg` files as downloads, copies images pages use, and can be built into the prototype's `public/wiki/`. Markdown stays the source; see `ux-atlas-docs/adr/0002-html-is-output-markdown-is-source.md`.

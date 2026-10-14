@@ -1,0 +1,2 @@
+session_id,route,track,os,step,checkpoint,started_at,finished_at,minutes,what_happened,intervention (Y/N),intervention_wording,type (guide-defect/skill-defect/environment),severity (blocker/major/minor),proposed_fix,owner,status
+S1,,,,,,,,,,,,,,,,open

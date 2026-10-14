@@ -1,4 +1,4 @@
-# UX Atlas (AIX fork): first-time user guide
+# UX Atlas / AIX Lab: first-time user guide
 
 This guide takes you from the GitHub link to your first finished, reviewed design artifact. It assumes you have never used these skills before. Follow it in order and do not skip the "Check" lines: each one tells you whether you are safe to continue.
 
@@ -261,11 +261,11 @@ Fill this in right after the session, while you remember. Honest answers help mo
 
 ## For the observer
 
-- Do not help unless the tester has been stuck for 5 minutes or rule G7 triggers. Note the time and what you said.
-- Record: route, track, OS, time to first successful check, every hesitation, every point where you intervened.
-- A tester who needs help at a step is a defect in that step. Log the step number.
-- After the session, put findings in the table below and send to the guide owner.
+Run the session with the files in [`onboarding/`](onboarding/):
 
-| Step | What happened | Time lost | Guide defect (Y/N) | Fix proposed |
-|---|---|---|---|---|
-| | | | | |
+- [`OBSERVER-SCRIPT.md`](onboarding/OBSERVER-SCRIPT.md): setup, what to say, stop rules, eight checkpoints, how to read results.
+- [`FEEDBACK-FORM.md`](onboarding/FEEDBACK-FORM.md): the tester fills this in right after.
+- [`FINDINGS-LOG.csv`](onboarding/FINDINGS-LOG.csv): one row per finding.
+- [`guide.html`](onboarding/guide.html): this guide as a tick-box page the tester can follow on a second screen.
+
+Do not help unless the tester has been stuck for 5 minutes or rule G7 triggers. A tester who needs help at a step is a defect in that step.

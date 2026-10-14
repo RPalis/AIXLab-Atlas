@@ -63,8 +63,8 @@ problem statement contains a proposed solution.
 > include: Priority · Supporting evidence · Success criteria · Dependencies · Risks or assumptions.
 >
 > Prioritise the stories using: User value · Business value · Frequency · Confidence · Implementation effort.
-> [`feature-prioritization`](../feature-prioritization/SKILL.md) has a fuller framework if this simple weighting
-> isn't enough for the backlog at hand.
+> If this simple weighting isn't enough for the backlog at hand, use a prioritisation framework of your
+> choice (for example RICE or impact versus effort).
 >
 > Finally produce: (1) Executive Summary, (2) Problem Statements, (3) User Stories, (4) Success Criteria,
 > (5) Prioritised Backlog, (6) Assumptions & Validation Checklist. Ensure every problem statement and user

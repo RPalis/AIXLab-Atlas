@@ -48,7 +48,7 @@ This prototype is built with UX Atlas. Docs folder: `<project-slug>-docs/`.
 Doc ownership:
 - `<project-slug>-docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
 - `<project-slug>-docs/PRODUCT_BRIEF.md` — owned by `brief`
-- `<project-slug>-docs/COMPETITIVE_ANALYSIS.md` — owned by `competitors`
+- `<project-slug>-docs/COMPETITIVE_ANALYSIS.md` — owned by `competitor-analysis`
 - `<project-slug>-docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
 - `<project-slug>-docs/JOURNEY_MAP.md` — owned by `journey`
 - `<project-slug>-docs/OKR.md` — owned by `metrics`

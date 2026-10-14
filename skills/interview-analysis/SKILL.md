@@ -116,7 +116,7 @@ for the transcripts.
 ### Phase 6 · Rank opportunities
 - List **opportunities and findings separately**.
 - Define **next steps and prioritisation**, ranked against the business goal.
-- `feature-prioritization` gives impact-vs-effort a real rubric here if useful.
+- Use a prioritisation framework of your choice (for example RICE or impact versus effort) if the ranking needs a real rubric.
 
 ### Phase 7 · Create report — GATE (read the output-format skill only now)
 - Assemble the full deliverable using `references/output-template.md`: header block, analysis
@@ -163,7 +163,7 @@ transcripts going thin, which is where invented detail enters.
 
 ## Supporting skills (use at the right moment)
 
-`persona` (card mode) · `journey` (`experience` mode) · `feature-prioritization` · `humanizer` (if
+`persona` (card mode) · `journey` (`experience` mode) · `humanizer` (if
 available), and the output-format skills `docx` / `xlsx` / `pptx`. The card's downstream uses —
 persona draft, journey maps, problem statements, user stories — are where these outputs go next.
 

@@ -20,7 +20,7 @@ Turns a prototype and a set of learning goals into a timed test plan, a moderato
   already exists.
 - Clustering or analysing what participants said once sessions run → the researcher's own synthesis pass;
   this skill produces the plan and script, not the readout.
-- Choosing the prioritisation framework for what the findings imply → [`feature-prioritization`](../feature-prioritization/SKILL.md).
+- Choosing the prioritisation framework for what the findings imply → a prioritisation framework of your choice (for example RICE or impact versus effort).
 
 ## Output Discipline
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if

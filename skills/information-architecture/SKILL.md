@@ -217,7 +217,7 @@ only if the sitemap is large enough that manual counting would be unreliable.
 [`interview-analysis`](../interview-analysis/SKILL.md) and `persona` `card` mode feed the user
 goals this consumes · [`competitor-analysis`](../competitor-analysis/SKILL.md) supplies competitor
 examples · [`journey`](../journey/SKILL.md)'s `experience` mode and
-[`feature-prioritization`](../feature-prioritization/SKILL.md) sit downstream ·
+a prioritisation framework of your choice sit downstream ·
 `accessibility` for a deeper nav a11y audit · `humanizer` (if available) and the output-format
 skills `docx` / `xlsx` / `pptx`.
 

@@ -17,7 +17,7 @@ evidence for every score. You do not guess, and you do not inflate.
 - Mapping the Flow Teardown findings onto an end-to-end journey →
   [`journey`](../journey/SKILL.md)'s `experience` mode, which reads this skill's output.
 - Turning the ranked opportunity list into a full impact/effort matrix →
-  [`feature-prioritization`](../feature-prioritization/SKILL.md).
+  a prioritisation framework of your choice (for example RICE or impact versus effort).
 
 ## Output Discipline
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result.
@@ -143,7 +143,7 @@ Rank the moves for the user's product by **impact · user value · confidence** 
 implementation effort where it's known — that column is where the honesty lives). Present a
 **prioritised table**. Confidence here means strength of evidence behind the opportunity: a
 `Not Verified` opportunity is a **hypothesis for research, not a plan** — say so under the table.
-Hand the ranked list to [`feature-prioritization`](../feature-prioritization/SKILL.md) if the
+Hand the ranked list to a prioritisation framework of your choice (for example RICE) if the
 user wants a full impact/effort matrix.
 
 ## Deliverables
@@ -195,6 +195,6 @@ it up so it can be re-run over time against the same tasks and the same bar.
 - `persona` `card` mode — the persona + definition-of-good that sets what a "5" is.
 - `competitor-analysis` — the qualitative upstream; a valid input here.
 - `accessibility` — deepen the Accessibility (WCAG) dimension.
-- `feature-prioritization` — turn the ranked opportunity list into a full impact/effort matrix.
+- A prioritisation framework of your choice — turn the ranked opportunity list into a full impact/effort matrix.
 - `journey`'s `experience` mode — map the Flow Teardown findings onto an end-to-end journey.
 - Output formats: `docx`, `xlsx`.

@@ -13,7 +13,7 @@ description: >-
 - Building a question bank for interviewing real external users → [`interview`](../interview/SKILL.md).
 - Planning a multi-stakeholder working session → [`workshop`](../workshop/SKILL.md). `brief` is one person's (or one aligned team's) head, not a group session with activities and timing.
 - Modeling objects and CTAs → [`map`](../map/SKILL.md)'s `objects` mode, which needs the scope `brief` establishes first.
-- A real competitive landscape scan — finding competitors the stakeholder doesn't already know about, profiling their features/workflow/UX → [`competitors`](../competitors/SKILL.md)'s `discover` mode. `brief`'s own competitive-landscape question only captures what's already top of mind.
+- A real competitive landscape scan — finding competitors the stakeholder doesn't already know about, profiling their features/workflow/UX → [`competitor-analysis`](../competitor-analysis/SKILL.md)'s `discover` mode. `brief`'s own competitive-landscape question only captures what's already top of mind.
 
 ## Output Discipline
 - Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
@@ -76,7 +76,7 @@ Point to what's next based on what the brief surfaced, not a fixed default:
 - Multiple user types with meaningfully different needs → [`persona`](../persona/SKILL.md) to formalize them.
 - Open questions that need real users to answer → [`interview`](../interview/SKILL.md).
 - A genuinely multi-stakeholder alignment problem surfaced mid-interrogation → [`workshop`](../workshop/SKILL.md).
-- Competitive landscape came back thin, or the stakeholder said they don't know who else is out there → [`competitors`](../competitors/SKILL.md)'s `discover` mode.
+- Competitive landscape came back thin, or the stakeholder said they don't know who else is out there → [`competitor-analysis`](../competitor-analysis/SKILL.md)'s `discover` mode.
 - Scope and tasks solid enough to start structuring → [`map`](../map/SKILL.md)'s `objects` mode.
 
 **Completion criterion:** `docs/PRODUCT_BRIEF.md` exists, every section traces to what the stakeholder actually said, and nothing unresolved was silently invented to fill a gap instead of landing in `docs/UNKNOWNS.md`.

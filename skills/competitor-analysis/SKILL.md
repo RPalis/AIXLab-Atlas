@@ -1,22 +1,15 @@
 ---
 name: competitor-analysis
 description: >-
-  Three modes for competitive analysis, sequential rather than interchangeable.
-  `discover` (default) interrogates the stakeholder one question at a time on market, tool
-  type, core workflows, and differentiators, researches the web to surface candidate
-  competitors they may not already know about, lets them narrow to the 3-5 closest
-  experiences, then profiles each in parallel (one research agent per competitor where
-  available) — key features, core workflow, UX patterns, a real screenshot, and why it's a
-  viable competitor. `add` appends one more competitor found later without re-running the
-  full landscape scan. `analyse` takes an existing `discover` doc and runs a deeper,
-  evidence-rated pass organised by UX category rather than by competitor, with a
-  three-tier confidence label on every claim and a ranked opportunity table. Writes
-  docs/COMPETITIVE_ANALYSIS.md and supersedes brief's lightweight competitive-landscape
-  question once discover has run. Use when the user needs to know who else is in their
-  market, wants a structured feature/workflow/UX comparison against real competitors with
-  visual evidence, has found one more competitor to add, or wants competitors analysed,
-  benchmarked, or audited by UX category with confidence ratings and prioritised
-  opportunities.
+  Competitive analysis in three sequential modes. `discover` (default) interviews the
+  stakeholder on market, tool type, workflows and differentiators, researches the web for
+  candidates they may not know, narrows to the 3-5 closest, then profiles each with
+  features, workflow, UX patterns, a real screenshot and why it is viable. `add` appends
+  one more competitor. `analyse` takes a finished `discover` doc and runs a deeper,
+  evidence-rated pass by UX category with confidence labels and ranked opportunities.
+  Writes docs/COMPETITIVE_ANALYSIS.md. Use when the user needs to know who else is in
+  their market, wants a structured comparison against real competitors with visual
+  evidence, has one more competitor to add, or wants competitors analysed by UX category.
 ---
 
 # Competitive Analysis

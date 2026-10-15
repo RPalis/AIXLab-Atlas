@@ -1,7 +1,16 @@
 ---
 name: journey
 description: >-
-  Five modes, two different subjects. Current-state process modes: map (swimlane diagram of the process as it exists today, actors/steps/handoffs) or blueprint (service-blueprint variant for customer-facing processes: physical evidence/customer/frontstage/backstage/support-process layers, plus duration and cross-team handoff wait times) as alternative starting points, then pain-points (score each step's friction by severity x frequency, with root cause) and solutions (explore directions per pain point and set a measurable target) building on whichever was used. Persona-experience mode: experience maps one persona through one specific scenario — actions, thoughts, emotions, pain points and opportunities per stage, every claim cited or marked ASSUMPTION, with an emotion curve. Discover-phase, before Decide. Distinct from persona's Day in the Life (a person's whole day, narrative, feeds screen design) and map's flow mode (a proposed/future-state workflow). Use when a stakeholder describes a broken or slow process, before proposing a fix to a workflow, when asked for a service blueprint, when asked to journey-map, process-map, or find pain points in how something works today, or when asked to map a customer/user journey through one scenario with emotions and evidence.
+  Maps a real, current-state process and a persona's experience of it, in five modes.
+  `map` (swimlane of actors, steps and handoffs) or `blueprint` (service blueprint with
+  evidence, frontstage, backstage and support layers, plus wait times) start the work.
+  `pain-points` scores each step's friction by severity x frequency with root cause.
+  `solutions` explores fixes with measurable targets. `experience` follows one persona
+  through one scenario with actions, thoughts, emotions and an emotion curve, every claim
+  cited or marked ASSUMPTION. Discover phase, before Decide. Not persona's Day in the
+  Life, and not map's `flow` (a future-state workflow). Use when a process is broken or
+  slow, before proposing a fix, for a service blueprint, to find pain points, or to map a
+  customer journey through one scenario.
 ---
 
 # Journey Mapping

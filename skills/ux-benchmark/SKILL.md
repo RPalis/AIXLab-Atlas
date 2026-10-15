@@ -1,6 +1,14 @@
 ---
 name: ux-benchmark
-description: Run a scored, rubric-based UX benchmark measuring how 3–5 products (yours + competitors / best-in-class) solve the same problem across features, flows, IA, navigation, layout and UX patterns — every product scored 1–5 on one rubric, with evidence and a confidence rating. Use whenever someone wants to score, rate, or benchmark products against a rubric, build a UX scorecard, produce a flow teardown, extract an adopt/adapt/avoid pattern library, or rank design opportunities — including "UX benchmark", "score these products", "benchmark our product against X", "build a UX scorecard", "compare 1–5 on onboarding/checkout/search", "teardown these flows", "which patterns should we adopt", or when a team supplies products + tasks + a rubric and wants a scored comparison. This is the SCORED, summative benchmark — for a qualitative study without scores, use competitor-analysis instead. Outputs a scorecard, flow teardown, pattern library and prioritised opportunities as .docx or .xlsx (Figma/slides deferred for this release).
+description: >-
+  Runs a scored UX benchmark: 3-5 products (yours plus competitors or best-in-class) are
+  each scored 1-5 on one rubric across features, flows, IA, navigation, layout and UX
+  patterns, with evidence and a confidence rating. Outputs a scorecard, flow teardown,
+  adopt/adapt/avoid pattern library and prioritised opportunities as .docx or .xlsx. Use
+  for "UX benchmark", "score these products", "build a UX scorecard", "teardown these
+  flows", "which patterns should we adopt", or when a team supplies products, tasks and a
+  rubric. This is the scored, summative benchmark; for a qualitative study without scores
+  use competitor-analysis.
 ---
 
 # UX Benchmark

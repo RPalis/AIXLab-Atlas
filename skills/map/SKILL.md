@@ -1,7 +1,16 @@
 ---
 name: map
 description: >-
-  Five modes for modeling and visualizing a prototype's structure. Decide-phase modes, before code exists — site plans the proposed route/component architecture as a diagram; objects runs interactive OOUX/ORCA modeling (Objects, Relationships, Calls-to-Action, Attributes), producing docs/OOUX_OBJECT_MAP.md plus an entity-relationship diagram; flow designs a complete, evidence-grounded end-to-end user flow for one goal — entry points, every decision branch, error/empty states, recovery paths, exit points, screen by screen — structured so it translates directly into wireframes; audit reconciles the object model against actual built code once it exists, flagging drift. Design-phase mode, once code exists — document regenerates every diagram (the in-app interactive architecture map, Mermaid, SVG) from the real built app, and updates the OOUX diagram if the model has drifted. Any mode can optionally export to FigJam once the Figma MCP server is connected. Use /map site, /map objects, /map flow, /map audit, or /map document, or ask which; use when planning an information architecture, modeling a domain's objects and relationships, structuring data models, visualizing a sitemap or architecture, designing a user flow or task sequence screen by screen, or checking a built prototype against its object model or its architecture diagrams.
+  Models and diagrams a prototype's structure in five modes. `site` plans the route and
+  component architecture. `objects` runs OOUX/ORCA modeling and writes
+  docs/OOUX_OBJECT_MAP.md with an entity-relationship diagram. `flow` designs one end-to-
+  end user flow: entry points, decision branches, error and empty states, recovery paths,
+  screen by screen. `audit` checks the object model against built code for drift.
+  `document` regenerates the interactive, Mermaid and SVG diagrams from the built app. Any
+  mode can export to FigJam when the Figma MCP server is connected. Use /map site,
+  objects, flow, audit or document, or ask which. Use when planning information
+  architecture, modeling objects and relationships, drawing a sitemap, designing a task
+  flow, or checking a build against its models.
 ---
 
 # Map & Domain Modeling

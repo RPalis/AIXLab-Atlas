@@ -1,7 +1,15 @@
 ---
 name: setup
 description: >-
-  Bootstrap a prototype repo's docs and layout (README.md, a project-level AGENTS.md that records the docs folder's real name and which skill owns which doc, an empty UNKNOWNS.md, a notes/ home for the wiki and anything else worth jotting down, and a repo/ folder of relative symlinks to the root-level README/AGENTS/CLAUDE/CONTEXT docs so a notes tool opened on the docs folder can read them) before any code or design work starts. Names the docs folder after the project (e.g. pocket-atlas-docs/, not a bare docs/) so it's unambiguous when opened directly as a vault in a third-party tool like Obsidian. Runs first, ahead of prototype. Works equally on a brand-new repo or an existing product: never overwrites a README or AGENTS.md that's already there, appends what's missing instead. On an existing product it also inventories every doc the wider suite owns (personas, object map, tokens, ADRs, requirements, etc.), notes anything already present under a different name, feeds that inventory to brief for a fuller lay-of-the-land reconnaissance (even mid-lifecycle, unless a current PRODUCT_BRIEF.md already exists), then hands off to help to turn the inventory into concrete backfill moves. Use when starting a prototype project from nothing, or when an existing repo (new or already underway) is missing the doc scaffolding the rest of this suite expects.
+  Bootstraps a prototype repo's documentation shell before any design or code: README.md,
+  a project AGENTS.md that records the docs folder's real name and which skill owns which
+  doc, an empty UNKNOWNS.md, a notes/ folder, and a repo/ folder of relative symlinks.
+  Names the docs folder after the project (for example pocket-atlas-docs/) rather than a
+  bare docs/. Never overwrites an existing README or AGENTS.md; it appends what is
+  missing. On an existing product it inventories every doc the suite owns, hands that to
+  brief for a reconnaissance pass, then to help for backfill moves. Runs first, ahead of
+  prototype. Use when starting a project from nothing, or when an existing repo lacks the
+  doc scaffolding the suite expects.
 ---
 
 # Setup

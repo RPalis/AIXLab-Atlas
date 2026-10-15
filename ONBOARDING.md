@@ -35,11 +35,11 @@ You need:
 
 ## Part 1. Get the files (pick ONE route)
 
-The repository is **RPalis/ux-atlas-aixlab**. Ask the person who gave you this guide which route applies to you.
+The repository is **RPalis/AIXLab-Atlas**. Ask the person who gave you this guide which route applies to you.
 
 ### Route A. You were invited to the private repository
 
-1. Open your email and find the message "RPalis invited you to collaborate on RPalis/ux-atlas-aixlab". Click **View invitation**.
+1. Open your email and find the message "RPalis invited you to collaborate on RPalis/AIXLab-Atlas". Click **View invitation**.
 2. If GitHub asks you to sign in, sign in.
 3. Click **Accept invitation**.
 4. You land on the repository page. **Check:** you see a file list that includes `skills`, `README.md` and `install.sh`.

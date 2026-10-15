@@ -100,8 +100,8 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 Clone this fork and run the installer:
 
 ```bash
-git clone https://github.com/RPalis/ux-atlas-aixlab.git
-cd ux-atlas-aixlab
+git clone https://github.com/RPalis/AIXLab-Atlas.git
+cd AIXLab-Atlas
 ./install.sh
 ```
 

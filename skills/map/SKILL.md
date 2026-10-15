@@ -3,8 +3,8 @@ name: map
 description: >-
   Models and diagrams a prototype's structure in five modes. `site` plans the route and
   component architecture. `objects` runs OOUX/ORCA modeling and writes
-  docs/OOUX_OBJECT_MAP.md with an entity-relationship diagram. `flow` designs one end-to-
-  end user flow: entry points, decision branches, error and empty states, recovery paths,
+  docs/OOUX_OBJECT_MAP.md with an entity-relationship diagram. `flow` designs one
+  end-to-end user flow: entry points, decision branches, error and empty states, recovery paths,
   screen by screen. `audit` checks the object model against built code for drift.
   `document` regenerates the interactive, Mermaid and SVG diagrams from the built app. Any
   mode can export to FigJam when the Figma MCP server is connected. Use /map site,

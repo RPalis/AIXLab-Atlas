@@ -1,6 +1,6 @@
 # Observer script: fresh-user session
 
-Use this to run one observed first-time session of the UX Atlas skills. One observer, one tester, about 60 minutes including debrief.
+Use this to run one observed first-time session of the UAIX Lab-Atlas skills. One observer, one tester, about 60 minutes including debrief.
 
 The tester follows [`ONBOARDING.md`](../ONBOARDING.md) (or the visual version, [`guide.html`](guide.html)). You watch. You are testing the guide, not the tester.
 
@@ -54,7 +54,7 @@ Record the clock time at each. Write "not reached" if the tester does not get th
 |---|---|---|
 | C1 | Files obtained | Folder with `skills`, `README.md`, `install.sh` open |
 | C2 | Install complete | Track 1: installer ends with "installed 30 skills". Track 2: three skills show as on |
-| C3 | Skills visible | Typing `/` lists UX Atlas skills (Track 1), or the help skill answers (Track 2) |
+| C3 | Skills visible | Typing `/` lists UAIX Lab-Atlas skills (Track 1), or the help skill answers (Track 2) |
 | C4 | First plan seen | A plan was shown before any file was written |
 | C5 | Doc shell created | Track 1: `README.md`, `AGENTS.md`, `<name>-docs/UNKNOWNS.md` exist |
 | C6 | Unknowns captured | "I don't know" answers recorded as unknowns, not invented |

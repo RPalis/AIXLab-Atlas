@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>UX Atlas / AIX Lab</title>
+<title>UAIX Lab-Atlas</title>
 <style>
 /* Layout: one calm column, route and track pickers on top, numbered checklist below, guardrails always visible. */
 :root {
@@ -118,7 +118,7 @@ footer { color: var(--ink-soft); font-size: 0.9rem; }
 <body>
 <main>
   <header>
-    <h1>UX Atlas / AIX Lab</h1>
+    <h1>UAIX Lab-Atlas</h1>
     <p class="lede">One sheet: from the GitHub link to your first reviewed design artifact. Save this file and open it in any browser; no account and no internet needed. Tick each step as you go; progress stays in this browser.</p>
     <div class="status">
       <span class="pill ok">macOS + Claude Code: checked</span>
@@ -244,7 +244,7 @@ footer { color: var(--ink-soft); font-size: 0.9rem; }
       <li class="step"><input type="checkbox" id="v2" aria-labelledby="v2t"><div class="body" id="v2t">Press <strong>Shift+Tab</strong> until the mode indicator says <strong>plan mode</strong>. Plan mode means Claude shows a plan and waits for you before it changes anything. Leave it on.</div></li>
       <li class="step check"><input type="checkbox" id="v3" aria-labelledby="v3t"><div class="body" id="v3t"><span class="tag">Check</span>Type <code>/</code>. The list includes skills such as <code>setup</code>, <code>brief</code>, <code>persona</code> and <code>audit</code>.</div></li>
       <li class="step"><input type="checkbox" id="v4" aria-labelledby="v4t"><div class="body" id="v4t">Type this exactly:
-        <div class="cmd"><pre>Use the UX Atlas help skill and tell me which skill to run first.</pre><button type="button" data-copy="Use the UX Atlas help skill and tell me which skill to run first.">Copy</button></div>
+        <div class="cmd"><pre>Use the UAIX Lab-Atlas help skill and tell me which skill to run first.</pre><button type="button" data-copy="Use the UAIX Lab-Atlas help skill and tell me which skill to run first.">Copy</button></div>
         <span class="note">If <code>/help</code> opens Claude Code's own help screen instead, that is normal: the built-in command wins. Use the sentence above.</span></div></li>
       <li class="step check"><input type="checkbox" id="v5" aria-labelledby="v5t"><div class="body" id="v5t"><span class="tag">Check</span>Claude names a skill and gives a reason tied to what it found. For an empty folder it should say <code>setup</code>.</div></li>
     </ol>
@@ -319,8 +319,8 @@ footer { color: var(--ink-soft); font-size: 0.9rem; }
     <h2 id="s7">If something goes wrong</h2>
     <details><summary>Installer says "permission denied"</summary><p>The file is not marked executable. Run <code>chmod +x install.sh</code>, then the installer again.</p></details>
     <details><summary>"command not found" or "bad interpreter"</summary><p>Windows line endings, or not a bash shell. Use WSL, or copy the folders by hand.</p></details>
-    <details><summary>Typing / shows no UX Atlas skills</summary><p>Claude Code started before the install. Quit it fully and reopen. Still nothing: re-download the ZIP and run the installer again, and check the count says 30.</p></details>
-    <details><summary>/help shows a different help screen</summary><p>The built-in command takes priority. Say "Use the UX Atlas help skill".</p></details>
+    <details><summary>Typing / shows no UAIX Lab-Atlas skills</summary><p>Claude Code started before the install. Quit it fully and reopen. Still nothing: re-download the ZIP and run the installer again, and check the count says 30.</p></details>
+    <details><summary>/help shows a different help screen</summary><p>The built-in command takes priority. Say "Use the UAIX Lab-Atlas help skill".</p></details>
     <details><summary>A skill starts writing before showing a plan</summary><p>Say "stop, show me your plan first". Then report which skill it was.</p></details>
     <details><summary>Claude asks for a password or token</summary><p>It should not. Do not enter it. Stop and tell the observer.</p></details>
     <details><summary>Chat track: skill uploaded but ignored</summary><p>Check that it is switched on, and that the ZIP holds the skill folder itself rather than loose files.</p></details>

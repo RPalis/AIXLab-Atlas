@@ -2,11 +2,11 @@
 
 Use this to run one observed first-time session of the AIX Lab-Atlas skills. One observer, one tester, about 60 minutes including debrief.
 
-The tester follows the guide for their environment: the [quick start](AIX-Lab-Atlas-Onboarding-QuickStart.pdf), [Track 1: Claude Code](AIX-Lab-Atlas-Onboarding-Track1-ClaudeCode.pdf) or [Track 2: Claude Design](AIX-Lab-Atlas-Onboarding-Track2-ClaudeDesign.pdf). You watch. You are testing the guide, not the tester.
+The tester follows the guide for their environment: the [quick start](AIX-Lab-Atlas-Onboarding-QuickStart.pdf), the [Claude Code setup guide](AIX-Lab-Atlas-Onboarding-Track1-ClaudeCode.pdf) or the [Claude Design skills sheet](AIX-Lab-Atlas-Skills-in-Claude-Design.pdf). You watch. You are testing the guide, not the tester.
 
 ## Before the session (10 minutes, observer alone)
 
-1. Decide the tester's **route** (A invite, B public, C ZIP), **track** (1 Claude Code, 2 Claude.ai chat) and **operating system**. Write them on the first line of the findings log.
+1. Decide the tester's **route** (A invite, B public, C ZIP), **track** (1 Claude Code, 2 Claude Design) and **operating system**. Write them on the first line of the findings log.
 2. Route A: confirm the invitation was sent to the account the tester will use, and that it has not already been accepted on another account.
 3. Route C: confirm the ZIP opens and contains `skills`, `README.md`, `install.sh`.
 4. Make sure the tester's machine has none of these skills installed already. A clean macOS user account is ideal. If skills exist from an earlier run, delete `~/.claude/skills/<the 30 names>` and `~/.agents/skills` first, otherwise you are not testing a first install.
@@ -53,8 +53,8 @@ Record the clock time at each. Write "not reached" if the tester does not get th
 | # | Checkpoint | Pass condition |
 |---|---|---|
 | C1 | Files obtained | Folder with `skills`, `README.md`, `install.sh` open |
-| C2 | Install complete | Track 1: installer ends with "installed 30 skills". Track 2: three skills show as on |
-| C3 | Skills visible | Typing `/` lists AIX Lab-Atlas skills (Track 1), or the help skill answers (Track 2) |
+| C2 | Install complete | Track 1: installer ends with "installed 30 skills". Track 2: `skills/` holds exactly 30 folders and `CLAUDE.md` exists |
+| C3 | Skills visible | Typing `/` lists AIX Lab-Atlas skills (Track 1), or `/help atlas` lists the skills (Track 2) |
 | C4 | First plan seen | A plan was shown before any file was written |
 | C5 | Doc shell created | Track 1: `README.md`, `AGENTS.md`, `<name>-docs/UNKNOWNS.md` exist |
 | C6 | Unknowns captured | "I don't know" answers recorded as unknowns, not invented |

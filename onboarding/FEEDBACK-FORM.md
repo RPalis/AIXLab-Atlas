@@ -7,7 +7,7 @@ Your name or initials: ______________________  Date: ______________
 ## About your setup
 
 1. Which route did you use?  ☐ A: invited to the private repo   ☐ B: public repo   ☐ C: ZIP file
-2. Which track?  ☐ 1: Claude Code   ☐ 2: Claude.ai chat
+2. Which track?  ☐ 1: Claude Code   ☐ 2: Claude Design
 3. Operating system:  ☐ macOS   ☐ Windows   ☐ Other: ______________
 4. Had you used Claude skills before?  ☐ Never   ☐ A little   ☐ Regularly
 

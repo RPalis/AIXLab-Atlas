@@ -259,7 +259,7 @@ Before calling a skill (or any doc in this repo) done, check its prose for the t
    - Add the new skill to Section 3 of this document.
 6. **Install & Symlink**:
    ```bash
-   cd /Users/aaronkiersky/dev/ux-atlas
+   cd /path/to/AIXLab-Atlas
    ./install.sh
    ```
 7. **Verify Links**: Ensure the hub copy exists in `~/.agents/skills/` and the client symlinks in `~/.claude/skills/` / `~/.gemini/config/skills/`, and that the new name didn't overwrite an unrelated skill already there.

@@ -2,7 +2,7 @@
 
 Use this to run one observed first-time session of the AIX Lab-Atlas skills. One observer, one tester, about 60 minutes including debrief.
 
-The tester follows the guide for their environment: the [quick start](AIX-Lab-Atlas-Onboarding-QuickStart.pdf), the [Claude Code setup guide](AIX-Lab-Atlas-Onboarding-Track1-ClaudeCode.pdf) or the [Claude Design skills sheet](AIX-Lab-Atlas-Skills-in-Claude-Design.pdf). You watch. You are testing the guide, not the tester.
+The tester follows the guide for their environment: the [quick start](AIX-Lab-Atlas-Onboarding-QuickStart.pdf), the [Claude Code guide](AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) or the [Claude Design sheet](AIX-Lab-Atlas-Skills-in-Claude-Design.pdf). You watch. You are testing the guide, not the tester.
 
 ## Before the session (10 minutes, observer alone)
 
@@ -53,7 +53,7 @@ Record the clock time at each. Write "not reached" if the tester does not get th
 | # | Checkpoint | Pass condition |
 |---|---|---|
 | C1 | Files obtained | Folder with `skills`, `README.md`, `install.sh` open |
-| C2 | Install complete | Track 1: installer ends with "installed 30 skills". Track 2: `skills/` holds exactly 30 folders and `CLAUDE.md` exists |
+| C2 | Install complete | Track 1: `~/.claude/skills` holds 30 folders, each with a `SKILL.md`. Track 2: `skills/` holds exactly 30 folders and `CLAUDE.md` exists |
 | C3 | Skills visible | Typing `/` lists AIX Lab-Atlas skills (Track 1), or `/help atlas` lists the skills (Track 2) |
 | C4 | First plan seen | A plan was shown before any file was written |
 | C5 | Doc shell created | Track 1: `README.md`, `AGENTS.md`, `<name>-docs/UNKNOWNS.md` exist |

@@ -121,8 +121,6 @@ See [Installation & Team Setup](#installation-team-setup) below for how the inst
 
 Every skill declares what it needs in an `## Environment` section. Most research and thinking skills need only the conversation, so they work anywhere skills can be loaded. Skills that write project files need a file system, and skills that build or package a prototype need a shell and Node.js, which means Claude Code or another environment that has them. When something is missing, a skill says so and returns its output in the conversation instead of pretending it wrote a file.
 
-Support for loading these skills in Claude Design is being verified and is not claimed here.
-
 | Skill | File system | Shell / Node.js | MCP server | Web access |
 |---|---|---|---|---|
 | [`audit`](skills/audit/SKILL.md) | Optional | Optional | - | - |

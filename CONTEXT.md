@@ -1,11 +1,11 @@
-# UX Atlas
+# AIX Lab-Atlas
 
 A portable, standalone suite of AI Agent Skills for taking a UX prototype through Discover → Decide → Design → Deliver. This repo is the suite's own source — the skills it ships, not a prototype built with them.
 
 ## Language
 
 **Suite**:
-This repository itself — UX Atlas — the collection of skills in `skills/` plus its own `AGENTS.md` and `README.md`. Distinct from a _prototype_, which is what the suite is used to build.
+This repository itself — AIX Lab-Atlas — the collection of skills in `skills/` plus its own `AGENTS.md` and `README.md`. Distinct from a _prototype_, which is what the suite is used to build.
 _Avoid_: Library, toolkit, framework
 
 **Skill**:

@@ -1,12 +1,12 @@
-# AGENTS.md: UX Atlas Development & Refinement Guide
+# AGENTS.md: AIX Lab-Atlas Development & Refinement Guide
 
-Welcome to the **UX Atlas** repository. This document defines the engineering standards, architectural principles, and operational workflows for AI agents (and human contributors) maintaining, refining, and extending this library.
+Welcome to the **AIX Lab-Atlas** repository. This document defines the engineering standards, architectural principles, and operational workflows for AI agents (and human contributors) maintaining, refining, and extending this library.
 
 ---
 
 ## 1. Repository Purpose & Architecture
 
-This repository is the single source of truth for **UX Atlas**, a modular, end-to-end collection of AI Agent Skills designed to power high-craft, interactive prototype creation across UX designers, product designers, and design engineers.
+This repository is the single source of truth for **AIX Lab-Atlas**, a modular, end-to-end collection of AI Agent Skills designed to power high-craft, interactive prototype creation across UX designers, product designers, and design engineers.
 
 It distills real-world prototyping patterns, two-layer design token architectures, atomic component documentation, visual architecture mapping, and packaging workflows into a portable, standalone skill suite. This folder is meant to be handed to a teammate as-is: every skill works from a fresh clone with `install.sh` and nothing else installed.
 

@@ -66,7 +66,7 @@ Give 1-3 ranked skills, each with a one-line reason tied to what was actually fo
 
 ## `atlas` mode
 
-Welcome to **UX Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
+Welcome to **AIX Lab-Atlas**, a modular, end-to-end framework for turning user insights and product concepts into high-craft, interactive, shareable prototypes. The suite follows one process, **Discover → Decide → Design → Deliver**, with a handful of skills usable at any point rather than gated to one phase.
 
 Several skills below are **multi-mode**: one skill, several named modes for related-but-distinct jobs (`audit`'s `craft`/`heuristic`/`code`/`spec`/`a11y`, `figma`'s `capture`/`import`/`sync`, `map`'s `objects`/`site`/`flow`/`audit`/`document`, `persona`'s `card`/`day`, `journey`'s `map`/`blueprint`/`pain-points`/`solutions`/`experience`, `competitor-analysis`'s `discover`/`add`/`analyse`). Say which mode you want, or the skill will ask.
 

@@ -43,7 +43,7 @@ Four things plus a set of symlinks, nothing else. For each: **if it already exis
 ```markdown
 # AGENTS.md
 
-This prototype is built with UX Atlas. Docs folder: `<project-slug>-docs/`.
+This prototype is built with AIX Lab-Atlas. Docs folder: `<project-slug>-docs/`.
 
 Doc ownership:
 - `<project-slug>-docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve

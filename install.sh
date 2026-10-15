@@ -76,7 +76,7 @@ print_banner() {
   done
 
   if [ ! -t 1 ]; then
-    echo "UX ATLAS"
+    echo "AIX LAB-ATLAS"
     return
   fi
 
@@ -237,7 +237,7 @@ fi
 [ -t 1 ] && clear 2>/dev/null || true
 print_banner
 echo "=================================================="
-echo "Installing UX Atlas"
+echo "Installing AIX Lab-Atlas"
 echo "Source:   $SOURCE_DIR"
 echo "Hub:      $HUB (copied)"
 if [ ${#selected[@]} -eq 0 ]; then

@@ -1,4 +1,6 @@
-# UX Atlas
+# AIX Lab-Atlas
+
+A fork of [UX Atlas](https://github.com/kiersky-coforge/ux-atlas), extended with skills from the AIX pilot.
 
 **[Design Process](#the-design-process-discover-decide-design-deliver) · [Getting Started](#getting-started) · [Skills Catalog](#skills-catalog) · [Installation & Team Setup](#installation-team-setup) · [Philosophy & Core Principles](#philosophy-core-principles)**
 

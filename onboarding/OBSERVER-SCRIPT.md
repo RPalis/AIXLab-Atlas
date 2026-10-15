@@ -2,7 +2,7 @@
 
 Use this to run one observed first-time session of the AIX Lab-Atlas skills. One observer, one tester, about 60 minutes including debrief.
 
-The tester follows [`ONBOARDING.md`](../ONBOARDING.md) (or the visual version, [`guide.html`](guide.html)). You watch. You are testing the guide, not the tester.
+The tester follows the guide for their environment: the [quick start](AIX-Lab-Atlas-Onboarding-QuickStart.pdf), [Track 1: Claude Code](AIX-Lab-Atlas-Onboarding-Track1-ClaudeCode.pdf) or [Track 2: Claude Design](AIX-Lab-Atlas-Onboarding-Track2-ClaudeDesign.pdf). You watch. You are testing the guide, not the tester.
 
 ## Before the session (10 minutes, observer alone)
 

@@ -129,7 +129,7 @@ hard metrics exist (task success rate, time-on-task, SEQ, SUS…), anchor the sc
 **`references/metrics.md`** rather than on impression alone.
 
 Then run the **⚠ review pass** from `references/evidence-and-verification.md`: flag any score
-without evidence, any unverified feature/price/claim, any dimension scored on a different bar, any
+without evidence, any unconfirmed feature/price/claim, any dimension scored on a different bar, any
 non-comparable task. **Rewrite or downgrade anything you flag.**
 
 ## Phase 5 — Extract patterns & gaps

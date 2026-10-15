@@ -1,4 +1,4 @@
-# UAIX Lab-Atlas: first-time user guide
+# AIX Lab-Atlas: first-time user guide
 
 This guide takes you from the GitHub link to your first finished, reviewed design artifact. It assumes you have never used these skills before. Follow it in order and do not skip the "Check" lines: each one tells you whether you are safe to continue.
 
@@ -141,7 +141,7 @@ Skills that write a document shell into a project folder (`setup`, `prototype`, 
 1. Create the folder `atlas-practice` and open it in Claude Code. In the desktop app: open the **Code** tab and choose `atlas-practice` as the working folder (the button label may differ). In a terminal: `cd atlas-practice` then `claude`.
 2. Press **Shift+Tab** until the mode indicator says **plan mode**. (Plan mode means Claude shows a plan and waits for you before changing anything.) Leave it on for now.
 3. Type `/` and look at the list that appears. **Check:** you can find skills such as `setup`, `brief`, `persona`, `audit`.
-4. Type: `Use the UAIX Lab-Atlas help skill and tell me which skill to run first.`
+4. Type: `Use the AIX Lab-Atlas help skill and tell me which skill to run first.`
 5. **Check:** Claude names a skill and gives a reason tied to what it found in the folder (for an empty folder it should say `setup`). If you typed `/help` and saw Claude Code's own help screen instead, that is normal: the built-in command wins. Use the sentence above.
 6. If the skills do not appear: quit Claude Code completely and reopen it, then repeat step 3. Still nothing: go to Part 8.
 
@@ -233,9 +233,9 @@ If one of those is missing, the skill did not finish properly. Report it even if
 |---|---|---|
 | Installer says "permission denied" | File not marked executable | `chmod +x install.sh`, run again |
 | Installer says "command not found" or "bad interpreter" | Windows line endings or not a bash shell | Use WSL, or the copy-by-hand option |
-| Typing `/` shows no UAIX Lab-Atlas skills | Claude Code started before install | Quit fully and reopen |
+| Typing `/` shows no AIX Lab-Atlas skills | Claude Code started before install | Quit fully and reopen |
 | Skill count is not 30 | Partial download | Re-download the ZIP and run the installer again |
-| `/help` shows a different help screen | Built-in command takes priority | Say "Use the UAIX Lab-Atlas help skill" |
+| `/help` shows a different help screen | Built-in command takes priority | Say "Use the AIX Lab-Atlas help skill" |
 | Skill starts writing before showing a plan | Plan-first step skipped | Say "stop, show me your plan first"; report it |
 | Claude asks for a password or token | It should not | Stop; do not enter it; tell the observer |
 | Track 2: skill uploaded but ignored | Skill switched off or ZIP has loose files | Check the toggle; re-zip the folder itself |

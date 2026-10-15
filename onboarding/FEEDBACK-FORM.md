@@ -1,4 +1,4 @@
-# Feedback form: UAIX Lab-Atlas
+# Feedback form: AIX Lab-Atlas
 
 Fill this in right after your session, while you remember it. There are no wrong answers. "I got confused here" is the most useful thing you can write.
 

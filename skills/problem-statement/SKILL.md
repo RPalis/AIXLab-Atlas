@@ -29,6 +29,10 @@ user stories. ~20 minutes for a persona set with journey maps already in hand.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
   unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## Why use this
 
 Use before: ideation workshops, backlog refinement, sprint planning, wireframing, writing acceptance criteria,

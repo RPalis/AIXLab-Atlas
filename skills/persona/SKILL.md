@@ -44,6 +44,10 @@ always needs `card`'s output as its subject, never invents one from scratch.
 - Code this skill writes: simplest version that works — stdlib/native first, no
   speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation and the research you provide. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## The research-grounding rule — shared across both modes
 
 **A persona built without research is an assumption document, not a persona.** If no

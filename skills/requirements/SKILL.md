@@ -19,6 +19,10 @@ Turns a built prototype into a **requirements doc**: Epics, each containing Feat
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system and the built prototype. A Jira or Azure DevOps MCP server is needed only for the optional tracker export.
+- **If it isn't available:** No file system here: say so in one line, do the work in the conversation, return each file's full content with its target path, and never claim a file was written when it was not. If no tracker MCP server is connected, skip the export and say so.
+
 ## Step 1: Gather the source material
 
 Read, in this order of trust (real code wins over docs when they disagree):

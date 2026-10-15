@@ -28,6 +28,11 @@ Say which mode, or this skill asks. Don't blend them: a route diagram with journ
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation for `site`, `objects` and `flow`. `document` and `audit` also need the built code and a file system, and `document` needs Node.js for `vis-network`. A Figma MCP server is needed only for the optional FigJam export.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not. Return the Mermaid text in the conversation. If `document` or `audit` has no built code to read, stop and say so. If Figma MCP is not connected, skip the FigJam export.
+- **Parallel sub-agents:** use them only where available; otherwise do the same work one item at a time.
+
 ## Mode: objects
 
 Maps the object architecture of a prototype using **Object-Oriented UX (OOUX)** and the **ORCA framework** (Objects, Relationships, Calls-to-Action, Attributes). `docs/OOUX_OBJECT_MAP.md` is a **living document**: this mode seeds it before a line of code is written; `audit` mode (below) reconciles it against what actually got built. Don't restart from zero if the doc already exists; extend and correct it.

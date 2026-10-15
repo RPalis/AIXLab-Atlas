@@ -42,6 +42,10 @@ phases and outputs — and do not skip a word. Treat every output as a **first d
 
 ---
 
+## Environment
+- **Needs:** the conversation. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## The evidence rule — the core of this skill
 
 **Do not invent information. Never assume a page, feature or label exists.** If content is not in

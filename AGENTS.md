@@ -130,6 +130,9 @@ Every skill's `SKILL.md` carries an `## Output Discipline` section, placed direc
 
 ---
 
+### 10. Environment Block
+Every skill's `SKILL.md` carries an `## Environment` section directly after `## Output Discipline`. It states what the skill needs (the conversation only; a file system; a shell and Node.js; a named MCP server; web access) and what to do when that is missing. Rules: never claim a file was written, a command run or a tool called when it was not; with no file system, return the document in the conversation and name the path it would be saved to; a skill that needs a shell stops and says so instead of simulating output; parallel sub-agents only where available, otherwise one item at a time. This keeps one copy of each skill usable across environments (Claude Code, Claude Design, other agents) without a second version.
+
 ## 3. Current Skills Directory
 
 Several skills are **multi-mode**: one skill folder, several named modes for related-but-distinct jobs, rather than separate near-duplicate skills (`audit`, `figma`, `map`, `interview`, `package`). Say which mode you want, or the skill asks.
@@ -189,7 +192,7 @@ description: Precise summary of what the skill does and when to use it. Include 
 
 ### Required Markdown Sections in `SKILL.md`
 1. **Title & Summary Header**: Clean H1 and 1–2 sentence statement of purpose.
-2. **Output Discipline**: the standard block from §2.8, verbatim, directly after the title/summary (and mode list, if any).
+2. **Output Discipline**: the standard block from §2.8, verbatim, directly after the title/summary (and mode list, if any). Then **Environment**: the block described in §2.10, directly after it.
 3. **Visual Flowchart** (where the skill has multiple decision branches): Mermaid diagram mapping the steps or decision tree.
 4. **Step-by-Step Execution Guide**:
    - Clearly numbered steps (`### Step 1: ...` or `## Step 1: ...`).

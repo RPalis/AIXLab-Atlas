@@ -27,6 +27,10 @@ evidence for every score. You do not guess, and you do not inflate.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative
   abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** products to score, from web search or sources you provide. A file system is optional.
+- **If it isn't available:** No web access here: say so, ask the user for sources, and never invent product facts. No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## When to use this, and where it sits
 
 A UX benchmark is a **summative** evaluation — it measures the finished state of an experience

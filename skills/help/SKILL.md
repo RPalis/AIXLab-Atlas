@@ -13,6 +13,11 @@ Say which mode you want, or this skill asks: **default** ("you are here" — rea
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. It reads the project's docs folder when one exists.
+- **If it isn't available:** No file system here: ask the user which docs exist, then recommend from that. Never claim to have read a file you could not open.
+- **Parallel sub-agents:** use them only where available; otherwise do the same work one item at a time.
+
 ## Default mode
 
 ### Step 1: Read the signals

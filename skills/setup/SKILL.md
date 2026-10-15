@@ -15,6 +15,10 @@ The step before Discover starts. `prototype` builds the actual application code;
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system. It creates the project's docs folder, `README.md`, `AGENTS.md` and `UNKNOWNS.md`, and links them with symlinks.
+- **If it isn't available:** No file system here: say so in one line, do the work in the conversation, return each file's full content with its target path, and never claim a file was written when it was not. If symlinks cannot be created, skip them and list what was skipped.
+
 ## Step 1: Explore the current state
 
 Before writing anything, check what's already here:

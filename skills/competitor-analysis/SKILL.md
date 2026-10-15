@@ -56,6 +56,11 @@ means `analyse`.
 - Code this skill writes: simplest version that works — stdlib/native first, no
   speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** web search and page fetching. Browser tooling gives real screenshots. A file system is optional.
+- **If it isn't available:** No web access here: say so, ask the user for sources, and never invent product facts. No browser tooling: skip screenshots and say so. No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+- **Parallel sub-agents:** use them only where available; otherwise do the same work one item at a time.
+
 ## The evidence rule — shared across all three modes
 
 **Do not invent information. Never assume a feature exists.**

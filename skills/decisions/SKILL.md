@@ -18,6 +18,10 @@ Not every decision needs one. Write one when a decision:
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Saving the ADR to the project's adr folder is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## Step 1: Write the record
 
 Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from the highest existing ADR number (start at `0001` if none exist). Freeform prose is fine; no rigid numbered-decision/consequences template needed. Cover:

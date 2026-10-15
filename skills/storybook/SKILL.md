@@ -15,6 +15,10 @@ This skill scaffolds and maintains a comprehensive **Atomic Design System Storyb
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system, a shell and Node.js (npm).
+- **If it isn't available:** No shell or Node.js here: stop and tell the user to run this skill in an environment that has them, such as Claude Code. Do not simulate install or build output.
+
 ## The 5-Tier Component Hierarchy
 
 | Tier | Folder | Scope & Responsibility | Examples |

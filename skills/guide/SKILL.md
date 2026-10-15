@@ -13,6 +13,10 @@ Writes documentation for the people who will actually *use* the prototype, disti
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system and the built prototype.
+- **If it isn't available:** No file system here: say so in one line, do the work in the conversation, return each file's full content with its target path, and never claim a file was written when it was not.
+
 ## Step 1: Write the orientation section
 
 - **What [Product] is.** One paragraph, plain language, no jargon.

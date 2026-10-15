@@ -17,6 +17,10 @@ Produces a complete, ready-to-run interview kit, not just a question list. Which
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. It reads the unknowns file when one exists; saving the kit to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not. With no unknowns file, ask the user for the open questions.
+
 ## Step 1: Read `docs/UNKNOWNS.md`
 
 If it exists, every open item there is a candidate interview question — these accumulated naturally from work elsewhere in the project (see AGENTS.md §2.6). Fold relevant unknowns into the question bank below rather than starting from a blank page.

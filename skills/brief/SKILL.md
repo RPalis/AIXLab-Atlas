@@ -20,6 +20,10 @@ description: >-
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system for `PRODUCT_BRIEF.md` and the unknowns file; the interview itself needs only the conversation.
+- **If it isn't available:** No file system here: say so in one line, do the work in the conversation, return each file's full content with its target path, and never claim a file was written when it was not.
+
 ## Step 0: Explore, then choose pace
 
 Check `README.md` (the one-line purpose `setup` wrote) and `docs/UNKNOWNS.md` first — don't re-ask what's already answerable from context.

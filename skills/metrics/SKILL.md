@@ -18,6 +18,10 @@ Turns "what does success look like" into Objectives with measurable Key Results,
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## Step 1: Pick the framework
 
 Two questions decide it. Answer from `docs/PRODUCT_BRIEF.md` if it exists and is clear on these points; ask directly if it doesn't, or if the brief is ambiguous — don't guess at either answer.

@@ -13,6 +13,10 @@ Elevates prototype UI from basic wireframe quality to extraordinary, presentatio
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the prototype's source code and a file system to edit it.
+- **If it isn't available:** No file system: return the changes as a list of edits or a patch, and say nothing was applied.
+
 ## Step 0: Confirm there's a findings list to act on
 
 This skill narrows `audit`'s `craft`-mode findings into concrete design decisions and a unified visual look — it doesn't go looking for problems itself. Before touching any component:

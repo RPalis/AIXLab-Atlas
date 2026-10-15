@@ -37,6 +37,11 @@ skip a word. Treat every output as a **first draft, not final analysis.**
 
 ---
 
+## Environment
+- **Needs:** the conversation and the transcripts you provide. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+- **Parallel sub-agents:** use them only where available; otherwise do the same work one item at a time.
+
 ## The evidence rule — the core of this skill
 
 Read `references/evidence-rules.md` before Phase 4 and keep it open through Phase 7.

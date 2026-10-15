@@ -34,6 +34,11 @@ A single pass reliably misses things, since the reviewer anchors on whatever it 
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the prototype to audit, as code or a running app. A file system for saved reports is optional.
+- **If it isn't available:** If you can only see a screenshot or pasted code, audit that and say what you could not check, for example responsive behavior or keyboard use. Do not score what you cannot see. No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+- **Parallel sub-agents:** use them only where available; otherwise do the same work one item at a time.
+
 ## Mode: craft
 
 Never edits code. It's the "find what's wrong" half of a loop with [`refine`](../refine/SKILL.md), which fixes and unifies visual craft. Run this on a prototype you didn't necessarily build yourself — a teammate's work, or your own after time away — to get an honest read before touching anything.

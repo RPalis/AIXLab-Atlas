@@ -17,6 +17,10 @@ Both modes can produce the same two output shapes — a FigJam board, a slide de
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation for `plan`; photos of the board for `ingest`. A Figma MCP server is needed only for the optional FigJam board.
+- **If it isn't available:** If Figma MCP is not connected, skip the FigJam board and say so. No shell or file system: return the agenda or the transcribed board as text.
+
 ## Mode: plan
 
 Positioned as a **Discover/Decide-phase tool** — most workshops happen early, framing the problem before building starts. But a single workshop can legitimately dig end-to-end into one concept or feature, touching Design/Deliver-flavored activities too. The catalog's phase tags are a default starting filter, not a hard restriction.

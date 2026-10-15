@@ -21,6 +21,10 @@ Three ways of moving work between this suite and Figma, sharing one skill as "Fi
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** `capture`: a running web prototype, no MCP server. `import` and `sync`: the Figma MCP server and a file system.
+- **If it isn't available:** If the Figma MCP server is not connected, tell the user to connect it. Never guess Figma's structure from a screenshot.
+
 ## Mode: capture
 
 Add page capture to any prototype in this suite via a **button** or a **right-click context menu**. The capture loads Figma's script, serializes the DOM, and shows Figma's native toolbar with **Copy to clipboard**, **Entire screen**, and **Select element**.

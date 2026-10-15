@@ -30,6 +30,10 @@ scored set of directions — not a single winner. ~20-30 minutes.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
   unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## The evidence rule
 
 Every candidate direction stays tied to the problem statement it answers. A direction with no line back to

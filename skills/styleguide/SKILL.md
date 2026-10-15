@@ -19,6 +19,10 @@ Two modes populate Layer 1, same Layer 2 shape either way:
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system and the prototype's `index.css`.
+- **If it isn't available:** No file system here: say so in one line, do the work in the conversation, return each file's full content with its target path, and never claim a file was written when it was not. Return the token block and the `DESIGN.md` text for the user to save.
+
 ## The Two-Layer Token Architecture
 
 ```mermaid

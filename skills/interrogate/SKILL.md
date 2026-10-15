@@ -13,6 +13,10 @@ Interview the user relentlessly about a design decision (feature scope, UX trade
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Handing off to `decisions` to save an ADR is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## Process
 
 1. **Walk the decision tree one branch at a time.** Ask one question, wait for the answer, then ask the next, never a batch of questions at once. Each question should resolve a real dependency the next question needs (don't ask about visual polish before scope is settled, don't ask about scope before you know who the user even is).

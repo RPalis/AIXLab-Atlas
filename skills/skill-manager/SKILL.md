@@ -14,6 +14,10 @@ Manages the canonical skill library at `~/.agents/skills`, symlinked into
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a shell and the `~/.agents/skills` folder on your own computer. It installs, links and removes skills there.
+- **If it isn't available:** Not usable in a hosted environment: say so and stop.
+
 ## Commands
 
 Invoked as `/skill-manager <command> [args]`. Run the script for every operation. Never edit the library or symlinks by hand.

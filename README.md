@@ -117,6 +117,49 @@ See [Installation & Team Setup](#installation-team-setup) below for how the inst
 
 ---
 
+## Environments
+
+Every skill declares what it needs in an `## Environment` section. Most research and thinking skills need only the conversation, so they work anywhere skills can be loaded. Skills that write project files need a file system, and skills that build or package a prototype need a shell and Node.js, which means Claude Code or another environment that has them. When something is missing, a skill says so and returns its output in the conversation instead of pretending it wrote a file.
+
+Support for loading these skills in Claude Design is being verified and is not claimed here.
+
+| Skill | File system | Shell / Node.js | MCP server | Web access |
+|---|---|---|---|---|
+| [`audit`](skills/audit/SKILL.md) | Optional | Optional | - | - |
+| [`brainstorming`](skills/brainstorming/SKILL.md) | Optional | - | - | - |
+| [`brief`](skills/brief/SKILL.md) | Yes | - | - | - |
+| [`competitor-analysis`](skills/competitor-analysis/SKILL.md) | Optional | - | - | Yes |
+| [`decisions`](skills/decisions/SKILL.md) | Optional | - | - | - |
+| [`figma`](skills/figma/SKILL.md) | Yes | - | Yes | - |
+| [`guide`](skills/guide/SKILL.md) | Yes | - | - | - |
+| [`help`](skills/help/SKILL.md) | Optional | - | - | - |
+| [`information-architecture`](skills/information-architecture/SKILL.md) | Optional | - | - | - |
+| [`interrogate`](skills/interrogate/SKILL.md) | Optional | - | - | - |
+| [`interview`](skills/interview/SKILL.md) | Optional | - | - | - |
+| [`interview-analysis`](skills/interview-analysis/SKILL.md) | Optional | - | - | - |
+| [`journey`](skills/journey/SKILL.md) | Optional | - | - | - |
+| [`map`](skills/map/SKILL.md) | Optional | Optional | Optional | - |
+| [`metrics`](skills/metrics/SKILL.md) | Optional | - | - | - |
+| [`package`](skills/package/SKILL.md) | Yes | Yes | - | - |
+| [`persona`](skills/persona/SKILL.md) | Optional | - | - | - |
+| [`problem-statement`](skills/problem-statement/SKILL.md) | Optional | - | - | - |
+| [`prototype`](skills/prototype/SKILL.md) | Yes | Yes | - | - |
+| [`refine`](skills/refine/SKILL.md) | Yes | - | - | - |
+| [`requirements`](skills/requirements/SKILL.md) | Yes | - | Optional | - |
+| [`setup`](skills/setup/SKILL.md) | Yes | - | - | - |
+| [`showcase`](skills/showcase/SKILL.md) | Yes | Yes | - | Optional |
+| [`skill-manager`](skills/skill-manager/SKILL.md) | Yes | Yes | - | - |
+| [`storybook`](skills/storybook/SKILL.md) | Yes | Yes | - | - |
+| [`styleguide`](skills/styleguide/SKILL.md) | Yes | - | - | - |
+| [`usability-test-plan`](skills/usability-test-plan/SKILL.md) | Optional | - | - | - |
+| [`ux-benchmark`](skills/ux-benchmark/SKILL.md) | Optional | - | - | Yes |
+| [`wiki`](skills/wiki/SKILL.md) | Yes | - | - | - |
+| [`workshop`](skills/workshop/SKILL.md) | Optional | Optional | Optional | - |
+
+"Optional" means the skill works without it and says what it skipped. Details are in each skill's `## Environment` section.
+
+---
+
 ## Skills Catalog
 
 Full reference: every skill, alphabetical-ish by phase for lookup rather than narrative order.

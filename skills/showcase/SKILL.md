@@ -13,6 +13,10 @@ Builds a presentation *about* a prototype, not a UI pattern to scaffold within o
 - Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
 
+## Environment
+- **Needs:** a file system, a shell, Node.js, and browser tooling such as Playwright for real screenshots.
+- **If it isn't available:** No shell or Node.js here: stop and tell the user to run this skill in an environment that has them, such as Claude Code. Do not simulate install or build output. No browser tooling: say so and ask for screenshots instead of inventing them.
+
 ## Step 1: Choose the output mode
 
 - **Static deck (PowerPoint)**: for email, offline sharing, or a stakeholder who wants to flip through it themselves. Export to PDF from PowerPoint if a PDF is what's wanted.

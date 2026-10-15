@@ -30,6 +30,10 @@ Turns a prototype and a set of learning goals into a timed test plan, a moderato
 - Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
   unrequested scaffolding.
 
+## Environment
+- **Needs:** the conversation. Saving the result to a file is optional.
+- **If it isn't available:** No file system here: return the finished document in the conversation and name the path it would be saved to. Never claim a file was written when it was not.
+
 ## The bias rule — the core of this skill
 
 **Tasks are scenarios, never instructions.** "You want to buy running shoes for a marathon" — never "use the

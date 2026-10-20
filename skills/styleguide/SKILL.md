@@ -1,7 +1,10 @@
 ---
 name: styleguide
 description: >-
-  Build, document, and audit this suite's strict Two-Layer Design Token Architecture (Raw Brand Palette + Semantic Auto-flipping Tokens) and generate a spec-conformant DESIGN.md. Default mode starts from a placeholder palette; forge mode casts a real brand's colors, fonts, and spacing into the same architecture from a live site, brand guide, or verified hex values. Use when defining design tokens, standardizing styling rules, documenting design foundations, casting a new brand, or rebranding an existing prototype.
+  Builds and documents the two-layer design token system (index.css plus DESIGN.md). Default mode
+  uses a placeholder palette. Forge mode casts a real brand into the fixed semantic roles. Use when
+  defining tokens, applying a brand or rebranding.
+argument-hint: "[default: placeholder tokens | forge: cast a real brand]"
 ---
 
 # UX Style Documentation & Two-Layer Design Tokens
@@ -12,12 +15,12 @@ Two modes populate Layer 1, same Layer 2 shape either way:
 - **default** — placeholder palette, for a new prototype with no real brand yet.
 - **forge** — cast a real brand's colors/fonts/spacing into the architecture, from a live site, brand guide, or verified hex values. Use for a new prototype with a real brand ready, or to rebrand an existing one.
 
+Before picking a mode, ask whether a Figma library already exists for this product. If the user gives a link, that's forge mode sourced from Figma: hand off to [`figma`](../figma/SKILL.md)'s `sync` mode, Import direction, to pull the library's Variables and map them onto the semantic roles below, rather than sourcing from a live site/brand guide/typed hex values. Only fall back to a live site, brand guide, or default placeholder palette if there's no Figma library yet.
+
 ---
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## The Two-Layer Token Architecture
 
@@ -66,68 +69,24 @@ graph TD
 Two paths in, same destination — a complete two-layer token block in `index.css`. Pick based on whether a real brand exists yet.
 
 #### Default mode — placeholder palette
-Generate the complete token block in `index.css`:
-```css
-:root {
-  /* Layer 1: Raw Palette */
-  --brand-primary: #00828A;
-  --brand-primary-hover: #00686E;
-  --brand-accent: #00C0F3;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-800: #1F2937;
-  --gray-900: #111827;
+Copy [`templates/index.css`](templates/index.css) to `src/index.css`. It holds the complete token set: Layer 1 raw palette, Layer 2 roles for light and `.dark`, the Tailwind v4 mapping, the elevation utilities, and a `prefers-reduced-motion` rule. Every text and UI pair in it already passes WCAG AA (checked with `tools/check-token-contrast`), so a project that starts here starts accessible.
 
-  /* Status Colors in RGB triplets for Tailwind opacity support */
-  --status-success-rgb: 22 163 74;
-  --status-error-rgb: 220 38 38;
-  --status-warning-rgb: 217 119 6;
-  --status-info-rgb: 37 99 235;
+Check the claim again after any edit to the file:
 
-  /* Layer 2: Semantic Tokens (Light Mode) */
-  --bg-page: var(--gray-50);
-  --surface: #FFFFFF;
-  --surface-hover: var(--gray-100);
-  --surface-border: var(--gray-200);
-  --text-primary: var(--gray-900);
-  --text-secondary: #4B5563;
-  --text-muted: #9CA3AF;
-  --action-primary: var(--brand-primary);
-  --action-primary-hover: var(--brand-primary-hover);
-  --action-primary-active: #00565A;
-  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-hover: 0 4px 12px 0 rgb(0 0 0 / 0.08);
-  --scrollbar-thumb: var(--gray-200);
-}
-
-.dark {
-  /* Layer 2 Rebound (Dark Mode) */
-  --bg-page: #0B0F19;
-  --surface: #111827;
-  --surface-hover: #1F2937;
-  --surface-border: #374151;
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
-  --text-muted: #6B7280;
-  --action-primary: var(--brand-accent);
-  --action-primary-hover: #38BDF8;
-  --action-primary-active: #0284C7;
-  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-hover: 0 4px 12px 0 rgb(0 0 0 / 0.4);
-  --scrollbar-thumb: #374151;
-}
+```bash
+node ../../tools/check-token-contrast/check-token-contrast.mjs src/index.css
 ```
-For a bolder, marketing-forward brand, use a numbered elevation ladder instead (`--shadow-level1..5`, same for `--radius-level1..5`) mapped into `tailwind.config.js`'s `boxShadow`/`borderRadius`. Pick one convention per prototype; don't mix both.
+
+For a bolder, marketing-forward brand, use a numbered elevation ladder instead of the two shadow tiers (`--shadow-level1..5`, same for `--radius-level1..5`). Register each step as a `@utility` (see [`references/tailwind-v4.md`](references/tailwind-v4.md)). Pick one convention per prototype; do not mix both.
 
 #### Forge mode — cast a real brand
 `references/semantic-role-mold.md` is the fixed list of semantic roles every prototype in this suite binds. Forge mode casts a specific brand's raw values into that exact mold: Layer 1 (the brand's own palette) is new every time, Layer 2 (the role names) never changes shape. Component code never sees the difference — it only ever references the semantic roles.
 
 1. **Find the brand's real sources.**
-   - Ask what's available: a live site to pull CSS from, a brand guide (PDF/Figma/doc), or hex codes/font names typed directly.
-   - **Verified beats provided.** If a live site is available, prefer grepping its actual CSS for real class-based color/spacing values over trusting a brand guide's stated values blindly — a guide can be stale or aspirational relative to what's actually shipped.
-   - **If sources conflict** (a brand guide states one hex, the live site renders another), don't silently pick one — ask the user which is authoritative. Guessing here corrupts the one thing this exercise exists to get right.
-   - If tints/shades (lighter/light/dark/foundational) aren't supplied for a color and can't be found in a live source, either ask for them or derive them via consistent HSL-lightness steps, and if derived, label them "computed, not brand-verified" in `DESIGN.md`. Don't present a guess as a fact.
+   - Ask what's available: a live site to pull CSS from, a brand guide (PDF/Figma/doc), hex codes/font names typed directly, or a direction already chosen through [`restyle`](../restyle/SKILL.md) (that skill hands off its winning candidate's full token set here as a confirmed source, not something to re-derive).
+   - **Verified beats guessed.** With no brand guide to work from — hex codes typed directly, or values that need confirming against something real — prefer grepping a live site's actual CSS for real class-based color/spacing values over inventing or half-remembering one. This is about filling gaps, not about which source outranks the other when both exist (see below).
+   - **If a brand guide exists and conflicts with the live site** (a brand guide states one hex, the live site renders another), the brand guide wins — it's the documented source of intended brand direction, and a live site is just as likely to be out of date with it (not fully migrated, mid-rebrand) as the guide is to be stale. Don't silently pick the live value instead; a site that hasn't caught up to its own brand guide isn't a reason to encode its drift as the spec. Still confirm with the user rather than assume the conflict is exactly this and nothing else — a real brand refresh in progress is the one case where the live site *is* right and the guide is what's stale, and only a human knows which situation it actually is. **Autonomous mode** (suite `AGENTS.md` §2.9, tier 3): never guess between them regardless. Use the brand guide's stated value as the provisional value, label it in `DESIGN.md` as "provisional — conflicts with the live site, needs confirmation," and log the conflict to `docs/UNKNOWNS.md` flagged blocking.
+   - If tints/shades (lighter/light/dark/foundational) aren't supplied for a color and can't be found in a live source, either ask for them or derive them via consistent HSL-lightness steps, and if derived, label them "computed, not brand-verified" in `DESIGN.md`. Don't present a guess as a fact. **Autonomous mode:** default to deriving via HSL-lightness steps (already the documented fallback) and label accordingly — this is tier 1, the skill already names the safe default.
    - **Completion criterion:** every hex value about to be written into `index.css` traces to either a verified source or an explicitly labeled computation. None are silently invented.
 
 2. **Cast Layer 1, the raw palette.**
@@ -140,22 +99,25 @@ For a bolder, marketing-forward brand, use a numbered elevation ladder instead (
      - `text-primary`, `text-secondary`, `text-muted`, `text-brand` → the new grays + secondary accent
      - `action-primary` (+`-hover`/`-active`), `action-secondary`, `action-accent` (+`-foreground`), `focus-ring` → the new primary/secondary/accent hues
      - `border-input`, `border-emphasis` → the new gray scale
-     - `status-error`/`-success`/`-warning`/`-info` (+`-pending`/`-neutral` if added) and their `-text` pairs, **as RGB triplets, not hex**, this is what lets Tailwind opacity modifiers (`bg-status-success/15`) work
+     - `status-error`/`-success`/`-warning`/`-info` (+`-pending`/`-neutral` if added) and their `-text` pairs, **as RGB triplets, not hex**; the `@theme inline` mapping turns each triplet into a color, so `bg-status-success/15` works
    - **Completion criterion:** `index.css` has one CSS variable for every role in `semantic-role-mold.md`, in both `:root` and `.dark`, new brand values, same names. A renamed or missing role breaks every component that references it.
 
 Whichever mode populated `index.css`, continue to Step 2.
 
-### Step 2: Mirror Tokens in Tailwind Config (`tailwind.config.js`)
-Wire semantic color names to CSS variables so developers write `bg-surface`, `text-primary`, `bg-status-success/15`.
+### Step 2: Mirror tokens in Tailwind (`@theme inline` in `index.css`)
+Map each semantic role to a Tailwind v4 theme key so developers write `bg-surface`, `text-primary`, `bg-status-success/15`. The default template already does this. In forge mode, keep the block and change only the Layer 1 and Layer 2 values. There is no `tailwind.config.js` in a v4 prototype. See [`references/tailwind-v4.md`](references/tailwind-v4.md) for the role-to-utility table and for moving a v3 prototype.
 
 ### Step 3: Generate `DESIGN.md`
 Generate `DESIGN.md` per the exact spec in [`references/design-md-template.md`](references/design-md-template.md): YAML frontmatter with machine-readable tokens, then eight markdown sections in fixed canonical order. `index.css` is the source of truth; `DESIGN.md` is its generated summary. Regenerate on every `index.css` change rather than hand-editing it out of sync.
 
 ### Step 4: Verify the cast (forge mode only)
-1. `grep -rn "#[0-9a-fA-F]\{3,6\}\b" src/` (or the prototype's component source root) for hardcoded hex outside `index.css`. Any hit bypassed the semantic layer and needs fixing before this counts as done.
-2. Cross-check every role in `semantic-role-mold.md` resolves to a CSS var in `index.css` and a Tailwind key in `tailwind.config.js`.
+1. Run `node ../../tools/design-check/design-check.mjs src/` (or the prototype's component source root). Any hit for hex, palette or `dark:` bypassed the semantic layer and needs fixing before this counts as done.
+   Then run `node ../../tools/check-token-contrast/check-token-contrast.mjs src/index.css`. A failing pair means the brand value needs a darker or lighter tier; record it in `DESIGN.md` as a known brand constraint if the brand cannot change.
+2. Cross-check every role in `semantic-role-mold.md` resolves to a CSS var in `index.css` and a `--color-*` key (or `@utility`) in the `@theme inline` block.
 3. Spot-check a handful of components in both light and dark mode; a role that's present but wired to the wrong tier (e.g. `text-muted` reading as illegible on `surface` in dark mode) won't show up in a grep.
 
-**Completion criterion:** both checks in this step return clean, and the prototype renders correctly in both themes with the new brand, no leftover reference to the previous palette anywhere in component code.
+**Completion criterion:** the design check and the contrast check both return clean, and the prototype renders correctly in both themes with the new brand, no leftover reference to the previous palette anywhere in component code.
+
+Offer once to turn on the edit-time design check for this project: `node ../../tools/design-hook/design-hook.mjs --enable`. After that, every edit to a component file is checked for raw hex, palette classes, `dark:` variants and `transition-all`, and the agent fixes findings in the same turn.
 
 If a decision needed for `DESIGN.md` (a color's intended character, a component's philosophy) can't be inferred from the code and isn't already answered, append it to `docs/UNKNOWNS.md` rather than inventing an answer; see AGENTS.md §2.6.

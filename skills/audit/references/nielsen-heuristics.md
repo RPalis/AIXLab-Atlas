@@ -1,6 +1,8 @@
-# Nielsen's 10 Usability Heuristics: Scoring Guide
+# Nielsen's 10 Usability Heuristics: Scoring Guide & Citation List
 
-Score each 0-4. Be honest, a 4 is genuinely excellent, not "good enough." Mark a heuristic `n/a` (with a one-line reason) when it genuinely can't apply to this surface (e.g. heuristic 7 and 10 often don't apply to a pure landing/marketing surface) and renormalize the total to the applicable maximum.
+Two uses, same table. As a **citation list**: every `craft`-mode finding in Step 3's Findings list cites which row it violates (`#N, Heuristic Name`), always, not just when running the fuller scored pass below — this is what makes a finding a pinpointed diagnosis instead of a vague impression. As a **scoring pass**: score each row 0-4 for a standalone heuristic-by-heuristic health score, deeper and more granular than the default 5-dimension score — optional, useful when the audit needs to justify a bigger investment of follow-up work.
+
+Be honest, a 4 is genuinely excellent, not "good enough." Mark a heuristic `n/a` (with a one-line reason) when it genuinely can't apply to this surface (e.g. heuristic 7 and 10 often don't apply to a pure landing/marketing surface) and renormalize the total to the applicable maximum.
 
 | # | Heuristic | What to check | 0 | 4 |
 |---|---|---|---|---|

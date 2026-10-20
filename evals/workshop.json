@@ -1,0 +1,25 @@
+{
+  "skill": "workshop",
+  "cases": [
+    {
+      "query": "/workshop plan for a 90 minute kickoff with 8 people",
+      "expected_behavior": [
+        "Selects activities for the phase, goals, time and group size",
+        "Writes an agenda with timings that sum to 90 minutes"
+      ]
+    },
+    {
+      "query": "/workshop ingest with 6 whiteboard photos",
+      "expected_behavior": [
+        "Transcribes stickies faithfully and marks illegible ones",
+        "Offers deck, doc, CSV or FigJam output"
+      ]
+    },
+    {
+      "query": "/workshop plan then 'build the FigJam board'",
+      "expected_behavior": [
+        "Checks the Figma MCP server is connected before building"
+      ]
+    }
+  ]
+}

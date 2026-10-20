@@ -1,7 +1,9 @@
 ---
 name: metrics
 description: >-
-  Define OKRs (Objectives and Key Results) for a product using the right metrics framework for its medium and adoption model — HEART (Google's framework, opt-in digital products), CASTLE (NN/g's framework, mandatory-use digital/workplace tools), or SELECT (physical tools and services: Success rate, Error reduction, Learnability, Efficiency, Cognitive & Physical Load, Throughput). Each Key Result gets tagged with its framework category. Discover-phase, usable standalone or after brief/journey. Writes docs/OKR.md. Use when asked to define OKRs, KPIs, success metrics, or goals/targets for a product, or when journey's solutions mode has produced targets that need framing against a real metrics framework.
+  Defines OKRs with the framework that fits the product: HEART, CASTLE or SELECT. Tags each Key
+  Result by category and writes docs/OKR.md. Use when asked for OKRs, KPIs or success metrics.
+disable-model-invocation: true
 ---
 
 # Metrics: OKRs & KPIs
@@ -14,13 +16,13 @@ Turns "what does success look like" into Objectives with measurable Key Results,
 - Mapping a process and finding where it hurts → [`journey`](../journey/SKILL.md). `journey`'s `solutions` mode proposes per-pain-point targets; this skill is where those targets get framed as real Key Results against a chosen framework, alongside whatever other Objectives the product needs beyond process pain points.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Step 1: Pick the framework
 
 Two questions decide it. Answer from `docs/PRODUCT_BRIEF.md` if it exists and is clear on these points; ask directly if it doesn't, or if the brief is ambiguous — don't guess at either answer.
+
+**Autonomous mode** (suite `AGENTS.md` §2.9, tier 2): if the brief is silent or ambiguous and no one's there to ask, resolve from whatever audience/context signal exists — consumer-facing, sold to individuals, a churnable subscription → **HEART**; internal/employee/intranet/enterprise-mandated language → **CASTLE**; kiosk/handheld/hardware language → **SELECT**. If genuinely no signal points either way, default to **HEART** as the more common case across this suite's typical prototypes. Mark the framework choice in `docs/OKR.md` as an assumption pending confirmation, and log it to `docs/UNKNOWNS.md`.
 
 **Question 1 — medium:** is this primarily a **physical** tool or service (a kiosk, a handheld device, an in-person service process, hardware) or a **digital** product?
 - Physical → **SELECT**, skip Question 2.

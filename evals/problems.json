@@ -1,0 +1,35 @@
+{
+  "skill": "problems",
+  "cases": [
+    {
+      "query": "/problems",
+      "expected_behavior": [
+        "Writes statements with no proposed solution",
+        "Each user story traces to a persona, pain point or theme"
+      ],
+      "setup": "Persona, journey and interview docs exist"
+    },
+    {
+      "query": "/problems with no research docs",
+      "expected_behavior": [
+        "Says research is missing and stops"
+      ]
+    },
+    {
+      "query": "/problems and 'also suggest the fix'",
+      "expected_behavior": [
+        "Keeps solutions out of the statements and points to brainstorming"
+      ],
+      "setup": "Research exists"
+    },
+    {
+      "query": "/problems",
+      "setup": "Persona walkthrough and journey map exist",
+      "expected_behavior": [
+        "Writes each problem statement with one How Might We question",
+        "Each How Might We is open and hides no solution (\"how might we reduce re-keying\", not \"add autofill\")",
+        "Does not propose a solution anywhere in the output"
+      ]
+    }
+  ]
+}

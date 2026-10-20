@@ -1,0 +1,106 @@
+{
+  "skill": "wiki",
+  "cases": [
+    {
+      "query": "Jot this down: stakeholders want offline mode",
+      "expected_behavior": [
+        "Files a note in notes/my-notes and folds it into the wiki in the same turn",
+        "Writes a wiki footer at the end of the note and leaves the note text unchanged"
+      ]
+    },
+    {
+      "query": "Ingest this link: https://example.com/client-process",
+      "setup": "Project set up with docs/sources/ and notes/wiki/",
+      "expected_behavior": [
+        "Saves a dated text snapshot in sources/links/ and adds a sources.md row with a new S-nnn ID",
+        "Shows the takeaways and the topic pages it will touch, then waits for a yes before filing",
+        "Cites the source by ID on the topic page, not by file path"
+      ]
+    },
+    {
+      "query": "Ingest this Figma link: a login-gated URL",
+      "expected_behavior": [
+        "Does not invent the page content",
+        "Asks the user to paste the text or drop an export into sources/"
+      ]
+    },
+    {
+      "query": "I added a client brief and a sitemap from the platform team",
+      "setup": "One PDF in sources/client/ and one sitemap in the docs root, none registered",
+      "expected_behavior": [
+        "Runs wiki-status and finds the unregistered or loose files",
+        "Proposes moving the loose sitemap to sources/teams/<team>/ and waits for a yes",
+        "Leaves the source files untouched and never writes a footer in sources/"
+      ]
+    },
+    {
+      "query": "Adapt the platform team's sitemap for our flow",
+      "expected_behavior": [
+        "Leaves the original unchanged in sources/teams/",
+        "Puts the adapted copy in artifacts/sitemaps/ and cites the original ID"
+      ]
+    },
+    {
+      "query": "/wiki compile run in the background with two sources that disagree on the launch date",
+      "setup": "Unattended; no human to ask",
+      "expected_behavior": [
+        "Does not pause to ask",
+        "Flags the conflict inline with the conflict marker and logs a blocking unknown",
+        "Creates any new topic page with status: draft and lists it under Needs review",
+        "Does not edit any text a person wrote"
+      ]
+    },
+    {
+      "query": "/wiki publish",
+      "setup": "Wiki with one draft topic, one confidential source row (Publish: no), one opted-in source",
+      "expected_behavior": [
+        "Shows the user what the filter leaves out before building",
+        "Leaves out the draft page, my-notes/ and the un-opted source, and removes that source's row from the published sources page",
+        "Never opts a source in without an explicit yes"
+      ]
+    },
+    {
+      "query": "/wiki lint",
+      "expected_behavior": [
+        "Reports every check with a count, including checks with zero findings",
+        "Does not resolve a contradiction on its own",
+        "Appends a lint line to log.md and regenerates the graph view without draft pages"
+      ]
+    },
+    {
+      "query": "/wiki on an empty notes folder",
+      "expected_behavior": [
+        "Says there is nothing to ingest"
+      ]
+    },
+    {
+      "query": "/wiki compile with a spec PDF dropped in the docs folder",
+      "expected_behavior": [
+        "Registers the spec in sources.md and links to it instead of copying its content",
+        "Uses standard markdown links, never [[wikilinks]]"
+      ]
+    },
+    {
+      "query": "/wiki publish",
+      "setup": "A showcase reveal deck and a .pptx in exports/, both registered in artifacts.md, and a wiki page that embeds an SVG from artifacts/",
+      "expected_behavior": [
+        "Links the deck under Presentations as its own page, without embedding it",
+        "Offers the .pptx under Downloads",
+        "Copies the SVG the page uses, and drops any image from my-notes/",
+        "Says the published site is read-only and that edits belong in the Markdown folder"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "don't let me forget that",
+      "organize these meeting notes",
+      "I added the client's files to the project",
+      "ingest this link into the wiki"
+    ],
+    "should_not_start": [
+      "package the prototype",
+      "record why we picked offline-first as a decision"
+    ]
+  }
+}

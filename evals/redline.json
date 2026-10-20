@@ -1,0 +1,36 @@
+{
+  "skill": "redline",
+  "cases": [
+    {
+      "query": "Make this edit [annotated screenshot with a circled button and 'bigger']",
+      "expected_behavior": [
+        "Finds the real source file",
+        "Edits with semantic tokens and tier conventions",
+        "Reports the diff and does not ask to confirm first"
+      ],
+      "setup": "Running prototype"
+    },
+    {
+      "query": "/redline pick: the header should be sticky",
+      "expected_behavior": [
+        "Locates the element in source and edits it",
+        "Runs tools/design-check on the changed file"
+      ]
+    },
+    {
+      "query": "Polish the whole app",
+      "expected_behavior": [
+        "Says this is a refine job, not a redline, and points there"
+      ]
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "make this edit [screenshot]",
+      "change this one button's label to 'Send'"
+    ],
+    "should_not_start": [
+      "redesign the whole dashboard"
+    ]
+  }
+}

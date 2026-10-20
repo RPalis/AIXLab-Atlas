@@ -1,0 +1,19 @@
+{
+  "name": "ux-atlas",
+  "version": "0.2.0",
+  "description": "Skills for the whole UX process: Discover, Decide, Design, Deliver. Collect research, organize thinking, expose details and generate ideas, then design, prototype, audit and hand off.",
+  "author": {
+    "name": "Aaron Kiersky"
+  },
+  "repository": "https://github.com/kiersky-coforge/ux-atlas",
+  "license": "MIT",
+  "keywords": [
+    "ux",
+    "design",
+    "research",
+    "prototype",
+    "design-tokens",
+    "accessibility",
+    "agent-skills"
+  ]
+}

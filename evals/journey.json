@@ -1,0 +1,27 @@
+{
+  "skill": "journey",
+  "cases": [
+    {
+      "query": "/journey map for our invoice approval process",
+      "expected_behavior": [
+        "Draws a current-state swimlane, not a proposed one",
+        "Marks anything not in the inputs as ASSUMPTION"
+      ]
+    },
+    {
+      "query": "/journey pain-points",
+      "expected_behavior": [
+        "Scores each friction by severity x frequency with a root cause"
+      ],
+      "setup": "JOURNEY_MAP.md has a map"
+    },
+    {
+      "query": "/journey experience for the Ops Manager persona",
+      "expected_behavior": [
+        "Cites or marks ASSUMPTION on every claim",
+        "Draws an emotion curve"
+      ],
+      "setup": "PERSONA_WALKTHROUGH.md exists"
+    }
+  ]
+}

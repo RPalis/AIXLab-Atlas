@@ -1,7 +1,10 @@
 ---
 name: brief
 description: >-
-  Extracts a mile-wide, inch-deep product brief before any deeper user research exists: what the product is, who it's for, the distinct user types, their core tasks, devices and context of use, the competitive landscape, and constraints. On a brand-new idea this is a stakeholder interrogation; on an existing product it's a reconnaissance pass — drafted from the codebase plus whatever other suite docs already exist (personas, object map, ADRs, etc., handed off by setup) — then confirmed with the stakeholder after. Worth running even mid-lifecycle, not just pre-Discover, as the lay-of-the-land doc most often skipped when the suite is layered onto something already underway. Writes docs/PRODUCT_BRIEF.md and pushes anything genuinely unresolvable to docs/UNKNOWNS.md. Runs after setup, before Discover's user-research skills. Use when starting a brand-new product idea, when asked for a product brief for an app that already exists, or to get what's in the founder's head down before research begins.
+  Writes the product brief (docs/PRODUCT_BRIEF.md): product, audience, user types, core tasks,
+  devices, competitors and constraints. Interviews the owner on a new idea. Drafts from the codebase
+  on an existing product. Use before research starts, or when no brief exists.
+disable-model-invocation: true
 ---
 
 # Product Brief
@@ -16,9 +19,10 @@ description: >-
 - A real competitive landscape scan — finding competitors the stakeholder doesn't already know about, profiling their features/workflow/UX → [`competitors`](../competitors/SKILL.md)'s `discover` mode. `brief`'s own competitive-landscape question only captures what's already top of mind.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
+
+## Read the wiki first
+- If the project has a wiki, read it before you ask the user, and cite source IDs such as `(S-004)`. Read only: the [`wiki`](../wiki/SKILL.md) skill alone writes to it. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
 
 ## Step 0: Explore, then choose pace
 
@@ -28,7 +32,11 @@ Ask the user how they want to run this:
 - **One question at a time** (recommended for a fuzzy or early idea): the same discipline as [`interrogate`](../interrogate/SKILL.md), each question paired with a recommendation or example, waiting for an answer before moving on.
 - **Themed batches**: the same seven areas below, grouped into rounds (Product · Audience & Tasks · Devices & Context · Competitive Landscape · Constraints & Success), asked together per round for a faster pass when the user already has clarity.
 
-Either pace covers the same ground; only the delivery cadence differs. This is Step 1's pace; skip straight to Step 0.5 first if there's a real product to read.
+- **Minimum (quick start)**: for a project joined midway, or when a prototype is needed to look at and test soon. Cover only what the prototype cannot be built without: what the product is and the one core task it must support (Product, Audience & Tasks, Devices), the main steps of that task in order (3 to 8), and the key things the product is about (3 to 7 nouns). Skip the rest. Write the brief with `Status: minimum` at the top and tag every fact the stakeholder did not state as `ASSUMPTION`. List what was skipped (competitors, success measures, full constraints) as tier 2 unknowns with [`log-unknown`](../../tools/log-unknown/log-unknown.sh) so it is backfilled later, not forgotten. After the prototype exists, backfill from what testing shows.
+
+The two full paces cover the same ground; only the delivery cadence differs. The minimum pace covers less on purpose. This is Step 1's pace; skip straight to Step 0.5 first if there's a real product to read.
+
+**Autonomous mode** (suite `AGENTS.md` §2.9): the minimum pace needs the stakeholder's answers, so it is not an unattended default. On an existing product, always run Step 0.5's reconnaissance draft — the pace question is moot since nothing is asked live, and a codebase-drafted brief with confirmation flagged is real progress. On a genuinely new idea with no product to read, this skill's whole premise is a stakeholder's own knowledge, which no source can substitute for — this is a hard tier-3 stop (§2.9), not a default to paper over. Log to `docs/UNKNOWNS.md` that a stakeholder interrogation is needed and don't fabricate a brief from nothing.
 
 ## Step 0.5: Existing product? Draft from the codebase first
 
@@ -71,6 +79,8 @@ Write `docs/PRODUCT_BRIEF.md` using [`templates/product-brief-template.md`](temp
 Anything that needs real competitive research, a real user segment's input, or a stakeholder who wasn't in this conversation, goes to `docs/UNKNOWNS.md` (see AGENTS.md §2.6) rather than being guessed at or left silently blank in the brief.
 
 ## Step 4: Hand off
+
+Log it: `../../tools/log-milestone/log-milestone.sh --skill brief --event "PRODUCT_BRIEF.md confirmed" --why "<the one thing about this product's constraints/audience most worth remembering later>"`.
 
 Point to what's next based on what the brief surfaced, not a fixed default:
 - Multiple user types with meaningfully different needs → [`persona`](../persona/SKILL.md) to formalize them.

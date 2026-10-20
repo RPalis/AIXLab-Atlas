@@ -1,11 +1,10 @@
 ---
 name: brainstorming
 description: >-
-  Turn one signed-off problem statement into many ideas, then a scored shortlist the team takes into sketching
-  — never a single winner. Use before defining information architecture, solution definition, building
-  wireframes, or committing to a single direction. Trigger on "run a brainstorm", "ideation session",
-  "generate ideas for this problem", "what directions could we take", or when a problem statement exists and
-  needs options before a direction is picked.
+  Turns one locked problem statement (and its How Might We question) into many ideas and a scored shortlist of directions, never
+  a single winner. Use when a problem statement exists and the team needs options before it picks a
+  direction.
+disable-model-invocation: true
 ---
 
 # Brainstorming Planner
@@ -14,21 +13,15 @@ Runs a structured ideation session against one problem: diverge into many ideas,
 scored set of directions — not a single winner. ~20-30 minutes.
 
 **Not this skill:**
-- Producing the problem statement this reads → [`problem-statement`](../problem-statement/SKILL.md). This
-  skill takes one signed-off problem statement as input; it doesn't write one.
+- Producing the problem statement this reads → [`problems`](../problems/SKILL.md). This
+  skill takes one locked problem statement as input; it doesn't write one.
 - Planning the session logistics (agenda, timing, activities for a live workshop) →
   Atlas's `workshop` `plan` mode, whose activity catalogue this skill's session can draw from as an optional
   input.
-- Deciding the site's information architecture or building wireframes from the chosen direction → those
-  happen after this skill, once a direction is picked and validated.
+- Deciding the site's information architecture, object model or flows → [`map`](../map/SKILL.md), locked in Decide before this skill runs. Ideas work within those, or challenge them. If an idea challenges a lock, reopen that decision on purpose ([`interrogate`](../interrogate/SKILL.md), then [`decisions`](../decisions/SKILL.md)). Building wireframes from the chosen direction happens after this skill, once a direction is picked and validated.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if
-  asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep
-  substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no
-  unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## The evidence rule
 
@@ -39,7 +32,7 @@ the problem, or a scored direction with no stated basis for its score, doesn't b
 ## What you'll need
 
 **Required**
-- One signed-off problem statement (the [`problem-statement`](../problem-statement/SKILL.md) output)
+- One locked problem statement and its How Might We question (the [`problems`](../problems/SKILL.md) output)
 - Constraints — tech, brand, timeline
 - Top research findings for context
 
@@ -50,6 +43,8 @@ the problem, or a scored direction with no stated basis for its score, doesn't b
 
 If any required input is missing, ask **up to three** clarifying questions before ideating. Do not start
 until the context is sufficient.
+
+**Autonomous mode** (suite `AGENTS.md` §2.9): take the problem statement from `docs/PROBLEM_STATEMENTS.md` (the [`problems`](../problems/SKILL.md) output) and constraints from `docs/PRODUCT_BRIEF.md`. Sign-off is a human step, so if the statement is missing or unsigned, skip, log tier 3 (`../../tools/log-unknown/log-unknown.sh --skill brainstorming --tier 3 "..."`), and stop. The final shortlist step is also the team's: write the scored directions marked "proposed, not selected" rather than picking one.
 
 ## The workflow
 
@@ -123,6 +118,5 @@ Before anything gets sketched:
 - Re-evaluate whether another session is needed.
 - Summarise the key takeaways and directions.
 - Feed the executive summary to the next step — typically
-  [`information-architecture`](../information-architecture/SKILL.md) or `user-flow`.
-- Keep prompts / `.md` files / chat-history context / tooling in the same task-stage folder — this is the
-  reusable working set for downstream steps.
+  `map`'s `ia` or `flow` mode.
+- Write the shortlist to `docs/BRAINSTORM.md`, keeping the scored directions and the cut ideas (with why) together for downstream steps.

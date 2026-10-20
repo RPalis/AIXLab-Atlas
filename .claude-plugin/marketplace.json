@@ -1,0 +1,12 @@
+{
+  "name": "ux-atlas",
+  "description": "UX Atlas: agent skills for the whole UX process, from collecting information to handoff. The prototype is one phase of it, not the goal.",
+  "owner": { "name": "Aaron Kiersky" },
+  "plugins": [
+    {
+      "name": "ux-atlas",
+      "source": "./",
+      "description": "29 skills across Discover, Decide, Design and Deliver, with shared tools, unattended-run agents and an opt-in edit-time design check."
+    }
+  ]
+}

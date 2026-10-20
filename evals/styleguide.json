@@ -1,0 +1,41 @@
+{
+  "skill": "styleguide",
+  "cases": [
+    {
+      "query": "/styleguide",
+      "expected_behavior": [
+        "Copies templates/index.css",
+        "Runs check-token-contrast and it passes",
+        "Generates DESIGN.md from index.css",
+        "Offers the edit-time design hook once"
+      ],
+      "setup": "Fresh scaffold"
+    },
+    {
+      "query": "/styleguide forge with a brand guide and a live site that disagree on a hex",
+      "expected_behavior": [
+        "Uses the brand guide value as provisional and labels it",
+        "Asks the user, or logs a blocking unknown in autonomous mode"
+      ]
+    },
+    {
+      "query": "Move this v3 prototype to Tailwind v4",
+      "expected_behavior": [
+        "Follows references/tailwind-v4.md",
+        "Deletes tailwind.config.js",
+        "Class names in components do not change"
+      ],
+      "setup": "Prototype on Tailwind v3"
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "set up design tokens",
+      "apply our brand colors to the prototype",
+      "rebrand this prototype"
+    ],
+    "should_not_start": [
+      "write the user guide"
+    ]
+  }
+}

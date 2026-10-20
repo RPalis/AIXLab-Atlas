@@ -1,0 +1,27 @@
+{
+  "skill": "competitors",
+  "cases": [
+    {
+      "query": "/competitors discover",
+      "expected_behavior": [
+        "Interrogates market, tool type, workflows and differentiators one question at a time",
+        "Researches the web for candidates and lets the user narrow to 3-5",
+        "Rates each claim Verified, Likely or Not Verified"
+      ]
+    },
+    {
+      "query": "/competitors benchmark with no web access",
+      "expected_behavior": [
+        "Says it cannot research and asks the stakeholder for facts",
+        "Does not invent a competitor or a feature"
+      ]
+    },
+    {
+      "query": "/competitors add Linear",
+      "expected_behavior": [
+        "Appends one profile to COMPETITIVE_ANALYSIS.md without rerunning the scan"
+      ],
+      "setup": "COMPETITIVE_ANALYSIS.md exists with 4 competitors"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 ---
 name: decisions
 description: >-
-  Capture a UX or architecture decision as a lightweight ADR (Architecture Decision Record) in docs/adr/, documenting the rejected alternatives and why. Use when a prototype makes a non-obvious call (a workaround, a template override, a state-model tradeoff) that a teammate or stakeholder will later ask "why did we do it this way?" about.
+  Records a non-obvious UX or architecture decision as a short ADR in docs/adr/, with the rejected
+  alternatives and why. Use when a choice will later prompt the question why it was done this way.
 ---
 
 # Decision Records (ADRs)
@@ -14,9 +15,10 @@ Not every decision needs one. Write one when a decision:
 - Would be expensive or confusing to reverse without knowing why it was made this way
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
+
+## Read the wiki first
+- If the project has a wiki, read it for the context behind the decision and cite source IDs in the record. Do not edit it: the [`wiki`](../wiki/SKILL.md) skill adds each ADR to its `decisions.md` digest on its next run. Rules: [`reading-rule.md`](../wiki/references/reading-rule.md).
 
 ## Step 1: Write the record
 
@@ -27,10 +29,19 @@ Create `docs/adr/NNNN-short-decision-title.md`, numbered sequentially from the h
 - **What was rejected, and why.** The alternative(s) that seemed obvious but didn't work, and the specific reason each was ruled out. This is the part that actually prevents the decision from being silently re-litigated later.
 - **Scope.** What this decision does and doesn't apply to, if it's not universal.
 
+If `docs/adr/README.md` does not exist, create it from the `adr/` template in [`setup`'s folder READMEs](../setup/references/folder-readmes.md#adr).
+
 Use [`templates/adr-template.md`](templates/adr-template.md) as a starting shape, not a rigid form to fill in every field of.
 
 **Completion criterion:** a teammate unfamiliar with the discussion could read the record and understand not just what was chosen, but why the obvious alternative was rejected.
 
 ## Step 2: Link it where it'll be found
 
+If the decision settled what a term means, add or update the term in `<docs>/GLOSSARY.md`, and use that word in the record.
+
+
 Reference the record from wherever the decision is visible in code: a one-line comment pointing at the ADR path near the relevant code, or a link from the feature's section in `docs/OOUX_OBJECT_MAP.md` / `docs/PERSONA_WALKTHROUGH.md` if it affects one of those.
+
+## Step 3: Log it
+
+`../../tools/log-milestone/log-milestone.sh --skill decisions --event "ADR NNNN: <short title>" --why "<the rejected alternative and why, in one line>"` — an ADR is exactly the kind of thing worth surfacing in the project's narrative log, not just its own file.

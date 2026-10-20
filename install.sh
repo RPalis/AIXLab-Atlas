@@ -2,9 +2,19 @@
 set -e
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/skills" && pwd)"
+SOURCE_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/tools"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HUB="$HOME/.agents/skills"
 MANIFEST="$HUB/.ux-atlas.manifest"
+TOOLS_HUB="$HOME/.agents/tools"
+TOOLS_MANIFEST="$TOOLS_HUB/.ux-atlas.manifest"
+
+# Clients that read ~/.agents/skills directly (checked against each product's skills docs):
+# Gemini CLI, OpenAI Codex, GitHub Copilot and Cursor. Linking them again only makes every skill
+# appear twice, so selecting one is a no-op and old links this script made are retired. Claude Code
+# does not read the hub, so it still needs a link. Antigravity and Grok are linked until their docs say otherwise.
+HUB_DIRECT="gemini-cli codex copilot cursor"
+is_hub_direct() { case " $HUB_DIRECT " in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
 
 # Known client skill directories. Each entry is "label|path|name".
 # The hub (~/.agents/skills) is the one real copy: skills are copied there from
@@ -52,27 +62,34 @@ trap show_cursor EXIT INT TERM
 # like Claude Code / Gemini CLI use). Falls back to a plain bold line when
 # stdout isn't a real terminal.
 print_banner() {
+  # A wireframe globe, not a shaded sphere or a block glyph: an outer limb
+  # (the "(" / ")" curve, like a desktop classroom globe's frame), one front
+  # meridian running pole to pole, one full equator, two shorter tropic
+  # arcs, and a handful of "." shading dots on the lower-right (the
+  # shadowed side) — no continents, just lat/long lines and a touch of depth.
   local -a G=(
-    "     █████     "
-    "  ███  █  ███  "
-    " ███   █   ███ "
-    "███████████████"
-    "███████████████"
-    " ███   █   ███ "
-    "  ███  █  ███  "
-    "     █████     "
+    "     ( | )     "
+    "  ( '  |  ' )  "
+    " (  ---+---  ) "
+    "(------+------)"
+    "(      | .... )"
+    " (  ---+---  ) "
+    "  ( '  |  ' )  "
+    "     ( | )     "
   )
-  local -a U=("██   ██" "██   ██" "██   ██" "██   ██" "██   ██" "██   ██" " ██ ██ " "  ███  ")
-  local -a X=("██   ██" " ██ ██ " "  ███  " "   █   " "   █   " "  ███  " " ██ ██ " "██   ██")
-  local -a A=("  ███  " " █   █ " "██   ██" "██   ██" "███████" "██   ██" "██   ██" "██   ██")
-  local -a T=("███████" "  ███  " "  ███  " "  ███  " "  ███  " "  ███  " "  ███  " "  ███  ")
-  local -a L=("██     " "██     " "██     " "██     " "██     " "██     " "██     " "███████")
-  local -a S=(" ██████" "██     " "██     " " █████ " "     ██" "     ██" "██   ██" " █████ ")
+  # Letters are 8 cells wide (was 7) for a bolder, less compressed wordmark.
+  local -a U=("██    ██" "██    ██" "██    ██" "██    ██" "██    ██" "██    ██" " ██  ██ " "  ████  ")
+  local -a X=("██    ██" " ██  ██ " "  ████  " "   ██   " "   ██   " "  ████  " " ██  ██ " "██    ██")
+  local -a A=("  ████  " " ██  ██ " "██    ██" "██    ██" "████████" "██    ██" "██    ██" "██    ██")
+  local -a T=("████████" "   ██   " "   ██   " "   ██   " "   ██   " "   ██   " "   ██   " "   ██   ")
+  local -a L=("██      " "██      " "██      " "██      " "██      " "██      " "██      " "████████")
+  local -a S=(" ██████ " "██      " "██      " " █████  " "     ██ " "     ██ " "██   ██ " " █████  ")
 
+  # Extra room between the two words ("UX" / "ATLAS"), not just between letters.
   local -a lines=()
   local r
   for r in 0 1 2 3 4 5 6 7; do
-    lines+=("${G[$r]}   ${U[$r]} ${X[$r]}    ${A[$r]} ${T[$r]} ${L[$r]} ${A[$r]} ${S[$r]}")
+    lines+=("${G[$r]}   ${U[$r]} ${X[$r]}      ${A[$r]} ${T[$r]} ${L[$r]} ${A[$r]} ${S[$r]}")
   done
 
   if [ ! -t 1 ]; then
@@ -86,10 +103,12 @@ print_banner() {
   # gradient: blue -> cyan -> green (top to bottom), 256-color
   local -a colors=(27 33 39 45 51 50 49 46)
 
-  # shadow pass: dim charcoal, shifted 3 cols right + 2 rows down
+  # drop-shadow pass: dim charcoal copy of the whole wordmark (letters + globe),
+  # offset 3 cols right + 2 rows down, printed first so the bright gradient
+  # pass below sits on top of it and only the bottom-right sliver peeks out.
   printf "\n\n"
   for i in "${!lines[@]}"; do
-    printf "   \033[2;38;5;236m%s\033[0m\n" "${lines[$i]}"
+    printf "   \033[2;38;5;238m%s\033[0m\n" "${lines[$i]}"
   done
 
   # move cursor back up over the shadow (including the two leading blank lines)
@@ -112,6 +131,20 @@ done
 if [ ${#current_skills[@]} -eq 0 ]; then
   echo "No skills found under $SOURCE_DIR. Nothing to install."
   exit 1
+fi
+
+# ---------- discover current tool set from this repo ----------
+# Skills reference these by relative path (../../tools/<name>/...), which only
+# resolves once installed if tools/ sits next to skills/ in the hub the same way
+# it sits next to skills/ in this repo: ~/.agents/tools/ alongside
+# ~/.agents/skills/<name>/. No per-client symlinking needed — every client's
+# skill symlink already resolves through the hub, so a relative path out of it
+# lands in ~/.agents/tools/ regardless of which client followed it there.
+current_tools=()
+if [ -d "$SOURCE_TOOLS_DIR" ]; then
+  for tool_path in "$SOURCE_TOOLS_DIR"/*; do
+    [ -d "$tool_path" ] && current_tools+=("$(basename "$tool_path")")
+  done
 fi
 
 # ---------- flags ----------
@@ -181,7 +214,7 @@ if [ "$non_interactive" = false ]; then
       mark="[ ]"
       [ "${checked[$i]}" = "1" ] && mark="[x]"
       note=""
-      if [ "${CLIENTS_LABEL[$i]}" = "gemini-cli" ]; then
+      if is_hub_direct "${CLIENTS_LABEL[$i]}"; then
         note=" $(dim "(reads the hub directly, nothing to link)")"
       elif [ ! -d "$(dirname "${CLIENTS_PATH[$i]}")" ]; then
         note=" $(dim "(not detected on this machine, will be created)")"
@@ -198,7 +231,7 @@ if [ "$non_interactive" = false ]; then
   [ -t 1 ] && clear 2>/dev/null || true
   print_banner
   echo "$(dim "Source: $SOURCE_DIR")"
-  echo "$(dim "${#current_skills[@]} skills will be copied to ~/.agents/skills (always), then symlinked into whichever clients you pick below.")"
+  echo "$(dim "${#current_skills[@]} skills will be copied to ~/.agents/skills (always), then symlinked into whichever clients you pick below. ${#current_tools[@]} shared tools will be copied to ~/.agents/tools (always, no client symlinks needed).")"
   echo ""
   echo "↑/↓ move   space toggle   a toggle all   enter confirm   q cancel"
   echo ""
@@ -248,6 +281,29 @@ fi
 echo "=================================================="
 
 mkdir -p "$HUB"
+mkdir -p "$TOOLS_HUB"
+
+# ---------- clean up stale tools from a previous install ----------
+if [ -f "$TOOLS_MANIFEST" ]; then
+  while IFS= read -r old_tool; do
+    [ -z "$old_tool" ] && continue
+    still_current=false
+    for t in "${current_tools[@]}"; do [ "$t" = "$old_tool" ] && still_current=true && break; done
+    if [ "$still_current" = false ] && [ -e "$TOOLS_HUB/$old_tool" ]; then
+      echo "Removing stale tool from hub: $old_tool"
+      rm -rf "$TOOLS_HUB/$old_tool"
+    fi
+  done < "$TOOLS_MANIFEST"
+fi
+
+# ---------- hub: copy this repo's tools to ~/.agents/tools/<name> ----------
+for tool_name in "${current_tools[@]}"; do
+  echo "Copying tool to hub: $tool_name"
+  rm -rf "$TOOLS_HUB/$tool_name"
+  cp -R "$SOURCE_TOOLS_DIR/$tool_name" "$TOOLS_HUB/$tool_name"
+  chmod +x "$TOOLS_HUB/$tool_name"/*.sh 2>/dev/null || true
+done
+printf "%s\n" "${current_tools[@]}" > "$TOOLS_MANIFEST"
 
 # ---------- clean up anything this repo installed previously that no longer exists ----------
 if [ -f "$MANIFEST" ]; then
@@ -278,17 +334,22 @@ if [ -f "$MANIFEST" ]; then
   done < "$MANIFEST"
 fi
 
-# ---------- retire the ~/.gemini/skills links earlier versions of this script made ----------
-# Gemini CLI reads the hub directly; these only produced conflict warnings. Only
-# remove a link that points at our hub entry or this repo, never anything else.
-for skill_name in "${current_skills[@]}"; do
-  legacy="$HOME/.gemini/skills/$skill_name"
-  if [ -L "$legacy" ]; then
-    link_dest="$(readlink "$legacy" 2>/dev/null || true)"
-    if [ "$link_dest" = "$HUB/$skill_name" ] || [ "$link_dest" = "$SOURCE_DIR/$skill_name" ]; then
-      rm -f "$legacy"
-    fi
-  fi
+# ---------- retire links earlier versions of this script made for hub-direct clients ----------
+# These clients read the hub directly; the extra links only produced duplicates or conflict
+# warnings. Only remove a link that points at our hub entry or this repo, never anything else.
+for label in $HUB_DIRECT; do
+  for i in "${!CLIENTS_LABEL[@]}"; do
+    [ "${CLIENTS_LABEL[$i]}" = "$label" ] || continue
+    for skill_name in "${current_skills[@]}"; do
+      legacy="${CLIENTS_PATH[$i]}/$skill_name"
+      if [ -L "$legacy" ]; then
+        link_dest="$(readlink "$legacy" 2>/dev/null || true)"
+        if [ "$link_dest" = "$HUB/$skill_name" ] || [ "$link_dest" = "$SOURCE_DIR/$skill_name" ]; then
+          rm -f "$legacy"
+        fi
+      fi
+    done
+  done
 done
 
 # ---------- hub: copy this repo's skills to ~/.agents/skills/<name> ----------
@@ -298,13 +359,47 @@ for skill_name in "${current_skills[@]}"; do
   cp -R "$SOURCE_DIR/$skill_name" "$HUB/$skill_name"
 done
 
+# ---------- agents: copy agents/*.md to ~/.agents/agents, link into Claude Code ----------
+# The agent files drive skills unattended. Claude Code reads ~/.claude/agents; the other clients ignore these.
+AGENTS_HUB="$HOME/.agents/agents"
+SOURCE_AGENTS_DIR="$REPO_DIR/agents"
+mkdir -p "$AGENTS_HUB"
+agent_files=()
+if [ -d "$SOURCE_AGENTS_DIR" ]; then
+  for f in "$SOURCE_AGENTS_DIR"/*.md; do
+    [ -f "$f" ] && agent_files+=("$(basename "$f")")
+  done
+fi
+for a in "${agent_files[@]}"; do
+  rm -f "$AGENTS_HUB/$a"
+  cp "$SOURCE_AGENTS_DIR/$a" "$AGENTS_HUB/$a"
+done
+for label in "${selected[@]}"; do
+  if [ "$label" = "claude" ]; then
+    mkdir -p "$HOME/.claude/agents"
+    for a in "${agent_files[@]}"; do
+      rm -f "$HOME/.claude/agents/$a"
+      ln -s "$AGENTS_HUB/$a" "$HOME/.claude/agents/$a"
+    done
+    echo "Linked ${#agent_files[@]} agents into Claude Code (~/.claude/agents)"
+  fi
+done
+
+# ---------- warn if the plugin install is also present ----------
+if grep -qs '"ux-atlas' "$HOME/.claude/plugins/installed_plugins.json" 2>/dev/null; then
+  echo ""
+  echo "NOTE: the UX Atlas Claude Code plugin is also installed. Claude Code will list every skill twice"
+  echo "      (once as /ux-atlas:<skill>, once as /<skill>). Keep one: run 'claude plugin uninstall ux-atlas'"
+  echo "      or re-run this script without --claude."
+fi
+
 # ---------- clients: <client>/skills/<name> -> ~/.agents/skills/<name> ----------
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
       target_dir="${CLIENTS_PATH[$i]}"
-      if [ "$label" = "gemini-cli" ]; then
-        echo "Gemini CLI reads $HUB directly; nothing to link"
+      if is_hub_direct "$label"; then
+        echo "${CLIENTS_NAME[$i]} reads $HUB directly; nothing to link"
         continue
       fi
       mkdir -p "$target_dir"
@@ -320,14 +415,28 @@ done
 # ---------- record what we installed, for next run's cleanup ----------
 printf "%s\n" "${current_skills[@]}" > "$MANIFEST"
 
+# ---------- record the installed version, so 'setup' can check for updates ----------
+# Best-effort: if this repo isn't a git checkout (e.g. downloaded as a zip),
+# skip silently rather than failing the install over it.
+installed_sha="$(cd "$REPO_DIR" && git rev-parse HEAD 2>/dev/null || true)"
+installed_repo="$(cd "$REPO_DIR" && git remote get-url origin 2>/dev/null || true)"
+# 'path=' lets 'help' link the walkthrough (index.html) from an installed copy.
+{
+  [ -n "$installed_repo" ] && echo "repo=$installed_repo"
+  [ -n "$installed_sha" ] && echo "sha=$installed_sha"
+  echo "path=$REPO_DIR"
+  echo "installed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+} > "$HUB/.ux-atlas.version"
+
 echo ""
 echo "Successfully installed ${#current_skills[@]} skills!"
 echo "Canonical hub (copied): $HUB"
+[ ${#current_tools[@]} -gt 0 ] && echo "Tools hub (copied, no client symlinks needed): $TOOLS_HUB (${#current_tools[@]} tools)"
 for label in "${selected[@]}"; do
   for i in "${!CLIENTS_LABEL[@]}"; do
     if [ "${CLIENTS_LABEL[$i]}" = "$label" ]; then
-      if [ "$label" = "gemini-cli" ]; then
-        echo "  -> Gemini CLI: reads the hub directly (run /skills reload in an open session)"
+      if is_hub_direct "$label"; then
+        echo "  -> ${CLIENTS_NAME[$i]}: reads the hub directly (reload skills in an open session)"
       else
         echo "  -> ${CLIENTS_NAME[$i]}: ${CLIENTS_PATH[$i]}"
       fi

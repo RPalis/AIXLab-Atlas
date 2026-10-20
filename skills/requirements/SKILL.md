@@ -1,7 +1,10 @@
 ---
 name: requirements
 description: >-
-  Read a built prototype (its code, docs/OOUX_OBJECT_MAP.md, docs/PERSONA_WALKTHROUGH.md, DESIGN.md, docs/adr/) and write it up as a requirements doc, Epics containing Features with user stories and acceptance criteria, in docs/REQUIREMENTS.md. Optionally publishes the Epics/Features to Jira or Azure DevOps if an MCP server for one is already connected. Use when asked for a PRD, requirements doc, backlog, or to turn a prototype into epics and features, or to push the prototype's scope into Jira/ADO.
+  Writes a requirements doc from a built prototype: Epics, Features, user stories and acceptance
+  criteria. Can publish to Jira or Azure DevOps through a connected MCP server. Use when asked for a
+  PRD, backlog or tickets.
+disable-model-invocation: true
 ---
 
 # Requirements Synthesis
@@ -15,9 +18,7 @@ Turns a built prototype into a **requirements doc**: Epics, each containing Feat
 - Recording *why* a specific call was made → [`decisions`](../decisions/SKILL.md); this skill links to existing ADRs, it doesn't write new ones.
 
 ## Output Discipline
-- Chat: short, bullets over paragraphs, no recap of what you're about to do — just the result. Expand only if asked.
-- Docs this skill writes: plain, scannable prose at the depth its template calls for — cut padding, keep substance.
-- Code this skill writes: simplest version that works — stdlib/native first, no speculative abstractions, no unrequested scaffolding.
+- Keep chat replies short and bullet-first, docs plain and scannable, and code the simplest version that works (stdlib and native first).
 
 ## Step 1: Gather the source material
 
@@ -40,7 +41,7 @@ Read, in this order of trust (real code wins over docs when they disagree):
   - **Acceptance criteria**: a checklist derived from the object's actual CTA rules and states in code (who can trigger it, what states it moves between, validation that actually exists), not generic boilerplate criteria.
   - **Status**: `Built`, `Partial`, or `Planned`, based on what Step 1 actually found in code, not what the docs claim.
 
-Confirm the Epic/Feature breakdown with the user before writing the full doc if the prototype is large enough that the grouping is a real judgment call (more than ~6 Epics, or an Object that could plausibly split two ways). For a small prototype, proceed directly to Step 3.
+Confirm the Epic/Feature breakdown with the user before writing the full doc if the prototype is large enough that the grouping is a real judgment call (more than ~6 Epics, or an Object that could plausibly split two ways). For a small prototype, proceed directly to Step 3. **Autonomous mode** (suite `AGENTS.md` §2.9, tier 2): proceed with the best-supported grouping rather than pausing — it's correctable later, not a one-way door. Note in `docs/REQUIREMENTS.md` itself (a short line under the affected Epic) that the split was an autonomous judgment call, and log it (`../../tools/log-unknown/log-unknown.sh --skill requirements --tier 2 "..."`).
 
 ## Step 3: Write the doc
 
@@ -57,4 +58,4 @@ If one is connected, offer to publish:
 - Each **Feature** as a child issue/work item under its Epic, using the tracker's native parent/child or Epic-link relationship, not just a text reference.
 - Carry the user stories and acceptance criteria into the issue body as-is.
 
-Confirm the target project/board with the user before creating anything, and report back what was created (issue keys/links), the same way [`figma`](../figma/SKILL.md) confirms scope before writing to an external system.
+Confirm the target project/board with the user before creating anything, and report back what was created (issue keys/links), the same way [`figma`](../figma/SKILL.md) confirms scope before writing to an external system. **Autonomous mode:** this stays tier 3 (§2.9) regardless of an MCP being connected — a write to a shared tracker is never a default-and-log decision. Skip the export, finish at the markdown doc, and log that a tracker export is available once a target project/board is confirmed.

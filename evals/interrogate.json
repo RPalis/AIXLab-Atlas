@@ -1,0 +1,35 @@
+{
+  "skill": "interrogate",
+  "cases": [
+    {
+      "query": "Grill me on whether the dashboard should be the landing page",
+      "expected_behavior": [
+        "Asks one question at a time and offers a recommended answer each time",
+        "Looks up facts in docs before asking about them"
+      ]
+    },
+    {
+      "query": "Grill me on the empty-state design, where I call the same thing 'workspace' and 'project'",
+      "expected_behavior": [
+        "Stops to settle the term and records it in GLOSSARY.md",
+        "Uses the settled word in later questions"
+      ]
+    },
+    {
+      "query": "Agreed. Write it up.",
+      "expected_behavior": [
+        "Offers and writes the ADR in the same turn without re-asking the rejected alternatives"
+      ],
+      "setup": "Session reached shared understanding"
+    }
+  ],
+  "trigger": {
+    "should_start": [
+      "stress-test this design decision",
+      "I can't decide between a sidebar and top nav"
+    ],
+    "should_not_start": [
+      "grill me on this SQL query plan"
+    ]
+  }
+}

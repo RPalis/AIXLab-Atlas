@@ -1,0 +1,23 @@
+{
+  "skill": "skill-manager",
+  "cases": [
+    {
+      "query": "/skill-manager list",
+      "expected_behavior": [
+        "Lists skills in ~/.agents/skills with enabled state"
+      ]
+    },
+    {
+      "query": "/skill-manager details audit",
+      "expected_behavior": [
+        "Shows what audit does from its SKILL.md"
+      ]
+    },
+    {
+      "query": "/skill-manager delete persona",
+      "expected_behavior": [
+        "Confirms before deleting and removes dangling client links"
+      ]
+    }
+  ]
+}

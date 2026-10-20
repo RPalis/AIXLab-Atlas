@@ -1,0 +1,14 @@
+{
+  "name": "aix-lab",
+  "description": "AIX Lab design skills for Claude Code",
+  "owner": {
+    "name": "AIX Lab"
+  },
+  "plugins": [
+    {
+      "name": "aix-lab-atlas",
+      "source": "./",
+      "description": "30 UX design skills for research, journeys, personas, audits and design systems."
+    }
+  ]
+}

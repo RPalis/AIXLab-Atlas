@@ -1,0 +1,11 @@
+{
+  "name": "aix-lab-atlas",
+  "displayName": "AIX Lab-Atlas",
+  "description": "30 UX design skills for research, journeys, personas, audits and design systems. Each skill shows a plan first and never invents evidence.",
+  "author": {
+    "name": "Raquel Palis"
+  },
+  "homepage": "https://github.com/RPalis/AIXLab-Atlas",
+  "repository": "https://github.com/RPalis/AIXLab-Atlas",
+  "keywords": ["ux", "design", "research", "audit", "design-system"]
+}

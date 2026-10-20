@@ -53,8 +53,8 @@ Record the clock time at each. Write "not reached" if the tester does not get th
 | # | Checkpoint | Pass condition |
 |---|---|---|
 | C1 | Files obtained | Folder with `skills`, `README.md`, `install.sh` open |
-| C2 | Install complete | Track 1: `~/.claude/skills` holds 30 folders, each with a `SKILL.md`. Track 2: `skills/` holds exactly 30 folders and `CLAUDE.md` exists |
-| C3 | Skills visible | Typing `/` lists AIX Lab-Atlas skills (Track 1), or `/help atlas` lists the skills (Track 2) |
+| C2 | Install complete | Track 1: `/plugin` shows **aix-lab-atlas** under **Installed**, enabled. Track 2: `skills/` holds exactly 30 folders and `CLAUDE.md` exists |
+| C3 | Skills visible | Typing `/aix-lab-atlas:` lists the skills (Track 1), or `/help atlas` lists the skills (Track 2) |
 | C4 | First plan seen | A plan was shown before any file was written |
 | C5 | Doc shell created | Track 1: `README.md`, `AGENTS.md`, `<name>-docs/UNKNOWNS.md` exist |
 | C6 | Unknowns captured | "I don't know" answers recorded as unknowns, not invented |

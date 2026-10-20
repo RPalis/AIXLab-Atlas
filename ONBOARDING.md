@@ -5,7 +5,7 @@ Start here. Pick the guide that matches how you will work. Each one has a **Chec
 | Guide | Use it when |
 |---|---|
 | [Quick start](onboarding/AIX-Lab-Atlas-Onboarding-QuickStart.pdf) | You want the short version, both environments together |
-| [Claude Code](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) | You work in Claude Code in the desktop app: copy the skills in Finder, then use them. No terminal. |
+| [Claude Code](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) | You work in Claude Code in the desktop app: install the plugin with one line, then use the skills. No terminal. |
 | [Claude Design](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Design.pdf) | You work in Claude Design: connect the repository, copy the skills, add the rule file |
 
 Each guide also exists as a Word file in the same folder, [`onboarding/`](onboarding/).

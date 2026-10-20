@@ -97,7 +97,21 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 
 ## Getting Started
 
-Clone this fork and run the installer:
+### Claude Code: install as a plugin (recommended)
+
+In Claude Code, in the desktop app's **Code** tab or a terminal session, type:
+
+```text
+/plugin install aix-lab-atlas --marketplace RPalis/AIXLab-Atlas
+```
+
+This needs Claude Code 2.1.275 or later. Choose **Install for you (user scope)** when asked. Every skill then runs with the plugin name in front, for example `/aix-lab-atlas:audit` and `/aix-lab-atlas:help`. To keep the skills up to date, type `/plugin`, open **Marketplaces**, select **aix-lab**, and choose **Enable auto-update**.
+
+Use the plugin or the installer below, not both, or each skill appears twice.
+
+### Other clients, or a terminal install
+
+Clone this repository and run the installer:
 
 ```bash
 git clone https://github.com/RPalis/AIXLab-Atlas.git
@@ -105,8 +119,7 @@ cd AIXLab-Atlas
 ./install.sh
 ```
 
-That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`) and wires up whichever clients you picked. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI. When it finishes, it'll offer to open this repo's `index.html` for the full walkthrough.
-
+That opens an arrow-key picker — ↑/↓ to move, space to toggle a client, `a` to toggle all, Enter to confirm — which copies every skill into the shared hub (`~/.agents/skills/`) and wires up whichever clients you picked. Supported clients: Claude Code, Gemini CLI, Antigravity, OpenAI Codex CLI, GitHub Copilot CLI, Cursor, and Grok CLI.
 For scripting, skip the picker with flags:
 
 ```bash

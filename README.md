@@ -6,7 +6,7 @@ A fork of [UX Atlas](https://github.com/kiersky-coforge/ux-atlas), extended with
 
 A comprehensive, end-to-end suite of specialized AI Agent Skills for UX designers, product designers, and design engineers building high-fidelity interactive prototypes, from discovery through delivery.
 
-**New here? Start with the [onboarding guides](ONBOARDING.md)**: a 2-page quick start, plus a click-by-click guide for Claude Code and one for Claude Design.
+**New here? Start with the [onboarding guides](ONBOARDING.md)**: a 2-page start-here guide, plus a click-by-click install guide and one guide each for Claude Code and Claude Design.
 
 This library is fully self-contained: every skill works standalone from this folder alone, with no dependency on any other installed skill. Clone or copy this repo, run `install.sh`, and the whole lifecycle is available.
 

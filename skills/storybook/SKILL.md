@@ -1,7 +1,7 @@
 ---
 name: storybook
 description: >-
-  Build, maintain, and embed a 5-tier Atomic Design Storybook documentation site (Foundations, Atoms, Molecules, Organisms, Widgets) with interactive examples and embedded in-app prototype viewing.
+  Build, maintain, and embed a 5-tier Atomic Design Storybook documentation site (Foundations, Atoms, Molecules, Organisms, Widgets) with interactive examples and embedded in-app prototype viewing. Use when documenting a prototype's components, building stories for them, or embedding Storybook inside the prototype.
 ---
 
 # UX Atomic Storybook Builder & Documentation

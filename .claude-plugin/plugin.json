@@ -7,5 +7,6 @@
   },
   "homepage": "https://github.com/RPalis/AIXLab-Atlas",
   "repository": "https://github.com/RPalis/AIXLab-Atlas",
+  "license": "MIT",
   "keywords": ["ux", "design", "research", "audit", "design-system"]
 }

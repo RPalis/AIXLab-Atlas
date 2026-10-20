@@ -232,3 +232,9 @@ Every skill name in this repo is checked against what actually already lives in 
 6. **Unknowns Before Invention**: A decision that genuinely needs real user input gets logged to `docs/UNKNOWNS.md` instead of guessed at, and resolved answers get promoted into whichever doc already owns that domain.
 
 See [AGENTS.md](AGENTS.md) for the full authoring standard, naming rules, and how to refine or extend a skill.
+
+---
+
+## Licence and credit
+
+Released under the [MIT licence](LICENSE). AIX Lab-Atlas is a fork of [UX Atlas](https://github.com/kiersky-coforge/ux-atlas) by Aaron Kiersky, extended by Raquel Palis with skills and modes from the AIX pilot.

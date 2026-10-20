@@ -4,6 +4,7 @@ Start here. Pick the guide that matches how you will work. Each one has a **Chec
 
 | Guide | Use it when |
 |---|---|
+| [Install, click by click](onboarding/AIX-Lab-Atlas-Install-Click-by-Click.pdf) | **Start here.** Every click to install the skills in Claude Code (Part A) or Claude Design (Part B) |
 | [Quick start](onboarding/AIX-Lab-Atlas-Onboarding-QuickStart.pdf) | You want the short version, both environments together |
 | [Claude Code](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) | You work in Claude Code in the desktop app: install the plugin with one line, then use the skills. No terminal. |
 | [Claude Design](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Design.pdf) | You work in Claude Design: connect the repository, copy the skills, add the rule file |

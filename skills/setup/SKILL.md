@@ -50,7 +50,7 @@ Four things plus a set of symlinks, nothing else. For each: **if it already exis
 
 **`README.md`**: if missing, create it with project name, the one-paragraph purpose from Step 2, and a `## Status` line stating this is an early-stage prototype (or, on an existing product, whatever status is actually true). Leave placeholder headings for sections later skills will fill in (install/run instructions once `prototype` exists, a feature overview once screens exist) rather than inventing content now. If a README already exists, leave its content untouched; only append a `## Status` line if one isn't already present in some form.
 
-**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording the docs folder's real name and which doc is owned by which skill so nothing downstream duplicates, conflicts, or falls back to a bare `docs/` by mistake. If missing, create it with the block below, substituting the actual `<project-slug>` from Step 2 (and the actual folder name — plain `docs` — if Step 1 found one already using the older convention). If it already exists (this suite's own, or a different tool's), append this block under its own `## UX Atlas` heading instead of replacing the file, so nothing already written there is lost:
+**`AGENTS.md`** (project-level, distinct from this suite's own `AGENTS.md`): a short doc for any agent working in *this* prototype repo, recording the docs folder's real name and which doc is owned by which skill so nothing downstream duplicates, conflicts, or falls back to a bare `docs/` by mistake. If missing, create it with the block below, substituting the actual `<project-slug>` from Step 2 (and the actual folder name — plain `docs` — if Step 1 found one already using the older convention). If it already exists (this suite's own, or a different tool's), append this block under its own `## AIX Lab-Atlas` heading instead of replacing the file, so nothing already written there is lost:
 
 ```markdown
 # AGENTS.md
@@ -59,6 +59,7 @@ This prototype is built with AIX Lab-Atlas. Docs folder: `<project-slug>-docs/`.
 
 Doc ownership:
 - `<project-slug>-docs/UNKNOWNS.md` — appended to by any skill; cleared as questions resolve
+- `<project-slug>-docs/WORKFLOW.md` — owned by `help` (first run and `start` mode): the person's role, project phase, goal and the guided sequence of skills
 - `<project-slug>-docs/PRODUCT_BRIEF.md` — owned by `brief`
 - `<project-slug>-docs/COMPETITIVE_ANALYSIS.md` — owned by `competitor-analysis`
 - `<project-slug>-docs/PERSONA_WALKTHROUGH.md` — owned by `persona`
@@ -152,6 +153,6 @@ Do **not** pre-create `COMPETITIVE_ANALYSIS.md`, `PERSONA_WALKTHROUGH.md`, `JOUR
 
 **Hand Step 1's full inventory to `brief` along with the hand-off**, not just "there's a `src/`": tell it explicitly what already exists (`DESIGN.md`, `PERSONA_WALKTHROUGH.md`, an object map, ADRs, whatever Step 1 turned up) so its Step 0.5 reconnaissance drafts from the fullest picture available, not just route/component structure. Say explicitly that this is an existing product and what's already in place.
 
-**After `brief` (or immediately, if it was skipped because a current one already exists), point at [`help`](../help/SKILL.md)** to turn Step 1's inventory into the actual next 1-3 moves — which skill backfills what's still missing (personas, object map, tokens, ADRs, requirements) rather than restarting at Discover. `help` is what makes the "atlas" of the project useful: a picture of where everything stands, not just a doc shell.
+**After `brief` (or immediately, if it was skipped because a current one already exists), point at [`help`](../help/SKILL.md)** (the first time it runs here it asks a few short questions and saves a `WORKFLOW.md`) to turn Step 1's inventory into the actual next 1-3 moves — which skill backfills what's still missing (personas, object map, tokens, ADRs, requirements) rather than restarting at Discover. `help` is what makes the "atlas" of the project useful: a picture of where everything stands, not just a doc shell.
 
 **Completion criterion:** `README.md` and the project `AGENTS.md` exist (pre-existing content preserved, only gaps filled) and reflect what was actually confirmed in Step 2 (not invented detail), the project `AGENTS.md` states the docs folder's real name, `<docs-folder>/UNKNOWNS.md` exists, `<docs-folder>/notes/README.md` + `notes/my-notes/README.md` + `notes/wiki/README.md` all exist, `<docs-folder>/repo/` holds a relative symlink for each root-level doc that exists (`README.md`, `AGENTS.md`, and `CLAUDE.md`/`CONTEXT.md` when present) with no dangling links, no doc owned by another skill was pre-stubbed (the three READMEs are documentation, not stand-ins, and don't count as stubbing), and the hand-off names both `brief` (or explains why it was skipped) and `help`, grounded in what Step 1's full inventory actually found.

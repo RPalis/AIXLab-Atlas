@@ -6,7 +6,7 @@ set -e
 #   site/           unminified static build + source maps — drop on any static host
 #   development/    raw source, no node_modules — for a developer to read/rebuild
 #   documentation/  the project docs (text only)
-# Mirrors this suite's `scaffold` frontend/ convention.
+# Mirrors this suite's `prototype` frontend/ convention.
 
 REPO="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 APP="$(basename "$REPO")"

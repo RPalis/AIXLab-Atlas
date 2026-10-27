@@ -1,6 +1,6 @@
 # AIX Lab-Atlas
 
-A fork of [UX Atlas](https://github.com/kiersky-coforge/ux-atlas), extended with skills from the AIX pilot.
+Built on [UX Atlas](https://github.com/kiersky-coforge/ux-atlas) by Aaron Kiersky, extended with skills from the AIX pilot.
 
 **[Design Process](#the-design-process-discover-decide-design-deliver) · [Getting Started](#getting-started) · [Skills Catalog](#skills-catalog) · [Installation & Team Setup](#installation-team-setup) · [Philosophy & Core Principles](#philosophy-core-principles)**
 
@@ -18,7 +18,7 @@ This is the actual framework: four phases, each with a recommended path through 
 
 Several skills below are **multi-mode**: one skill covering several related-but-distinct jobs (`audit`, `figma`, `map`, `interview`, `package`, `persona`, `journey`, `competitor-analysis`). Say which mode you want, or the skill asks.
 
-Not sure what to run next? **[`help`](skills/help/SKILL.md)** reads the actual state of the current repo and tells you the next 1-3 moves. Want the whole roadmap instead? `help`'s `atlas` mode is the full browsable directory.
+Not sure what to run next? **[`help`](skills/help/SKILL.md)** is the front door. The first time you run it in a project, it asks a few short questions (your role, where the project stands, your goal for the week), saves a guided workflow, and then recommends the next 1-3 moves from what is actually in the repo. Every step carries the same guardrails: plan first, a source for every claim, an audit afterwards, and a person who decides. Want the whole roadmap instead? `help`'s `atlas` mode is the full browsable directory.
 
 ### Before Discover
 Nothing exists yet.
@@ -79,7 +79,7 @@ Ship it, validate it, hand it off.
 ### Usable Anytime
 Not gated to one phase. Reach for these whenever the situation calls for them, from any point in Discover through Deliver.
 
-- **[`help`](skills/help/SKILL.md)**: default mode is the situational advisor version of this whole section (reads the repo, tells you what's next); `atlas` mode is the full browsable directory.
+- **[`help`](skills/help/SKILL.md)**: three modes. Default is the situational advisor version of this whole section (reads the repo, tells you what's next, and on the first run in a project asks a few questions to build your workflow). `start` redoes or updates that workflow. `atlas` is the full browsable directory.
 - **[`decisions`](skills/decisions/SKILL.md)** / **[`interrogate`](skills/interrogate/SKILL.md)**: capturing and interrogating decisions, wherever in the process one comes up.
 - **[`wiki`](skills/wiki/SKILL.md)**: two modes. `note` mode is a quick, low-ceremony capture for a thought worth keeping, mid-task, dropped into `docs/notes/my-notes/` and folded straight in. Default `compile` mode compiles scattered notes into an interlinked wiki as the project accumulates them, including any spec, transcript, or research doc a teammate, PM, client, or user drops directly into `docs/`.
 - **[`figma`](skills/figma/SKILL.md)**: moving work to and from Figma, whenever it's part of the workflow: `capture` (a screen to Figma as layers), `import` (a Figma frame in as code), or `sync` (a full token-system sync).
@@ -97,9 +97,11 @@ One skill sits outside Discover→Decide→Design→Deliver entirely: it manages
 
 ## Getting Started
 
-### Claude Code: install as a plugin (recommended)
+### Claude Code and Chat: install as a plugin (recommended)
 
-In Claude Code, in the desktop app's **Code** tab or a terminal session, type:
+**No terminal needed.** In the Claude app, open **Customize**, then **Plugins**, then **Add** and **Add marketplace**. Type `RPalis/AIXLab-Atlas`, confirm, and click **Add** on AIX Lab-Atlas. The plugin is saved to your account, so it works in Chat and in Claude Code, and it updates itself.
+
+Or, in a Claude Code session (the desktop app's **Code** tab or a terminal), type:
 
 ```text
 /plugin install aix-lab-atlas --marketplace RPalis/AIXLab-Atlas
@@ -108,6 +110,18 @@ In Claude Code, in the desktop app's **Code** tab or a terminal session, type:
 This needs Claude Code 2.1.275 or later. Choose **Install for you (user scope)** when asked. Every skill then runs with the plugin name in front, for example `/aix-lab-atlas:audit` and `/aix-lab-atlas:help`. To keep the skills up to date, type `/plugin`, open **Marketplaces**, select **aix-lab**, and choose **Enable auto-update**.
 
 Use the plugin or the installer below, not both, or each skill appears twice.
+
+### Your first run
+
+Run `/aix-lab-atlas:help` in your project (in Chat, type `/`, then `aix-lab-atlas`, and pick `help`). With no saved workflow yet, it asks up to five short questions, one at a time:
+
+1. Your role: UX researcher, UX designer, UX writer, UI designer, design systems, or design engineer.
+2. Where the project stands: idea, discovery, definition, design, testing, handoff or live.
+3. Your goal for the week.
+4. Your environment (Claude Code, Chat or Claude Design).
+5. How strict the guardrails should be. Strict is the default.
+
+It then shows a short workflow, asks before saving it as `WORKFLOW.md` in your docs folder, and recommends the next three commands. Run `/aix-lab-atlas:help start` any time to change it. Say "skip" and it moves on without saving anything.
 
 ### Other clients, or a terminal install
 
@@ -177,7 +191,7 @@ Full reference: every skill, alphabetical-ish by phase for lookup rather than na
 
 | Skill Name | Phase | Purpose | Trigger / Commands |
 |---|---|---|---|
-| [`help`](skills/help/SKILL.md) | **Router** | Two modes: default reads the current repo's actual state and recommends the next 1-3 skills, with reasons; `atlas` is the full browsable directory across the entire design process | `/help`, `/help atlas`, "what should I do next", "which skill do I need", "design skills", "prototype workflow" |
+| [`help`](skills/help/SKILL.md) | **Router** | Three modes: default reads the current repo's actual state and recommends the next 1-3 skills, with reasons, after a few first-run questions (role, project state, goal) that it saves as a workflow; `start` redoes that workflow; `atlas` is the full browsable directory across the entire design process | `/help`, `/help start`, `/help atlas`, "what should I do next", "which skill do I need", "design skills", "prototype workflow" |
 | [`setup`](skills/setup/SKILL.md) | **Before Discover** | Bootstrap a prototype repo's doc shell: README, project AGENTS.md, empty UNKNOWNS.md, docs/notes/. Works on an existing product too, appending rather than overwriting | `/setup`, "start a new prototype repo", "bootstrap this project", "add UX Atlas to this repo" |
 | [`brief`](skills/brief/SKILL.md) | **Before Discover** | Interrogates the stakeholder for product, audience, user types, tasks, devices, competitors, constraints; writes `docs/PRODUCT_BRIEF.md`. On an existing product, drafts from the codebase first and confirms it instead | `/brief`, "product brief", "get this out of my head", "discovery interview", "brief for our existing app" |
 | [`workshop`](skills/workshop/SKILL.md) | **Discover** | Two modes: default `plan` (design-thinking workshop: activities, agenda, optional FigJam board/deck) or `ingest` (convert workshop board photos into a deck, doc, CSV, or replicated FigJam board). Usable both as a Discover opener and mid-sequence to socialize findings | `/workshop`, `/workshop ingest`, "plan a workshop", "design thinking session", "digitize this whiteboard", "turn these sticky notes into a doc" |
@@ -237,4 +251,4 @@ See [AGENTS.md](AGENTS.md) for the full authoring standard, naming rules, and ho
 
 ## Licence and credit
 
-Released under the [MIT licence](LICENSE). AIX Lab-Atlas is a fork of [UX Atlas](https://github.com/kiersky-coforge/ux-atlas) by Aaron Kiersky, extended by Raquel Palis with skills and modes from the AIX pilot.
+Released under the [MIT licence](LICENSE). AIX Lab-Atlas is built on [UX Atlas](https://github.com/kiersky-coforge/ux-atlas) by Aaron Kiersky, extended by Raquel Palis with skills and modes from the AIX pilot.

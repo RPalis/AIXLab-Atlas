@@ -4,9 +4,9 @@ Start here. Pick the guide that matches how you will work. Each one has a **Chec
 
 | Guide | Use it when |
 |---|---|
-| [Install, click by click](onboarding/AIX-Lab-Atlas-Install-Click-by-Click.pdf) | **Start here.** Every click to install the skills in Claude Code (Part A) or Claude Design (Part B) |
-| [Start here](onboarding/AIX-Lab-Atlas-Start-Here.pdf) | You want the short version: one install, then Claude Code, Chat or Claude Design |
-| [Claude Code](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) | You work in Claude Code in the desktop app: install the plugin with one line, then use the skills. No terminal. |
+| [Start here](onboarding/AIX-Lab-Atlas-Start-Here.pdf) | **Start here.** The short version: add the skills once, then Claude Code, Chat or Claude Design |
+| [Install, click by click](onboarding/AIX-Lab-Atlas-Install-Click-by-Click.pdf) | Every click to install the skills in Claude Code and Chat (Part A) or Claude Design (Part B) |
+| [Claude Code](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Code.pdf) | You work in Claude Code in the desktop app: use the skills once the plugin is added. No terminal. |
 | [Claude Design](onboarding/AIX-Lab-Atlas-Skills-in-Claude-Design.pdf) | You work in Claude Design: connect the repository, copy the skills, add the rule file |
 
 Each guide also exists as a Word file in the same folder, [`onboarding/`](onboarding/).
@@ -28,3 +28,5 @@ Run the session with [`OBSERVER-SCRIPT.md`](onboarding/OBSERVER-SCRIPT.md), give
 ## What each skill needs
 
 The README's [Environments table](README.md#environments) lists, for every skill, whether it needs a file system, a shell and Node.js, an MCP server or web access.
+
+**After installing:** run `/aix-lab-atlas:help` in your project. The first time, it asks a few short questions (your role, where the project stands, your goal) and saves a guided workflow, so you always know which skill to run next and which checks to keep on.
